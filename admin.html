@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyNewStaff.ai | Admin</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        .admin-container {
+            padding: 4rem var(--container-padding);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .lead-card {
+            background: #09090b;
+            border: 1px solid var(--c-border);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr 1fr;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .lead-header {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr 1fr;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--c-border);
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            color: #666;
+            letter-spacing: 0.1em;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem;
+            color: #666;
+        }
+
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-box {
+            background: #09090b;
+            border: 1px solid var(--c-border);
+            padding: 3rem;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-overlay" id="login-overlay">
+        <div class="login-box">
+            <h2 class="chapter-title" style="font-size: 2rem; margin-bottom: 2rem;">ADMIN</h2>
+            <input type="password" id="pass" class="jesko-input" placeholder="Enter Password"
+                style="text-align: center; margin-bottom: 2rem;">
+            <button onclick="checkPass()" class="nav__cta">ACCESS</button>
+        </div>
+    </div>
+
+    <nav class="nav">
+        <div class="nav__logo">MN.AI // ADMIN</div>
+        <div class="nav__right">
+            <a href="index.html" class="nav__link">EXIT</a>
+        </div>
+    </nav>
+
+    <div class="admin-container" id="admin-content" style="opacity: 0.1; pointer-events: none;">
+        <h1 class="chapter-title" style="font-size: 3rem; text-align: left; margin-bottom: 3rem;">LEAD INBOX</h1>
+
+        <div class="lead-header">
+            <span>Name</span>
+            <span>Email</span>
+            <span>Revenue</span>
+            <span>Date</span>
+        </div>
+        <div id="leads-list">
+            <!-- Injected -->
+        </div>
+    </div>
+
+    <script>
+        function checkPass() {
+            const pass = document.getElementById('pass').value;
+            if (pass === 'jesko') {
+                document.getElementById('login-overlay').style.display = 'none';
+                document.getElementById('admin-content').style.opacity = '1';
+                document.getElementById('admin-content').style.pointerEvents = 'all';
+                loadLeads();
+            } else {
+                alert('ACCESS DENIED');
+            }
+        }
+
+        function loadLeads() {
+            const leads = JSON.parse(localStorage.getItem('jesko_leads') || '[]');
+            const container = document.getElementById('leads-list');
+
+            if (leads.length === 0) {
+                container.innerHTML = '<div class="empty-state">NO LEADS YET</div>';
+                return;
+            }
+
+            container.innerHTML = leads.map(l => `
+                <div class="lead-card">
+                    <div style="font-weight: 700; color: white;">${l.name}</div>
+                    <div style="color: #a1a1aa;">${l.email}</div>
+                    <div style="color: white;">${l.revenue}</div>
+                    <div style="font-size: 0.8rem; color: #666;">${new Date(l.date).toLocaleDateString()}</div>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+
+</html>
