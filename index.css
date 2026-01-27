@@ -382,7 +382,7 @@ section:not(#hero) {
     /* Ensure text wraps */
 }
 
-/* Mobile */
+/* Mobile & Tablet Optimizations */
 @media (max-width: 1024px) {
 
     .nav__left,
@@ -391,12 +391,17 @@ section:not(#hero) {
     }
 
     section {
-        padding-top: 8rem;
-        padding-bottom: 10rem;
-        /* Extra space for bottom pill nav */
+        padding-top: 6rem;
+        /* Reduced from 8rem */
+        padding-bottom: 8rem;
+        /* Reduced from 10rem */
     }
 
     .engine-specs {
+        grid-template-columns: 1fr;
+    }
+
+    .team-grid {
         grid-template-columns: 1fr;
     }
 
@@ -407,24 +412,78 @@ section:not(#hero) {
 }
 
 @media (max-width: 768px) {
+
+    /* Sizing adjustments for smaller screens */
+    :root {
+        --container-padding: 1.5rem;
+        /* More space for content */
+    }
+
     .chapter-title {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+        /* Slightly smaller */
+        line-height: 1;
+    }
+
+    .chapter-subtitle {
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
     }
 
     .stark-table {
         display: block;
         overflow-x: auto;
+        white-space: nowrap;
+        /* Force scroll */
     }
 
-    /* Layout overrides for formerly inline styles */
+    /* Reduce massive margins on mobile */
+    .ecosystem-grid,
+    .stats-container,
+    .stark-table,
+    .engine-specs {
+        margin-top: 3rem !important;
+    }
+
+    /* Stack grids */
     .ecosystem-grid,
     .stats-row {
         grid-template-columns: 1fr !important;
         gap: 2rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
     }
 
-    .ecosystem-grid {
-        margin-top: 4rem !important;
+    .stats-row {
+        padding: 1.5rem 0;
+    }
+
+    /* Pill Nav Optimization */
+    .pill-nav {
+        width: 90%;
+        /* prevent overflow */
+        max-width: 400px;
+        flex-wrap: wrap;
+        /* allow wrapping if deeply necessary */
+        justify-content: center;
+        bottom: 2rem;
+        gap: 0.5rem;
+    }
+
+    .pill-cta,
+    .pill-secondary {
+        font-size: 0.5rem;
+        padding: 0.8rem 1.2rem;
+    }
+
+    /* Engine Transition Text */
+    .engine-text {
+        font-size: 1.2rem;
+        letter-spacing: 0.3em;
+    }
+
+    .engine-loader {
+        width: 150px;
     }
 }
 
