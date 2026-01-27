@@ -62,8 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Buttons
     const qualifyBtns = document.querySelectorAll('.pill-cta');
-    const scaleBtn = document.getElementById('scale-btn');
-    const videosBtn = document.getElementById('videos-btn');
+    // scaleBtn and videosBtn moved to logic block below
     const closeBtn = document.querySelector('.close-modal');
 
     // Open Modal - Qualify Flow
@@ -76,8 +75,47 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Scale and Videos buttons now use default href navigation
-    // Event listeners for them have been removed to prevent modal opening
+    // Scale and Videos buttons - Engine Transition
+    const scaleBtn = document.getElementById('scale-btn');
+    const videosBtn = document.getElementById('videos-btn');
+    const engineOverlay = document.getElementById('engine-overlay');
+    const engineLoaderBar = document.querySelector('.engine-loader-bar');
+
+    function triggerEngineTransition(url) {
+        if (!engineOverlay) {
+            window.location.href = url;
+            return;
+        }
+
+        engineOverlay.classList.add('active');
+
+        // Loader Animation
+        if (engineLoaderBar) {
+            engineLoaderBar.style.transition = 'width 1.5s cubic-bezier(0.22, 1, 0.36, 1)';
+            setTimeout(() => {
+                engineLoaderBar.style.width = '100%';
+            }, 100);
+        }
+
+        // Redirect after animation
+        setTimeout(() => {
+            window.location.href = url;
+        }, 1800);
+    }
+
+    if (scaleBtn) {
+        scaleBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            triggerEngineTransition(scaleBtn.getAttribute('href'));
+        });
+    }
+
+    if (videosBtn) {
+        videosBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            triggerEngineTransition(videosBtn.getAttribute('href'));
+        });
+    }
 
     // Close Modal
     if (closeBtn && modal) {
