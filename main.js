@@ -39,17 +39,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const nextSection = sections[i + 1];
 
             // Pin current section
-            ScrollTrigger.create({
-                trigger: section,
-                start: "top top",
-                pin: true,
-                pinSpacing: false,
-                end: "bottom top",
-                id: `pin-${i}`,
-                // Only enable pinning on taller pages/sections where it makes sense
-                // or if we are not on a mobile device where height: auto is set
-                invalidateOnRefresh: true
-            });
+            // Disable pinning on short pages or if we are not on the main index
+            const isMainPage = window.location.pathname === '/' || window.location.pathname.endsWith('index.html');
+
+            if (isMainPage) {
+                ScrollTrigger.create({
+                    trigger: section,
+                    start: "top top",
+                    pin: true,
+                    pinSpacing: false,
+                    end: "bottom top",
+                    id: `pin-${i}`,
+                    invalidateOnRefresh: true
+                });
+            }
 
             // DISINTEGRATION EFFECT:
             const reveal = section.querySelector('.reveal');
