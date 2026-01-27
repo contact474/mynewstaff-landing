@@ -500,24 +500,34 @@ section:not(#hero) {
         font-size: 0.8rem !important;
     }
 
-    /* Pill Nav Optimization */
+    /* Pill Nav Optimization - Fix Overflow */
     .pill-nav {
-        width: auto;
-        left: 50%;
-        transform: translateX(-50%);
+        width: 100%;
+        max-width: 100%;
+        left: 0;
+        transform: none;
         bottom: 2rem;
+        padding: 0 1rem;
         gap: 0.5rem;
-        width: 95%;
         justify-content: center;
-        flex-wrap: nowrap;
-        /* Try to keep on one line if possible, or scroll */
+        flex-wrap: wrap;
+        /* Critical fix for mobile width */
+        box-sizing: border-box;
     }
 
     .pill-cta,
     .pill-secondary {
         font-size: 0.55rem;
-        padding: 0.7rem 1rem;
-        white-space: nowrap;
+        /* Small text */
+        padding: 0.7rem 1.2rem;
+        flex: 1 1 auto;
+        /* Grow to fill space but allow wrap */
+        text-align: center;
+        min-width: fit-content;
+        max-width: 100%;
+        /* Prevent overflow */
+        white-space: normal;
+        /* Allow text to wrap inside buttons if desperate */
     }
 
     /* Engine Transition Text */
@@ -525,22 +535,12 @@ section:not(#hero) {
         font-size: 1rem;
         letter-spacing: 0.2em;
         padding: 0 1rem;
+        word-break: break-word;
     }
 
     .engine-loader {
         width: 120px;
     }
-}
-
-/* Engine Transition Text */
-.engine-text {
-    font-size: 1.2rem;
-    letter-spacing: 0.3em;
-}
-
-.engine-loader {
-    width: 150px;
-}
 }
 
 /* Stark Table (Comparison) */
