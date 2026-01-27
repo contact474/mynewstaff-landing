@@ -13,6 +13,24 @@
 
 <body>
 
+    <!-- Seamless Transition Overlay (Starts ON) -->
+    <div class="transition-overlay active" id="page-load-overlay" style="z-index: 10000; background: black;"></div>
+
+    <script>
+        // Seamless Fade In
+        window.addEventListener('load', () => {
+            const overlay = document.getElementById('page-load-overlay');
+            if (overlay) {
+                setTimeout(() => {
+                    overlay.style.opacity = '0';
+                    setTimeout(() => {
+                        overlay.style.display = 'none';
+                    }, 500);
+                }, 100); // Slight delay to ensure render is ready
+            }
+        });
+    </script>
+
     <nav class="nav">
         <div class="nav__left">
             <a href="index.html" class="nav__link">Home</a>
