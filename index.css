@@ -541,6 +541,40 @@ section:not(#hero) {
     .engine-loader {
         width: 120px;
     }
+
+    /* Table Overflow Fix - Force Stacking/Wrap */
+    .stark-table {
+        white-space: normal !important;
+        width: 100% !important;
+        table-layout: fixed;
+        display: table;
+        /* Revert to table display to respect column widths */
+    }
+
+    .stark-table th,
+    .stark-table td {
+        font-size: 0.65rem !important;
+        padding: 0.5rem 0.2rem !important;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        letter-spacing: 0;
+        /* Save space */
+    }
+
+    .stark-table th:nth-child(1),
+    .stark-table td:nth-child(1) {
+        width: 30%;
+    }
+
+    .stark-table th:nth-child(2),
+    .stark-table td:nth-child(2) {
+        width: 30%;
+    }
+
+    .stark-table th:nth-child(3),
+    .stark-table td:nth-child(3) {
+        width: 40%;
+    }
 }
 
 /* Stark Table (Comparison) */
