@@ -432,9 +432,8 @@ section:not(#hero) {
     }
 
     .chapter-title {
-        font-size: 1.8rem;
-        /* Much smaller to fit */
-        line-height: 1.1;
+        font-size: clamp(2.5rem, 8vw, 4rem);
+        line-height: 0.95;
     }
 
     .chapter-subtitle {
