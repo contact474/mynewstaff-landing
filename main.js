@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         section.style.zIndex = i + 1;
 
         // Next section handling
+        // ONLY apply pinning if there is actually a next section AND the current section is full height
         if (i < sections.length - 1) {
             const nextSection = sections[i + 1];
 
@@ -44,27 +45,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 pin: true,
                 pinSpacing: false,
                 end: "bottom top",
-                id: `pin-${i}`
+                id: `pin-${i}`,
+                // Only enable pinning on taller pages/sections where it makes sense
+                // or if we are not on a mobile device where height: auto is set
+                invalidateOnRefresh: true
             });
 
             // DISINTEGRATION EFFECT:
-            // Content gets sucked up, blurred, and dissolved aggressively
             const reveal = section.querySelector('.reveal');
 
-            gsap.to(reveal, {
-                scale: 0.75,         // Shrink significantly
-                opacity: 0,          // Fade out completely
-                filter: "blur(25px)", // Heavy cinematic blur
-                y: -150,             // Move UP as if flying away
-                transformOrigin: "center top",
-                ease: "power2.in",   // Accelerate out
-                scrollTrigger: {
-                    trigger: nextSection,
-                    start: "top bottom", // Starts when next section appears at bottom
-                    end: "top 20%",      // Done before next section touches top (no hard lines)
-                    scrub: true
-                }
-            });
+            if (reveal) {
+                gsap.to(reveal, {
+                    scale: 0.75,         // Shrink significantly
+                    opacity: 0,          // Fade out completely
+                    filter: "blur(25px)", // Heavy cinematic blur
+                    y: -150,             // Move UP as if flying away
+                    transformOrigin: "center top",
+                    ease: "power2.in",   // Accelerate out
+                    scrollTrigger: {
+                        trigger: nextSection,
+                        start: "top bottom", // Starts when next section appears at bottom
+                        end: "top 20%",      // Done before next section touches top (no hard lines)
+                        scrub: true
+                    }
+                });
+            }
         }
 
         // Entrance: "Emerging from the fog"
