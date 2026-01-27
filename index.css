@@ -217,13 +217,13 @@ section:not(#hero) {
     max-width: 1400px;
     gap: 0.5px;
     background: var(--c-border);
-    margin-top: 6rem;
+    margin-top: 3rem;
     border: 0.5px solid var(--c-border);
 }
 
 .engine-specs__card {
     background: black;
-    padding: 4rem 3rem;
+    padding: 2.5rem 2rem;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
