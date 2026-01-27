@@ -361,7 +361,7 @@ section:not(#hero) {
 .stark-table {
     width: 100%;
     max-width: 900px;
-    margin: 4rem auto 0;
+    margin: 2rem auto 0;
     border-collapse: collapse;
     text-align: center;
 }
@@ -371,15 +371,15 @@ section:not(#hero) {
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    padding-bottom: 1.5rem;
+    padding-bottom: 1rem;
     color: #52525b;
     /* Default dim, overridden inline if needed */
     font-weight: 600;
 }
 
 .stark-table td {
-    padding: 1.5rem 0;
-    font-size: 1rem;
+    padding: 1rem 0;
+    font-size: 0.9rem;
     border-bottom: 1px solid var(--c-border);
     color: var(--c-fg);
 }
