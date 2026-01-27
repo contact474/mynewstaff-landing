@@ -76,21 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Open Modal - Scale Flow
-    if (scaleBtn) {
-        scaleBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            startQuiz('scale');
-        });
-    }
-
-    // Open Modal - Videos Flow
-    if (videosBtn) {
-        videosBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            startQuiz('videos');
-        });
-    }
+    // Scale and Videos buttons now use default href navigation
+    // Event listeners for them have been removed to prevent modal opening
 
     // Close Modal
     if (closeBtn && modal) {

@@ -142,12 +142,12 @@ body {
 section {
     position: relative;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0 var(--container-padding);
+    padding: 6rem var(--container-padding);
     overflow: hidden;
     z-index: 1;
     background-color: var(--c-bg);
@@ -271,6 +271,46 @@ section:not(#hero) {
     opacity: 0.05;
 }
 
+.team-grid {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* Specific Page Layouts */
+.ecosystem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 6rem;
+    width: 100%;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.stats-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 6rem auto 0;
+    /* width: fit-content;  Removed fit-content to allow centering properly */
+}
+
+.stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* Flexible columns instead of fixed 140px */
+    gap: 4rem;
+    padding: 2rem 0;
+    border-bottom: 0.5px solid var(--c-border);
+    max-width: 500px;
+    /* Constrain width */
+    margin: 0 auto;
+}
+
+.stats-row span {
+    word-break: break-word;
+    /* Ensure text wraps */
+}
+
 /* Mobile */
 @media (max-width: 1024px) {
 
@@ -279,12 +319,41 @@ section:not(#hero) {
         display: none;
     }
 
+    section {
+        padding-top: 8rem;
+        padding-bottom: 10rem;
+        /* Extra space for bottom pill nav */
+    }
+
     .engine-specs {
         grid-template-columns: 1fr;
     }
 
     .chapter-title {
-        font-size: 4rem;
+        font-size: 3rem;
+        word-wrap: break-word;
+    }
+}
+
+@media (max-width: 768px) {
+    .chapter-title {
+        font-size: 2.5rem;
+    }
+
+    .stark-table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    /* Layout overrides for formerly inline styles */
+    .ecosystem-grid,
+    .stats-row {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+    }
+
+    .ecosystem-grid {
+        margin-top: 4rem !important;
     }
 }
 
