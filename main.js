@@ -26,75 +26,90 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 3. Section Transitions ("Disintegration" Flow)
-    // 3. Section Transitions ("Disintegration" Flow)
-    // We only enable this heavy scroll-based pinning/fading on the main homepage.
-    // Standard pages (scale.html, videos.html) should behave normally.
     const isMainPage = window.location.pathname === '/' || window.location.pathname.endsWith('index.html');
 
     if (isMainPage) {
-        const sections = gsap.utils.toArray('section');
+        let mm = gsap.matchMedia();
 
-        sections.forEach((section, i) => {
+        // Desktop: High-End Pinning & Transitions
+        mm.add("(min-width: 1025px)", () => {
+            const sections = gsap.utils.toArray('section');
+            sections.forEach((section, i) => {
+                // Z-Index: Ascending order
+                section.style.zIndex = i + 1;
 
-            // Z-Index: Ascending order
-            section.style.zIndex = i + 1;
+                // Next section handling
+                if (i < sections.length - 1) {
+                    const nextSection = sections[i + 1];
 
-            // Next section handling
-            if (i < sections.length - 1) {
-                const nextSection = sections[i + 1];
-
-                // Pin current section
-                ScrollTrigger.create({
-                    trigger: section,
-                    start: "top top",
-                    pin: true,
-                    pinSpacing: false,
-                    end: "bottom top",
-                    id: `pin-${i}`,
-                    invalidateOnRefresh: true
-                });
-
-                // DISINTEGRATION EFFECT:
-                const reveal = section.querySelector('.reveal');
-
-                if (reveal) {
-                    gsap.to(reveal, {
-                        scale: 0.75,         // Shrink significantly
-                        opacity: 0,          // Fade out completely
-                        filter: "blur(25px)", // Heavy cinematic blur
-                        y: -150,             // Move UP as if flying away
-                        transformOrigin: "center top",
-                        ease: "power2.in",   // Accelerate out
-                        scrollTrigger: {
-                            trigger: nextSection,
-                            start: "top bottom", // Starts when next section appears at bottom
-                            end: "top 20%",      // Done before next section touches top (no hard lines)
-                            scrub: true
-                        }
+                    // Pin current section
+                    ScrollTrigger.create({
+                        trigger: section,
+                        start: "top top",
+                        pin: true,
+                        pinSpacing: false,
+                        end: "bottom top",
+                        id: `pin-${i}`,
+                        invalidateOnRefresh: true
                     });
-                }
-            }
 
-            // Entrance: "Emerging from the fog"
-            // Elements slide UP and fade IN from a blur
-            if (i > 0) {
-                const reveal = section.querySelector('.reveal');
-                gsap.fromTo(reveal,
-                    { y: 150, opacity: 0, filter: "blur(20px)" }, // Start deep, transparent, blurred
-                    {
-                        y: 0,
-                        opacity: 1,
-                        filter: "blur(0px)",
-                        duration: 1.5,
-                        ease: "power2.out", // Smooth landing
-                        scrollTrigger: {
-                            trigger: section,
-                            start: "top 70%", // Start animation earlier
-                            toggleActions: "play none none reverse"
-                        }
+                    // DISINTEGRATION EFFECT:
+                    const reveal = section.querySelector('.reveal');
+
+                    if (reveal) {
+                        gsap.to(reveal, {
+                            scale: 0.75,         // Shrink significantly
+                            opacity: 0,          // Fade out completely
+                            filter: "blur(25px)", // Heavy cinematic blur
+                            y: -150,             // Move UP as if flying away
+                            transformOrigin: "center top",
+                            ease: "power2.in",   // Accelerate out
+                            scrollTrigger: {
+                                trigger: nextSection,
+                                start: "top bottom", // Starts when next section appears at bottom
+                                end: "top 20%",      // Done before next section touches top (no hard lines)
+                                scrub: true
+                            }
+                        });
                     }
-                );
-            }
+                }
+
+                // Entrance: "Emerging from the fog"
+                if (i > 0) {
+                    const reveal = section.querySelector('.reveal');
+                    gsap.fromTo(reveal,
+                        { y: 150, opacity: 0, filter: "blur(20px)" }, // Start deep, transparent, blurred
+                        {
+                            y: 0,
+                            opacity: 1,
+                            filter: "blur(0px)",
+                            duration: 1.5,
+                            ease: "power2.out", // Smooth landing
+                            scrollTrigger: {
+                                trigger: section,
+                                start: "top 70%", // Start animation earlier
+                                toggleActions: "play none none reverse"
+                            }
+                        }
+                    );
+                }
+            });
+        });
+
+        // Mobile: Simple Fade In (No Pinning)
+        mm.add("(max-width: 1024px)", () => {
+            const sections = gsap.utils.toArray('section');
+            sections.forEach((section, i) => {
+                if (i > 0) { // Skip hero
+                    const reveal = section.querySelector('.reveal');
+                    if (reveal) {
+                        gsap.fromTo(reveal,
+                            { opacity: 0, y: 30 },
+                            { opacity: 1, y: 0, duration: 0.8, scrollTrigger: { trigger: section, start: "top 85%" } }
+                        );
+                    }
+                }
+            });
         });
     }
 

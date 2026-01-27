@@ -422,7 +422,13 @@ section:not(#hero) {
         min-height: auto !important;
         padding: 4rem var(--container-padding) 8rem var(--container-padding);
         justify-content: flex-start;
-        /* Start from top, don't center vertically if scrolling */
+    }
+
+    /* Ensure Hero has presence on mobile */
+    section#hero {
+        min-height: 80vh !important;
+        justify-content: center;
+        padding-top: 0;
     }
 
     .chapter-title {
