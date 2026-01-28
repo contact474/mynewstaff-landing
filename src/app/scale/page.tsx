@@ -33,7 +33,7 @@ export default function Scale() {
                 {/* Section 2: The Shift */}
                 <Section id="shift" subtitle="The Shift" title={<>OBSOLETE <br /> <span className="shimmer-text">MODEL.</span></>}>
                     <div className="w-full overflow-x-auto">
-                        <table className="w-full text-left border-collapse min-w-[600px]">
+                        <table className="w-full text-center border-collapse min-w-[600px]">
                             <thead>
                                 <tr className="border-b border-white/10 text-xs uppercase tracking-[0.2em] text-zinc-500">
                                     <th className="py-6 px-4 font-normal">Metric</th>

@@ -33,7 +33,7 @@ export default function Home() {
         {/* Chapter 3: The Landscape */}
         <Section id="landscape" subtitle="The Landscape" title={<>EVERYONE SELLS <br /> YOU <span className="shimmer-text">PIECES.</span></>}>
           <div className="w-full overflow-x-auto">
-            <table className="w-full text-left border-collapse min-w-[600px]">
+            <table className="w-full text-center border-collapse min-w-[600px]">
               <thead>
                 <tr className="border-b border-white/10 text-xs uppercase tracking-[0.2em] text-zinc-500">
                   <th className="py-6 px-4 font-normal">Option</th>
