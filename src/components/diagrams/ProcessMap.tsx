@@ -4,12 +4,56 @@ import { motion } from "framer-motion";
 export const ProcessMap = () => {
     return (
         <div className="w-full max-w-6xl mx-auto p-8 relative min-h-[600px] flex items-center justify-center">
+            {/* Connecting Lines (Behind everything) */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-30 z-0">
+                {/* Top Left to Center */}
+                <motion.path
+                    d="M 320 200 L 576 300"
+                    fill="none"
+                    stroke="white"
+                    strokeWidth="1"
+                    initial={{ pathLength: 0 }}
+                    whileInView={{ pathLength: 1 }}
+                    transition={{ duration: 1.5 }}
+                />
+                {/* Top Right to Center */}
+                <motion.path
+                    d="M 830 200 L 576 300"
+                    fill="none"
+                    stroke="white"
+                    strokeWidth="1"
+                    initial={{ pathLength: 0 }}
+                    whileInView={{ pathLength: 1 }}
+                    transition={{ duration: 1.5, delay: 0.2 }}
+                />
+                {/* Bottom Right to Center */}
+                <motion.path
+                    d="M 830 400 L 576 300"
+                    fill="none"
+                    stroke="white"
+                    strokeWidth="1"
+                    initial={{ pathLength: 0 }}
+                    whileInView={{ pathLength: 1 }}
+                    transition={{ duration: 1.5, delay: 0.4 }}
+                />
+                {/* Bottom Left to Center */}
+                <motion.path
+                    d="M 320 400 L 576 300"
+                    fill="none"
+                    stroke="white"
+                    strokeWidth="1"
+                    initial={{ pathLength: 0 }}
+                    whileInView={{ pathLength: 1 }}
+                    transition={{ duration: 1.5, delay: 0.6 }}
+                />
+            </svg>
+
             {/* Central Core */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
                 <motion.div
                     initial={{ scale: 0.8, opacity: 0 }}
                     whileInView={{ scale: 1, opacity: 1 }}
-                    className="w-48 h-48 bg-black border border-white/20 rounded-full flex flex-col items-center justify-center text-center shadow-[0_0_50px_rgba(255,255,255,0.1)] relative"
+                    className="w-48 h-48 bg-black border border-white/20 rounded-full flex flex-col items-center justify-center text-center shadow-[0_0_50px_rgba(255,255,255,0.1)] relative z-20"
                 >
                     <div className="absolute inset-0 rounded-full border border-white/10 animate-[spin_10s_linear_infinite]" />
                     <span className="text-3xl font-bold font-wide text-white mb-2">SCALE</span>
@@ -18,12 +62,12 @@ export const ProcessMap = () => {
             </div>
 
             {/* Orbiting Nodes */}
-            <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute inset-0 pointer-events-none z-10 hidden md:block">
                 {/* Top Left */}
                 <ProcessNode
                     title="Sourcing"
                     desc="10k+ Leads"
-                    pos="top-[15%] left-[20%]"
+                    pos="top-[20%] left-[15%]"
                     delay={0}
                 />
 
@@ -31,7 +75,7 @@ export const ProcessMap = () => {
                 <ProcessNode
                     title="Enrichment"
                     desc="Data Mining"
-                    pos="top-[15%] right-[20%]"
+                    pos="top-[20%] right-[15%]"
                     delay={0.2}
                 />
 
@@ -39,7 +83,7 @@ export const ProcessMap = () => {
                 <ProcessNode
                     title="Conversion"
                     desc="AI Closing"
-                    pos="bottom-[15%] right-[20%]"
+                    pos="bottom-[20%] right-[15%]"
                     delay={0.4}
                 />
 
@@ -47,32 +91,17 @@ export const ProcessMap = () => {
                 <ProcessNode
                     title="Nurture"
                     desc="Auto-Followup"
-                    pos="bottom-[15%] left-[20%]"
+                    pos="bottom-[20%] left-[15%]"
                     delay={0.6}
                 />
             </div>
-
-            {/* Connecting Lines */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-30">
-                <motion.path
-                    d="M 300 150 Q 600 300 900 150"
-                    fill="none"
-                    stroke="white"
-                    strokeWidth="1"
-                    initial={{ pathLength: 0 }}
-                    whileInView={{ pathLength: 1 }}
-                    transition={{ duration: 2 }}
-                />
-                <motion.path
-                    d="M 900 450 Q 600 300 300 450"
-                    fill="none"
-                    stroke="white"
-                    strokeWidth="1"
-                    initial={{ pathLength: 0 }}
-                    whileInView={{ pathLength: 1 }}
-                    transition={{ duration: 2, delay: 0.5 }}
-                />
-            </svg>
+            {/* Mobile View Stack (Simplified) */}
+            <div className="flex flex-col gap-4 md:hidden relative z-10 mt-[240px]">
+                <ProcessNodeMobile title="Sourcing" desc="10k+ Leads" />
+                <ProcessNodeMobile title="Enrichment" desc="Data Mining" />
+                <ProcessNodeMobile title="Nurture" desc="Auto-Followup" />
+                <ProcessNodeMobile title="Conversion" desc="AI Closing" />
+            </div>
         </div>
     );
 };
@@ -82,10 +111,17 @@ const ProcessNode = ({ title, desc, pos, delay }: { title: string, desc: string,
         initial={{ opacity: 0, scale: 0.8 }}
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ delay, duration: 0.5 }}
-        className={`absolute ${pos} bg-zinc-900/80 backdrop-blur border border-white/10 p-6 rounded-xl w-48 text-center pointer-events-auto hover:border-white/40 transition-colors cursor-default`}
+        className={`absolute ${pos} bg-zinc-900/90 backdrop-blur-md border border-white/10 p-6 rounded-xl w-56 text-center pointer-events-auto hover:border-white/40 transition-colors shadow-2xl`}
     >
-        <div className="w-2 h-2 rounded-full bg-white mx-auto mb-4 shadow-[0_0_10px_white]" />
-        <h4 className="text-white font-bold uppercase tracking-wide mb-1">{title}</h4>
+        <div className="absolute top-[-5px] left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-white shadow-[0_0_10px_white] z-30" />
+        <h4 className="text-white font-bold uppercase tracking-wide mb-1 mt-2">{title}</h4>
         <p className="text-zinc-500 text-xs uppercase tracking-widest">{desc}</p>
     </motion.div>
+)
+
+const ProcessNodeMobile = ({ title, desc }: { title: string, desc: string }) => (
+    <div className="bg-zinc-900/90 backdrop-blur-md border border-white/10 p-6 rounded-xl w-full text-center">
+        <h4 className="text-white font-bold uppercase tracking-wide mb-1">{title}</h4>
+        <p className="text-zinc-500 text-xs uppercase tracking-widest">{desc}</p>
+    </div>
 )
