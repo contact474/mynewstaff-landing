@@ -6,6 +6,8 @@ import { Reveal } from "@/components/ui/Reveal";
 
 import { ComparisonTable } from "@/components/diagrams/ComparisonTable";
 import { ProcessMap } from "@/components/diagrams/ProcessMap";
+import { TestimonialCarousel } from "@/components/ui/TestimonialCarousel";
+import { FAQ } from "@/components/ui/FAQ";
 
 export default function Scale() {
     return (
@@ -63,6 +65,11 @@ export default function Scale() {
                     </Grid>
                 </Section>
 
+                {/* Testimonials */}
+                <Section id="testimonials" subtitle="The Validation" title={<>MARKET <br /> <span className="shimmer-text">RESPONSE.</span></>}>
+                    <TestimonialCarousel />
+                </Section>
+
                 {/* Section 6: Economics */}
                 <Section id="economics" subtitle="The Math" title={<>UNFAIR <br /> <span className="shimmer-text">RETURNS.</span></>}>
                     <div className="w-full max-w-[800px] mx-auto border-t border-white/10">
@@ -77,6 +84,11 @@ export default function Scale() {
                             </div>
                         ))}
                     </div>
+                </Section>
+
+                {/* FAQ */}
+                <Section id="faq" subtitle="FAQ" title={<>COMMON <br /> <span className="shimmer-text">QUESTIONS.</span></>}>
+                    <FAQ />
                 </Section>
 
                 {/* Section 7: CTA */}
