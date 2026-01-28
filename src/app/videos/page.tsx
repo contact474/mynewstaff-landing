@@ -7,6 +7,8 @@ import { Reveal } from "@/components/ui/Reveal";
 import { VideoPipelineDiagram } from "@/components/diagrams/VideoPipelineDiagram";
 import { ViralFormulaDiagram } from "@/components/diagrams/ViralFormulaDiagram";
 import { VideoShowcaseCarousel } from "@/components/ui/VideoShowcaseCarousel";
+import { VideoTestimonials } from "@/components/ui/VideoTestimonials";
+import { VideoFAQ } from "@/components/ui/VideoFAQ";
 
 export default function Videos() {
     return (
@@ -66,6 +68,11 @@ export default function Videos() {
                     <VideoShowcaseCarousel />
                 </Section>
 
+                {/* Testimonials */}
+                <Section id="testimonials" subtitle="The Validation" title={<>CREATOR <br /> <span className="shimmer-text">RESULTS.</span></>}>
+                    <VideoTestimonials />
+                </Section>
+
                 {/* Section 4: Formats */}
                 <Section id="formats" subtitle="Formats" title={<>FORMAT <br /> <span className="shimmer-text">MASTERY.</span></>}>
                     <Grid>
@@ -101,6 +108,11 @@ export default function Videos() {
                             </div>
                         ))}
                     </div>
+                </Section>
+
+                {/* FAQ */}
+                <Section id="faq" subtitle="FAQ" title={<>COMMON <br /> <span className="shimmer-text">QUESTIONS.</span></>}>
+                    <VideoFAQ />
                 </Section>
 
                 {/* Section 7: CTA */}
