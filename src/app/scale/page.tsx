@@ -4,6 +4,9 @@ import { Section } from "@/components/ui/Section";
 import { Card, Grid } from "@/components/ui/Card";
 import { Reveal } from "@/components/ui/Reveal";
 
+import { ComparisonTable } from "@/components/diagrams/ComparisonTable";
+import { ProcessMap } from "@/components/diagrams/ProcessMap";
+
 export default function Scale() {
     return (
         <>
@@ -32,44 +35,14 @@ export default function Scale() {
 
                 {/* Section 2: The Shift */}
                 <Section id="shift" subtitle="The Shift" title={<>OBSOLETE <br /> <span className="shimmer-text">MODEL.</span></>}>
-                    <div className="w-full overflow-x-auto">
-                        <table className="w-full text-center border-collapse min-w-[600px]">
-                            <thead>
-                                <tr className="border-b border-white/10 text-xs uppercase tracking-[0.2em] text-zinc-500">
-                                    <th className="py-6 px-4 font-normal">Metric</th>
-                                    <th className="py-6 px-4 font-normal text-white">Human Team</th>
-                                    <th className="py-6 px-4 font-normal text-white">AI Staff</th>
-                                </tr>
-                            </thead>
-                            <tbody className="text-sm md:text-base">
-                                <tr className="border-b border-white/5">
-                                    <td className="py-6 px-4 font-sans text-zinc-300">Availability</td>
-                                    <td className="py-6 px-4 font-sans text-zinc-500">8 Hours / Day</td>
-                                    <td className="py-6 px-4 font-bold text-white">24 / 7 / 365</td>
-                                </tr>
-                                <tr className="border-b border-white/5">
-                                    <td className="py-6 px-4 font-sans text-zinc-300">Capacity</td>
-                                    <td className="py-6 px-4 font-sans text-zinc-500">50 Calls / Day</td>
-                                    <td className="py-6 px-4 font-bold text-white">Unlimited</td>
-                                </tr>
-                                <tr className="border-b border-white/5">
-                                    <td className="py-6 px-4 font-sans text-zinc-300">Reliability</td>
-                                    <td className="py-6 px-4 font-sans text-zinc-500">Variable</td>
-                                    <td className="py-6 px-4 font-bold text-white">Perfect Recall</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div className="w-full overflow-x-auto px-4 pb-4">
+                        <ComparisonTable />
                     </div>
                 </Section>
 
                 {/* Section 3: Process */}
                 <Section id="services" subtitle="Our Process" title={<>COMPLETE <br /> <span className="shimmer-text">DOMINATION.</span></>}>
-                    <div className="grid grid-cols-1 md:grid-cols-2 max-w-[1000px] mx-auto border-t border-l border-white/10">
-                        <Card label="Step 01" value="Lead Scraping" desc="We identify and enrich thousands of ideal prospects monthly using advanced AI data mining." />
-                        <Card label="Step 02" value="AI Video Gen" desc="Generate hundreds of viral-ready personalized or brand-focused videos to capture attention." highlight />
-                        <Card label="Step 03" value="Lead Nurture" desc="Automated, intelligent follow-ups that warm up leads until they are ready to buy." highlight />
-                        <Card label="Step 04" value="Outreach" desc="Multi-channel campaigns (Email, LinkedIn, DM) that get you booked meetings on autopilot." />
-                    </div>
+                    <ProcessMap />
                 </Section>
 
                 {/* Section 4: Advantage */}
