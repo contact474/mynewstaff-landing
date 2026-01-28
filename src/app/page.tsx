@@ -1,0 +1,145 @@
+import { Navbar } from "@/components/ui/Navbar";
+import { HomeStickyNav } from "@/components/ui/HomeStickyNav";
+import { Section } from "@/components/ui/Section";
+import { Card, Grid } from "@/components/ui/Card";
+import { Reveal } from "@/components/ui/Reveal";
+
+export default function Home() {
+  return (
+    <>
+      <Navbar />
+      <main className="min-h-screen relative overflow-hidden bg-black text-white selection:bg-white selection:text-black">
+        {/* Hero */}
+        <section id="hero" className="h-[100dvh] w-full flex flex-col justify-center items-center text-center relative">
+          <div className="absolute inset-0 z-0 opacity-60" style={{
+            backgroundImage: "url('/assets/hero_bg.png')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}></div>
+          <div className="z-10 relative px-4">
+            <Reveal>
+              <span className="block text-xs md:text-sm tracking-[0.25em] mb-6 text-white/50 font-wide shimmer-text">
+                EST. 2026 • REVENUE MACHINES
+              </span>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <h1 className="text-5xl md:text-8xl lg:text-9xl font-wide font-bold leading-[0.95] md:leading-[0.85] tracking-tighter uppercase">
+                WE BUILD <br /> REVENUE <br /> MACHINES.
+              </h1>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* Chapter 3: The Landscape */}
+        <Section id="landscape" subtitle="The Landscape" title={<>EVERYONE SELLS <br /> YOU <span className="shimmer-text">PIECES.</span></>}>
+          <div className="w-full overflow-x-auto">
+            <table className="w-full text-left border-collapse min-w-[600px]">
+              <thead>
+                <tr className="border-b border-white/10 text-xs uppercase tracking-[0.2em] text-zinc-500">
+                  <th className="py-6 px-4 font-normal">Option</th>
+                  <th className="py-6 px-4 font-normal text-white">Investment</th>
+                  <th className="py-6 px-4 font-normal">Outcome</th>
+                </tr>
+              </thead>
+              <tbody className="text-sm md:text-base">
+                <tr className="border-b border-white/5">
+                  <td className="py-6 px-4 font-sans text-zinc-300">In-House Team</td>
+                  <td className="py-6 px-4 font-bold font-sans">$300K - $500K/yr</td>
+                  <td className="py-6 px-4 text-zinc-500">Slow hiring. Management hell.</td>
+                </tr>
+                <tr className="border-b border-white/5">
+                  <td className="py-6 px-4 font-sans text-zinc-300">Traditional Agency</td>
+                  <td className="py-6 px-4 font-bold font-sans">$60K - $180K/yr</td>
+                  <td className="py-6 px-4 text-zinc-500">Reports with no revenue.</td>
+                </tr>
+                <tr className="border-b border-white/5">
+                  <td className="py-6 px-4 font-sans text-zinc-300">Freelancers</td>
+                  <td className="py-6 px-4 font-bold font-sans">$30K - $100K/yr</td>
+                  <td className="py-6 px-4 text-zinc-500">Inconsistent execution.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </Section>
+
+        {/* Chapter 2: The Friction */}
+        <Section id="problem" subtitle="The Friction" title={<>YOUR BUSINESS <br /> IS <span className="shimmer-text">INVISIBLE.</span></>}>
+          <div className="max-w-2xl mx-auto text-center">
+            <p className="text-lg md:text-2xl text-zinc-400 leading-relaxed">
+              70% of buyers never convert because they don't see you. Your competitors are omnipresent. You are a ghost.
+            </p>
+          </div>
+        </Section>
+
+        {/* Chapter 3: The Engine */}
+        <Section id="strategy" subtitle="The Engine" title={<>THREE SYSTEMS. <br /> ONE <span className="shimmer-text">ENGINE.</span></>}>
+          <Grid>
+            <Card label="System 01" value="AI Content" desc="100+ viral videos monthly to dominate every social feed." />
+            <Card label="System 02" value="Hyper-Outreach" desc="10,000+ targeted leads engaged via automated systems." />
+            <Card label="System 03" value="Ad Multiplier" desc="Strategic amplification to drown out the competition." />
+          </Grid>
+        </Section>
+
+        {/* Chapter 5: The Ecosystem */}
+        <Section id="ecosystem" subtitle="The Ecosystem" title={<>NOT MARKETING. <br /> A <span className="shimmer-text">MACHINE.</span></>}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-[1000px] mx-auto">
+            <div className="p-12 border border-white/10 bg-black text-center flex flex-col items-center justify-center aspect-square">
+              <span className="text-[10px] tracking-[0.2em] uppercase text-zinc-500 mb-4">Input</span>
+              <h3 className="text-3xl md:text-4xl font-wide uppercase mb-2">10,000 PROSPECTS</h3>
+              <p className="text-sm text-zinc-500">Scraped & Enriched Monthly.</p>
+            </div>
+            <div className="p-12 border border-white/20 bg-zinc-900 text-center flex flex-col items-center justify-center aspect-square">
+              <span className="text-[10px] tracking-[0.2em] uppercase text-white mb-4">Output</span>
+              <h3 className="text-3xl md:text-4xl font-wide uppercase mb-2 text-white">20-50 CONVERSATIONS</h3>
+              <p className="text-sm text-zinc-400">Qualified Meetings Daily.</p>
+            </div>
+          </div>
+        </Section>
+
+        {/* Chapter 6: The Team */}
+        <Section id="team" subtitle="The Architects" title={<>BUILT BY <br /> <span className="shimmer-text">FOUNDERS.</span></>}>
+          <Grid className="md:grid-cols-2 max-w-[900px] mx-auto border-r border-white/10">
+            <Card label="Founder" value="LUKA LAH" desc="$300M+ raised across ventures. 90K person network managed. AI Trading Engine Architect." />
+            <Card label="Partner" value="YERAM MURILLO" desc="Strategic Advisor to Morena Party. High-Performance Team Architect. Mexican Market Strategy Counsel." />
+          </Grid>
+        </Section>
+
+        {/* Chapter 7: Pricing */}
+        <Section id="pricing" subtitle="Investment" title={<>THREE <span className="shimmer-text">PACKAGES.</span></>}>
+          <Grid>
+            <Card label="Starter" value="$1.5K - $2.5K" desc="Per Month. $3K Setup." />
+            <Card label="Engine ⭐" value="$8K - $45K" desc="Most Popular. Full Scale." highlight />
+            <Card label="Enterprise" value="$25K+" desc="Franchise Scale." />
+          </Grid>
+        </Section>
+
+        {/* Chapter 4: The Proof */}
+        <Section id="results" subtitle="The Proof" title={<>UNFAIR <br /> <span className="shimmer-text">ADVANTAGES.</span></>}>
+          <div className="w-full max-w-[800px] mx-auto border-t border-white/10">
+            {[
+              { label: "Deployment", value: "7-14 DAYS" },
+              { label: "Volume", value: "100+ ASSETS" },
+              { label: "Outcome", value: "3-5X GROWTH" }
+            ].map((stat, i) => (
+              <div key={i} className="flex justify-between items-center py-8 border-b border-white/10">
+                <span className="text-[10px] md:text-xs tracking-[0.2em] uppercase text-zinc-500">{stat.label}</span>
+                <span className="text-xl md:text-3xl font-wide font-bold shimmer-text">{stat.value}</span>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        {/* Chapter 5: The Finality */}
+        <Section id="cta" subtitle="Finality" title={<>READY TO <br /> <span className="shimmer-text">DRIVE?</span></>}>
+          <div className="text-center mt-12">
+            <div className="inline-block px-8 py-4 border border-white/10 rounded-full bg-white/5 backdrop-blur-sm">
+              <p className="text-[10px] tracking-[0.4em] uppercase opacity-50">Exclusive Onboarding • Jan 2026</p>
+            </div>
+          </div>
+        </Section>
+
+      </main>
+      <HomeStickyNav />
+    </>
+  );
+}
