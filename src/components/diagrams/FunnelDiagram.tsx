@@ -35,23 +35,23 @@ export const FunnelDiagram = () => {
             {/* Stats Content */}
             <div className="flex-1 flex flex-col gap-8">
                 <div>
-                    <h3 className="text-3xl font-wide font-bold uppercase mb-6">Financial Outcomes</h3>
+                    <h3 className="text-3xl font-wide font-bold uppercase mb-6 text-center">Financial Outcomes</h3>
                     <ul className="space-y-4">
-                        <li className="flex gap-3 items-start">
+                        <li className="flex gap-3 items-start text-left">
                             <span className="text-zinc-500 mt-1">⦿</span>
                             <div>
                                 <strong className="text-white block mb-1">Subscription Model</strong>
                                 <span className="text-zinc-400">$9k - $40k MRR ramp.</span>
                             </div>
                         </li>
-                        <li className="flex gap-3 items-start">
+                        <li className="flex gap-3 items-start text-left">
                             <span className="text-zinc-500 mt-1">⦿</span>
                             <div>
                                 <strong className="text-white block mb-1">Licensing Revenue</strong>
                                 <span className="text-zinc-400">30 sales/mo @ $3.5k = $105k/mo revenue.</span>
                             </div>
                         </li>
-                        <li className="flex gap-3 items-start">
+                        <li className="flex gap-3 items-start text-left">
                             <span className="text-zinc-500 mt-1">⦿</span>
                             <div>
                                 <strong className="text-white block mb-1">Affiliate Ecosystem</strong>
