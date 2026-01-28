@@ -8,6 +8,8 @@ import { CRMDiagram } from "@/components/diagrams/CRMDiagram";
 import { ConversationEngine } from "@/components/diagrams/ConversationEngine";
 import { FunnelDiagram } from "@/components/diagrams/FunnelDiagram";
 import { ValuationChart } from "@/components/diagrams/ValuationChart";
+import { TestimonialCarousel } from "@/components/ui/TestimonialCarousel";
+import { FAQ } from "@/components/ui/FAQ";
 
 export default function Home() {
   return (
@@ -128,6 +130,11 @@ export default function Home() {
           </Grid>
         </Section>
 
+        {/* Testimonials */}
+        <Section id="testimonials" subtitle="The Validation" title={<>MARKET <br /> <span className="shimmer-text">RESPONSE.</span></>}>
+          <TestimonialCarousel />
+        </Section>
+
         {/* Chapter 4: The Proof */}
         <Section id="results" subtitle="The Proof" title={<>UNFAIR <br /> <span className="shimmer-text">ADVANTAGES.</span></>}>
           <div className="w-full max-w-[800px] mx-auto border-t border-white/10">
@@ -142,6 +149,11 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </Section>
+
+        {/* FAQ */}
+        <Section id="faq" subtitle="FAQ" title={<>COMMON <br /> <span className="shimmer-text">QUESTIONS.</span></>}>
+          <FAQ />
         </Section>
 
         {/* Chapter 5: The Finality */}
