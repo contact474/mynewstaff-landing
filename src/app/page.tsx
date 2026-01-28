@@ -3,6 +3,9 @@ import { HomeStickyNav } from "@/components/ui/HomeStickyNav";
 import { Section } from "@/components/ui/Section";
 import { Card, Grid } from "@/components/ui/Card";
 import { Reveal } from "@/components/ui/Reveal";
+import { LaunchScaleDiagram } from "@/components/diagrams/LaunchScaleDiagram";
+import { CRMDiagram } from "@/components/diagrams/CRMDiagram";
+import { ConversationEngine } from "@/components/diagrams/ConversationEngine";
 
 export default function Home() {
   return (
@@ -78,22 +81,22 @@ export default function Home() {
             <Card label="System 02" value="Hyper-Outreach" desc="10,000+ targeted leads engaged via automated systems." />
             <Card label="System 03" value="Ad Multiplier" desc="Strategic amplification to drown out the competition." />
           </Grid>
+          {/* CRM Diagram */}
+          <div className="mt-24">
+            <Reveal>
+              <CRMDiagram />
+            </Reveal>
+          </div>
+        </Section>
+
+        {/* Conversation Engine */}
+        <Section id="conversation" subtitle="The Intelligence" title={<>ALWAYS ON. <br /> ALWAYS <span className="shimmer-text">CLOSING.</span></>}>
+          <ConversationEngine />
         </Section>
 
         {/* Chapter 5: The Ecosystem */}
         <Section id="ecosystem" subtitle="The Ecosystem" title={<>NOT MARKETING. <br /> A <span className="shimmer-text">MACHINE.</span></>}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-[1000px] mx-auto">
-            <div className="p-12 border border-white/10 bg-black text-center flex flex-col items-center justify-center aspect-square">
-              <span className="text-[10px] tracking-[0.2em] uppercase text-zinc-500 mb-4">Input</span>
-              <h3 className="text-3xl md:text-4xl font-wide uppercase mb-2">10,000 PROSPECTS</h3>
-              <p className="text-sm text-zinc-500">Scraped & Enriched Monthly.</p>
-            </div>
-            <div className="p-12 border border-white/20 bg-zinc-900 text-center flex flex-col items-center justify-center aspect-square">
-              <span className="text-[10px] tracking-[0.2em] uppercase text-white mb-4">Output</span>
-              <h3 className="text-3xl md:text-4xl font-wide uppercase mb-2 text-white">20-50 CONVERSATIONS</h3>
-              <p className="text-sm text-zinc-400">Qualified Meetings Daily.</p>
-            </div>
-          </div>
+          <LaunchScaleDiagram />
         </Section>
 
         {/* Chapter 6: The Team */}
