@@ -98,10 +98,10 @@ export default function Home() {
 
         {/* Chapter 6: The Team */}
         <Section id="team" subtitle="The Architects" title={<>BUILT BY <br /> <span className="shimmer-text">FOUNDERS.</span></>}>
-          <Grid className="md:grid-cols-2 max-w-[900px] mx-auto border-r border-white/10">
+          <div className="grid grid-cols-1 md:grid-cols-2 max-w-[900px] mx-auto border-t border-l border-r border-white/10">
             <Card label="Founder" value="LUKA LAH" desc="$300M+ raised across ventures. 90K person network managed. AI Trading Engine Architect." />
             <Card label="Partner" value="YERAM MURILLO" desc="Strategic Advisor to Morena Party. High-Performance Team Architect. Mexican Market Strategy Counsel." />
-          </Grid>
+          </div>
         </Section>
 
         {/* Chapter 7: Pricing */}
