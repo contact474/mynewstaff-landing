@@ -4,6 +4,10 @@ import { Section } from "@/components/ui/Section";
 import { Card, Grid } from "@/components/ui/Card";
 import { Reveal } from "@/components/ui/Reveal";
 
+import { VideoPipelineDiagram } from "@/components/diagrams/VideoPipelineDiagram";
+import { ViralFormulaDiagram } from "@/components/diagrams/ViralFormulaDiagram";
+import { VideoShowcaseCarousel } from "@/components/ui/VideoShowcaseCarousel";
+
 export default function Videos() {
     return (
         <>
@@ -42,7 +46,8 @@ export default function Videos() {
 
                 {/* Section 3: The Offer */}
                 <Section id="offer" subtitle="The Offer" title={<>100 VIDEOS. <br /> <span className="shimmer-text">ZERO EFFORT.</span></>}>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-[1000px] mx-auto border-t border-l border-white/10 mt-8">
+                    <VideoPipelineDiagram />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-[1000px] mx-auto border-t border-l border-white/10 mt-12">
                         <div className="p-12 border-r border-b border-white/10 bg-black text-center flex flex-col items-center justify-center aspect-square">
                             <span className="text-[10px] tracking-[0.2em] uppercase text-zinc-500 mb-4">Volume</span>
                             <h3 className="text-3xl md:text-4xl font-wide uppercase mb-2 text-white">100 VIDEOS</h3>
@@ -54,11 +59,11 @@ export default function Videos() {
                             <p className="text-sm text-zinc-400">TikTok, Reels, Shorts. Everywhere.</p>
                         </div>
                     </div>
-                    <Grid className="mt-8 border-t-0 border-l-0">
-                        <Card label="Scripting" value="Hooks" desc="AI-optimized hooks to grab attention instantly." />
-                        <Card label="Voiceover" value="Clones" desc="Ultra-realistic AI voice clones or professional narration." />
-                        <Card label="Editing" value="Dynamic" desc="Dynamic captions, B-roll, and effects included." />
-                    </Grid>
+                </Section>
+
+                {/* Video Showcase */}
+                <Section id="samples" subtitle="The Output" title={<>IMPOSSIBLE <br /> <span className="shimmer-text">QUALITY.</span></>}>
+                    <VideoShowcaseCarousel />
                 </Section>
 
                 {/* Section 4: Formats */}
@@ -72,11 +77,14 @@ export default function Videos() {
 
                 {/* Section 5: The Science */}
                 <Section id="science" subtitle="The Science" title={<>DATA DRIVEN <br /> <span className="shimmer-text">VIRALITY.</span></>}>
-                    <Grid>
-                        <Card label="Analysis" value="Hook Testing" desc="We generate massive variations to identify winning angles instantly." />
-                        <Card label="Structure" value="Retention Arch" desc="Pacing, visuals, and audio engineered to keep viewers glued to the screen." highlight />
-                        <Card label="Growth" value="Algorithm Lock" desc="Consistent, high-volume posting signals relevance to every major platform." />
-                    </Grid>
+                    <ViralFormulaDiagram />
+                    <div className="mt-16">
+                        <Grid>
+                            <Card label="Analysis" value="Hook Testing" desc="We generate massive variations to identify winning angles instantly." />
+                            <Card label="Structure" value="Retention Arch" desc="Pacing, visuals, and audio engineered to keep viewers glued to the screen." highlight />
+                            <Card label="Growth" value="Algorithm Lock" desc="Consistent, high-volume posting signals relevance to every major platform." />
+                        </Grid>
+                    </div>
                 </Section>
 
                 {/* Section 6: Network */}
