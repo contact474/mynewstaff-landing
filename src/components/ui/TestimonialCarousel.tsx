@@ -42,7 +42,7 @@ const testimonials = [
 export const TestimonialCarousel = () => {
     return (
         <div className="w-full relative overflow-hidden py-10">
-            <div className="flex w-[200%]">
+            <div className="flex">
                 <CarouselRow items={testimonials} />
                 <CarouselRow items={testimonials} />
             </div>
@@ -57,8 +57,8 @@ export const TestimonialCarousel = () => {
 const CarouselRow = ({ items }: { items: typeof testimonials }) => (
     <motion.div
         animate={{ x: "-100%" }}
-        transition={{ ease: "linear", duration: 25, repeat: Infinity }}
-        className="flex gap-8 px-4 flex-shrink-0 w-1/2"
+        transition={{ ease: "linear", duration: 40, repeat: Infinity }}
+        className="flex gap-8 px-4 flex-shrink-0"
     >
         {items.map((t, i) => (
             <div
