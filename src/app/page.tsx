@@ -6,6 +6,8 @@ import { Reveal } from "@/components/ui/Reveal";
 import { LaunchScaleDiagram } from "@/components/diagrams/LaunchScaleDiagram";
 import { CRMDiagram } from "@/components/diagrams/CRMDiagram";
 import { ConversationEngine } from "@/components/diagrams/ConversationEngine";
+import { FunnelDiagram } from "@/components/diagrams/FunnelDiagram";
+import { ValuationChart } from "@/components/diagrams/ValuationChart";
 
 export default function Home() {
   return (
@@ -89,9 +91,19 @@ export default function Home() {
           </div>
         </Section>
 
+        {/* The Targets Diagram */}
+        <Section id="targets" subtitle="The Targets" title={<>PREDICTABLE <br /> <span className="shimmer-text">REVENUE.</span></>}>
+          <FunnelDiagram />
+        </Section>
+
         {/* Conversation Engine */}
         <Section id="conversation" subtitle="The Intelligence" title={<>ALWAYS ON. <br /> ALWAYS <span className="shimmer-text">CLOSING.</span></>}>
           <ConversationEngine />
+        </Section>
+
+        {/* The Vision (Valuation Chart) */}
+        <Section id="valuation" subtitle="The Asset" title={<>BUILDING <br /> <span className="shimmer-text">VALUATION.</span></>}>
+          <ValuationChart />
         </Section>
 
         {/* Chapter 5: The Ecosystem */}
