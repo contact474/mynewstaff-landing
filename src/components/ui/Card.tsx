@@ -10,7 +10,7 @@ interface CardProps {
 
 export const Card = ({ label, value, desc, highlight = false, className = "" }: CardProps) => {
     return (
-        <div className={`p-10 border border-white/10 flex flex-col justify-between h-full ${highlight ? 'bg-zinc-900/50 border-white/20' : 'bg-transparent'} ${className}`}>
+        <div className={`p-10 border border-white/10 flex flex-col justify-between h-full items-center text-center ${highlight ? 'bg-zinc-900/50 border-white/20' : 'bg-transparent'} ${className}`}>
             <div>
                 <span className={`block text-[10px] tracking-[0.4em] uppercase mb-4 ${highlight ? 'text-white' : 'text-zinc-500'}`}>{label}</span>
                 <h3 className={`font-wide text-2xl uppercase mb-2 ${highlight ? 'text-white' : 'text-white'}`}>{value}</h3>
