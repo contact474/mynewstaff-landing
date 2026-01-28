@@ -64,12 +64,12 @@ export default function Scale() {
 
                 {/* Section 3: Process */}
                 <Section id="services" subtitle="Our Process" title={<>COMPLETE <br /> <span className="shimmer-text">DOMINATION.</span></>}>
-                    <Grid>
+                    <div className="grid grid-cols-1 md:grid-cols-2 max-w-[1000px] mx-auto border-t border-l border-white/10">
                         <Card label="Step 01" value="Lead Scraping" desc="We identify and enrich thousands of ideal prospects monthly using advanced AI data mining." />
                         <Card label="Step 02" value="AI Video Gen" desc="Generate hundreds of viral-ready personalized or brand-focused videos to capture attention." highlight />
                         <Card label="Step 03" value="Lead Nurture" desc="Automated, intelligent follow-ups that warm up leads until they are ready to buy." highlight />
                         <Card label="Step 04" value="Outreach" desc="Multi-channel campaigns (Email, LinkedIn, DM) that get you booked meetings on autopilot." />
-                    </Grid>
+                    </div>
                 </Section>
 
                 {/* Section 4: Advantage */}
