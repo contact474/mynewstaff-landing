@@ -10,7 +10,8 @@ export function HomeStickyNav() {
                 Scale My Company
             </Link>
             <Link
-                href="mailto:ysclah@gmail.com"
+                href="https://calendly.com/contact-mynewstaff/30min"
+                target="_blank"
                 className="w-full md:w-auto order-first md:order-none px-6 py-3 rounded-full bg-white text-black font-bold text-[10px] tracking-widest uppercase hover:scale-105 transition-transform text-center whitespace-nowrap"
             >
                 See If You Qualify
