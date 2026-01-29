@@ -4,36 +4,36 @@ import { motion } from "framer-motion";
 const testimonials = [
     {
         text: "I posted 30 AI videos in a month and my TikTok went from 2k to 85k followers. I didn't record a single second.",
-        name: "Jason Miller",
-        role: "Content Creator",
+        name: "Chris Hall",
+        role: "Creator, DailyTech",
         img: "https://i.pravatar.cc/150?img=60",
         service: "Viral Scale"
     },
     {
         text: "The voice clone is scary accurate. My own mother couldn't tell it wasn't me on the phone.",
-        name: "Emily Zhang",
-        role: "Realtor",
+        name: "Amanda Li",
+        role: "Agent, UrbanLiving",
         img: "https://i.pravatar.cc/150?img=44",
         service: "Clone Tech"
     },
     {
         text: "We replaced our $5k/mo video editor with this system. The quality is cleaner and the hooks are better.",
-        name: "Marcus Cole",
-        role: "Agency Owner",
+        name: "Robert Fox",
+        role: "Director, FoxMedia",
         img: "https://i.pravatar.cc/150?img=33",
         service: "Cost Savings"
     },
     {
         text: "Finally a way to be on LinkedIn, Instagram, and YouTube Shorts every day without burning out.",
-        name: "Sarah Jenkins",
-        role: "Consultant",
+        name: "Jessica Vaughn",
+        role: "Lead, BrightLine",
         img: "https://i.pravatar.cc/150?img=35",
         service: "Omnipresence"
     },
     {
         text: "The 'Retention Arch' structure they use actually works. Our average watch time doubled overnight.",
-        name: "David Ross",
-        role: "E-com Founder",
+        name: "Daniel Chang",
+        role: "Founder, EcomBoost",
         img: "https://i.pravatar.cc/150?img=12",
         service: "Engagement"
     }
