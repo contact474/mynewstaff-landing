@@ -4,8 +4,20 @@ import { motion } from "framer-motion";
 export const LaunchScaleDiagram = () => {
     return (
         <div className="w-full max-w-4xl mx-auto p-8 relative min-h-[500px] flex items-center justify-center">
+            {/* Connecting Lines (Behind) */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20 z-0" xmlns="http://www.w3.org/2000/svg">
+                {/* Top Left */}
+                <line x1="25%" y1="25%" x2="38%" y2="38%" stroke="white" strokeWidth="1" />
+                {/* Top Right */}
+                <line x1="75%" y1="25%" x2="62%" y2="38%" stroke="white" strokeWidth="1" />
+                {/* Bottom Left */}
+                <line x1="25%" y1="75%" x2="38%" y2="62%" stroke="white" strokeWidth="1" />
+                {/* Bottom Right */}
+                <line x1="75%" y1="75%" x2="62%" y2="62%" stroke="white" strokeWidth="1" />
+            </svg>
+
             {/* Central Hub */}
-            <div className="absolute inset-0 flex items-center justify-center">
+            <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
                 {/* Ripples */}
                 {[1, 2, 3].map((i) => (
                     <motion.div
@@ -18,14 +30,14 @@ export const LaunchScaleDiagram = () => {
                 ))}
 
                 {/* Core */}
-                <div className="relative z-10 w-64 h-64 rounded-full border border-white/20 bg-black/80 backdrop-blur-md flex flex-col items-center justify-center text-center p-4 shadow-[0_0_50px_rgba(255,255,255,0.05)]">
+                <div className="relative z-20 w-64 h-64 rounded-full border border-white/20 bg-black flex flex-col items-center justify-center text-center p-4 shadow-[0_0_50px_rgba(255,255,255,0.05)]">
                     <span className="text-4xl font-bold font-wide text-white mb-2">10,000</span>
                     <span className="text-sm tracking-[0.2em] uppercase text-zinc-500">Leads / Month</span>
                 </div>
             </div>
 
             {/* Satellites */}
-            <div className="absolute inset-0 flex flex-col justify-between py-12 px-4 md:px-24 pointer-events-none">
+            <div className="absolute inset-0 flex flex-col justify-between py-12 px-4 md:px-24 pointer-events-none z-20">
                 {/* Top Row */}
                 <div className="flex justify-between w-full">
                     <Satellite label="AI Scraping" desc="High-intent targeting" number="1" />
@@ -38,14 +50,6 @@ export const LaunchScaleDiagram = () => {
                     <Satellite label="Outreach" desc="Partnership setup" number="4" align="right" />
                 </div>
             </div>
-
-            {/* Connecting Lines (Decorative) */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20" xmlns="http://www.w3.org/2000/svg">
-                <line x1="20%" y1="20%" x2="50%" y2="50%" stroke="white" strokeWidth="1" />
-                <line x1="80%" y1="20%" x2="50%" y2="50%" stroke="white" strokeWidth="1" />
-                <line x1="20%" y1="80%" x2="50%" y2="50%" stroke="white" strokeWidth="1" />
-                <line x1="80%" y1="80%" x2="50%" y2="50%" stroke="white" strokeWidth="1" />
-            </svg>
         </div>
     );
 };
@@ -55,7 +59,7 @@ const Satellite = ({ label, desc, number, align = "left" }: { label: string, des
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className={`pointer-events-auto flex items-center gap-4 bg-zinc-950/80 border border-white/10 p-4 rounded-xl backdrop-blur-sm max-w-[250px] ${align === "right" ? "flex-row-reverse text-right" : "text-left"}`}>
+        className={`pointer-events-auto flex items-center gap-4 bg-zinc-950 border border-white/10 p-4 rounded-xl max-w-[250px] shadow-xl ${align === "right" ? "flex-row-reverse text-right" : "text-left"}`}>
         <div className="flex-shrink-0 w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center font-bold font-wide">
             {number}
         </div>
