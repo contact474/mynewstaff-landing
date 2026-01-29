@@ -3,13 +3,14 @@ import { motion } from "framer-motion";
 import { Play } from "lucide-react";
 
 // Mock thumbnails
+// Mock thumbnails - mirroring the user's provided visual examples
 const videos = [
-    "https://images.unsplash.com/photo-1616469829581-73993eb86b02?auto=format&fit=crop&q=80&w=500",
-    "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=500",
-    "https://images.unsplash.com/photo-1596558450255-7c0b7be9d56a?auto=format&fit=crop&q=80&w=500",
-    "https://images.unsplash.com/photo-1549923746-c502d488b3ea?auto=format&fit=crop&q=80&w=500",
-    "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=500",
-    "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?auto=format&fit=crop&q=80&w=500"
+    "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=500", // TikTok/Phone
+    "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=500", // Handshake/Business
+    "https://images.unsplash.com/photo-1574375927938-d5a98e8efe30?auto=format&fit=crop&q=80&w=500", // Netflix/Cinematic
+    "https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&q=80&w=500", // Movie Collage
+    "https://images.unsplash.com/photo-1611944212129-299908b0690d?auto=format&fit=crop&q=80&w=500", // LinkedIn
+    "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=500"  // AI/Future
 ];
 
 export const VideoShowcaseCarousel = () => {
