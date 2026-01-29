@@ -5,35 +5,35 @@ const testimonials = [
     {
         text: "We went from 5 leads a week to booking 40 meetings a month. The validation engine is terrifyingly effective.",
         name: "Jordan Lee",
-        role: "Founder, GrowthX",
+        role: "Founder, OrbitScale",
         img: "https://i.pravatar.cc/150?img=11",
         service: "Growth Scale"
     },
     {
         text: "The AI videos look better than our studio shoots. It's fully automated 24/7 content production.",
         name: "Casey Wu",
-        role: "VP Marketing, Nexa",
+        role: "VP Marketing, Velos Media",
         img: "https://i.pravatar.cc/150?img=5",
         service: "AI Video"
     },
     {
         text: "MyNewStaff replaced our entire SDR layer. We are closing deals with 90% margins now.",
         name: "Michael O'Connor",
-        role: "CEO, Capital Flow",
+        role: "CEO, Apex Revenue",
         img: "https://i.pravatar.cc/150?img=3",
         service: "Automation"
     },
     {
         text: "I was skeptical about 'viral' distribution. Then we hit 1M views in week two. The system works.",
         name: "Sophia Martinez",
-        role: "CMO, Aura",
+        role: "CMO, Lumina Brands",
         img: "https://i.pravatar.cc/150?img=9",
         service: "AI Content"
     },
     {
         text: "The speed of execution is unmatched. We launched a full GTM infrastructure in 9 days.",
         name: "James Park",
-        role: "Head of Sales, Prime",
+        role: "Head of Sales, Vertex Global",
         img: "https://i.pravatar.cc/150?img=13",
         service: "Infrastructure"
     }
