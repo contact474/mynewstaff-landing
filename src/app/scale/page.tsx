@@ -115,19 +115,13 @@ export default function Scale() {
                             <p className="text-[10px] tracking-[0.4em] uppercase opacity-50">Exclusive Onboarding • Jan 2026</p>
                         </div>
 
-                        <div className="pb-[400px] md:pb-0">
+                        <div className="pb-48 md:pb-0">
                             <a
                                 href="https://calendly.com/contact-mynewstaff/mynewstaff-ai-meeting-clone"
                                 target="_blank"
-                                className="md:hidden block w-[90%] max-w-sm mx-auto mb-8 px-8 py-5 rounded-full border border-white text-white font-bold text-sm tracking-widest uppercase hover:bg-white/10 transition-colors"
+                                className="block w-[90%] max-w-sm mx-auto mb-8 px-8 py-5 rounded-full border border-white text-white font-bold text-sm tracking-widest uppercase hover:bg-white/10 transition-colors"
                             >
                                 Book Your Strategy Call
-                            </a>
-
-                            <a href="https://calendly.com/contact-mynewstaff/mynewstaff-ai-meeting-clone" target="_blank"
-                                className="inline-block px-12 py-5 rounded-full bg-white text-black font-bold uppercase tracking-widest text-sm hover:scale-105 transition-transform"
-                            >
-                                See If You Qualify
                             </a>
                         </div>
                     </div>
