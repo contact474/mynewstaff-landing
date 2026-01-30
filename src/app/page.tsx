@@ -187,11 +187,11 @@ export default function Home() {
             >
               See If You Qualify
             </Link>
-
-            {/* Mobile Spacer to clear Sticky Nav */}
-            <div className="h-[200px] w-full md:hidden" />
           </div>
         </Section>
+
+        {/* Nuclear Mobile Spacer to clear Sticky Nav */}
+        <div className="w-full h-[400px] md:hidden" />
 
       </main>
       <HomeStickyNav />
