@@ -5,7 +5,7 @@ export const ValuationChart = () => {
     return (
         <div className="w-full max-w-5xl mx-auto p-4 md:p-8">
             <div className="w-full overflow-x-auto pb-4">
-                <div className="relative h-[400px] border-l border-b border-white/20 p-4 min-w-[700px]">
+                <div className="relative h-[400px] border-l border-b border-white/20 p-4 min-w-[1000px]">
                     {/* Grid Lines */}
                     <div className="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-20">
                         <div className="border-t border-white" />
