@@ -9,7 +9,11 @@ export const ComparisonTable = () => {
                 <div className="p-6 text-xs uppercase tracking-[0.2em] text-zinc-500 flex items-center">Feature</div>
                 <div className="p-6 text-xs uppercase tracking-[0.2em] text-zinc-500 border-l border-white/10 flex items-center justify-center">Manual Scaling</div>
                 <div className="p-6 text-xs uppercase tracking-[0.2em] text-white font-bold border-l border-white/10 flex items-center justify-center bg-white/5 relative overflow-hidden">
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white to-transparent opacity-50" />
+                    <motion.div
+                        className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-white to-transparent"
+                        animate={{ x: ["-100%", "100%"] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                    />
                     MyNewStaff AI
                 </div>
             </div>
