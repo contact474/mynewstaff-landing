@@ -5,41 +5,37 @@ export const ProcessMap = () => {
     return (
         <div className="w-full max-w-6xl mx-auto p-8 relative min-h-[600px] flex items-center justify-center">
             {/* Connecting Lines (Behind everything) */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-30 z-0">
-                {/* Top Left to Center */}
-                <motion.path
-                    d="M 320 200 L 576 300"
-                    fill="none"
+            <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-30 z-0" xmlns="http://www.w3.org/2000/svg">
+                {/* Top Left (Center to Bottom of TL Card) */}
+                <motion.line
+                    x1="25%" y1="38%" x2="50%" y2="50%"
                     stroke="white"
                     strokeWidth="1"
                     initial={{ pathLength: 0 }}
                     whileInView={{ pathLength: 1 }}
                     transition={{ duration: 1.5 }}
                 />
-                {/* Top Right to Center */}
-                <motion.path
-                    d="M 830 200 L 576 300"
-                    fill="none"
+                {/* Top Right (Center to Bottom of TR Card) */}
+                <motion.line
+                    x1="75%" y1="38%" x2="50%" y2="50%"
                     stroke="white"
                     strokeWidth="1"
                     initial={{ pathLength: 0 }}
                     whileInView={{ pathLength: 1 }}
                     transition={{ duration: 1.5, delay: 0.2 }}
                 />
-                {/* Bottom Right to Center */}
-                <motion.path
-                    d="M 830 400 L 576 300"
-                    fill="none"
+                {/* Bottom Right (Center to Top of BR Card) */}
+                <motion.line
+                    x1="75%" y1="62%" x2="50%" y2="50%"
                     stroke="white"
                     strokeWidth="1"
                     initial={{ pathLength: 0 }}
                     whileInView={{ pathLength: 1 }}
                     transition={{ duration: 1.5, delay: 0.4 }}
                 />
-                {/* Bottom Left to Center */}
-                <motion.path
-                    d="M 320 400 L 576 300"
-                    fill="none"
+                {/* Bottom Left (Center to Top of BL Card) */}
+                <motion.line
+                    x1="25%" y1="62%" x2="50%" y2="50%"
                     stroke="white"
                     strokeWidth="1"
                     initial={{ pathLength: 0 }}
@@ -69,6 +65,7 @@ export const ProcessMap = () => {
                     desc="10k+ Leads"
                     pos="top-[20%] left-[15%]"
                     delay={0}
+                    dotPos="bottom"
                 />
 
                 {/* Top Right */}
@@ -77,6 +74,7 @@ export const ProcessMap = () => {
                     desc="Data Mining"
                     pos="top-[20%] right-[15%]"
                     delay={0.2}
+                    dotPos="bottom"
                 />
 
                 {/* Bottom Right */}
@@ -85,6 +83,7 @@ export const ProcessMap = () => {
                     desc="AI Closing"
                     pos="bottom-[20%] right-[15%]"
                     delay={0.4}
+                    dotPos="top"
                 />
 
                 {/* Bottom Left */}
@@ -93,6 +92,7 @@ export const ProcessMap = () => {
                     desc="Auto-Followup"
                     pos="bottom-[20%] left-[15%]"
                     delay={0.6}
+                    dotPos="top"
                 />
             </div>
             {/* Mobile View Stack (Simplified) */}
@@ -106,14 +106,16 @@ export const ProcessMap = () => {
     );
 };
 
-const ProcessNode = ({ title, desc, pos, delay }: { title: string, desc: string, pos: string, delay: number }) => (
+const ProcessNode = ({ title, desc, pos, delay, dotPos }: { title: string, desc: string, pos: string, delay: number, dotPos: 'top' | 'bottom' }) => (
     <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ delay, duration: 0.5 }}
         className={`absolute ${pos} bg-zinc-900/90 backdrop-blur-md border border-white/10 p-6 rounded-xl w-56 text-center pointer-events-auto hover:border-white/40 transition-colors shadow-2xl`}
     >
-        <div className="absolute top-[-5px] left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-white shadow-[0_0_10px_white] z-30" />
+        <div
+            className={`absolute left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-white shadow-[0_0_10px_white] z-30 ${dotPos === 'top' ? 'top-[-5px]' : 'bottom-[-5px]'}`}
+        />
         <h4 className="text-white font-bold uppercase tracking-wide mb-1 mt-2">{title}</h4>
         <p className="text-zinc-500 text-xs uppercase tracking-widest">{desc}</p>
     </motion.div>
