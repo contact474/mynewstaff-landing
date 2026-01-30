@@ -8,7 +8,11 @@ import { ComparisonTable } from "@/components/diagrams/ComparisonTable";
 import { ProcessMap } from "@/components/diagrams/ProcessMap";
 import { TestimonialCarousel } from "@/components/ui/TestimonialCarousel";
 import { FAQ } from "@/components/ui/FAQ";
-import { SpeedDiagram, ReliabilityDiagram, EfficiencyDiagram } from "@/components/diagrams/CapabilityDiagrams";
+
+import {
+    SpeedDiagram, ReliabilityDiagram, EfficiencyDiagram,
+    ProspectorDiagram, NurtureDiagram, CloserDiagram
+} from "@/components/diagrams/CapabilityDiagrams";
 
 export default function Scale() {
     return (
@@ -66,9 +70,15 @@ export default function Scale() {
                 {/* Section 5: Capabilities */}
                 <Section id="capabilities" subtitle="Capabilities" title={<>DIGITAL <br /> <span className="shimmer-text">WORKFORCE.</span></>}>
                     <Grid>
-                        <Card label="Role 01" value="Prospector" desc="Scrapes and enriches 10k+ leads." />
-                        <Card label="Role 02" value="Nurture" desc="Intelligent SMS & Email follow-up." />
-                        <Card label="Role 03" value="Closer" desc="Books qualified meetings automatically." />
+                        <Card label="Role 01" value="Prospector" desc="Scrapes and enriches 10k+ leads.">
+                            <ProspectorDiagram />
+                        </Card>
+                        <Card label="Role 02" value="Nurture" desc="Intelligent SMS & Email follow-up.">
+                            <NurtureDiagram />
+                        </Card>
+                        <Card label="Role 03" value="Closer" desc="Books qualified meetings automatically.">
+                            <CloserDiagram />
+                        </Card>
                     </Grid>
                 </Section>
 

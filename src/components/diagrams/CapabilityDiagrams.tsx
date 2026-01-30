@@ -84,3 +84,69 @@ export const EfficiencyDiagram = () => {
         </div>
     );
 };
+
+export const ProspectorDiagram = () => {
+    return (
+        <div className="w-24 h-12 relative flex items-center justify-center overflow-hidden">
+            {/* Scanning Line */}
+            <motion.div
+                className="absolute w-[1px] h-full bg-white/50 shadow-[0_0_10px_white]"
+                animate={{ left: ["0%", "100%", "0%"] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+            />
+
+            {/* Data Points appearing */}
+            {[1, 2, 3].map((i) => (
+                <motion.div
+                    key={i}
+                    className="absolute w-1 h-1 bg-white rounded-full"
+                    style={{ left: `${i * 25 + 10}%`, top: '50%' }}
+                    animate={{ opacity: [0, 1, 0], scale: [0, 1.5, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: i * 0.5 }}
+                />
+            ))}
+        </div>
+    )
+}
+
+export const NurtureDiagram = () => {
+    return (
+        <div className="w-24 h-12 relative flex items-center justify-center gap-2">
+            {[1, 2, 3].map((i) => (
+                <motion.div
+                    key={i}
+                    className="w-4 h-3 bg-white/10 border border-white/20 rounded-sm flex items-center justify-center"
+                    animate={{ y: [0, -5, 0], opacity: [0.5, 1, 0.5] }}
+                    transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.3 }}
+                >
+                    <div className="w-2 h-[1px] bg-white/50" />
+                </motion.div>
+            ))}
+        </div>
+    )
+}
+
+export const CloserDiagram = () => {
+    return (
+        <div className="w-24 h-12 relative flex items-center justify-center">
+            <div className="w-8 h-8 border border-white/20 rounded-md bg-white/5 flex items-center justify-center relative">
+                <motion.svg
+                    width="16"
+                    height="12"
+                    viewBox="0 0 16 12"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <motion.path
+                        d="M1 6L5.5 10.5L15 1"
+                        stroke="white"
+                        strokeWidth="2"
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: 1 }}
+                        transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1 }}
+                    />
+                </motion.svg>
+            </div>
+        </div>
+    )
+}
