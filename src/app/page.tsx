@@ -183,6 +183,14 @@ export default function Home() {
             <Link
               href="https://calendly.com/contact-mynewstaff/30min"
               target="_blank"
+              className="md:hidden block w-full mb-4 px-8 py-5 rounded-full border border-white text-white font-bold text-sm tracking-widest uppercase hover:bg-white/10 transition-colors"
+            >
+              Book Your Strategy Call
+            </Link>
+
+            <Link
+              href="https://calendly.com/contact-mynewstaff/30min"
+              target="_blank"
               className="inline-block px-12 py-5 rounded-full bg-white text-black font-bold text-sm tracking-widest uppercase hover:scale-105 transition-transform"
             >
               See If You Qualify
