@@ -63,7 +63,7 @@ const CarouselRow = ({ items }: { items: typeof testimonials }) => (
         {items.map((t, i) => (
             <div
                 key={i}
-                className="w-[400px] flex-shrink-0 bg-zinc-900/50 border border-white/10 p-8 rounded-xl backdrop-blur-sm relative group hover:border-white/30 transition-colors"
+                className="w-[300px] md:w-[400px] flex-shrink-0 bg-zinc-900/50 border border-white/10 p-8 rounded-xl backdrop-blur-sm relative group hover:border-white/30 transition-colors"
             >
                 <div className="absolute top-6 right-6 text-2xl text-zinc-700 opacity-50">"</div>
 

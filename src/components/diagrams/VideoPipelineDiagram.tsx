@@ -45,12 +45,24 @@ const PipelineStep = ({ icon, label, desc, delay, highlight }: { icon: any, labe
 );
 
 const PipelineConnector = ({ delay }: { delay: number }) => (
-    <div className="hidden md:block flex-1 h-[1px] bg-white/10 relative overflow-hidden">
-        <motion.div
-            initial={{ x: "-100%" }}
-            whileInView={{ x: "100%" }}
-            transition={{ delay, duration: 1.5, repeat: Infinity, repeatDelay: 2 }}
-            className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white to-transparent opacity-50"
-        />
-    </div>
+    <>
+        {/* Desktop Horizontal */}
+        <div className="hidden md:block flex-1 h-[1px] bg-white/10 relative overflow-hidden">
+            <motion.div
+                initial={{ x: "-100%" }}
+                whileInView={{ x: "100%" }}
+                transition={{ delay, duration: 1.5, repeat: Infinity, repeatDelay: 2 }}
+                className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white to-transparent opacity-50"
+            />
+        </div>
+        {/* Mobile Vertical */}
+        <div className="md:hidden w-[1px] h-12 bg-white/10 relative overflow-hidden mx-auto">
+            <motion.div
+                initial={{ y: "-100%" }}
+                whileInView={{ y: "100%" }}
+                transition={{ delay, duration: 1.5, repeat: Infinity, repeatDelay: 2 }}
+                className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-white to-transparent opacity-50"
+            />
+        </div>
+    </>
 );

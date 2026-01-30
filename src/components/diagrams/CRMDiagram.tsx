@@ -16,7 +16,7 @@ export const CRMDiagram = () => {
             </div>
 
             {/* Dashboard Content */}
-            <div className="p-6 md:p-8 grid grid-cols-1 md:grid-cols-4 gap-4 h-[400px]">
+            <div className="p-6 md:p-8 grid grid-cols-1 md:grid-cols-4 gap-4 h-auto md:h-[400px]">
                 {/* Column 1 */}
                 <Column title="New Leads" value="142">
                     <LeadCard name="Tesla Inc." value="$50k" status="New" delay={0.1} />

@@ -33,7 +33,7 @@ export default function Scale() {
                             </span>
                         </Reveal>
                         <Reveal delay={0.2}>
-                            <h1 className="text-5xl md:text-8xl lg:text-9xl font-wide font-bold leading-[0.95] md:leading-[0.85] tracking-tighter uppercase">
+                            <h1 className="text-4xl md:text-8xl lg:text-9xl font-wide font-bold leading-[0.95] md:leading-[0.85] tracking-tighter uppercase">
                                 SCALE YOUR <br /> <span className="shimmer-text">GROWTH.</span>
                             </h1>
                         </Reveal>

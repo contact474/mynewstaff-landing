@@ -3,27 +3,29 @@ import { motion } from "framer-motion";
 
 export const ComparisonTable = () => {
     return (
-        <div className="w-full max-w-5xl mx-auto border border-white/10 rounded-2xl overflow-hidden bg-zinc-950/50 backdrop-blur-sm">
-            {/* Header */}
-            <div className="grid grid-cols-3 border-b border-white/10 bg-white/5">
-                <div className="p-6 text-xs uppercase tracking-[0.2em] text-zinc-500 flex items-center">Feature</div>
-                <div className="p-6 text-xs uppercase tracking-[0.2em] text-zinc-500 border-l border-white/10 flex items-center justify-center">Manual Scaling</div>
-                <div className="p-6 text-xs uppercase tracking-[0.2em] text-white font-bold border-l border-white/10 flex items-center justify-center bg-white/5 relative overflow-hidden">
-                    <motion.div
-                        className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-white to-transparent"
-                        animate={{ x: ["-100%", "100%"] }}
-                        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                    />
-                    MyNewStaff AI
+        <div className="w-full max-w-5xl mx-auto border border-white/10 rounded-2xl overflow-x-auto bg-zinc-950/50 backdrop-blur-sm">
+            <div className="min-w-[600px]">
+                {/* Header */}
+                <div className="grid grid-cols-3 border-b border-white/10 bg-white/5">
+                    <div className="p-6 text-xs uppercase tracking-[0.2em] text-zinc-500 flex items-center">Feature</div>
+                    <div className="p-6 text-xs uppercase tracking-[0.2em] text-zinc-500 border-l border-white/10 flex items-center justify-center">Manual Scaling</div>
+                    <div className="p-6 text-xs uppercase tracking-[0.2em] text-white font-bold border-l border-white/10 flex items-center justify-center bg-white/5 relative overflow-hidden">
+                        <motion.div
+                            className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-white to-transparent"
+                            animate={{ x: ["-100%", "100%"] }}
+                            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                        />
+                        MyNewStaff AI
+                    </div>
                 </div>
-            </div>
 
-            {/* Rows */}
-            <ComparisonRow feature="Setup Time" manual="3-6 Months" ai="7-14 Days" highlight />
-            <ComparisonRow feature="Cost Per Lead" manual="$50 - $150" ai="$5 - $15" />
-            <ComparisonRow feature="Availability" manual="9am - 5pm" ai="24/7/365" highlight />
-            <ComparisonRow feature="Training" manual="Ongoing / Heavy" ai="Zero / Instant" />
-            <ComparisonRow feature="Scalability" manual="Linear (Hiring)" ai="Exponential (Compute)" highlight />
+                {/* Rows */}
+                <ComparisonRow feature="Setup Time" manual="3-6 Months" ai="7-14 Days" highlight />
+                <ComparisonRow feature="Cost Per Lead" manual="$50 - $150" ai="$5 - $15" />
+                <ComparisonRow feature="Availability" manual="9am - 5pm" ai="24/7/365" highlight />
+                <ComparisonRow feature="Training" manual="Ongoing / Heavy" ai="Zero / Instant" />
+                <ComparisonRow feature="Scalability" manual="Linear (Hiring)" ai="Exponential (Compute)" highlight />
+            </div>
         </div>
     )
 }

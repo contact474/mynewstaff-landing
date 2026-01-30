@@ -37,8 +37,8 @@ export const LaunchScaleDiagram = () => {
                 </div>
             </div>
 
-            {/* Satellites */}
-            <div className="absolute inset-0 flex flex-col justify-between py-12 px-4 md:px-24 pointer-events-none z-20">
+            {/* Satellites (Desktop) */}
+            <div className="hidden md:flex absolute inset-0 flex-col justify-between py-12 px-4 md:px-24 pointer-events-none z-20">
                 {/* Top Row */}
                 <div className="flex justify-between w-full">
                     <Satellite label="AI Scraping" desc="High-intent targeting" number="1" />
@@ -50,6 +50,14 @@ export const LaunchScaleDiagram = () => {
                     <Satellite label="Retargeting" desc="Warm traffic only" number="3" />
                     <Satellite label="Outreach" desc="Partnership setup" number="4" align="right" />
                 </div>
+            </div>
+
+            {/* Satellites (Mobile) */}
+            <div className="md:hidden relative z-20 mt-[300px] grid grid-cols-1 gap-4 w-full px-4">
+                <Satellite label="AI Scraping" desc="High-intent targeting" number="1" />
+                <Satellite label="Viral Distro" desc="TikTok, IG, Shorts" number="2" />
+                <Satellite label="Retargeting" desc="Warm traffic only" number="3" />
+                <Satellite label="Outreach" desc="Partnership setup" number="4" />
             </div>
         </div>
     );
