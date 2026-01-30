@@ -10,7 +10,8 @@ import { VideoShowcaseCarousel } from "@/components/ui/VideoShowcaseCarousel";
 import { VideoTestimonials } from "@/components/ui/VideoTestimonials";
 import { VideoFAQ } from "@/components/ui/VideoFAQ";
 import {
-    FoundersDiagram, ValueDiagram, ViralDiagram
+    FoundersDiagram, ValueDiagram, ViralDiagram,
+    HookTestingDiagram, RetentionArchDiagram, AlgorithmLockDiagram
 } from "@/components/diagrams/CapabilityDiagrams";
 
 export default function Videos() {
@@ -96,9 +97,15 @@ export default function Videos() {
                     <ViralFormulaDiagram />
                     <div className="mt-16">
                         <Grid>
-                            <Card label="Analysis" value="Hook Testing" desc="We generate massive variations to identify winning angles instantly." />
-                            <Card label="Structure" value="Retention Arch" desc="Pacing, visuals, and audio engineered to keep viewers glued to the screen." highlight />
-                            <Card label="Growth" value="Algorithm Lock" desc="Consistent, high-volume posting signals relevance to every major platform." />
+                            <Card label="Analysis" value="Hook Testing" desc="We generate massive variations to identify winning angles instantly.">
+                                <HookTestingDiagram />
+                            </Card>
+                            <Card label="Structure" value="Retention Arch" desc="Pacing, visuals, and audio engineered to keep viewers glued to the screen." highlight>
+                                <RetentionArchDiagram />
+                            </Card>
+                            <Card label="Growth" value="Algorithm Lock" desc="Consistent, high-volume posting signals relevance to every major platform.">
+                                <AlgorithmLockDiagram />
+                            </Card>
                         </Grid>
                     </div>
                 </Section>

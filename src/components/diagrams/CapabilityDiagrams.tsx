@@ -208,3 +208,59 @@ export const ViralDiagram = () => {
         </div>
     )
 }
+
+export const HookTestingDiagram = () => {
+    return (
+        <div className="w-24 h-12 relative flex items-center justify-center gap-2">
+            {[1, 2, 3].map((i) => (
+                <motion.div
+                    key={i}
+                    className={`w-4 h-6 border rounded-sm ${i === 2 ? 'bg-white border-white' : 'bg-white/5 border-white/20'}`}
+                    animate={i === 2 ? { scale: [1, 1.1, 1], borderColor: ["#fff", "#4ade80", "#fff"] } : { opacity: [0.3, 0.6, 0.3] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
+                />
+            ))}
+        </div>
+    )
+}
+
+export const RetentionArchDiagram = () => {
+    return (
+        <div className="w-24 h-12 relative flex items-end justify-center pb-2">
+            <svg width="80" height="30" viewBox="0 0 80 30" fill="none">
+                <motion.path
+                    d="M 5 25 Q 40 5 75 25"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    fill="none"
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                />
+            </svg>
+        </div>
+    )
+}
+
+export const AlgorithmLockDiagram = () => {
+    return (
+        <div className="w-24 h-12 relative flex items-center justify-center">
+            <div className="w-6 h-8 border-2 border-white rounded-t-full rounded-b-md relative">
+                <motion.div
+                    className="absolute inset-0 bg-white"
+                    initial={{ height: "0%" }}
+                    animate={{ height: ["0%", "100%", "0%"] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    style={{ bottom: 0, top: 'auto' }}
+                />
+            </div>
+            {/* Pulsing rings */}
+            <motion.div
+                className="absolute w-12 h-12 border border-white/20 rounded-full"
+                animate={{ scale: [1, 1.5], opacity: [1, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+            />
+        </div>
+    )
+}
