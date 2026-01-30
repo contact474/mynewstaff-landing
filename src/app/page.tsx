@@ -175,7 +175,7 @@ export default function Home() {
 
         {/* Chapter 5: The Finality */}
         <Section id="cta" subtitle="Finality" title={<>READY TO <br /> <span className="shimmer-text">SCALE?</span></>}>
-          <div className="text-center mt-12 py-12 md:py-0 pb-[600px] md:pb-0 relative z-30">
+          <div className="text-center mt-12 py-12 md:py-0 relative z-30">
             <div className="inline-block px-8 py-4 border border-white/10 rounded-full bg-white/5 backdrop-blur-sm mb-8">
               <p className="text-[10px] tracking-[0.4em] uppercase opacity-50">Exclusive Onboarding • Jan 2026</p>
             </div>
@@ -184,7 +184,7 @@ export default function Home() {
               href="https://calendly.com/contact-mynewstaff/30min"
               target="_blank"
               id="mobile-strategy-btn"
-              className="md:hidden block w-[90%] max-w-sm mx-auto mb-8 px-8 py-5 rounded-full border-2 border-red-500 text-white font-bold text-sm tracking-widest uppercase hover:bg-white/10 transition-colors"
+              className="md:hidden block w-[90%] max-w-sm mx-auto mb-8 px-8 py-5 rounded-full border border-white text-white font-bold text-sm tracking-widest uppercase hover:bg-white/10 transition-colors"
             >
               Book Your Strategy Call
             </Link>
@@ -201,7 +201,7 @@ export default function Home() {
 
 
         {/* Nuclear Mobile Spacer to clear Sticky Nav (100vh) */}
-        <div className="md:hidden block w-full bg-red-900/50 z-50 relative" style={{ height: "100vh" }}>DEBUG SPACER</div>
+        <div className="md:hidden block w-full" style={{ height: "100vh" }}>&nbsp;</div>
       </main>
       <HomeStickyNav />
     </>
