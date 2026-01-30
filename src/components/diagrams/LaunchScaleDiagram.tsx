@@ -4,9 +4,9 @@ import { useEffect, useRef } from "react";
 
 export const LaunchScaleDiagram = () => {
     return (
-        <div className="w-full max-w-4xl mx-auto p-8 relative min-h-[500px] flex items-center justify-center">
-            {/* Connecting Lines (Behind) */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20 z-0" xmlns="http://www.w3.org/2000/svg">
+        <div className="w-full max-w-4xl mx-auto p-4 md:p-8 relative min-h-[500px] flex flex-col md:block items-center justify-center">
+            {/* Connecting Lines (Desktop Only Background) */}
+            <svg className="hidden md:block absolute inset-0 w-full h-full pointer-events-none opacity-20 z-0" xmlns="http://www.w3.org/2000/svg">
                 {/* Top Left */}
                 <line x1="25%" y1="25%" x2="38%" y2="38%" stroke="white" strokeWidth="1" />
                 {/* Top Right */}
@@ -18,7 +18,7 @@ export const LaunchScaleDiagram = () => {
             </svg>
 
             {/* Central Hub */}
-            <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+            <div className="relative md:absolute inset-0 flex items-center justify-center z-10 pointer-events-none h-[300px] md:h-auto">
                 {/* Ripples */}
                 {[1, 2, 3].map((i) => (
                     <motion.div
@@ -31,9 +31,9 @@ export const LaunchScaleDiagram = () => {
                 ))}
 
                 {/* Core */}
-                <div className="relative z-20 w-64 h-64 rounded-full border border-white/20 bg-black flex flex-col items-center justify-center text-center p-4 shadow-[0_0_50px_rgba(255,255,255,0.05)]">
+                <div className="relative z-20 w-48 h-48 md:w-64 md:h-64 rounded-full border border-white/20 bg-black flex flex-col items-center justify-center text-center p-4 shadow-[0_0_50px_rgba(255,255,255,0.05)]">
                     <Counter value={10000} />
-                    <span className="text-sm tracking-[0.2em] uppercase text-zinc-500">Leads / Month</span>
+                    <span className="text-xs md:text-sm tracking-[0.2em] uppercase text-zinc-500">Leads / Month</span>
                 </div>
             </div>
 
@@ -53,7 +53,7 @@ export const LaunchScaleDiagram = () => {
             </div>
 
             {/* Satellites (Mobile) */}
-            <div className="md:hidden relative z-20 mt-[300px] grid grid-cols-1 gap-4 w-full px-4">
+            <div className="md:hidden relative z-20 grid grid-cols-1 gap-4 w-full px-2 mt-4">
                 <Satellite label="AI Scraping" desc="High-intent targeting" number="1" />
                 <Satellite label="Viral Distro" desc="TikTok, IG, Shorts" number="2" />
                 <Satellite label="Retargeting" desc="Warm traffic only" number="3" />
