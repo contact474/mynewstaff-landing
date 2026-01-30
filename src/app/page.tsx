@@ -17,7 +17,7 @@ export default function Home() {
       <Navbar />
       <main className="min-h-screen relative overflow-hidden bg-black text-white selection:bg-white selection:text-black">
         {/* Hero */}
-        <section id="hero" className="h-[100dvh] w-full flex flex-col justify-center items-center text-center relative">
+        <section id="hero" className="h-[85dvh] w-full flex flex-col justify-center items-center text-center relative">
           <div className="absolute inset-0 z-0 opacity-60" style={{
             backgroundImage: "url('/assets/hero_bg.png')",
             backgroundSize: 'cover',
