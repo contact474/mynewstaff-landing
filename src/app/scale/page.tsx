@@ -8,6 +8,7 @@ import { ComparisonTable } from "@/components/diagrams/ComparisonTable";
 import { ProcessMap } from "@/components/diagrams/ProcessMap";
 import { TestimonialCarousel } from "@/components/ui/TestimonialCarousel";
 import { FAQ } from "@/components/ui/FAQ";
+import { SpeedDiagram, ReliabilityDiagram, EfficiencyDiagram } from "@/components/diagrams/CapabilityDiagrams";
 
 export default function Scale() {
     return (
@@ -50,9 +51,15 @@ export default function Scale() {
                 {/* Section 4: Advantage */}
                 <Section id="advantage" subtitle="The Advantage" title={<>HIRE <br /> <span className="shimmer-text">INTELLIGENCE.</span></>}>
                     <Grid>
-                        <Card label="Speed" value="Instant Scale" desc="Spin up 1 or 100 AI agents instantly. No onboarding. No training ramp." />
-                        <Card label="Reliability" value="Perfect Recall" desc="Your AI staff never forgets a lead, a follow-up, or a critical detail." highlight />
-                        <Card label="Efficiency" value="Zero Overhead" desc="1/10th the cost of human teams. 100x the output capacity." />
+                        <Card label="Speed" value="Instant Scale" desc="Spin up 1 or 100 AI agents instantly. No onboarding. No training ramp.">
+                            <SpeedDiagram />
+                        </Card>
+                        <Card label="Reliability" value="Perfect Recall" desc="Your AI staff never forgets a lead, a follow-up, or a critical detail." highlight>
+                            <ReliabilityDiagram />
+                        </Card>
+                        <Card label="Efficiency" value="Zero Overhead" desc="1/10th the cost of human teams. 100x the output capacity.">
+                            <EfficiencyDiagram />
+                        </Card>
                     </Grid>
                 </Section>
 

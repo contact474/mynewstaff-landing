@@ -7,9 +7,10 @@ interface CardProps {
     detail?: string;
     highlight?: boolean;
     className?: string;
+    children?: React.ReactNode;
 }
 
-export const Card = ({ label, value, desc, detail, highlight = false, className = "" }: CardProps) => {
+export const Card = ({ label, value, desc, detail, highlight = false, className = "", children }: CardProps) => {
     return (
         <div className={`p-8 md:p-10 border border-white/10 flex flex-col justify-between h-full items-center text-center ${highlight ? 'bg-zinc-900/50 border-white/20' : 'bg-transparent'} ${className}`}>
             <div>
@@ -23,6 +24,7 @@ export const Card = ({ label, value, desc, detail, highlight = false, className 
                         {detail}
                     </p>
                 )}
+                {children && <div className="mt-6 pt-6 border-t border-white/5 w-full flex justify-center">{children}</div>}
             </div>
         </div>
     )
