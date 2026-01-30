@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen relative overflow-x-hidden bg-black text-white selection:bg-white selection:text-black pb-20 md:pb-40">
+      <main className="min-h-screen relative bg-black text-white selection:bg-white selection:text-black pb-20 md:pb-40">
         {/* Hero */}
         <section id="hero" className="h-[100dvh] w-full flex flex-col justify-center items-center text-center relative">
           <div className="absolute inset-0 z-0 opacity-60" style={{
@@ -175,7 +175,7 @@ export default function Home() {
 
         {/* Chapter 5: The Finality */}
         <Section id="cta" subtitle="Finality" title={<>READY TO <br /> <span className="shimmer-text">SCALE?</span></>}>
-          <div className="text-center mt-12">
+          <div className="text-center mt-12 relative z-30">
             <div className="inline-block px-8 py-4 border border-white/10 rounded-full bg-white/5 backdrop-blur-sm mb-8">
               <p className="text-[10px] tracking-[0.4em] uppercase opacity-50">Exclusive Onboarding • Jan 2026</p>
             </div>
@@ -199,7 +199,7 @@ export default function Home() {
         </Section>
 
         {/* Nuclear Mobile Spacer to clear Sticky Nav */}
-        <div className="w-full h-[600px] md:hidden block">&nbsp;</div>
+        <div className="w-full h-[800px] md:hidden block">&nbsp;</div>
 
       </main>
       <HomeStickyNav />
