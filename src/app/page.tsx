@@ -174,7 +174,7 @@ export default function Home() {
         </Section>
 
         {/* Chapter 5: The Finality */}
-        <Section id="cta" className="!pb-[600px] md:!pb-32" subtitle="Finality" title={<>READY TO <br /> <span className="shimmer-text">SCALE?</span></>}>
+        <Section id="cta" subtitle="Finality" title={<>READY TO <br /> <span className="shimmer-text">SCALE?</span></>}>
           <div className="text-center mt-12 py-12 md:py-0 relative z-30">
             <div className="inline-block px-8 py-4 border border-white/10 rounded-full bg-white/5 backdrop-blur-sm mb-8">
               <p className="text-[10px] tracking-[0.4em] uppercase opacity-50">Exclusive Onboarding • Jan 2026</p>
@@ -200,6 +200,8 @@ export default function Home() {
         </Section>
 
 
+        {/* Nuclear Mobile Spacer to clear Sticky Nav (100vh) */}
+        <div className="md:hidden block w-full" style={{ height: "100vh" }}>&nbsp;</div>
       </main>
       <HomeStickyNav />
     </>
