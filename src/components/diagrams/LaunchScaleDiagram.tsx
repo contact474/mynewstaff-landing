@@ -54,6 +54,8 @@ export const LaunchScaleDiagram = () => {
 
             {/* Satellites (Mobile) */}
             <div className="md:hidden relative z-20 grid grid-cols-1 gap-4 w-full px-2 mt-4">
+                {/* Mobile Spine */}
+                <div className="absolute left-[24px] top-[-40px] bottom-[40px] w-[2px] bg-gradient-to-b from-white/20 via-white/10 to-transparent -z-10" />
                 <Satellite label="AI Scraping" desc="High-intent targeting" number="1" />
                 <Satellite label="Viral Distro" desc="TikTok, IG, Shorts" number="2" />
                 <Satellite label="Retargeting" desc="Warm traffic only" number="3" />
