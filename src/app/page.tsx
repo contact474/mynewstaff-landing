@@ -17,15 +17,6 @@ export default function Home() {
     <>
       <Navbar />
 
-      {/* NUCLEAR FIX: Floating Mobile Strategy Button (Above Sticky Nav) */}
-      <Link
-        href="https://calendly.com/contact-mynewstaff/30min"
-        target="_blank"
-        className="md:hidden fixed bottom-28 left-1/2 -translate-x-1/2 z-[60] w-[90%] max-w-sm px-6 py-4 rounded-full bg-black/80 backdrop-blur-md border border-white text-white font-bold text-sm tracking-widest uppercase text-center shadow-[0_0_20px_rgba(0,0,0,0.8)] transition-transform hover:scale-105"
-      >
-        Book Your Strategy Call
-      </Link>
-
       <main className="bg-black text-white relative min-h-screen !overflow-visible selection:bg-white selection:text-black pb-20 md:pb-40">
         {/* Hero */}
         <section id="hero" className="h-[100dvh] w-full flex flex-col justify-center items-center text-center relative">
@@ -190,15 +181,25 @@ export default function Home() {
               <p className="text-[10px] tracking-[0.4em] uppercase opacity-50">Exclusive Onboarding • Jan 2026</p>
             </div>
 
+            {/* Reverted Static Button with correct spacing */}
+            <div className="pb-[400px] md:pb-0">
+              <Link
+                href="https://calendly.com/contact-mynewstaff/30min"
+                target="_blank"
+                id="mobile-strategy-btn"
+                className="md:hidden block w-[90%] max-w-sm mx-auto mb-8 px-8 py-5 rounded-full border border-white text-white font-bold text-sm tracking-widest uppercase hover:bg-white/10 transition-colors"
+              >
+                Book Your Strategy Call
+              </Link>
 
-
-            <Link
-              href="https://calendly.com/contact-mynewstaff/30min"
-              target="_blank"
-              className="inline-block px-12 py-5 rounded-full bg-white text-black font-bold text-sm tracking-widest uppercase hover:scale-105 transition-transform"
-            >
-              See If You Qualify
-            </Link>
+              <Link
+                href="https://calendly.com/contact-mynewstaff/30min"
+                target="_blank"
+                className="inline-block px-12 py-5 rounded-full bg-white text-black font-bold text-sm tracking-widest uppercase hover:scale-105 transition-transform"
+              >
+                See If You Qualify
+              </Link>
+            </div>
           </div>
         </Section>
       </main>
