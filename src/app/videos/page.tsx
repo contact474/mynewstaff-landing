@@ -18,7 +18,7 @@ export default function Videos() {
     return (
         <>
             <Navbar />
-            <main className="min-h-screen relative overflow-hidden bg-black text-white selection:bg-white selection:text-black">
+            <main className="min-h-screen relative !overflow-visible bg-black text-white selection:bg-white selection:text-black">
                 {/* Hero */}
                 <section id="hero" className="h-[100dvh] w-full flex flex-col justify-center items-center text-center relative">
                     <div className="absolute inset-0 z-0 opacity-60" style={{
@@ -133,7 +133,7 @@ export default function Videos() {
 
                 {/* Section 7: CTA */}
                 <Section id="cta" subtitle="Finality" title={<>OWN YOUR <br /> <span className="shimmer-text">NICHE.</span></>}>
-                    <div className="text-center mt-8">
+                    <div className="text-center mt-8 pb-48 md:pb-0 relative z-30">
                         <a href="https://calendly.com/contact-mynewstaff/mynewstaff-ai-scaling-clone" target="_blank"
                             className="inline-block px-12 py-6 rounded-full bg-white text-black font-bold uppercase tracking-widest text-sm hover:scale-105 transition-transform"
                         >
