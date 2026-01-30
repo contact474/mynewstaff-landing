@@ -4,18 +4,26 @@ interface CardProps {
     label: string;
     value: string;
     desc: string;
+    detail?: string;
     highlight?: boolean;
     className?: string;
 }
 
-export const Card = ({ label, value, desc, highlight = false, className = "" }: CardProps) => {
+export const Card = ({ label, value, desc, detail, highlight = false, className = "" }: CardProps) => {
     return (
-        <div className={`p-10 border border-white/10 flex flex-col justify-between h-full items-center text-center ${highlight ? 'bg-zinc-900/50 border-white/20' : 'bg-transparent'} ${className}`}>
+        <div className={`p-8 md:p-10 border border-white/10 flex flex-col justify-between h-full items-center text-center ${highlight ? 'bg-zinc-900/50 border-white/20' : 'bg-transparent'} ${className}`}>
             <div>
                 <span className={`block text-[10px] tracking-[0.4em] uppercase mb-4 ${highlight ? 'text-white' : 'text-zinc-500'}`}>{label}</span>
                 <h3 className={`font-wide text-2xl uppercase mb-2 ${highlight ? 'text-white' : 'text-white'}`}>{value}</h3>
             </div>
-            <p className="text-xs text-zinc-500 leading-relaxed max-w-[200px]">{desc}</p>
+            <div className="flex flex-col gap-4 items-center">
+                <p className="text-xs text-zinc-500 leading-relaxed max-w-[200px]">{desc}</p>
+                {detail && (
+                    <p className="text-[10px] text-zinc-400 leading-relaxed max-w-[220px] pt-4 border-t border-white/5">
+                        {detail}
+                    </p>
+                )}
+            </div>
         </div>
     )
 }

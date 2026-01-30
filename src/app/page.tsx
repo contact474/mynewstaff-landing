@@ -124,9 +124,25 @@ export default function Home() {
         {/* Chapter 7: Pricing */}
         <Section id="pricing" subtitle="Investment" title={<>THREE <span className="shimmer-text">PACKAGES.</span></>}>
           <Grid>
-            <Card label="Starter" value="$1.5K - $2.5K" desc="Per Month. $3K Setup." />
-            <Card label="Engine ⭐" value="$8K - $45K" desc="Most Popular. Full Scale." highlight />
-            <Card label="Enterprise" value="$25K+" desc="Franchise Scale." />
+            <Card
+              label="Starter"
+              value="$1.5K - $2.5K"
+              desc="Per Month. $3K Setup."
+              detail="Ideal for validation. Includes our viral content engine and basic CRM setup. 1 Platform."
+            />
+            <Card
+              label="Engine ⭐"
+              value="$8K - $45K"
+              desc="Most Popular. Full Scale."
+              highlight
+              detail="The complete growth stack. Multi-platform viral distribution, 10k monthly leads scraping, and full automated outreach."
+            />
+            <Card
+              label="Enterprise"
+              value="$25K+"
+              desc="Franchise Scale."
+              detail="Franchise-level domination. Custom AI models, dedicated support team, and unlimited lead volume."
+            />
           </Grid>
         </Section>
 
