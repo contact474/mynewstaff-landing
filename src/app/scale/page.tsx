@@ -18,7 +18,7 @@ export default function Scale() {
     return (
         <>
             <Navbar />
-            <main className="min-h-screen relative overflow-hidden bg-black text-white selection:bg-white selection:text-black">
+            <main className="min-h-screen relative !overflow-visible bg-black text-white selection:bg-white selection:text-black">
                 {/* Hero */}
                 <section id="hero" className="h-[100dvh] w-full flex flex-col justify-center items-center text-center relative">
                     <div className="absolute inset-0 z-0 opacity-60" style={{
@@ -110,12 +110,26 @@ export default function Scale() {
 
                 {/* Section 7: CTA */}
                 <Section id="cta" subtitle="Finality" title={<>READY TO <br /> <span className="shimmer-text">SCALE?</span></>}>
-                    <div className="text-center mt-8">
-                        <a href="https://calendly.com/contact-mynewstaff/mynewstaff-ai-meeting-clone" target="_blank"
-                            className="inline-block px-12 py-6 rounded-full bg-white text-black font-bold uppercase tracking-widest text-sm hover:scale-105 transition-transform"
-                        >
-                            Book Your Strategy Call
-                        </a>
+                    <div className="text-center mt-12 py-12 md:py-0 relative z-30">
+                        <div className="inline-block px-8 py-4 border border-white/10 rounded-full bg-white/5 backdrop-blur-sm mb-8">
+                            <p className="text-[10px] tracking-[0.4em] uppercase opacity-50">Exclusive Onboarding • Jan 2026</p>
+                        </div>
+
+                        <div className="pb-[400px] md:pb-0">
+                            <a
+                                href="https://calendly.com/contact-mynewstaff/mynewstaff-ai-meeting-clone"
+                                target="_blank"
+                                className="md:hidden block w-[90%] max-w-sm mx-auto mb-8 px-8 py-5 rounded-full border border-white text-white font-bold text-sm tracking-widest uppercase hover:bg-white/10 transition-colors"
+                            >
+                                Book Your Strategy Call
+                            </a>
+
+                            <a href="https://calendly.com/contact-mynewstaff/mynewstaff-ai-meeting-clone" target="_blank"
+                                className="inline-block px-12 py-5 rounded-full bg-white text-black font-bold uppercase tracking-widest text-sm hover:scale-105 transition-transform"
+                            >
+                                See If You Qualify
+                            </a>
+                        </div>
                     </div>
                 </Section>
 
