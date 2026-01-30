@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen relative overflow-hidden bg-black text-white selection:bg-white selection:text-black">
+      <main className="min-h-screen relative overflow-hidden bg-black text-white selection:bg-white selection:text-black pb-32 md:pb-40">
         {/* Hero */}
         <section id="hero" className="h-[100dvh] w-full flex flex-col justify-center items-center text-center relative">
           <div className="absolute inset-0 z-0 opacity-60" style={{
@@ -173,7 +173,7 @@ export default function Home() {
         </Section>
 
         {/* Chapter 5: The Finality */}
-        <Section id="cta" subtitle="Finality" title={<>READY TO <br /> <span className="shimmer-text">DRIVE?</span></>}>
+        <Section id="cta" subtitle="Finality" title={<>READY TO <br /> <span className="shimmer-text">SCALE?</span></>}>
           <div className="text-center mt-12">
             <div className="inline-block px-8 py-4 border border-white/10 rounded-full bg-white/5 backdrop-blur-sm">
               <p className="text-[10px] tracking-[0.4em] uppercase opacity-50">Exclusive Onboarding • Jan 2026</p>
