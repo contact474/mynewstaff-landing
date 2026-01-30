@@ -54,8 +54,28 @@ export const LaunchScaleDiagram = () => {
 
             {/* Satellites (Mobile) */}
             <div className="md:hidden relative z-20 grid grid-cols-1 gap-4 w-full px-2 mt-4">
+                {/* Mobile Connector (Hub to Spine) */}
+                <svg className="absolute top-[-50px] left-0 w-full h-[50px] pointer-events-none z-0 overflow-visible">
+                    <motion.path
+                        d="M 50% 0 C 50% 25, 44 25, 44 50 L 44 50"
+                        fill="none"
+                        stroke="url(#mobileGradient)"
+                        strokeWidth="2"
+                        initial={{ pathLength: 0, opacity: 0 }}
+                        whileInView={{ pathLength: 1, opacity: 0.5 }}
+                        transition={{ duration: 1.5, delay: 0.5 }}
+                    />
+                    <defs>
+                        <linearGradient id="mobileGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stopColor="rgba(255,255,255,0)" />
+                            <stop offset="100%" stopColor="rgba(255,255,255,0.3)" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+
                 {/* Mobile Spine */}
-                <div className="absolute left-[24px] top-[-40px] bottom-[40px] w-[2px] bg-gradient-to-b from-white/20 via-white/10 to-transparent -z-10" />
+                <div className="absolute left-[44px] top-0 bottom-[40px] w-[2px] bg-gradient-to-b from-white/30 via-white/10 to-transparent -z-10" />
+
                 <Satellite label="AI Scraping" desc="High-intent targeting" number="1" />
                 <Satellite label="Viral Distro" desc="TikTok, IG, Shorts" number="2" />
                 <Satellite label="Retargeting" desc="Warm traffic only" number="3" />
