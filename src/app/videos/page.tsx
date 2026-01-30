@@ -9,6 +9,9 @@ import { ViralFormulaDiagram } from "@/components/diagrams/ViralFormulaDiagram";
 import { VideoShowcaseCarousel } from "@/components/ui/VideoShowcaseCarousel";
 import { VideoTestimonials } from "@/components/ui/VideoTestimonials";
 import { VideoFAQ } from "@/components/ui/VideoFAQ";
+import {
+    FoundersDiagram, ValueDiagram, ViralDiagram
+} from "@/components/diagrams/CapabilityDiagrams";
 
 export default function Videos() {
     return (
@@ -76,9 +79,15 @@ export default function Videos() {
                 {/* Section 4: Formats */}
                 <Section id="formats" subtitle="Formats" title={<>FORMAT <br /> <span className="shimmer-text">MASTERY.</span></>}>
                     <Grid>
-                        <Card label="Type 01" value="Founders" desc="Authentic stories that build trust." />
-                        <Card label="Type 02" value="Value" desc="High-density educational clips." />
-                        <Card label="Type 03" value="Viral" desc="Visual-heavy montages for reach." />
+                        <Card label="Type 01" value="Founders" desc="Authentic stories that build trust.">
+                            <FoundersDiagram />
+                        </Card>
+                        <Card label="Type 02" value="Value" desc="High-density educational clips.">
+                            <ValueDiagram />
+                        </Card>
+                        <Card label="Type 03" value="Viral" desc="Visual-heavy montages for reach.">
+                            <ViralDiagram />
+                        </Card>
                     </Grid>
                 </Section>
 

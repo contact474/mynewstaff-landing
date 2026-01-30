@@ -150,3 +150,61 @@ export const CloserDiagram = () => {
         </div>
     )
 }
+
+export const FoundersDiagram = () => {
+    return (
+        <div className="w-24 h-12 relative flex items-center justify-center gap-[2px]">
+            {[1, 2, 3, 4, 3, 2, 1].map((i, index) => (
+                <motion.div
+                    key={index}
+                    className="w-[3px] bg-white rounded-full"
+                    animate={{ height: [i * 3, i * 6, i * 3] }}
+                    transition={{ duration: 1, repeat: Infinity, delay: index * 0.1, ease: "easeInOut" }}
+                />
+            ))}
+        </div>
+    )
+}
+
+export const ValueDiagram = () => {
+    return (
+        <div className="w-24 h-12 relative flex items-end justify-center gap-1 pb-1">
+            <motion.div
+                className="w-6 h-6 border border-white/30 rounded bg-white/5"
+                animate={{ y: [0, -5, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+            />
+            <motion.div
+                className="w-6 h-8 border border-white/60 rounded bg-white/10"
+                animate={{ y: [0, -5, 0] }}
+                transition={{ duration: 2, repeat: Infinity, delay: 0.2 }}
+            />
+            <motion.div
+                className="w-6 h-10 border border-white rounded bg-white/20"
+                animate={{ y: [0, -5, 0] }}
+                transition={{ duration: 2, repeat: Infinity, delay: 0.4 }}
+            />
+        </div>
+    )
+}
+
+export const ViralDiagram = () => {
+    return (
+        <div className="w-24 h-12 relative flex items-center justify-center">
+            <motion.div
+                className="w-6 h-6 bg-white rotate-45"
+                animate={{ scale: [1, 1.2, 1], rotate: [45, 90, 45] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "backOut" }}
+            />
+            {[0, 90, 180, 270].map((deg, i) => (
+                <motion.div
+                    key={i}
+                    className="absolute w-1 h-3 bg-white/80 rounded-full"
+                    style={{ rotate: deg, transformOrigin: "0 15px" }}
+                    animate={{ opacity: [0, 1, 0], scaleY: [0.5, 1.5, 0.5] }}
+                    transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.1 }}
+                />
+            ))}
+        </div>
+    )
+}
