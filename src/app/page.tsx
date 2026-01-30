@@ -43,9 +43,9 @@ export default function Home() {
             <table className="w-full text-center border-collapse min-w-[600px]">
               <thead>
                 <tr className="border-b border-white/10 text-xs uppercase tracking-[0.2em] text-zinc-500">
-                  <th className="py-6 px-4 font-normal">Option</th>
-                  <th className="py-6 px-4 font-normal text-white">Investment</th>
-                  <th className="py-6 px-4 font-normal">Outcome</th>
+                  <th className="py-6 px-4 font-normal w-1/3">Option</th>
+                  <th className="py-6 px-4 font-normal text-white w-1/3">Investment</th>
+                  <th className="py-6 px-4 font-normal w-1/3">Outcome</th>
                 </tr>
               </thead>
               <tbody className="text-sm md:text-base">
