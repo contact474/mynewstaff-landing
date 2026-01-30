@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen relative bg-black text-white selection:bg-white selection:text-black pb-20 md:pb-40">
+      <main className="min-h-screen relative bg-black text-white selection:bg-white selection:text-black pb-[600px] md:pb-40">
         {/* Hero */}
         <section id="hero" className="h-[100dvh] w-full flex flex-col justify-center items-center text-center relative">
           <div className="absolute inset-0 z-0 opacity-60" style={{
@@ -183,7 +183,8 @@ export default function Home() {
             <Link
               href="https://calendly.com/contact-mynewstaff/30min"
               target="_blank"
-              className="md:hidden block w-full mb-4 px-8 py-5 rounded-full border border-white text-white font-bold text-sm tracking-widest uppercase hover:bg-white/10 transition-colors"
+              id="mobile-strategy-btn"
+              className="md:hidden block w-full mb-8 px-8 py-5 rounded-full border border-white text-white font-bold text-sm tracking-widest uppercase hover:bg-white/10 transition-colors"
             >
               Book Your Strategy Call
             </Link>
@@ -199,7 +200,7 @@ export default function Home() {
         </Section>
 
         {/* Nuclear Mobile Spacer to clear Sticky Nav */}
-        <div className="w-full h-[800px] md:hidden block">&nbsp;</div>
+        <div className="w-full h-[1000px] md:hidden block">&nbsp;</div>
 
       </main>
       <HomeStickyNav />
