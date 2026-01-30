@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen relative bg-black text-white selection:bg-white selection:text-black pb-[600px] md:pb-40">
+      <main className="min-h-screen relative bg-black text-white selection:bg-white selection:text-black pb-20 md:pb-40">
         {/* Hero */}
         <section id="hero" className="h-[100dvh] w-full flex flex-col justify-center items-center text-center relative">
           <div className="absolute inset-0 z-0 opacity-60" style={{
@@ -174,8 +174,8 @@ export default function Home() {
         </Section>
 
         {/* Chapter 5: The Finality */}
-        <Section id="cta" subtitle="Finality" title={<>READY TO <br /> <span className="shimmer-text">SCALE?</span></>}>
-          <div className="text-center mt-12 py-48 md:py-0 relative z-30">
+        <Section id="cta" className="!pb-[600px] md:!pb-32" subtitle="Finality" title={<>READY TO <br /> <span className="shimmer-text">SCALE?</span></>}>
+          <div className="text-center mt-12 py-12 md:py-0 relative z-30">
             <div className="inline-block px-8 py-4 border border-white/10 rounded-full bg-white/5 backdrop-blur-sm mb-8">
               <p className="text-[10px] tracking-[0.4em] uppercase opacity-50">Exclusive Onboarding • Jan 2026</p>
             </div>
@@ -184,7 +184,7 @@ export default function Home() {
               href="https://calendly.com/contact-mynewstaff/30min"
               target="_blank"
               id="mobile-strategy-btn"
-              className="md:hidden block w-full mb-8 px-8 py-5 rounded-full border border-white text-white font-bold text-sm tracking-widest uppercase hover:bg-white/10 transition-colors"
+              className="md:hidden block w-[90%] max-w-sm mx-auto mb-8 px-8 py-5 rounded-full border border-white text-white font-bold text-sm tracking-widest uppercase hover:bg-white/10 transition-colors"
             >
               Book Your Strategy Call
             </Link>
@@ -199,8 +199,6 @@ export default function Home() {
           </div>
         </Section>
 
-        {/* Nuclear Mobile Spacer to clear Sticky Nav */}
-        <div className="w-full h-[1000px] md:hidden block">&nbsp;</div>
 
       </main>
       <HomeStickyNav />
