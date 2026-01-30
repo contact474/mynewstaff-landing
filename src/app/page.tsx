@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen relative overflow-hidden bg-black text-white selection:bg-white selection:text-black pb-0 md:pb-40">
+      <main className="min-h-screen relative overflow-hidden bg-black text-white selection:bg-white selection:text-black pb-20 md:pb-40">
         {/* Hero */}
         <section id="hero" className="h-[100dvh] w-full flex flex-col justify-center items-center text-center relative">
           <div className="absolute inset-0 z-0 opacity-60" style={{
@@ -191,7 +191,7 @@ export default function Home() {
         </Section>
 
         {/* Nuclear Mobile Spacer to clear Sticky Nav */}
-        <div className="w-full h-[400px] md:hidden" />
+        <div className="w-full h-[600px] md:hidden block">&nbsp;</div>
 
       </main>
       <HomeStickyNav />
