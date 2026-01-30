@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 
 export const ProcessMap = () => {
     return (
-        <div className="w-full max-w-6xl mx-auto p-8 relative min-h-[600px] flex items-center justify-center">
+        <div className="w-full max-w-6xl mx-auto p-8 relative min-h-[600px] flex flex-col md:block items-center justify-center">
             {/* Connecting Lines (Behind everything) */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-30 z-0" xmlns="http://www.w3.org/2000/svg">
+            <svg className="hidden md:block absolute inset-0 w-full h-full pointer-events-none opacity-30 z-0" xmlns="http://www.w3.org/2000/svg">
                 {/* Top Left (Center to Bottom of TL Card) */}
                 <motion.line
                     x1="25%" y1="38%" x2="50%" y2="50%"
@@ -45,7 +45,7 @@ export const ProcessMap = () => {
             </svg>
 
             {/* Central Core */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+            <div className="relative md:absolute md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 z-20 mb-12 md:mb-0">
                 <motion.div
                     initial={{ scale: 0.8, opacity: 0 }}
                     whileInView={{ scale: 1, opacity: 1 }}
@@ -96,7 +96,10 @@ export const ProcessMap = () => {
                 />
             </div>
             {/* Mobile View Stack (Simplified) */}
-            <div className="flex flex-col gap-4 md:hidden relative z-10 mt-[240px]">
+            <div className="flex flex-col gap-6 md:hidden relative z-10 w-full max-w-sm">
+                {/* Central Spine */}
+                <div className="absolute left-1/2 -translate-x-1/2 top-[-50px] bottom-[20px] w-[2px] bg-gradient-to-b from-white/40 via-white/10 to-transparent -z-10" />
+
                 <ProcessNodeMobile title="Sourcing" desc="10k+ Leads" />
                 <ProcessNodeMobile title="Enrichment" desc="Data Mining" />
                 <ProcessNodeMobile title="Nurture" desc="Auto-Followup" />
