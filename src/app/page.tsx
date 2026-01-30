@@ -16,7 +16,8 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen relative bg-black text-white selection:bg-white selection:text-black pb-20 md:pb-40">
+      {/* FORCE UPDATE 2444 */}
+      <main className="bg-black text-white relative min-h-screen !overflow-visible selection:bg-white selection:text-black pb-20 md:pb-40">
         {/* Hero */}
         <section id="hero" className="h-[100dvh] w-full flex flex-col justify-center items-center text-center relative">
           <div className="absolute inset-0 z-0 opacity-60" style={{
@@ -186,7 +187,7 @@ export default function Home() {
               id="mobile-strategy-btn"
               className="md:hidden block w-[90%] max-w-sm mx-auto mb-8 px-8 py-5 rounded-full border border-white text-white font-bold text-sm tracking-widest uppercase hover:bg-white/10 transition-colors"
             >
-              Book Your Strategy Call
+              Book Your Strategy Call Now
             </Link>
 
             <Link
