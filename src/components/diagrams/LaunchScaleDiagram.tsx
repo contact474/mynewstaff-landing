@@ -1,5 +1,6 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, useInView, animate } from "framer-motion";
+import { useEffect, useRef } from "react";
 
 export const LaunchScaleDiagram = () => {
     return (
@@ -31,7 +32,7 @@ export const LaunchScaleDiagram = () => {
 
                 {/* Core */}
                 <div className="relative z-20 w-64 h-64 rounded-full border border-white/20 bg-black flex flex-col items-center justify-center text-center p-4 shadow-[0_0_50px_rgba(255,255,255,0.05)]">
-                    <span className="text-4xl font-bold font-wide text-white mb-2">10,000</span>
+                    <Counter value={10000} />
                     <span className="text-sm tracking-[0.2em] uppercase text-zinc-500">Leads / Month</span>
                 </div>
             </div>
@@ -52,6 +53,29 @@ export const LaunchScaleDiagram = () => {
             </div>
         </div>
     );
+};
+
+const Counter = ({ value }: { value: number }) => {
+    const ref = useRef<HTMLSpanElement>(null);
+    const inView = useInView(ref, { once: true, margin: "-100px" });
+
+    useEffect(() => {
+        if (inView) {
+            const node = ref.current;
+            const controls = animate(0, value, {
+                duration: 2.5,
+                ease: "circOut",
+                onUpdate: (latest) => {
+                    if (node) {
+                        node.textContent = Math.round(latest).toLocaleString();
+                    }
+                }
+            });
+            return () => controls.stop();
+        }
+    }, [inView, value]);
+
+    return <span ref={ref} className="text-4xl font-bold font-wide text-white mb-2">0</span>;
 };
 
 const Satellite = ({ label, desc, number, align = "left" }: { label: string, desc: string, number: string, align?: "left" | "right" }) => (
