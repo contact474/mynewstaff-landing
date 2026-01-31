@@ -4,36 +4,31 @@ import { motion } from "framer-motion";
 const testimonials = [
     {
         text: "I posted 30 AI videos in a month and my TikTok went from 2k to 85k followers. I didn't record a single second.",
-        name: "Chris Hall",
-        role: "Creator, DailyTech",
+        name: "Chris",
         img: "https://i.pravatar.cc/150?img=60",
         service: "Viral Scale"
     },
     {
         text: "The voice clone is scary accurate. My own mother couldn't tell it wasn't me on the phone.",
-        name: "Amanda Li",
-        role: "Agent, UrbanLiving",
+        name: "Amanda",
         img: "https://i.pravatar.cc/150?img=44",
         service: "Clone Tech"
     },
     {
         text: "We replaced our $5k/mo video editor with this system. The quality is cleaner and the hooks are better.",
-        name: "Robert Fox",
-        role: "Director, FoxMedia",
+        name: "Robert",
         img: "https://i.pravatar.cc/150?img=33",
         service: "Cost Savings"
     },
     {
         text: "Finally a way to be on LinkedIn, Instagram, and YouTube Shorts every day without burning out.",
-        name: "Jessica Vaughn",
-        role: "Lead, BrightLine",
+        name: "Jessica",
         img: "https://i.pravatar.cc/150?img=35",
         service: "Omnipresence"
     },
     {
         text: "The 'Retention Arch' structure they use actually works. Our average watch time doubled overnight.",
-        name: "Daniel Chang",
-        role: "Founder, EcomBoost",
+        name: "Daniel",
         img: "https://i.pravatar.cc/150?img=12",
         service: "Engagement"
     }
@@ -80,8 +75,6 @@ const CarouselRow = ({ items }: { items: typeof testimonials }) => (
                     <div>
                         <div className="text-white font-bold text-sm tracking-wide uppercase">{t.name}</div>
                         <div className="text-zinc-500 text-xs flex gap-2">
-                            <span>{t.role}</span>
-                            <span className="text-zinc-700 mx-1">•</span>
                             <span className="text-zinc-400">{t.service}</span>
                         </div>
                     </div>
