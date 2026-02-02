@@ -18,11 +18,11 @@ export const metadata: Metadata = {
   title: "MyNewStaff.ai | Revenue Machines",
   description: "We build revenue machines. Scale your growth with AI staff and unlimited video content.",
   icons: {
-    icon: "/logo-white.png?v=4",
-    apple: "/apple-touch-icon.png?v=4",
+    icon: "/logo-white.png?v=5",
+    apple: "/apple-touch-icon.png?v=5",
   },
   openGraph: {
-    images: ["/logo-white.png?v=4"],
+    images: ["/logo-white.png?v=5"],
   },
 };
 
