@@ -17,6 +17,12 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "MyNewStaff.ai | Revenue Machines",
   description: "We build revenue machines. Scale your growth with AI staff and unlimited video content.",
+  icons: {
+    icon: "/logo-white.png",
+  },
+  openGraph: {
+    images: ["/logo-white.png"],
+  },
 };
 
 export default function RootLayout({
