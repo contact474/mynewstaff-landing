@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mission Control — AI Revenue System | MyNewStaff.ai</title>
+<meta name="description" content="20,000 qualified leads. One system. $10,000. Get a free $2,500 AI Scalability Assessment — only 5 spots.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: #000;
+    color: #fff;
+    font-family: 'Space Grotesk', -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+
+  /* Nav */
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid #111;
+  }
+  .nav-brand {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: none;
+  }
+  .nav-cta {
+    background: #fff;
+    color: #000;
+    padding: 10px 28px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.85; }
+
+  /* Sections */
+  section {
+    padding: 120px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.35em;
+    color: #555;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .headline {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 900;
+    font-size: clamp(42px, 6vw, 80px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  .headline .dim { color: #444; }
+  .subtext {
+    font-size: 20px;
+    color: #999;
+    max-width: 680px;
+    line-height: 1.7;
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 100px;
+  }
+  .hero .pill {
+    display: inline-block;
+    border: 1px solid #333;
+    padding: 8px 24px;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 30px;
+  }
+  .hero .headline {
+    font-size: clamp(52px, 7vw, 110px);
+    margin-bottom: 30px;
+  }
+  .hero-promises {
+    display: flex;
+    gap: 30px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  }
+  .hero-promises span {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #555;
+  }
+  .hero-promises .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #333;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 12px;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 16px;
+    margin-top: 50px;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    display: inline-block;
+    background: #fff;
+    color: #000;
+    padding: 18px 44px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 2px solid #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-primary:hover { background: transparent; color: #fff; }
+  .btn-secondary {
+    display: inline-block;
+    padding: 18px 44px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #888;
+    border: 1px solid #333;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: #666; color: #ccc; }
+
+  /* Cards */
+  .card {
+    background: #111;
+    border: 1px solid #222;
+    padding: 30px;
+    border-radius: 2px;
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .card-body {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #999;
+  }
+  .card-body strong { color: #fff; font-weight: 600; }
+
+  /* Grid */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px; }
+
+  /* Stats */
+  .stat-big {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 64px;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #888;
+    margin-top: 8px;
+  }
+  .stat-desc {
+    font-size: 14px;
+    color: #555;
+    margin-top: 4px;
+  }
+
+  /* Divider */
+  .divider {
+    width: 80px;
+    height: 3px;
+    background: #222;
+    margin: 60px 0;
+  }
+
+  /* Comparison table */
+  .comp-row {
+    display: flex;
+    border-bottom: 1px solid #111;
+    padding: 20px 0;
+  }
+  .comp-row .label {
+    width: 200px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #555;
+    flex-shrink: 0;
+  }
+  .comp-row .old {
+    flex: 1;
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+  }
+  .comp-row .new {
+    flex: 1;
+    font-size: 18px;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  /* Free assessment banner */
+  .assessment-banner {
+    background: #0d0d0d;
+    border: 2px solid #222;
+    padding: 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .assessment-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.03) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .spots-badge {
+    display: inline-block;
+    background: #fff;
+    color: #000;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    padding: 6px 18px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .spots-count {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: #fff;
+  }
+
+  /* Application form */
+  .form-section {
+    background: #080808;
+    border-top: 1px solid #111;
+  }
+  .form-wrapper {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .form-group {
+    margin-bottom: 20px;
+  }
+  .form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 8px;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    background: #111;
+    border: 1px solid #222;
+    color: #fff;
+    padding: 14px 18px;
+    font-size: 15px;
+    font-family: 'Space Grotesk', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: #444;
+  }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-group select { cursor: pointer; }
+  .form-group select option { background: #111; color: #fff; }
+  .form-submit {
+    width: 100%;
+    background: #fff;
+    color: #000;
+    padding: 18px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    font-family: 'Space Grotesk', sans-serif;
+    transition: opacity 0.2s;
+    margin-top: 10px;
+  }
+  .form-submit:hover { opacity: 0.85; }
+  .form-note {
+    text-align: center;
+    font-size: 13px;
+    color: #444;
+    margin-top: 16px;
+  }
+
+  /* Offer cards */
+  .offer-card {
+    background: #111;
+    border: 1px solid #222;
+    padding: 40px;
+    position: relative;
+  }
+  .offer-card.best {
+    border-color: #444;
+    background: #0d0d0d;
+  }
+  .offer-card.best::after {
+    content: 'BEST VALUE';
+    position: absolute;
+    top: -12px;
+    right: 30px;
+    background: #fff;
+    color: #000;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    padding: 4px 14px;
+  }
+  .offer-name {
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 16px;
+  }
+  .offer-price {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 56px;
+    font-weight: 900;
+    margin-bottom: 12px;
+  }
+  .offer-desc {
+    font-size: 16px;
+    color: #999;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .offer-cpl {
+    font-size: 14px;
+    color: #555;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .offer-cpl strong { color: #fff; font-size: 20px; }
+
+  /* Bonus stack */
+  .bonus-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 14px;
+  }
+  .bonus-item .name { color: #999; }
+  .bonus-item .val { color: #fff; font-weight: 600; }
+
+  /* Vline */
+  .vline {
+    border-left: 2px solid #222;
+    padding-left: 24px;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 40px;
+    text-align: center;
+    border-top: 1px solid #111;
+    font-size: 13px;
+    color: #333;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    section { padding: 80px 24px; }
+    .nav { padding: 16px 24px; }
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .hero .headline { font-size: 42px; }
+    .headline { font-size: 36px; }
+    .assessment-banner { padding: 40px 24px; }
+    .comp-row .label { width: 120px; font-size: 11px; }
+    .hero-ctas { flex-direction: column; }
+    .btn-primary, .btn-secondary { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="https://mynewstaff.ai" class="nav-brand">MYNWSTAFF.AI</a>
+  <a href="#apply" class="nav-cta">Get Free Assessment</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="pill">S Y S T E M &nbsp; 0 2 &nbsp; • &nbsp; M I S S I O N &nbsp; C O N T R O L</div>
+  <h1 class="headline">
+    STOP GUESSING.<br><span class="dim">START ENGINEERING REVENUE.</span>
+  </h1>
+  <p class="subtext">
+    20,000 qualified leads delivered to your CRM. A complete GHL backoffice that converts them.
+    No ads. No cold calls. No drama. <strong style="color: #fff;">$10,000 flat.</strong>
+  </p>
+  <div class="hero-promises">
+    <span><span class="dot"></span>NO ADS REQUIRED</span>
+    <span><span class="dot"></span>NO COLD CALLS</span>
+    <span><span class="dot"></span>FULL AUTOMATION</span>
+    <span><span class="dot"></span>AI-POWERED</span>
+  </div>
+  <div class="hero-ctas">
+    <a href="#apply" class="btn-primary">CLAIM FREE ASSESSMENT</a>
+    <a href="#offer" class="btn-secondary">SEE THE OFFER</a>
+  </div>
+</section>
+
+<!-- FREE ASSESSMENT BANNER -->
+<section style="padding-top: 0;">
+  <div class="assessment-banner">
+    <div class="spots-badge">LIMITED — 5 SPOTS ONLY</div>
+    <h2 style="font-family: 'Playfair Display', serif; font-weight: 900; font-size: clamp(32px, 4vw, 52px); margin-bottom: 16px;">
+      FREE $2,500 AI SCALABILITY<br>ASSESSMENT
+    </h2>
+    <p style="font-size: 18px; color: #999; max-width: 600px; margin: 0 auto 24px; line-height: 1.7;">
+      We'll build you a custom Go-To-Market strategy with a full playbook you can execute yourself — whether you hire us or not.
+    </p>
+    <p style="font-size: 14px; color: #555; margin-bottom: 30px;">
+      30-minute Zoom call &nbsp;•&nbsp; Custom GTM strategy &nbsp;•&nbsp; Full how-to playbook &nbsp;•&nbsp; Zero obligation
+    </p>
+    <a href="#apply" class="btn-primary">APPLY FOR YOUR FREE SPOT</a>
+  </div>
+</section>
+
+<!-- THE PROBLEM -->
+<section>
+  <div class="section-label">T H E &nbsp; P R O B L E M</div>
+  <h2 class="headline">MOST BUSINESSES DON'T HAVE A REVENUE SYSTEM. <span class="dim">THEY HAVE A LOTTERY TICKET.</span></h2>
+  <div class="grid-3" style="margin-top: 40px;">
+    <div class="vline">
+      <div class="stat-big" style="color: #333;">73%</div>
+      <div class="stat-label">LEADS LEAKED</div>
+      <div class="stat-desc">Follow-up is inconsistent. Nobody tracks the pipeline.</div>
+    </div>
+    <div class="vline">
+      <div class="stat-big" style="color: #333;">$0</div>
+      <div class="stat-label">BACKOFFICE VISIBILITY</div>
+      <div class="stat-desc">No dashboard. No control. Revenue is a guess.</div>
+    </div>
+    <div class="vline">
+      <div class="stat-big" style="color: #333;">$27</div>
+      <div class="stat-label">AVG FACEBOOK CPL</div>
+      <div class="stat-desc">Pay forever. Still need follow-up. Up 20.9% YoY.</div>
+    </div>
+  </div>
+</section>
+
+<!-- THE SOLUTION -->
+<section>
+  <div class="section-label">T H E &nbsp; S O L U T I O N</div>
+  <h2 class="headline">A BRANDED REVENUE ENGINE <span class="dim">INSIDE YOUR GHL.</span></h2>
+  <p class="subtext" style="margin-bottom: 50px;">
+    Mission Control is a complete backoffice inside GoHighLevel — pipelines, follow-up automation, AI chatbot, booking, and 20,000 qualified leads pre-loaded.
+  </p>
+  <div class="grid-4">
+    <div class="card" style="text-align: center;">
+      <div style="font-size: 28px; margin-bottom: 10px;">📊</div>
+      <div class="card-title" style="font-size: 13px;">PIPELINES</div>
+      <div class="card-body" style="font-size: 13px;">Stages + tracking. Full pipeline visibility from lead to close.</div>
+    </div>
+    <div class="card" style="text-align: center;">
+      <div style="font-size: 28px; margin-bottom: 10px;">✉️</div>
+      <div class="card-title" style="font-size: 13px;">FOLLOW-UP ENGINE</div>
+      <div class="card-body" style="font-size: 13px;">Infinite email + SMS sequences. No lead gets forgotten.</div>
+    </div>
+    <div class="card" style="text-align: center;">
+      <div style="font-size: 28px; margin-bottom: 10px;">🤖</div>
+      <div class="card-title" style="font-size: 13px;">AI CHATBOT</div>
+      <div class="card-body" style="font-size: 13px;">Two-way AI conversations on WhatsApp, web, and GHL. 24/7.</div>
+    </div>
+    <div class="card" style="text-align: center;">
+      <div style="font-size: 28px; margin-bottom: 10px;">📅</div>
+      <div class="card-title" style="font-size: 13px;">SMART ROUTING</div>
+      <div class="card-body" style="font-size: 13px;">Auto-booking, checkout, or nurture — based on lead intent.</div>
+    </div>
+  </div>
+</section>
+
+<!-- COST COMPARISON -->
+<section>
+  <div class="section-label">C O S T &nbsp; P E R &nbsp; L E A D</div>
+  <h2 class="headline">WE'RE 55x CHEAPER <span class="dim">THAN FACEBOOK ADS.</span></h2>
+  <div style="margin-top: 40px;">
+    <div class="comp-row" style="border-bottom: 1px solid #222;">
+      <div class="label">METHOD</div>
+      <div class="old" style="font-weight: 700; color: #444;">CPL</div>
+      <div class="new">NOTES</div>
+    </div>
+    <div class="comp-row">
+      <div class="label">MISSION CONTROL</div>
+      <div class="new" style="font-size: 24px;">$0.50</div>
+      <div class="new">Leads + full system + automation</div>
+    </div>
+    <div class="comp-row">
+      <div class="label">DIY OUTBOUND</div>
+      <div class="old">$1.50–$6.00+</div>
+      <div class="old" style="font-size: 14px;">Tools + labor + learning curve</div>
+    </div>
+    <div class="comp-row">
+      <div class="label">FACEBOOK ADS</div>
+      <div class="old">$27.66 avg</div>
+      <div class="old" style="font-size: 14px;">WordStream 2025. Pay forever.</div>
+    </div>
+    <div class="comp-row">
+      <div class="label">GOOGLE ADS</div>
+      <div class="old">$30–$150+</div>
+      <div class="old" style="font-size: 14px;">Legal, finance, SaaS niches</div>
+    </div>
+  </div>
+</section>
+
+<!-- THE OFFER -->
+<section id="offer">
+  <div class="section-label">T H E &nbsp; O F F E R</div>
+  <h2 class="headline">TWO OPTIONS. <span class="dim">ONE OBVIOUS CHOICE.</span></h2>
+  <div class="grid-2" style="margin-top: 40px; gap: 30px;">
+    <div class="offer-card">
+      <div class="offer-name">O P T I O N &nbsp; A &nbsp; — &nbsp; L E A D &nbsp; P A C K</div>
+      <div class="offer-price">$5,000</div>
+      <div class="offer-desc">5,000 qualified leads delivered to your inbox. Ready to work.</div>
+      <div class="offer-cpl">COST PER LEAD: <strong>$1.00</strong></div>
+    </div>
+    <div class="offer-card best">
+      <div class="offer-name">O P T I O N &nbsp; B &nbsp; — &nbsp; M I S S I O N &nbsp; C O N T R O L</div>
+      <div class="offer-price">$10,000</div>
+      <div class="offer-desc">20,000 qualified leads + complete GHL backoffice + automation + AI chat.</div>
+      <div class="offer-cpl">COST PER LEAD: <strong>$0.50</strong></div>
+      <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #222;">
+        <div style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 14px; letter-spacing: 0.1em;">BONUS STACK — $9,700 VALUE</div>
+        <div class="bonus-item"><span class="name">GoHighLevel paid for 3 months</span><span class="val">$1,200</span></div>
+        <div class="bonus-item"><span class="name">Done-for-you funnel build</span><span class="val">$2,500</span></div>
+        <div class="bonus-item"><span class="name">Full Mission Control backoffice</span><span class="val">$3,500</span></div>
+        <div class="bonus-item"><span class="name">Pre-built sequences</span><span class="val">$1,500</span></div>
+        <div class="bonus-item"><span class="name">Tracking + sending setup</span><span class="val">$1,000</span></div>
+      </div>
+      <a href="#apply" class="btn-primary" style="display: block; text-align: center; margin-top: 24px;">CLAIM YOUR SPOT</a>
+    </div>
+  </div>
+</section>
+
+<!-- BENCHMARKS -->
+<section>
+  <div class="section-label">W H A T &nbsp; T O &nbsp; E X P E C T</div>
+  <h2 class="headline">INDUSTRY BENCHMARKS, <span class="dim">ENGINEERED 20% BETTER.</span></h2>
+  <div class="grid-4" style="margin-top: 40px;">
+    <div class="card">
+      <div class="card-title" style="font-size: 13px;">EMAIL DELIVERY</div>
+      <div class="card-body" style="font-size: 13px;">Industry: <strong>90–95%</strong> on clean lists. Our target: maximum inbox placement.</div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size: 13px;">B2B REPLY RATE</div>
+      <div class="card-body" style="font-size: 13px;">Industry avg: <strong>1–5%</strong>. Top performers with AI sequences: <strong>15–25%</strong>.</div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size: 13px;">BOOKING RATE</div>
+      <div class="card-body" style="font-size: 13px;">Industry: <strong>10–25%</strong> of engaged leads. Auto-booking + reminders included.</div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="font-size: 13px;">NO-SHOW REDUCTION</div>
+      <div class="card-body" style="font-size: 13px;">Industry: <strong>20–40%</strong> no-show. Recovery sequences cut it significantly.</div>
+    </div>
+  </div>
+  <p style="font-size: 12px; color: #333; margin-top: 20px; text-align: center;">
+    Targets are not legal guarantees. Outcomes depend on offer quality, market, responsiveness, and domain reputation.
+  </p>
+</section>
+
+<!-- GUARANTEE -->
+<section style="text-align: center;">
+  <div class="section-label" style="text-align: center;">G U A R A N T E E</div>
+  <h2 class="headline" style="max-width: 900px; margin: 0 auto 30px;">
+    DELIVERABLES-BASED<br><span class="dim">GUARANTEE.</span>
+  </h2>
+  <div style="width: 80px; height: 3px; background: #222; margin: 0 auto 30px;"></div>
+  <p class="subtext" style="max-width: 700px; margin: 0 auto; text-align: center;">
+    If we don't deliver the agreed lead volume and the Mission Control buildout we committed to,
+    <strong style="color: #fff;">we keep working for free until it's complete.</strong>
+  </p>
+</section>
+
+<!-- WHO DELIVERS -->
+<section>
+  <div class="section-label">W H O &nbsp; D E L I V E R S &nbsp; T H I S</div>
+  <h2 class="headline">BUILT BY OPERATORS <span class="dim">WITH HIGH-PROFILE REPS.</span></h2>
+  <div class="grid-2" style="margin-top: 50px; gap: 40px;">
+    <div class="vline">
+      <div style="font-size: 28px; font-weight: 700; margin-bottom: 6px;">LUKA LAH</div>
+      <div style="font-size: 14px; color: #666; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px;">Founder — MyNewStaff.ai</div>
+      <div class="card-body">
+        $300M+ raised across ventures. 90K person network managed.
+        AI Trading Engine Architect. Built revenue machines for brands across 4 continents.
+      </div>
+    </div>
+    <div class="vline">
+      <div style="font-size: 28px; font-weight: 700; margin-bottom: 6px;">YERAM MURILLO</div>
+      <div style="font-size: 14px; color: #666; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px;">Strategic Partner / Advisor</div>
+      <div class="card-body">
+        Advisor to winning presidential party of Mexico.
+        High-profile clients across music, legal, and security. Strategic operations across Latin America.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FREE ASSESSMENT CTA -->
+<section style="padding-bottom: 0;">
+  <div class="assessment-banner">
+    <div class="spots-badge">FIRST 5 APPLICANTS ONLY</div>
+    <h2 style="font-family: 'Playfair Display', serif; font-weight: 900; font-size: clamp(28px, 3.5vw, 48px); margin-bottom: 16px;">
+      YOUR FREE $2,500 AI<br>SCALABILITY ASSESSMENT INCLUDES:
+    </h2>
+    <div class="grid-3" style="max-width: 800px; margin: 30px auto 40px; text-align: left;">
+      <div>
+        <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px;">GTM STRATEGY</div>
+        <div style="font-size: 14px; color: #888; line-height: 1.6;">Custom Go-To-Market plan tailored to your industry, ICP, and growth stage.</div>
+      </div>
+      <div>
+        <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px;">FULL PLAYBOOK</div>
+        <div style="font-size: 14px; color: #888; line-height: 1.6;">Step-by-step how-to so you can execute it yourself — no strings attached.</div>
+      </div>
+      <div>
+        <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px;">REVENUE MAP</div>
+        <div style="font-size: 14px; color: #888; line-height: 1.6;">Where you're leaking revenue and the exact systems to plug each hole.</div>
+      </div>
+    </div>
+    <a href="#apply" class="btn-primary">APPLY NOW — LIMITED SPOTS</a>
+  </div>
+</section>
+
+<!-- APPLICATION FORM -->
+<section id="apply" class="form-section" style="padding: 100px 40px;">
+  <div class="form-wrapper">
+    <div style="text-align: center; margin-bottom: 50px;">
+      <div class="spots-badge" style="margin-bottom: 20px;">5 FREE SPOTS REMAINING</div>
+      <h2 style="font-family: 'Playfair Display', serif; font-weight: 900; font-size: 42px; margin-bottom: 12px;">
+        APPLY FOR YOUR FREE<br>ASSESSMENT
+      </h2>
+      <p style="font-size: 16px; color: #666;">30-min Zoom call. Custom GTM strategy. Full playbook. Zero obligation.</p>
+    </div>
+
+    <form id="assessment-form" onsubmit="handleSubmit(event)">
+      <div class="grid-2">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" name="firstName" placeholder="John" required>
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" name="lastName" placeholder="Smith" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Business Email</label>
+        <input type="email" name="email" placeholder="john@company.com" required>
+      </div>
+      <div class="form-group">
+        <label>Phone (WhatsApp preferred)</label>
+        <input type="tel" name="phone" placeholder="+1 555 123 4567" required>
+      </div>
+      <div class="form-group">
+        <label>Company / Business Name</label>
+        <input type="text" name="company" placeholder="Acme Corp" required>
+      </div>
+      <div class="form-group">
+        <label>Industry</label>
+        <select name="industry" required>
+          <option value="" disabled selected>Select your industry</option>
+          <option>Real Estate</option>
+          <option>Legal Services</option>
+          <option>Healthcare / Medical</option>
+          <option>SaaS / Technology</option>
+          <option>E-commerce</option>
+          <option>Financial Services</option>
+          <option>Marketing Agency</option>
+          <option>Hospitality / Hotels</option>
+          <option>Education / Coaching</option>
+          <option>Construction / Home Services</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Monthly Revenue (approx.)</label>
+        <select name="revenue" required>
+          <option value="" disabled selected>Select range</option>
+          <option>Under $10K/mo</option>
+          <option>$10K–$50K/mo</option>
+          <option>$50K–$100K/mo</option>
+          <option>$100K–$500K/mo</option>
+          <option>$500K+/mo</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>What's your biggest growth bottleneck right now?</label>
+        <textarea name="bottleneck" placeholder="Not enough leads, can't convert, no follow-up system, spending too much on ads..."></textarea>
+      </div>
+      <button type="submit" class="form-submit">SUBMIT APPLICATION</button>
+      <div class="form-note">We review every application. If selected, you'll receive a Zoom link within 24 hours.</div>
+    </form>
+
+    <!-- Success state -->
+    <div id="form-success" style="display: none; text-align: center; padding: 60px 0;">
+      <div style="font-size: 48px; margin-bottom: 20px;">✅</div>
+      <h3 style="font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 900; margin-bottom: 16px;">APPLICATION RECEIVED</h3>
+      <p style="font-size: 18px; color: #999; max-width: 500px; margin: 0 auto;">
+        We're reviewing your application. If selected, you'll receive a Zoom link at your email within 24 hours.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>MYNWSTAFF.AI &nbsp;•&nbsp; INCOME MACHINES &nbsp;•&nbsp; EST. 2026</p>
+  <p style="margin-top: 8px; color: #222;">contact@mynewstaff.ai</p>
+</footer>
+
+<script>
+function handleSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const data = new FormData(form);
+  const obj = Object.fromEntries(data.entries());
+
+  // Send to Calendly redirect or webhook
+  // For now, redirect to Calendly after capturing data
+  console.log('Application submitted:', obj);
+
+  // Try sending to a webhook (replace URL with your GHL webhook)
+  fetch('https://hooks.mynewstaff.ai/mission-control-apply', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(obj)
+  }).catch(() => {}); // Fail silently, still show success
+
+  // Show success
+  form.style.display = 'none';
+  document.getElementById('form-success').style.display = 'block';
+
+  // Optional: redirect to Calendly after delay
+  setTimeout(() => {
+    window.open('https://calendly.com/contact-mynewstaff/30min', '_blank');
+  }, 2000);
+}
+</script>
+
+</body>
+</html>
