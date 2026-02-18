@@ -8,6 +8,18 @@ const nextConfig: NextConfig = {
         source: "/mission-control",
         destination: "/mission-control/index.html",
       },
+      {
+        source: "/mission-control-es",
+        destination: "/mission-control-es/index.html",
+      },
+      {
+        source: "/admin",
+        destination: "https://mns-dashboard.vercel.app/",
+      },
+      {
+        source: "/admin/:path*",
+        destination: "https://mns-dashboard.vercel.app/:path*",
+      },
     ];
   },
 };
