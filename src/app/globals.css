@@ -39,7 +39,7 @@ body {
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shimmer 3s linear infinite reverse;
+  animation: shimmer 8s ease-in-out infinite reverse;
 }
 
 /* Scrollbar */
@@ -54,4 +54,58 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #333;
   border-radius: 4px;
+}
+
+/* Film grain overlay — calming breath rhythm with visible drift.
+   Big movement like before, but slow 10s cycle.
+   Opacity breathes dark → light → dark for a living, organic feel. */
+.grain-overlay::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+  animation: grain 10s ease-in-out infinite;
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0);       opacity: 0.02; }
+  25%      { transform: translate(-5%, -4%);    opacity: 0.04; }
+  40%      { transform: translate(3%, 5%);      opacity: 0.06; }
+  75%      { transform: translate(-3%, 2%);     opacity: 0.035; }
+}
+
+/* Horizontal rule fade */
+.hr-fade {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.1) 30%, rgba(255,255,255,0.1) 70%, transparent);
+}
+
+/* Smooth zoom hero background — calming parasympathetic breath rhythm
+   ~6 breaths/min → 10s cycle: 4s inhale (scale up), 6s exhale (scale down) */
+@keyframes smoothZoom {
+  0%   { transform: scale(1.0); }
+  40%  { transform: scale(1.04); }
+  100% { transform: scale(1.0); }
+}
+
+.smooth-zoom-bg {
+  animation: smoothZoom 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* Calming pulse — replaces Tailwind's 2s animate-pulse for diagram glows.
+   Same 10s parasympathetic breath cycle. */
+@keyframes calmPulse {
+  0%, 100% { opacity: 0.3; }
+  40%      { opacity: 0.7; }
+}
+
+.calm-pulse {
+  animation: calmPulse 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }

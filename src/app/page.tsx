@@ -1,9 +1,13 @@
-import Link from "next/link";
 import { Navbar } from "@/components/ui/Navbar";
 import { HomeStickyNav } from "@/components/ui/HomeStickyNav";
 import { Section } from "@/components/ui/Section";
 import { Card, Grid } from "@/components/ui/Card";
 import { Reveal } from "@/components/ui/Reveal";
+import {
+  ParallaxSection,
+  ScaleReveal,
+  HorizontalSlide,
+} from "@/components/ui/ScrollEffects";
 import { LaunchScaleDiagram } from "@/components/diagrams/LaunchScaleDiagram";
 import { CRMDiagram } from "@/components/diagrams/CRMDiagram";
 import { ConversationEngine } from "@/components/diagrams/ConversationEngine";
@@ -11,6 +15,7 @@ import { FunnelDiagram } from "@/components/diagrams/FunnelDiagram";
 import { ValuationChart } from "@/components/diagrams/ValuationChart";
 import { TestimonialCarousel } from "@/components/ui/TestimonialCarousel";
 import { FAQ } from "@/components/ui/FAQ";
+import { HomeCTA } from "@/components/ui/HomeCTA";
 
 export default function Home() {
   return (
@@ -18,9 +23,9 @@ export default function Home() {
       <Navbar />
 
       <main className="bg-black text-white relative min-h-screen !overflow-visible selection:bg-white selection:text-black pb-20 md:pb-40">
-        {/* Hero */}
-        <section id="hero" className="h-[100dvh] w-full flex flex-col justify-center items-center text-center relative">
-          <div className="absolute inset-0 z-0 opacity-60" style={{
+        {/* Hero — smooth-zoom-bg applies the continuous 1.0→1.05 zoom animation */}
+        <section id="hero" className="h-[100dvh] w-full flex flex-col justify-center items-center text-center relative overflow-hidden">
+          <div className="absolute inset-0 z-0 opacity-60 smooth-zoom-bg" style={{
             backgroundImage: "url('/assets/hero_bg.png')",
             backgroundSize: 'cover',
             backgroundPosition: 'center',
@@ -75,76 +80,96 @@ export default function Home() {
         <Section id="problem" subtitle="The Friction" title={<>YOUR BUSINESS <br /> IS <span className="shimmer-text">INVISIBLE.</span></>}>
           <div className="max-w-2xl mx-auto text-center">
             <p className="text-lg md:text-2xl text-zinc-400 leading-relaxed">
-              70% of buyers never convert because they don't see you. Your competitors are omnipresent. You are a ghost.
+              70% of buyers never convert because they don&apos;t see you. Your competitors are omnipresent. You are a ghost.
             </p>
           </div>
         </Section>
 
         {/* Chapter 3: The Engine */}
-        <Section id="strategy" subtitle="The Engine" title={<>THREE SYSTEMS. <br /> ONE <span className="shimmer-text">ENGINE.</span></>}>
-          <Grid>
-            <Card label="System 01" value="AI Content" desc="100+ viral videos monthly to dominate every social feed." />
-            <Card label="System 02" value="Hyper-Outreach" desc="10,000+ targeted leads engaged via automated systems." />
-            <Card label="System 03" value="Ad Multiplier" desc="Strategic amplification to drown out the competition." />
-          </Grid>
-          {/* CRM Diagram */}
-          <div className="mt-24">
-            <Reveal>
-              <CRMDiagram />
-            </Reveal>
-          </div>
-        </Section>
+        <ParallaxSection speed={0.15}>
+          <Section id="strategy" subtitle="The Engine" title={<>THREE SYSTEMS. <br /> ONE <span className="shimmer-text">ENGINE.</span></>}>
+            <Grid>
+              <Card label="System 01" value="AI Content" desc="100+ viral videos monthly to dominate every social feed." />
+              <Card label="System 02" value="Hyper-Outreach" desc="10,000+ targeted leads engaged via automated systems." />
+              <Card label="System 03" value="Ad Multiplier" desc="Strategic amplification to drown out the competition." />
+            </Grid>
+            {/* CRM Diagram */}
+            <div className="mt-24">
+              <ScaleReveal>
+                <CRMDiagram />
+              </ScaleReveal>
+            </div>
+          </Section>
+        </ParallaxSection>
 
         {/* The Targets Diagram */}
         <Section id="targets" subtitle="The Targets" title={<>PREDICTABLE <br /> <span className="shimmer-text">REVENUE.</span></>}>
-          <FunnelDiagram />
+          <ScaleReveal>
+            <FunnelDiagram />
+          </ScaleReveal>
         </Section>
 
         {/* Conversation Engine */}
         <Section id="conversation" subtitle="The Intelligence" title={<>ALWAYS ON. <br /> ALWAYS <span className="shimmer-text">CLOSING.</span></>}>
-          <ConversationEngine />
+          <ScaleReveal>
+            <ConversationEngine />
+          </ScaleReveal>
         </Section>
 
         {/* The Vision (Valuation Chart) */}
         <Section id="valuation" subtitle="The Asset" title={<>BUILDING <br /> <span className="shimmer-text">VALUATION.</span></>}>
-          <ValuationChart />
+          <ScaleReveal>
+            <ValuationChart />
+          </ScaleReveal>
         </Section>
 
         {/* Chapter 5: The Ecosystem */}
-        <Section id="ecosystem" subtitle="The Ecosystem" title={<>NOT MARKETING. <br /> A <span className="shimmer-text">MACHINE.</span></>}>
-          <LaunchScaleDiagram />
-        </Section>
+        <ParallaxSection speed={0.15}>
+          <Section id="ecosystem" subtitle="The Ecosystem" title={<>NOT MARKETING. <br /> A <span className="shimmer-text">MACHINE.</span></>}>
+            <ScaleReveal>
+              <LaunchScaleDiagram />
+            </ScaleReveal>
+          </Section>
+        </ParallaxSection>
 
         {/* Chapter 6: The Team */}
-        <Section id="team" subtitle="The Architects" title={<>BUILT BY <br /> <span className="shimmer-text">FOUNDERS.</span></>}>
-          <div className="grid grid-cols-1 md:grid-cols-2 max-w-[900px] mx-auto border-t border-l border-r border-white/10">
-            <Card label="Founder" value="LUKA LAH" desc="$300M+ raised across ventures. 90K person network managed. AI Trading Engine Architect." />
-            <Card label="Partner" value="YERAM MURILLO" desc="Strategic Advisor to Morena Party. High-Performance Team Architect. Mexican Market Strategy Counsel." />
-          </div>
-        </Section>
+        <ParallaxSection speed={0.15}>
+          <Section id="team" subtitle="The Architects" title={<>BUILT BY <br /> <span className="shimmer-text">FOUNDERS.</span></>}>
+            <div className="grid grid-cols-1 md:grid-cols-2 max-w-[900px] mx-auto border-t border-l border-r border-white/10">
+              <Card label="Founder" value="LUKA LAH" desc="$300M+ raised across ventures. 90K person network managed. AI Trading Engine Architect." />
+              <Card label="Partner" value="YERAM MURILLO" desc="Strategic Advisor to Morena Party. High-Performance Team Architect. Mexican Market Strategy Counsel." />
+            </div>
+          </Section>
+        </ParallaxSection>
 
         {/* Chapter 7: Pricing */}
         <Section id="pricing" subtitle="Investment" title={<>THREE <span className="shimmer-text">PACKAGES.</span></>}>
           <Grid>
-            <Card
-              label="Starter"
-              value="$1.5K - $2.5K"
-              desc="Per Month. $3K Setup."
-              detail="Ideal for validation. Includes our viral content engine and basic CRM setup. 1 Platform."
-            />
-            <Card
-              label="Engine ⭐"
-              value="$8K - $45K"
-              desc="Most Popular. Full Scale."
-              highlight
-              detail="The complete growth stack. Multi-platform viral distribution, 10k monthly leads scraping, and full automated outreach."
-            />
-            <Card
-              label="Enterprise"
-              value="$25K+"
-              desc="Franchise Scale."
-              detail="Franchise-level domination. Custom AI models, dedicated support team, and unlimited lead volume."
-            />
+            <HorizontalSlide direction="left" delay={0}>
+              <Card
+                label="Starter"
+                value="$1.5K - $2.5K"
+                desc="Per Month. $3K Setup."
+                detail="Ideal for validation. Includes our viral content engine and basic CRM setup. 1 Platform."
+              />
+            </HorizontalSlide>
+            <HorizontalSlide direction="right" delay={0.1}>
+              <Card
+                label="Engine ⭐"
+                value="$8K - $45K"
+                desc="Most Popular. Full Scale."
+                highlight
+                detail="The complete growth stack. Multi-platform viral distribution, 10k monthly leads scraping, and full automated outreach."
+              />
+            </HorizontalSlide>
+            <HorizontalSlide direction="left" delay={0.2}>
+              <Card
+                label="Enterprise"
+                value="$25K+"
+                desc="Franchise Scale."
+                detail="Franchise-level domination. Custom AI models, dedicated support team, and unlimited lead volume."
+              />
+            </HorizontalSlide>
           </Grid>
         </Section>
 
@@ -181,24 +206,8 @@ export default function Home() {
               <p className="text-[10px] tracking-[0.4em] uppercase opacity-50">Exclusive Onboarding • Jan 2026</p>
             </div>
 
-            {/* Reverted Static Button with correct spacing */}
             <div className="pb-[400px] md:pb-0">
-              <Link
-                href="https://calendly.com/contact-mynewstaff/30min"
-                target="_blank"
-                id="mobile-strategy-btn"
-                className="md:hidden block w-[90%] max-w-sm mx-auto mb-8 px-8 py-5 rounded-full border border-white text-white font-bold text-sm tracking-widest uppercase hover:bg-white/10 transition-colors"
-              >
-                Book Your Strategy Call
-              </Link>
-
-              <Link
-                href="https://calendly.com/contact-mynewstaff/30min"
-                target="_blank"
-                className="inline-block px-12 py-5 rounded-full bg-white text-black font-bold text-sm tracking-widest uppercase hover:scale-105 transition-transform"
-              >
-                See If You Qualify
-              </Link>
+              <HomeCTA />
             </div>
           </div>
         </Section>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Syne, Space_Grotesk } from "next/font/google"; // eslint-disable-line @typescript-eslint/camelcase
+import { ClientLayout } from "@/components/ui/ClientLayout";
 import "./globals.css";
 
 const syne = Syne({
@@ -29,7 +30,7 @@ export default function RootLayout({
       <body
         className={`${syne.variable} ${spaceGrotesk.variable} antialiased bg-background text-foreground`}
       >
-        {children}
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

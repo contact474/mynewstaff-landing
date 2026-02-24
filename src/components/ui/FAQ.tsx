@@ -6,24 +6,36 @@ import { Plus, Minus } from "lucide-react";
 const faqs = [
     {
         question: "How fast can we launch?",
-        answer: "Our standard deployment timeline is 7-14 days. This includes infrastructure setup, AI training, and initial campaign launch. You will see live meetings on your calendar by Week 3."
+        answer: "Most clients are live within 7-14 days. By Week 3, you'll see qualified meetings landing on your calendar. We move fast because our systems are pre-built — we configure, not build from scratch."
     },
     {
         question: "Do you replace our sales team?",
-        answer: "We replace the 'grunt work'. Your sales team shouldn't be cold calling or manually following up. We build the engine that feeds them qualified meetings, allowing them to focus purely on closing."
+        answer: "No. We replace the grunt work — cold calls, manual follow-up, lead research. Your closers stay focused on closing. We just make sure their calendar is never empty."
     },
     {
-        question: "Is the AI video quality realistic?",
-        answer: "Yes. We use state-of-the-art cloning technology. It captures your voice, mannerisms, and likeness. For cold outreach, it is indistinguishable from a manually recorded video."
+        question: "What if I don't want to be on camera?",
+        answer: "Totally fine. We produce faceless content — carousels, motion graphics, B-roll montages, educational slides — that performs just as well on the feed. Many of our highest-performing campaigns use zero face-to-camera footage. We'll show you the options on the strategy call."
+    },
+    {
+        question: "I already have an agency. Why switch?",
+        answer: "Most clients come to us after spending $5K-$15K/mo on agencies that deliver reports, not revenue. Our system is measured in booked meetings and closed deals — not impressions. If your current setup is printing money, keep it. If not, let's talk."
+    },
+    {
+        question: "How is this different from hiring a VA or freelancer?",
+        answer: "A freelancer does one thing. A VA does whatever you tell them. We deploy an autonomous system — AI content, lead scraping, outreach sequencing, CRM automation — that runs 24/7 without management. You don't supervise it. You check results."
     },
     {
         question: "What do I need to provide?",
-        answer: "We need about 2 hours of your time for onboarding to capture your voice/likeness and understand your offer. After that, we handle the entire technical implementation."
+        answer: "About 2 hours of your time for onboarding. We capture your offer, voice, and positioning. After that, we handle everything — you just approve and watch the pipeline fill."
+    },
+    {
+        question: "Is this a long-term contract?",
+        answer: "No lock-ins. We operate month-to-month because we believe the results speak for themselves. Most clients stay because the ROI makes the decision obvious."
     },
     {
         question: "How does the pricing work?",
-        answer: "We offer three tiers based on volume and complexity. The 'Engine' package is our most popular, offering a full end-to-end solution. Book a call to get a custom quote based on your growth targets."
-    }
+        answer: "We have three tiers based on volume and complexity. The specifics depend on your market, deal size, and growth targets. Book a strategy call — we'll map it to your exact situation and show you the projected ROI before you commit to anything."
+    },
 ];
 
 export const FAQ = () => {

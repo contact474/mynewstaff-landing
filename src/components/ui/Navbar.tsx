@@ -1,8 +1,11 @@
 "use client";
 
 import Link from 'next/link';
+import { useQuiz } from './QuizModal';
 
 export function Navbar() {
+    const { openQuiz } = useQuiz();
+
     return (
         <nav className="fixed top-0 left-0 w-full p-6 md:p-8 flex justify-between items-center z-50 text-white mix-blend-difference uppercase tracking-[0.2em] text-[10px] md:text-xs font-sans">
             <div className="hidden lg:flex gap-8">
@@ -19,7 +22,9 @@ export function Navbar() {
 
             <div className="hidden lg:flex gap-8">
                 <Link href="/#results" className="hover:opacity-50 transition-opacity">The Proof</Link>
-                <Link href="https://calendly.com/contact-mynewstaff/30min" target="_blank" className="hover:opacity-50 transition-opacity">Contact</Link>
+                <button onClick={() => openQuiz("navbar-contact")} className="hover:opacity-50 transition-opacity cursor-pointer">
+                    Contact
+                </button>
             </div>
         </nav>
     );

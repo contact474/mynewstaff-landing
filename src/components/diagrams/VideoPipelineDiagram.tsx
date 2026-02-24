@@ -40,7 +40,7 @@ const PipelineStep = ({ icon, label, desc, delay, highlight }: { icon: any, labe
         </div>
         <h4 className="text-white font-bold uppercase tracking-wider mb-1">{label}</h4>
         <p className="text-zinc-500 text-xs uppercase tracking-widest">{desc}</p>
-        {highlight && <div className="absolute inset-0 border border-white/50 rounded-2xl animate-pulse pointer-events-none" />}
+        {highlight && <div className="absolute inset-0 border border-white/50 rounded-2xl calm-pulse pointer-events-none" />}
     </motion.div>
 );
 

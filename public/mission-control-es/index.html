@@ -1,18 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>
-// Auto-redirect Spanish browsers (unless they chose EN manually)
-(function(){
-  if(localStorage.getItem('mns-lang')==='en') return;
-  if(/^es\b/i.test(navigator.language||navigator.userLanguage||''))
-    window.location.replace('/mission-control-es');
-})();
+// Mark that visitor is viewing Spanish — prevent redirect loop
+localStorage.setItem('mns-lang','es');
 </script>
-<title>Mission Control — AI Revenue System | MyNewStaff.ai</title>
-<meta name="description" content="20,000 qualified leads. One system. $10,000. Get a free $2,500 AI Scalability Assessment — only 5 spots.">
+<title>Mission Control — Sistema de Ingresos con IA | MyNewStaff.ai</title>
+<meta name="description" content="20,000 leads calificados. Un solo sistema. $10,000. Obtén una Evaluación de Escalabilidad IA gratis de $2,500 — solo 5 cupos disponibles.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
@@ -454,7 +450,7 @@
     background: #0d0d0d;
   }
   .offer-card.best::after {
-    content: 'BEST VALUE';
+    content: 'MEJOR VALOR';
     position: absolute;
     top: -12px;
     right: 30px;
@@ -655,225 +651,225 @@
 <nav class="nav">
   <a href="https://mynewstaff.ai" class="nav-brand">MYNWSTAFF.AI</a>
   <div class="nav-right">
-    <a href="/mission-control-es" class="nav-lang" onclick="localStorage.setItem('mns-lang','es')">ES</a>
-    <a href="#apply" class="nav-cta">Get Free Assessment</a>
+    <a href="/mission-control" class="nav-lang" onclick="localStorage.setItem('mns-lang','en')">EN</a>
+    <a href="#apply" class="nav-cta">Evaluación Gratuita</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="pill">S Y S T E M &nbsp; 0 2 &nbsp; • &nbsp; M I S S I O N &nbsp; C O N T R O L</div>
+  <div class="pill">S I S T E M A &nbsp; 0 2 &nbsp; • &nbsp; M I S S I O N &nbsp; C O N T R O L</div>
   <h1 class="headline">
-    STOP GUESSING.<br><span class="dim">START ENGINEERING REVENUE.</span>
+    DEJA DE IMPROVISAR.<br><span class="dim">EMPIEZA A FABRICAR INGRESOS.</span>
   </h1>
   <p class="subtext">
-    20,000 qualified leads delivered to your CRM. A complete GHL backoffice that converts them.
-    No ads. No cold calls. No drama. <strong style="color: #fff;">$10,000 flat.</strong>
+    20,000 leads calificados entregados directamente a tu CRM. Un backoffice completo en GHL que los convierte.
+    Sin anuncios. Sin llamadas en frío. Sin drama. <strong style="color: #fff;">$10,000 precio fijo.</strong>
   </p>
   <div class="hero-promises">
-    <span><span class="dot"></span>NO ADS REQUIRED</span>
-    <span><span class="dot"></span>NO COLD CALLS</span>
-    <span><span class="dot"></span>FULL AUTOMATION</span>
-    <span><span class="dot"></span>AI-POWERED</span>
+    <span><span class="dot"></span>SIN ANUNCIOS</span>
+    <span><span class="dot"></span>SIN LLAMADAS EN FRÍO</span>
+    <span><span class="dot"></span>AUTOMATIZACIÓN TOTAL</span>
+    <span><span class="dot"></span>IMPULSADO POR IA</span>
   </div>
   <div class="hero-ctas">
-    <a href="#apply" class="btn-primary">CLAIM FREE ASSESSMENT</a>
-    <a href="#offer" class="btn-secondary">SEE THE OFFER</a>
+    <a href="#apply" class="btn-primary">OBTÉN TU EVALUACIÓN GRATIS</a>
+    <a href="#offer" class="btn-secondary">VER LA OFERTA</a>
   </div>
 </section>
 
 <!-- FREE ASSESSMENT BANNER -->
 <section style="padding-top: 0;">
   <div class="assessment-banner">
-    <div class="spots-badge">LIMITED — 5 SPOTS ONLY</div>
+    <div class="spots-badge">LIMITADO — SOLO 5 CUPOS</div>
     <h2 style="font-family: 'Playfair Display', serif; font-weight: 900; font-size: clamp(32px, 4vw, 52px); margin-bottom: 16px;">
-      FREE $2,500 AI SCALABILITY<br>ASSESSMENT
+      EVALUACIÓN DE ESCALABILIDAD IA<br>GRATIS — VALOR $2,500
     </h2>
     <p style="font-size: 18px; color: #999; max-width: 600px; margin: 0 auto 24px; line-height: 1.7;">
-      We'll build you a custom Go-To-Market strategy with a full playbook you can execute yourself — whether you hire us or not.
+      Te armamos una estrategia Go-To-Market a tu medida con un playbook que puedes ejecutar solo — nos contrates o no.
     </p>
     <p style="font-size: 14px; color: #555; margin-bottom: 30px;">
-      30-minute Zoom call &nbsp;•&nbsp; Custom GTM strategy &nbsp;•&nbsp; Full how-to playbook &nbsp;•&nbsp; Zero obligation
+      Llamada de 30 min por Zoom &nbsp;•&nbsp; Estrategia GTM personalizada &nbsp;•&nbsp; Playbook paso a paso &nbsp;•&nbsp; Sin compromiso
     </p>
-    <a href="#apply" class="btn-primary">APPLY FOR YOUR FREE SPOT</a>
+    <a href="#apply" class="btn-primary">APARTA TU LUGAR GRATIS</a>
   </div>
 </section>
 
 <!-- THE PROBLEM -->
 <section>
-  <div class="section-label">T H E &nbsp; P R O B L E M</div>
-  <h2 class="headline">MOST BUSINESSES DON'T HAVE A REVENUE SYSTEM. <span class="dim">THEY HAVE A LOTTERY TICKET.</span></h2>
+  <div class="section-label">E L &nbsp; P R O B L E M A</div>
+  <h2 class="headline">LA MAYORÍA DE LOS NEGOCIOS NO TIENE UN SISTEMA DE INGRESOS. <span class="dim">TIENE UN BILLETE DE LOTERÍA.</span></h2>
   <div class="grid-3" style="margin-top: 40px;">
     <div class="vline">
       <div class="stat-big" style="color: #333;">73%</div>
-      <div class="stat-label">LEADS LEAKED</div>
-      <div class="stat-desc">Follow-up is inconsistent. Nobody tracks the pipeline.</div>
+      <div class="stat-label">LEADS PERDIDOS</div>
+      <div class="stat-desc">El seguimiento es inconsistente. Nadie monitorea el pipeline.</div>
     </div>
     <div class="vline">
       <div class="stat-big" style="color: #333;">$0</div>
-      <div class="stat-label">BACKOFFICE VISIBILITY</div>
-      <div class="stat-desc">No dashboard. No control. Revenue is a guess.</div>
+      <div class="stat-label">VISIBILIDAD DE BACKOFFICE</div>
+      <div class="stat-desc">Sin dashboard. Sin control. Los ingresos son una suposición.</div>
     </div>
     <div class="vline">
       <div class="stat-big" style="color: #333;">$27</div>
-      <div class="stat-label">AVG FACEBOOK CPL</div>
-      <div class="stat-desc">Pay forever. Still need follow-up. Up 20.9% YoY.</div>
+      <div class="stat-label">CPL PROM. EN FACEBOOK</div>
+      <div class="stat-desc">Pagas para siempre. Y aún necesitas seguimiento. Subió 20.9% interanual.</div>
     </div>
   </div>
 </section>
 
 <!-- THE SOLUTION -->
 <section>
-  <div class="section-label">T H E &nbsp; S O L U T I O N</div>
-  <h2 class="headline">A BRANDED REVENUE ENGINE <span class="dim">INSIDE YOUR GHL.</span></h2>
+  <div class="section-label">L A &nbsp; S O L U C I Ó N</div>
+  <h2 class="headline">TU MÁQUINA DE INGRESOS <span class="dim">DENTRO DE TU GHL.</span></h2>
   <p class="subtext" style="margin-bottom: 50px;">
-    Mission Control is a complete backoffice inside GoHighLevel — pipelines, follow-up automation, AI chatbot, booking, and 20,000 qualified leads pre-loaded.
+    Mission Control es un backoffice completo dentro de GoHighLevel — pipelines, automatización de seguimiento, chatbot de IA, booking y 20,000 leads calificados precargados.
   </p>
   <div class="grid-4">
     <div class="card" style="text-align: center;">
       <div style="font-size: 28px; margin-bottom: 10px;">📊</div>
       <div class="card-title" style="font-size: 13px;">PIPELINES</div>
-      <div class="card-body" style="font-size: 13px;">Stages + tracking. Full pipeline visibility from lead to close.</div>
+      <div class="card-body" style="font-size: 13px;">Etapas + tracking. Visibilidad total del pipeline desde el contacto hasta el cierre.</div>
     </div>
     <div class="card" style="text-align: center;">
       <div style="font-size: 28px; margin-bottom: 10px;">✉️</div>
-      <div class="card-title" style="font-size: 13px;">FOLLOW-UP ENGINE</div>
-      <div class="card-body" style="font-size: 13px;">Infinite email + SMS sequences. No lead gets forgotten.</div>
+      <div class="card-title" style="font-size: 13px;">MOTOR DE SEGUIMIENTO</div>
+      <div class="card-body" style="font-size: 13px;">Secuencias infinitas de email + SMS. Ningún lead se pierde.</div>
     </div>
     <div class="card" style="text-align: center;">
       <div style="font-size: 28px; margin-bottom: 10px;">🤖</div>
-      <div class="card-title" style="font-size: 13px;">AI CHATBOT</div>
-      <div class="card-body" style="font-size: 13px;">Two-way AI conversations on WhatsApp, web, and GHL. 24/7.</div>
+      <div class="card-title" style="font-size: 13px;">CHATBOT DE IA</div>
+      <div class="card-body" style="font-size: 13px;">Conversaciones con IA en WhatsApp, web y GHL. 24/7 sin parar.</div>
     </div>
     <div class="card" style="text-align: center;">
       <div style="font-size: 28px; margin-bottom: 10px;">📅</div>
-      <div class="card-title" style="font-size: 13px;">SMART ROUTING</div>
-      <div class="card-body" style="font-size: 13px;">Auto-booking, checkout, or nurture — based on lead intent.</div>
+      <div class="card-title" style="font-size: 13px;">ENRUTAMIENTO INTELIGENTE</div>
+      <div class="card-body" style="font-size: 13px;">Booking automático, checkout o nurturing — según la intención de cada lead.</div>
     </div>
   </div>
 </section>
 
 <!-- COST COMPARISON -->
 <section>
-  <div class="section-label">C O S T &nbsp; P E R &nbsp; L E A D</div>
-  <h2 class="headline">WE'RE 55x CHEAPER <span class="dim">THAN FACEBOOK ADS.</span></h2>
+  <div class="section-label">C O S T O &nbsp; P O R &nbsp; L E A D</div>
+  <h2 class="headline">55x MÁS BARATO <span class="dim">QUE FACEBOOK ADS.</span></h2>
   <div style="margin-top: 40px;">
     <div class="comp-row" style="border-bottom: 1px solid #222;">
-      <div class="label">METHOD</div>
+      <div class="label">MÉTODO</div>
       <div class="old" style="font-weight: 700; color: #444;">CPL</div>
-      <div class="new">NOTES</div>
+      <div class="new">NOTAS</div>
     </div>
     <div class="comp-row">
       <div class="label">MISSION CONTROL</div>
       <div class="new" style="font-size: 24px;">$0.50</div>
-      <div class="new">Leads + full system + automation</div>
+      <div class="new">Leads + sistema completo + automatización</div>
     </div>
     <div class="comp-row">
-      <div class="label">DIY OUTBOUND</div>
+      <div class="label">OUTBOUND PROPIO</div>
       <div class="old">$1.50–$6.00+</div>
-      <div class="old" style="font-size: 14px;">Tools + labor + learning curve</div>
+      <div class="old" style="font-size: 14px;">Herramientas + mano de obra + curva de aprendizaje</div>
     </div>
     <div class="comp-row">
-      <div class="label">FACEBOOK ADS</div>
-      <div class="old">$27.66 avg</div>
-      <div class="old" style="font-size: 14px;">WordStream 2025. Pay forever.</div>
+      <div class="label">ANUNCIOS FACEBOOK</div>
+      <div class="old">$27.66 prom.</div>
+      <div class="old" style="font-size: 14px;">WordStream 2025. Pagas para siempre.</div>
     </div>
     <div class="comp-row">
       <div class="label">GOOGLE ADS</div>
       <div class="old">$30–$150+</div>
-      <div class="old" style="font-size: 14px;">Legal, finance, SaaS niches</div>
+      <div class="old" style="font-size: 14px;">Legal, finanzas, nichos SaaS</div>
     </div>
   </div>
 </section>
 
 <!-- THE OFFER -->
 <section id="offer">
-  <div class="section-label">T H E &nbsp; O F F E R</div>
-  <h2 class="headline">TWO OPTIONS. <span class="dim">ONE OBVIOUS CHOICE.</span></h2>
+  <div class="section-label">L A &nbsp; O F E R T A</div>
+  <h2 class="headline">DOS OPCIONES. <span class="dim">UNA DECISIÓN OBVIA.</span></h2>
   <div class="grid-2" style="margin-top: 40px; gap: 30px;">
     <div class="offer-card">
-      <div class="offer-name">O P T I O N &nbsp; A &nbsp; — &nbsp; L E A D &nbsp; P A C K</div>
+      <div class="offer-name">O P C I Ó N &nbsp; A &nbsp; — &nbsp; P A Q U E T E &nbsp; D E &nbsp; L E A D S</div>
       <div class="offer-price">$5,000</div>
-      <div class="offer-desc">5,000 qualified leads delivered to your inbox. Ready to work.</div>
-      <div class="offer-cpl">COST PER LEAD: <strong>$1.00</strong></div>
+      <div class="offer-desc">5,000 leads calificados directo a tu bandeja. Listos para trabajar.</div>
+      <div class="offer-cpl">COSTO POR LEAD: <strong>$1.00</strong></div>
     </div>
     <div class="offer-card best">
-      <div class="offer-name">O P T I O N &nbsp; B &nbsp; — &nbsp; M I S S I O N &nbsp; C O N T R O L</div>
+      <div class="offer-name">O P C I Ó N &nbsp; B &nbsp; — &nbsp; M I S S I O N &nbsp; C O N T R O L</div>
       <div class="offer-price">$10,000</div>
-      <div class="offer-desc">20,000 qualified leads + complete GHL backoffice + automation + AI chat.</div>
-      <div class="offer-cpl">COST PER LEAD: <strong>$0.50</strong></div>
+      <div class="offer-desc">20,000 leads calificados + backoffice GHL completo + automatización + chat con IA.</div>
+      <div class="offer-cpl">COSTO POR LEAD: <strong>$0.50</strong></div>
       <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #222;">
-        <div style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 14px; letter-spacing: 0.1em;">BONUS STACK — $9,700 VALUE</div>
-        <div class="bonus-item"><span class="name">GoHighLevel paid for 3 months</span><span class="val">$1,200</span></div>
-        <div class="bonus-item"><span class="name">Done-for-you funnel build</span><span class="val">$2,500</span></div>
-        <div class="bonus-item"><span class="name">Full Mission Control backoffice</span><span class="val">$3,500</span></div>
-        <div class="bonus-item"><span class="name">Pre-built sequences</span><span class="val">$1,500</span></div>
-        <div class="bonus-item"><span class="name">Tracking + sending setup</span><span class="val">$1,000</span></div>
+        <div style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 14px; letter-spacing: 0.1em;">BONOS INCLUIDOS — VALOR $9,700</div>
+        <div class="bonus-item"><span class="name">GoHighLevel pagado por 3 meses</span><span class="val">$1,200</span></div>
+        <div class="bonus-item"><span class="name">Funnel armado por nosotros</span><span class="val">$2,500</span></div>
+        <div class="bonus-item"><span class="name">Backoffice Mission Control completo</span><span class="val">$3,500</span></div>
+        <div class="bonus-item"><span class="name">Secuencias listas para usar</span><span class="val">$1,500</span></div>
+        <div class="bonus-item"><span class="name">Setup de tracking + envíos</span><span class="val">$1,000</span></div>
       </div>
-      <a href="#apply" class="btn-primary" style="display: block; text-align: center; margin-top: 24px;">CLAIM YOUR SPOT</a>
+      <a href="#apply" class="btn-primary" style="display: block; text-align: center; margin-top: 24px;">APARTA TU LUGAR</a>
     </div>
   </div>
 </section>
 
 <!-- BENCHMARKS -->
 <section>
-  <div class="section-label">W H A T &nbsp; T O &nbsp; E X P E C T</div>
-  <h2 class="headline">INDUSTRY BENCHMARKS, <span class="dim">ENGINEERED 20% BETTER.</span></h2>
+  <div class="section-label">Q U É &nbsp; E S P E R A R</div>
+  <h2 class="headline">ESTÁNDARES DE LA INDUSTRIA, <span class="dim">MEJORADOS UN 20%.</span></h2>
   <div class="grid-4" style="margin-top: 40px;">
     <div class="card">
-      <div class="card-title" style="font-size: 13px;">EMAIL DELIVERY</div>
-      <div class="card-body" style="font-size: 13px;">Industry: <strong>90–95%</strong> on clean lists. Our target: maximum inbox placement.</div>
+      <div class="card-title" style="font-size: 13px;">ENTREGA DE EMAIL</div>
+      <div class="card-body" style="font-size: 13px;">Industria: <strong>90–95%</strong> en listas limpias. Nuestro objetivo: máxima llegada a la bandeja de entrada.</div>
     </div>
     <div class="card">
-      <div class="card-title" style="font-size: 13px;">B2B REPLY RATE</div>
-      <div class="card-body" style="font-size: 13px;">Industry avg: <strong>1–5%</strong>. Top performers with AI sequences: <strong>15–25%</strong>.</div>
+      <div class="card-title" style="font-size: 13px;">TASA DE RESPUESTA B2B</div>
+      <div class="card-body" style="font-size: 13px;">Promedio industria: <strong>1–5%</strong>. Top performers con secuencias de IA: <strong>15–25%</strong>.</div>
     </div>
     <div class="card">
-      <div class="card-title" style="font-size: 13px;">BOOKING RATE</div>
-      <div class="card-body" style="font-size: 13px;">Industry: <strong>10–25%</strong> of engaged leads. Auto-booking + reminders included.</div>
+      <div class="card-title" style="font-size: 13px;">TASA DE RESERVAS</div>
+      <div class="card-body" style="font-size: 13px;">Industria: <strong>10–25%</strong> de leads comprometidos. Booking automático + recordatorios incluidos.</div>
     </div>
     <div class="card">
-      <div class="card-title" style="font-size: 13px;">NO-SHOW REDUCTION</div>
-      <div class="card-body" style="font-size: 13px;">Industry: <strong>20–40%</strong> no-show. Recovery sequences cut it significantly.</div>
+      <div class="card-title" style="font-size: 13px;">REDUCCIÓN DE NO-SHOWS</div>
+      <div class="card-body" style="font-size: 13px;">Industria: <strong>20–40%</strong> de no-shows. Nuestras secuencias de recuperación lo reducen significativamente.</div>
     </div>
   </div>
   <p style="font-size: 12px; color: #333; margin-top: 20px; text-align: center;">
-    Targets are not legal guarantees. Outcomes depend on offer quality, market, responsiveness, and domain reputation.
+    Los objetivos no son garantías legales. Los resultados dependen de la calidad de la oferta, el mercado, la capacidad de respuesta y la reputación del dominio.
   </p>
 </section>
 
 <!-- GUARANTEE -->
 <section style="text-align: center;">
-  <div class="section-label" style="text-align: center;">G U A R A N T E E</div>
+  <div class="section-label" style="text-align: center;">G A R A N T Í A</div>
   <h2 class="headline" style="max-width: 900px; margin: 0 auto 30px;">
-    DELIVERABLES-BASED<br><span class="dim">GUARANTEE.</span>
+    GARANTÍA POR<br><span class="dim">RESULTADOS.</span>
   </h2>
   <div style="width: 80px; height: 3px; background: #222; margin: 0 auto 30px;"></div>
   <p class="subtext" style="max-width: 700px; margin: 0 auto; text-align: center;">
-    If we don't deliver the agreed lead volume and the Mission Control buildout we committed to,
-    <strong style="color: #fff;">we keep working for free until it's complete.</strong>
+    Si no entregamos los leads pactados y el buildout de Mission Control que prometimos,
+    <strong style="color: #fff;">seguimos trabajando gratis hasta cumplir.</strong>
   </p>
 </section>
 
 <!-- WHO DELIVERS -->
 <section>
-  <div class="section-label">W H O &nbsp; D E L I V E R S &nbsp; T H I S</div>
-  <h2 class="headline">BUILT BY OPERATORS <span class="dim">WITH HIGH-PROFILE REPS.</span></h2>
+  <div class="section-label">Q U I É N &nbsp; L O &nbsp; E N T R E G A</div>
+  <h2 class="headline">CREADO POR OPERADORES <span class="dim">DE ALTO CALIBRE.</span></h2>
   <div class="grid-2" style="margin-top: 50px; gap: 40px;">
     <div class="vline">
       <div style="font-size: 28px; font-weight: 700; margin-bottom: 6px;">LUKA LAH</div>
-      <div style="font-size: 14px; color: #666; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px;">Founder — MyNewStaff.ai</div>
+      <div style="font-size: 14px; color: #666; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px;">Fundador — MyNewStaff.ai</div>
       <div class="card-body">
-        $300M+ raised across ventures. 90K person network managed.
-        AI Trading Engine Architect. Built revenue machines for brands across 4 continents.
+        +$300M levantados en distintos ventures. Red de 90,000 personas gestionada.
+        Arquitecto de Motor de Trading con IA. Construyó máquinas de ingresos para marcas en 4 continentes.
       </div>
     </div>
     <div class="vline">
       <div style="font-size: 28px; font-weight: 700; margin-bottom: 6px;">YERAM MURILLO</div>
-      <div style="font-size: 14px; color: #666; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px;">Strategic Partner / Advisor</div>
+      <div style="font-size: 14px; color: #666; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px;">Socio Estratégico / Asesor</div>
       <div class="card-body">
-        Advisor to winning presidential party of Mexico.
-        High-profile clients across music, legal, and security. Strategic operations across Latin America.
+        Asesor del partido presidencial ganador de México.
+        Clientes de alto perfil en música, derecho y seguridad. Operaciones estratégicas en toda América Latina.
       </div>
     </div>
   </div>
@@ -882,47 +878,47 @@
 <!-- FREE ASSESSMENT CTA -->
 <section>
   <div class="assessment-banner" style="padding: 70px 60px;">
-    <div class="spots-badge">FIRST 5 APPLICANTS ONLY</div>
+    <div class="spots-badge">SOLO PARA LOS PRIMEROS 5 APLICANTES</div>
     <h2 style="font-family: 'Playfair Display', serif; font-weight: 900; font-size: clamp(28px, 3.5vw, 48px); margin-bottom: 12px;">
-      YOUR FREE $2,500 AI<br>SCALABILITY ASSESSMENT INCLUDES:
+      TU EVALUACIÓN GRATUITA DE ESCALABILIDAD IA<br>DE $2,500 INCLUYE:
     </h2>
     <div style="width: 60px; height: 2px; background: #333; margin: 24px auto;"></div>
     <div class="includes-grid">
       <div class="includes-item">
         <div class="includes-num">01</div>
-        <div class="includes-title">GTM STRATEGY</div>
-        <div class="includes-desc">Custom Go-To-Market plan tailored to your industry, ICP, and growth stage.</div>
+        <div class="includes-title">ESTRATEGIA GTM</div>
+        <div class="includes-desc">Plan Go-To-Market hecho a tu medida según industria, cliente ideal y etapa de crecimiento.</div>
       </div>
       <div class="includes-item">
         <div class="includes-num">02</div>
-        <div class="includes-title">FULL PLAYBOOK</div>
-        <div class="includes-desc">Step-by-step how-to so you can execute it yourself — no strings attached.</div>
+        <div class="includes-title">PLAYBOOK COMPLETO</div>
+        <div class="includes-desc">Guía paso a paso para que lo ejecutes tú solo — sin ataduras.</div>
       </div>
       <div class="includes-item">
         <div class="includes-num">03</div>
-        <div class="includes-title">REVENUE MAP</div>
-        <div class="includes-desc">Where you're leaking revenue and the exact systems to plug each hole.</div>
+        <div class="includes-title">MAPA DE INGRESOS</div>
+        <div class="includes-desc">Dónde se te escapan los ingresos y qué sistemas exactos necesitas para tapar cada fuga.</div>
       </div>
     </div>
-    <a href="#apply" class="btn-primary" onclick="openQuiz(); return false;">APPLY NOW — LIMITED SPOTS</a>
+    <a href="#apply" class="btn-primary" onclick="openQuiz(); return false;">APLICA AHORA — LUGARES LIMITADOS</a>
   </div>
 </section>
 
 <!-- FINAL CTA -->
 <section style="text-align: center; padding-bottom: 120px;">
-  <div class="spots-badge" style="margin-bottom: 24px;">5 FREE SPOTS REMAINING</div>
+  <div class="spots-badge" style="margin-bottom: 24px;">QUEDAN 5 LUGARES GRATIS</div>
   <h2 class="headline" style="max-width: 800px; margin: 0 auto 20px;">
-    READY TO ENGINEER<br><span class="dim">YOUR REVENUE?</span>
+    ¿LISTO PARA CONSTRUIR<br><span class="dim">TU MÁQUINA DE INGRESOS?</span>
   </h2>
   <p class="subtext" style="max-width: 550px; margin: 0 auto 40px; text-align: center;">
-    30-min Zoom call. Custom GTM strategy. Full playbook. Zero obligation.
+    30 min por Zoom. Estrategia GTM a tu medida. Playbook completo. Cero compromiso.
   </p>
-  <a href="#apply" class="btn-primary" onclick="openQuiz(); return false;" style="padding: 22px 60px; font-size: 16px;">APPLY FOR FREE ASSESSMENT</a>
+  <a href="#apply" class="btn-primary" onclick="openQuiz(); return false;" style="padding: 22px 60px; font-size: 16px;">OBTÉN TU EVALUACIÓN GRATIS</a>
 </section>
 
 <!-- FOOTER -->
 <footer class="footer">
-  <p>MYNWSTAFF.AI &nbsp;•&nbsp; INCOME MACHINES &nbsp;•&nbsp; EST. 2026</p>
+  <p>MYNWSTAFF.AI &nbsp;•&nbsp; FÁBRICAS DE INGRESOS &nbsp;•&nbsp; EST. 2026</p>
   <p style="margin-top: 8px; color: #222;">contact@mynewstaff.ai</p>
 </footer>
 
@@ -936,106 +932,106 @@
 
     <!-- Step 1: Name -->
     <div class="quiz-step active" data-step="0">
-      <div class="quiz-step-count">STEP 1 OF 7</div>
-      <div class="quiz-question">What's your name?</div>
-      <div class="quiz-sub">So we know who we're talking to.</div>
+      <div class="quiz-step-count">PASO 1 DE 7</div>
+      <div class="quiz-question">¿Cuál es tu nombre?</div>
+      <div class="quiz-sub">Para saber con quién estamos hablando.</div>
       <div style="display: flex; gap: 16px;">
-        <input type="text" class="quiz-input" id="q-firstName" placeholder="First name" style="flex: 1;">
-        <input type="text" class="quiz-input" id="q-lastName" placeholder="Last name" style="flex: 1;">
+        <input type="text" class="quiz-input" id="q-firstName" placeholder="Nombre" style="flex: 1;">
+        <input type="text" class="quiz-input" id="q-lastName" placeholder="Apellido" style="flex: 1;">
       </div>
       <div class="quiz-nav">
         <div></div>
-        <button class="quiz-next" onclick="nextStep()">CONTINUE</button>
+        <button class="quiz-next" onclick="nextStep()">CONTINUAR</button>
       </div>
     </div>
 
     <!-- Step 2: Email -->
     <div class="quiz-step" data-step="1">
-      <div class="quiz-step-count">STEP 2 OF 7</div>
-      <div class="quiz-question">What's your business email?</div>
-      <div class="quiz-sub">We'll send your assessment here.</div>
-      <input type="email" class="quiz-input" id="q-email" placeholder="john@company.com">
+      <div class="quiz-step-count">PASO 2 DE 7</div>
+      <div class="quiz-question">¿Cuál es tu correo empresarial?</div>
+      <div class="quiz-sub">Te enviaremos tu evaluación aquí.</div>
+      <input type="email" class="quiz-input" id="q-email" placeholder="juan@empresa.com">
       <div class="quiz-nav">
-        <button class="quiz-back" onclick="prevStep()">BACK</button>
-        <button class="quiz-next" onclick="nextStep()">CONTINUE</button>
+        <button class="quiz-back" onclick="prevStep()">ATRÁS</button>
+        <button class="quiz-next" onclick="nextStep()">CONTINUAR</button>
       </div>
     </div>
 
     <!-- Step 3: Phone -->
     <div class="quiz-step" data-step="2">
-      <div class="quiz-step-count">STEP 3 OF 7</div>
-      <div class="quiz-question">Best phone number?</div>
-      <div class="quiz-sub">WhatsApp preferred. We'll send the Zoom link here too.</div>
+      <div class="quiz-step-count">PASO 3 DE 7</div>
+      <div class="quiz-question">¿Tu mejor número de teléfono?</div>
+      <div class="quiz-sub">Preferiblemente WhatsApp. También te enviaremos el link de Zoom aquí.</div>
       <input type="tel" class="quiz-input" id="q-phone" placeholder="+1 555 123 4567">
       <div class="quiz-nav">
-        <button class="quiz-back" onclick="prevStep()">BACK</button>
-        <button class="quiz-next" onclick="nextStep()">CONTINUE</button>
+        <button class="quiz-back" onclick="prevStep()">ATRÁS</button>
+        <button class="quiz-next" onclick="nextStep()">CONTINUAR</button>
       </div>
     </div>
 
     <!-- Step 4: Company -->
     <div class="quiz-step" data-step="3">
-      <div class="quiz-step-count">STEP 4 OF 7</div>
-      <div class="quiz-question">What's your company name?</div>
-      <div class="quiz-sub">We'll research your business before the call.</div>
-      <input type="text" class="quiz-input" id="q-company" placeholder="Acme Corp">
+      <div class="quiz-step-count">PASO 4 DE 7</div>
+      <div class="quiz-question">¿Cuál es el nombre de tu empresa?</div>
+      <div class="quiz-sub">Investigaremos tu negocio antes de la llamada.</div>
+      <input type="text" class="quiz-input" id="q-company" placeholder="Mi Empresa S.A.">
       <div class="quiz-nav">
-        <button class="quiz-back" onclick="prevStep()">BACK</button>
-        <button class="quiz-next" onclick="nextStep()">CONTINUE</button>
+        <button class="quiz-back" onclick="prevStep()">ATRÁS</button>
+        <button class="quiz-next" onclick="nextStep()">CONTINUAR</button>
       </div>
     </div>
 
     <!-- Step 5: Industry (click options) -->
     <div class="quiz-step" data-step="4">
-      <div class="quiz-step-count">STEP 5 OF 7</div>
-      <div class="quiz-question">What industry are you in?</div>
-      <div class="quiz-sub">Pick the closest match.</div>
+      <div class="quiz-step-count">PASO 5 DE 7</div>
+      <div class="quiz-question">¿En qué industria estás?</div>
+      <div class="quiz-sub">Elige la opción que más se acerque.</div>
       <div class="quiz-select-grid" id="q-industry-grid">
-        <div class="quiz-option" data-value="Real Estate">Real Estate</div>
-        <div class="quiz-option" data-value="Legal Services">Legal Services</div>
-        <div class="quiz-option" data-value="Healthcare / Medical">Healthcare</div>
-        <div class="quiz-option" data-value="SaaS / Technology">SaaS / Tech</div>
+        <div class="quiz-option" data-value="Real Estate">Bienes Raíces</div>
+        <div class="quiz-option" data-value="Legal Services">Servicios Legales</div>
+        <div class="quiz-option" data-value="Healthcare / Medical">Salud / Medicina</div>
+        <div class="quiz-option" data-value="SaaS / Technology">SaaS / Tecnología</div>
         <div class="quiz-option" data-value="E-commerce">E-commerce</div>
-        <div class="quiz-option" data-value="Financial Services">Financial Services</div>
-        <div class="quiz-option" data-value="Marketing Agency">Marketing Agency</div>
-        <div class="quiz-option" data-value="Hospitality / Hotels">Hospitality</div>
-        <div class="quiz-option" data-value="Education / Coaching">Education / Coaching</div>
-        <div class="quiz-option" data-value="Construction / Home Services">Construction</div>
-        <div class="quiz-option" data-value="Other">Other</div>
+        <div class="quiz-option" data-value="Financial Services">Servicios Financieros</div>
+        <div class="quiz-option" data-value="Marketing Agency">Agencia de Marketing</div>
+        <div class="quiz-option" data-value="Hospitality / Hotels">Hospitalidad / Hoteles</div>
+        <div class="quiz-option" data-value="Education / Coaching">Educación / Coaching</div>
+        <div class="quiz-option" data-value="Construction / Home Services">Construcción / Hogar</div>
+        <div class="quiz-option" data-value="Other">Otro</div>
       </div>
       <div class="quiz-nav">
-        <button class="quiz-back" onclick="prevStep()">BACK</button>
-        <button class="quiz-next" onclick="nextStep()" id="industry-next" disabled>CONTINUE</button>
+        <button class="quiz-back" onclick="prevStep()">ATRÁS</button>
+        <button class="quiz-next" onclick="nextStep()" id="industry-next" disabled>CONTINUAR</button>
       </div>
     </div>
 
     <!-- Step 6: Revenue (click options) -->
     <div class="quiz-step" data-step="5">
-      <div class="quiz-step-count">STEP 6 OF 7</div>
-      <div class="quiz-question">Approximate monthly revenue?</div>
-      <div class="quiz-sub">Helps us calibrate the right strategy.</div>
+      <div class="quiz-step-count">PASO 6 DE 7</div>
+      <div class="quiz-question">¿Ingresos mensuales aproximados?</div>
+      <div class="quiz-sub">Nos ayuda a calibrar la estrategia adecuada para ti.</div>
       <div class="quiz-select-grid" id="q-revenue-grid" style="grid-template-columns: 1fr;">
-        <div class="quiz-option" data-value="Under $10K/mo">Under $10K / month</div>
-        <div class="quiz-option" data-value="$10K-$50K/mo">$10K - $50K / month</div>
-        <div class="quiz-option" data-value="$50K-$100K/mo">$50K - $100K / month</div>
-        <div class="quiz-option" data-value="$100K-$500K/mo">$100K - $500K / month</div>
-        <div class="quiz-option" data-value="$500K+/mo">$500K+ / month</div>
+        <div class="quiz-option" data-value="Under $10K/mo">Menos de $10K / mes</div>
+        <div class="quiz-option" data-value="$10K-$50K/mo">$10K - $50K / mes</div>
+        <div class="quiz-option" data-value="$50K-$100K/mo">$50K - $100K / mes</div>
+        <div class="quiz-option" data-value="$100K-$500K/mo">$100K - $500K / mes</div>
+        <div class="quiz-option" data-value="$500K+/mo">$500K+ / mes</div>
       </div>
       <div class="quiz-nav">
-        <button class="quiz-back" onclick="prevStep()">BACK</button>
-        <button class="quiz-next" onclick="nextStep()" id="revenue-next" disabled>CONTINUE</button>
+        <button class="quiz-back" onclick="prevStep()">ATRÁS</button>
+        <button class="quiz-next" onclick="nextStep()" id="revenue-next" disabled>CONTINUAR</button>
       </div>
     </div>
 
     <!-- Step 7: Bottleneck -->
     <div class="quiz-step" data-step="6">
-      <div class="quiz-step-count">STEP 7 OF 7</div>
-      <div class="quiz-question">What's your biggest growth bottleneck?</div>
-      <div class="quiz-sub">Be specific — this shapes your entire assessment.</div>
-      <textarea class="quiz-input" id="q-bottleneck" placeholder="Not enough leads, can't convert, no follow-up system..." style="resize: vertical; min-height: 100px; border: 1px solid #333; border-bottom: 2px solid #333; padding: 16px; font-size: 16px;"></textarea>
+      <div class="quiz-step-count">PASO 7 DE 7</div>
+      <div class="quiz-question">¿Cuál es tu mayor obstáculo de crecimiento?</div>
+      <div class="quiz-sub">Sé específico — esto define toda tu evaluación.</div>
+      <textarea class="quiz-input" id="q-bottleneck" placeholder="Pocos leads, no puedo convertir, no tengo sistema de seguimiento..." style="resize: vertical; min-height: 100px; border: 1px solid #333; border-bottom: 2px solid #333; padding: 16px; font-size: 16px;"></textarea>
       <div class="quiz-nav">
-        <button class="quiz-back" onclick="prevStep()">BACK</button>
-        <button class="quiz-next" onclick="submitQuiz()">SUBMIT APPLICATION</button>
+        <button class="quiz-back" onclick="prevStep()">ATRÁS</button>
+        <button class="quiz-next" onclick="submitQuiz()">ENVIAR SOLICITUD</button>
       </div>
     </div>
 
@@ -1043,11 +1039,11 @@
     <div class="quiz-step" data-step="7" id="quiz-success">
       <div style="text-align: center; padding: 30px 0;">
         <div style="width: 60px; height: 60px; border: 2px solid #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 28px;">&#10003;</div>
-        <div class="quiz-question" style="margin-bottom: 16px;">APPLICATION RECEIVED</div>
+        <div class="quiz-question" style="margin-bottom: 16px;">SOLICITUD RECIBIDA</div>
         <p style="font-size: 16px; color: #666; line-height: 1.7; max-width: 400px; margin: 0 auto 30px;">
-          We're reviewing your application. If selected, you'll receive a Zoom link within 24 hours.
+          Estamos revisando tu solicitud. Si eres seleccionado, recibirás un link de Zoom dentro de las próximas 24 horas.
         </p>
-        <p style="font-size: 13px; color: #444;">Redirecting to book your call...</p>
+        <p style="font-size: 13px; color: #444;">Redirigiendo para agendar tu llamada...</p>
       </div>
     </div>
   </div>

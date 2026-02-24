@@ -6,24 +6,36 @@ import { Plus, Minus } from "lucide-react";
 const faqs = [
     {
         question: "Do I need to film anything?",
-        answer: "Only once. We need about 30-60 minutes of footage to train the AI on your voice and likeness. After that, you never have to stand in front of a camera again."
+        answer: "Only once — about 30-60 minutes of footage to train the AI on your voice and likeness. After that, you never stand in front of a camera again. We handle everything."
+    },
+    {
+        question: "I don't want my face on camera at all.",
+        answer: "No problem. We produce high-performing faceless content — carousels, cinematic B-roll, motion graphics, text overlays, educational slides. Some of our best-converting accounts are fully faceless. We'll design the right content mix for your brand."
     },
     {
         question: "Can people tell it's AI?",
-        answer: "For short-form content on mobile screens, it is nearly impossible to tell. We use the latest generation of avatar technology that replicates micro-expressions and natural pauses."
+        answer: "On mobile, in short-form format — virtually impossible. We use the latest generation avatar technology with micro-expressions, natural pauses, and realistic lip-sync. For outreach, it's indistinguishable from a real recording."
     },
     {
         question: "Do you write the scripts?",
-        answer: "Yes. Our AI analyzes viral trends in your niche to generate high-retention scripts. You can approve or edit them before production, or put the entire process on autopilot."
+        answer: "Yes. Our AI analyzes viral patterns in your niche to generate high-retention scripts. You can approve, edit, or put the whole process on autopilot. Most clients choose autopilot after seeing the first batch."
     },
     {
-        question: "What if I want to change something?",
-        answer: "You have full control. You can edit scripts, request specific topics, or ask for changes to the visual style. Our system is designed to be flexible while doing the heavy lifting."
+        question: "100 videos sounds like spam. Won't that hurt my brand?",
+        answer: "Quite the opposite. Every video is uniquely scripted with different hooks, angles, and formats. It's not the same video 100 times — it's 100 different pieces of content designed to test what resonates and then double down on winners."
     },
     {
-        question: "Does this work for any platform?",
-        answer: "Yes. We optimize formats for TikTok, Instagram Reels, YouTube Shorts, and even LinkedIn video. One piece of content is repurposed natively for all channels."
-    }
+        question: "What if I want to change the style or topics?",
+        answer: "You have full control — edit scripts, request specific topics, adjust visual direction. That said, we recommend letting the data guide the strategy. We'll show you why on the call."
+    },
+    {
+        question: "Does this work for any industry?",
+        answer: "If your buyers scroll a phone, yes. We've deployed for SaaS, real estate, legal, med spa, coaching, ecom, and more. Every campaign is niche-calibrated — not templated. Ask us about your specific market."
+    },
+    {
+        question: "What if I already post content?",
+        answer: "Great — that means you understand the game. We take what you're doing and add volume, consistency, and data-driven optimization on top. Most clients see 3-5x more reach within 30 days of adding our engine alongside their existing efforts."
+    },
 ];
 
 export const VideoFAQ = () => {

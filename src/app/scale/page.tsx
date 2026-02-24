@@ -7,21 +7,28 @@ import { Reveal } from "@/components/ui/Reveal";
 import { ComparisonTable } from "@/components/diagrams/ComparisonTable";
 import { ProcessMap } from "@/components/diagrams/ProcessMap";
 import { TestimonialCarousel } from "@/components/ui/TestimonialCarousel";
-import { FAQ } from "@/components/ui/FAQ";
+import { ScaleFAQ } from "@/components/ui/ScaleFAQ";
 
 import {
     SpeedDiagram, ReliabilityDiagram, EfficiencyDiagram,
     ProspectorDiagram, NurtureDiagram, CloserDiagram
 } from "@/components/diagrams/CapabilityDiagrams";
 
+import {
+    ParallaxSection,
+    ScaleReveal,
+} from "@/components/ui/ScrollEffects";
+
+import { ScaleCTA } from "@/components/ui/ScaleCTA";
+
 export default function Scale() {
     return (
         <>
             <Navbar />
             <main className="min-h-screen relative !overflow-visible bg-black text-white selection:bg-white selection:text-black">
-                {/* Hero */}
-                <section id="hero" className="h-[100dvh] w-full flex flex-col justify-center items-center text-center relative">
-                    <div className="absolute inset-0 z-0 opacity-60" style={{
+                {/* Hero — background uses smooth-zoom-bg class for continuous slow zoom */}
+                <section id="hero" className="h-[100dvh] w-full flex flex-col justify-center items-center text-center relative overflow-hidden">
+                    <div className="absolute inset-0 z-0 opacity-60 smooth-zoom-bg" style={{
                         backgroundImage: "url('/assets/hero_bg.png')",
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
@@ -43,14 +50,20 @@ export default function Scale() {
                 {/* Section 2: The Shift */}
                 <Section id="shift" subtitle="The Shift" title={<>OBSOLETE <br /> <span className="shimmer-text">MODEL.</span></>}>
                     <div className="w-full overflow-x-auto px-4 pb-4">
-                        <ComparisonTable />
+                        <ScaleReveal>
+                            <ComparisonTable />
+                        </ScaleReveal>
                     </div>
                 </Section>
 
                 {/* Section 3: Process */}
-                <Section id="services" subtitle="Our Process" title={<>COMPLETE <br /> <span className="shimmer-text">DOMINATION.</span></>}>
-                    <ProcessMap />
-                </Section>
+                <ParallaxSection speed={0.15}>
+                    <Section id="services" subtitle="Our Process" title={<>COMPLETE <br /> <span className="shimmer-text">DOMINATION.</span></>}>
+                        <ScaleReveal>
+                            <ProcessMap />
+                        </ScaleReveal>
+                    </Section>
+                </ParallaxSection>
 
                 {/* Section 4: Advantage */}
                 <Section id="advantage" subtitle="The Advantage" title={<>HIRE <br /> <span className="shimmer-text">INTELLIGENCE.</span></>}>
@@ -68,19 +81,21 @@ export default function Scale() {
                 </Section>
 
                 {/* Section 5: Capabilities */}
-                <Section id="capabilities" subtitle="Capabilities" title={<>DIGITAL <br /> <span className="shimmer-text">WORKFORCE.</span></>}>
-                    <Grid>
-                        <Card label="Role 01" value="Prospector" desc="Scrapes and enriches 10k+ leads.">
-                            <ProspectorDiagram />
-                        </Card>
-                        <Card label="Role 02" value="Nurture" desc="Intelligent SMS & Email follow-up.">
-                            <NurtureDiagram />
-                        </Card>
-                        <Card label="Role 03" value="Closer" desc="Books qualified meetings automatically.">
-                            <CloserDiagram />
-                        </Card>
-                    </Grid>
-                </Section>
+                <ParallaxSection speed={0.15}>
+                    <Section id="capabilities" subtitle="Capabilities" title={<>DIGITAL <br /> <span className="shimmer-text">WORKFORCE.</span></>}>
+                        <Grid>
+                            <Card label="Role 01" value="Prospector" desc="Scrapes and enriches 10k+ leads.">
+                                <ProspectorDiagram />
+                            </Card>
+                            <Card label="Role 02" value="Nurture" desc="Intelligent SMS & Email follow-up.">
+                                <NurtureDiagram />
+                            </Card>
+                            <Card label="Role 03" value="Closer" desc="Books qualified meetings automatically.">
+                                <CloserDiagram />
+                            </Card>
+                        </Grid>
+                    </Section>
+                </ParallaxSection>
 
                 {/* Testimonials */}
                 <Section id="testimonials" subtitle="The Validation" title={<>MARKET <br /> <span className="shimmer-text">RESPONSE.</span></>}>
@@ -105,26 +120,12 @@ export default function Scale() {
 
                 {/* FAQ */}
                 <Section id="faq" subtitle="FAQ" title={<>COMMON <br /> <span className="shimmer-text">QUESTIONS.</span></>}>
-                    <FAQ />
+                    <ScaleFAQ />
                 </Section>
 
                 {/* Section 7: CTA */}
                 <Section id="cta" subtitle="Finality" title={<>READY TO <br /> <span className="shimmer-text">SCALE?</span></>}>
-                    <div className="text-center mt-12 py-12 md:py-0 relative z-30">
-                        <div className="inline-block px-8 py-4 border border-white/10 rounded-full bg-white/5 backdrop-blur-sm mb-8">
-                            <p className="text-[10px] tracking-[0.4em] uppercase opacity-50">Exclusive Onboarding • Jan 2026</p>
-                        </div>
-
-                        <div className="pb-48 md:pb-0">
-                            <a
-                                href="https://calendly.com/contact-mynewstaff/mynewstaff-ai-meeting-clone"
-                                target="_blank"
-                                className="block w-[90%] max-w-sm mx-auto mb-8 px-8 py-5 rounded-full border border-white text-white font-bold text-sm tracking-widest uppercase hover:bg-white/10 transition-colors"
-                            >
-                                Book Your Strategy Call
-                            </a>
-                        </div>
-                    </div>
+                    <ScaleCTA />
                 </Section>
 
             </main>

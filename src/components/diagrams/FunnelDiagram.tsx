@@ -77,7 +77,7 @@ const FunnelTier = ({ width, color, children, delay, border = "border-white/10",
         transition={{ delay, duration: 0.5 }}
         className={`${width} ${color} border ${border} rounded-2xl p-6 flex flex-col items-center justify-center text-center relative overflow-hidden backdrop-blur-sm z-10 ${glow ? 'shadow-[0_0_30px_rgba(255,255,255,0.1)]' : ''}`}
     >
-        {glow && <div className="absolute inset-0 bg-white/5 animate-pulse" />}
+        {glow && <div className="absolute inset-0 bg-white/5 calm-pulse" />}
         {children}
     </motion.div>
 )
