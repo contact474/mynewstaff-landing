@@ -13,23 +13,19 @@ const nextConfig: NextConfig = {
           source: "/admin/:path*",
           destination: "https://mns-dashboard.vercel.app/admin/:path*",
         },
-        // MNS Command Center (CRM + Reports + Agents)
+        // MNS Command API — proxied through dashboard's Vercel rewrite
         {
-          source: "/command",
-          destination: "http://82.25.92.135/command",
-        },
-        {
-          source: "/command/api/:path*",
-          destination: "http://82.25.92.135/command/api/:path*",
+          source: "/command-api/:path*",
+          destination: "https://mns-dashboard.vercel.app/command-api/:path*",
         },
         // Scalability Reports — public links
         {
           source: "/report/:id",
-          destination: "http://82.25.92.135/command/api/v1/reports/:id/view",
+          destination: "https://mns-dashboard.vercel.app/command-api/api/v1/reports/:id/view",
         },
         {
           source: "/report/:id/pdf",
-          destination: "http://82.25.92.135/command/api/v1/reports/:id/pdf",
+          destination: "https://mns-dashboard.vercel.app/command-api/api/v1/reports/:id/pdf",
         },
       ],
       afterFiles: [
