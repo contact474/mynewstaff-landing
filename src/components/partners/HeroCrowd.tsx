@@ -164,7 +164,7 @@ export function HeroCrowd() {
     const t0 = setTimeout(() => {
       player.play(0.5);
       scheduleNext();
-    }, 1500);
+    }, 300);
     timeoutsRef.current.push(t0);
   }, []);
 
@@ -180,6 +180,10 @@ export function HeroCrowd() {
       startShutterLoop();
     }
 
+    // Try autoplay immediately — browsers may allow it
+    initAudio();
+
+    // Fallback: init on first user interaction if autoplay was blocked
     const events = ["click", "touchstart", "scroll", "mousemove", "keydown"] as const;
     events.forEach((e) =>
       window.addEventListener(e, initAudio, { once: true, passive: true })

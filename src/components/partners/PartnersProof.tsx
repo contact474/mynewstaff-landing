@@ -245,7 +245,7 @@ export function PartnersProof() {
           ].map((brand, i) => (
             <span
               key={i}
-              className="text-[11px] md:text-xs font-wide uppercase text-zinc-600/50 hover:text-zinc-500 tracking-[0.15em] transition-colors duration-500"
+              className="text-sm md:text-base font-wide uppercase text-zinc-300 hover:text-white tracking-[0.15em] transition-colors duration-500"
             >
               {brand}
             </span>
