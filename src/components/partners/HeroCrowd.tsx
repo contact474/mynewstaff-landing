@@ -85,7 +85,7 @@ class ShutterPlayer {
     if (!pool) return;
     const audio = pool.find((a) => a.paused || a.ended) || pool[0];
     audio.currentTime = 0;
-    audio.volume = volume ?? 0.25 + Math.random() * 0.35;
+    audio.volume = volume ?? 0.4 + Math.random() * 0.4;
     audio.play().catch(() => {});
   }
 
