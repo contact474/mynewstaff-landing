@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import {
   motion,
   useScroll,
   useTransform,
-  useMotionValueEvent,
   AnimatePresence,
 } from "framer-motion";
 
@@ -29,115 +28,64 @@ const flashPositions = [
   { left: "46%", bottom: "58%", size: 20 },
 ];
 
-/* ── Shutter SFX via Web Audio API ── */
-function createShutterSound(ac: AudioContext) {
-  const now = ac.currentTime;
+/* ── Shutter audio pool using HTML5 Audio (works everywhere) ── */
+const SHUTTER_URLS = [
+  "/assets/shutter.mp3",
+  "/assets/shutter1.mp3",
+  "/assets/shutter2.mp3",
+  "/assets/shutter3.mp3",
+];
 
-  // ─ Part 1: sharp mechanical "click" (the mirror slap) ─
-  const clickLen = ac.sampleRate * 0.035;
-  const clickBuf = ac.createBuffer(1, clickLen, ac.sampleRate);
-  const clickData = clickBuf.getChannelData(0);
-  for (let i = 0; i < clickLen; i++) {
-    // sharp transient with fast exponential decay
-    clickData[i] =
-      (Math.random() * 2 - 1) * Math.exp(-i / (clickLen * 0.08));
+class ShutterPlayer {
+  private pools: Map<string, HTMLAudioElement[]> = new Map();
+  private ready = false;
+
+  init() {
+    if (this.ready) return;
+    this.ready = true;
+
+    // Pre-create a pool of audio elements for each sound so we can overlap
+    for (const url of SHUTTER_URLS) {
+      const pool: HTMLAudioElement[] = [];
+      for (let i = 0; i < 3; i++) {
+        const audio = new Audio(url);
+        audio.preload = "auto";
+        audio.volume = 0.3 + Math.random() * 0.3; // 0.3-0.6 volume
+        pool.push(audio);
+      }
+      this.pools.set(url, pool);
+    }
   }
-  const clickSrc = ac.createBufferSource();
-  clickSrc.buffer = clickBuf;
 
-  const clickFilter = ac.createBiquadFilter();
-  clickFilter.type = "bandpass";
-  clickFilter.frequency.value = 3000 + Math.random() * 2000;
-  clickFilter.Q.value = 2;
+  play(volume?: number) {
+    if (!this.ready) return;
 
-  const clickGain = ac.createGain();
-  clickGain.gain.setValueAtTime(0.25 + Math.random() * 0.15, now);
-  clickGain.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
+    const url = SHUTTER_URLS[Math.floor(Math.random() * SHUTTER_URLS.length)];
+    const pool = this.pools.get(url);
+    if (!pool) return;
 
-  clickSrc.connect(clickFilter);
-  clickFilter.connect(clickGain);
-  clickGain.connect(ac.destination);
-  clickSrc.start(now);
-  clickSrc.stop(now + 0.04);
-
-  // ─ Part 2: curtain "thwip" (the shutter curtain) ─
-  const curtainLen = ac.sampleRate * 0.025;
-  const curtainBuf = ac.createBuffer(1, curtainLen, ac.sampleRate);
-  const curtainData = curtainBuf.getChannelData(0);
-  for (let i = 0; i < curtainLen; i++) {
-    curtainData[i] =
-      (Math.random() * 2 - 1) * Math.exp(-i / (curtainLen * 0.05));
+    // Find an audio element that's not currently playing
+    const audio = pool.find((a) => a.paused || a.ended) || pool[0];
+    audio.currentTime = 0;
+    audio.volume = volume ?? 0.2 + Math.random() * 0.4; // 0.2-0.6
+    audio.play().catch(() => {});
   }
-  const curtainSrc = ac.createBufferSource();
-  curtainSrc.buffer = curtainBuf;
 
-  const curtainFilter = ac.createBiquadFilter();
-  curtainFilter.type = "highpass";
-  curtainFilter.frequency.value = 5000 + Math.random() * 3000;
-
-  const curtainGain = ac.createGain();
-  curtainGain.gain.setValueAtTime(0.15 + Math.random() * 0.1, now + 0.04);
-  curtainGain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
-
-  curtainSrc.connect(curtainFilter);
-  curtainFilter.connect(curtainGain);
-  curtainGain.connect(ac.destination);
-  curtainSrc.start(now + 0.04);
-  curtainSrc.stop(now + 0.07);
-
-  // ─ Part 3: low resonant "thud" body (gives it weight) ─
-  const thudOsc = ac.createOscillator();
-  thudOsc.type = "sine";
-  thudOsc.frequency.setValueAtTime(120, now);
-  thudOsc.frequency.exponentialRampToValueAtTime(60, now + 0.05);
-
-  const thudGain = ac.createGain();
-  thudGain.gain.setValueAtTime(0.12, now);
-  thudGain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
-
-  thudOsc.connect(thudGain);
-  thudGain.connect(ac.destination);
-  thudOsc.start(now);
-  thudOsc.stop(now + 0.06);
-}
-
-/* ── Pan the sound left/right based on which "phone" flashed ── */
-function createPannedShutter(ac: AudioContext, pan: number) {
-  const now = ac.currentTime;
-
-  const clickLen = ac.sampleRate * 0.03;
-  const clickBuf = ac.createBuffer(1, clickLen, ac.sampleRate);
-  const d = clickBuf.getChannelData(0);
-  for (let i = 0; i < clickLen; i++) {
-    d[i] = (Math.random() * 2 - 1) * Math.exp(-i / (clickLen * 0.06));
+  destroy() {
+    this.pools.forEach((pool) => {
+      pool.forEach((audio) => {
+        audio.pause();
+        audio.src = "";
+      });
+    });
+    this.pools.clear();
+    this.ready = false;
   }
-  const src = ac.createBufferSource();
-  src.buffer = clickBuf;
-
-  const filter = ac.createBiquadFilter();
-  filter.type = "bandpass";
-  filter.frequency.value = 2500 + Math.random() * 3000;
-  filter.Q.value = 1.5;
-
-  const gain = ac.createGain();
-  // Vary volume to create depth (quieter = further away)
-  gain.gain.setValueAtTime(0.12 + Math.random() * 0.18, now);
-  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
-
-  const panner = ac.createStereoPanner();
-  panner.pan.value = pan;
-
-  src.connect(filter);
-  filter.connect(gain);
-  gain.connect(panner);
-  panner.connect(ac.destination);
-  src.start(now);
-  src.stop(now + 0.04);
 }
 
 export function HeroCrowd() {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const audioContextRef = useRef<AudioContext | null>(null);
+  const shutterRef = useRef<ShutterPlayer | null>(null);
   const timeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
   const [entered, setEntered] = useState(false);
 
@@ -176,71 +124,59 @@ export function HeroCrowd() {
     return () => clearTimeout(t);
   }, []);
 
-  // ── Audio engine ──
+  // ── Audio engine using real audio files ──
+  const startShutterLoop = useCallback(() => {
+    if (!shutterRef.current) return;
+    const player = shutterRef.current;
+
+    function fireShutter() {
+      player.play();
+    }
+
+    function scheduleNext() {
+      const isBurst = Math.random() > 0.7;
+      const delay = isBurst
+        ? 200 + Math.random() * 500
+        : 800 + Math.random() * 2500;
+
+      const t = setTimeout(() => {
+        fireShutter();
+
+        // During bursts, sometimes fire 2-3 rapid clicks
+        if (isBurst && Math.random() > 0.5) {
+          const t2 = setTimeout(() => {
+            fireShutter();
+          }, 100 + Math.random() * 200);
+          timeoutsRef.current.push(t2);
+        }
+
+        scheduleNext();
+      }, delay);
+      timeoutsRef.current.push(t);
+    }
+
+    // Start with a prominent shutter after entrance animation
+    const t0 = setTimeout(() => {
+      player.play(0.5);
+      scheduleNext();
+    }, 1500);
+    timeoutsRef.current.push(t0);
+  }, []);
+
   useEffect(() => {
+    const player = new ShutterPlayer();
+    shutterRef.current = player;
     let started = false;
 
     function initAudio() {
       if (started) return;
       started = true;
-
-      try {
-        const ctx = new AudioContext();
-        audioContextRef.current = ctx;
-
-        function fireShutterBurst() {
-          if (!audioContextRef.current) return;
-          const ac = audioContextRef.current;
-          if (ac.state === "suspended") ac.resume();
-
-          // Pick a random flash position for stereo panning
-          const pos = flashPositions[Math.floor(Math.random() * flashPositions.length)];
-          const panValue = (parseFloat(pos.left) / 100) * 2 - 1; // -1 to 1
-
-          // 70% chance: single distant click, 30% chance: full shutter
-          if (Math.random() > 0.3) {
-            createPannedShutter(ac, panValue);
-          } else {
-            createShutterSound(ac);
-          }
-        }
-
-        function scheduleNext() {
-          // Random delay between shutters — some rapid bursts, some gaps
-          const isBurst = Math.random() > 0.7;
-          const delay = isBurst
-            ? 150 + Math.random() * 400 // rapid burst
-            : 600 + Math.random() * 2000; // normal spacing
-
-          const t = setTimeout(() => {
-            fireShutterBurst();
-
-            // During bursts, sometimes fire 2-3 rapid clicks
-            if (isBurst && Math.random() > 0.5) {
-              const t2 = setTimeout(() => {
-                fireShutterBurst();
-              }, 80 + Math.random() * 150);
-              timeoutsRef.current.push(t2);
-            }
-
-            scheduleNext();
-          }, delay);
-          timeoutsRef.current.push(t);
-        }
-
-        // Start with a prominent shutter after a beat
-        const t0 = setTimeout(() => {
-          createShutterSound(ctx);
-          scheduleNext();
-        }, 1200);
-        timeoutsRef.current.push(t0);
-      } catch {
-        // Web Audio not supported
-      }
+      player.init();
+      startShutterLoop();
     }
 
-    // Trigger on first interaction
-    const events = ["click", "touchstart", "scroll", "mousemove"] as const;
+    // Trigger on first user interaction (browser autoplay policy)
+    const events = ["click", "touchstart", "scroll", "mousemove", "keydown"] as const;
     events.forEach((e) =>
       window.addEventListener(e, initAudio, { once: true, passive: true })
     );
@@ -248,28 +184,32 @@ export function HeroCrowd() {
     return () => {
       events.forEach((e) => window.removeEventListener(e, initAudio));
       timeoutsRef.current.forEach(clearTimeout);
-      if (audioContextRef.current) {
-        audioContextRef.current.close().catch(() => {});
-      }
+      player.destroy();
     };
-  }, []);
+  }, [startShutterLoop]);
 
   return (
-    <div className="absolute bottom-0 left-0 right-0 z-[1] pointer-events-none overflow-hidden">
-      {/* Heavy gradient fade: crowd dissolves into dark hero background */}
+    <div
+      className="absolute bottom-0 left-0 right-0 z-[1] pointer-events-none"
+      style={{ overflow: "hidden", maxHeight: "70vh" }}
+    >
+      {/* AGGRESSIVE gradient: crowd fully dissolves into black at top AND bottom */}
       <div
         className="absolute inset-0 z-10"
         style={{
           background: [
             "linear-gradient(to bottom,",
             "black 0%,",
-            "rgba(0,0,0,0.95) 15%,",
-            "rgba(0,0,0,0.85) 25%,",
-            "rgba(0,0,0,0.6) 40%,",
-            "rgba(0,0,0,0.3) 55%,",
-            "rgba(0,0,0,0.1) 70%,",
-            "transparent 80%,",
-            "rgba(0,0,0,0.3) 92%,",
+            "black 10%,",
+            "rgba(0,0,0,0.97) 18%,",
+            "rgba(0,0,0,0.9) 25%,",
+            "rgba(0,0,0,0.7) 35%,",
+            "rgba(0,0,0,0.4) 45%,",
+            "rgba(0,0,0,0.15) 55%,",
+            "rgba(0,0,0,0.05) 65%,",
+            "transparent 72%,",
+            "rgba(0,0,0,0.1) 85%,",
+            "rgba(0,0,0,0.6) 93%,",
             "black 100%)",
           ].join(" "),
         }}
