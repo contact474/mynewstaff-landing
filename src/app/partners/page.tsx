@@ -5,6 +5,7 @@ import { PartnersBigPlays } from "@/components/partners/PartnersBigPlays";
 import { PartnersProof } from "@/components/partners/PartnersProof";
 import { PartnersTerms } from "@/components/partners/PartnersTerms";
 import { PartnersSpanish } from "@/components/partners/PartnersSpanish";
+import { HeroCrowd } from "@/components/partners/HeroCrowd";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -28,7 +29,9 @@ export default function Partners() {
               backgroundPosition: "center",
             }}
           />
-          <div className="z-10 relative px-4 max-w-4xl">
+          {/* Influencer crowd at bottom with parallax + flash effects */}
+          <HeroCrowd />
+          <div className="z-10 relative px-4 max-w-4xl mb-24 md:mb-32">
             <Reveal>
               <span className="block text-xs md:text-sm tracking-[0.25em] mb-6 text-white/50 font-wide shimmer-text">
                 INFLUENCER BARTER PROGRAM
