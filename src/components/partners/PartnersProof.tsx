@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Reveal } from "@/components/ui/Reveal";
 
@@ -15,26 +15,35 @@ function AnimatedCounter({
 }) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-10%" });
+  const [display, setDisplay] = useState(0);
+  const hasAnimated = useRef(false);
+
+  const decimals = value % 1 !== 0 ? 1 : 0;
+
+  useEffect(() => {
+    if (!isInView || hasAnimated.current) return;
+    hasAnimated.current = true;
+
+    const duration = 2000;
+    const startTime = performance.now();
+
+    function tick(now: number) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // ease-out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplay(eased * value);
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+  }, [isInView, value]);
 
   return (
     <span ref={ref}>
-      {isInView ? (
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4 }}
-        >
-          {prefix}
-          <motion.span>{value.toLocaleString()}</motion.span>
-          {suffix}
-        </motion.span>
-      ) : (
-        <span className="opacity-0">
-          {prefix}
-          {value}
-          {suffix}
-        </span>
-      )}
+      {prefix}
+      <span>{isInView ? display.toFixed(decimals) : "0"}</span>
+      {suffix}
     </span>
   );
 }

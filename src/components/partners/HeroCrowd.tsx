@@ -168,33 +168,28 @@ export function HeroCrowd() {
     timeoutsRef.current.push(t0);
   }, []);
 
-  useEffect(() => {
-    const player = new ShutterPlayer();
-    shutterRef.current = player;
-    let started = false;
-
-    function initAudio() {
-      if (started) return;
-      started = true;
-      player.init();
-      startShutterLoop();
-    }
-
-    // Try autoplay immediately — browsers may allow it
-    initAudio();
-
-    // Fallback: init on first user interaction if autoplay was blocked
-    const events = ["click", "touchstart", "scroll", "mousemove", "keydown"] as const;
-    events.forEach((e) =>
-      window.addEventListener(e, initAudio, { once: true, passive: true })
-    );
-
-    return () => {
-      events.forEach((e) => window.removeEventListener(e, initAudio));
-      timeoutsRef.current.forEach(clearTimeout);
-      player.destroy();
-    };
-  }, [startShutterLoop]);
+  // Shutter sound disabled for now
+  // useEffect(() => {
+  //   const player = new ShutterPlayer();
+  //   shutterRef.current = player;
+  //   let started = false;
+  //   function initAudio() {
+  //     if (started) return;
+  //     started = true;
+  //     player.init();
+  //     startShutterLoop();
+  //   }
+  //   initAudio();
+  //   const events = ["click", "touchstart", "scroll", "mousemove", "keydown"] as const;
+  //   events.forEach((e) =>
+  //     window.addEventListener(e, initAudio, { once: true, passive: true })
+  //   );
+  //   return () => {
+  //     events.forEach((e) => window.removeEventListener(e, initAudio));
+  //     timeoutsRef.current.forEach(clearTimeout);
+  //     player.destroy();
+  //   };
+  // }, [startShutterLoop]);
 
   return (
     <div className="absolute bottom-0 left-0 right-0 z-[1] pointer-events-none overflow-hidden">
