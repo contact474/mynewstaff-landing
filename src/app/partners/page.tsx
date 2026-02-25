@@ -20,7 +20,7 @@ export default function Partners() {
       <Navbar />
       <main className="min-h-screen relative !overflow-visible bg-black text-white selection:bg-white selection:text-black">
         {/* Hero */}
-        <section className="h-[100dvh] w-full flex flex-col justify-center items-center text-center relative overflow-hidden">
+        <section id="hero-section" className="h-[100dvh] w-full flex flex-col justify-center items-center text-center relative overflow-hidden">
           <div
             className="absolute inset-0 z-0 opacity-40 smooth-zoom-bg"
             style={{
@@ -68,7 +68,7 @@ export default function Partners() {
         </section>
 
         {/* How It Works */}
-        <section className="py-20 md:py-32 px-4 md:px-8 border-t border-white/5">
+        <section className="py-20 md:py-32 px-4 md:px-8">
           <Reveal className="max-w-5xl mx-auto text-center">
             <span className="block text-xs font-sans uppercase tracking-[0.2em] text-zinc-500 mb-8">
               How It Works
