@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Reveal } from "@/components/ui/Reveal";
+import { RollingNumber } from "@/components/ui/RollingNumber";
 import { PartnersApplyModal } from "./PartnersApplyModal";
 
 /* ───────────────────── Data ───────────────────── */
@@ -411,7 +412,7 @@ export function PartnersTiers() {
                     </span>
                   </div>
                   <h3 className="font-wide text-4xl md:text-5xl uppercase text-white mb-2">
-                    {tier.credits}
+                    <RollingNumber value={tier.value} prefix="$" separator duration={1800} />
                   </h3>
                   <p className="text-[10px] tracking-[0.2em] text-zinc-500 uppercase font-sans mb-4">
                     Build Credits

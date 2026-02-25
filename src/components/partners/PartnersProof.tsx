@@ -1,52 +1,7 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
-import { motion, useInView } from "framer-motion";
 import { Reveal } from "@/components/ui/Reveal";
-
-function AnimatedCounter({
-  value,
-  suffix = "",
-  prefix = "",
-}: {
-  value: number;
-  suffix?: string;
-  prefix?: string;
-}) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-10%" });
-  const [display, setDisplay] = useState(0);
-  const hasAnimated = useRef(false);
-
-  const decimals = value % 1 !== 0 ? 1 : 0;
-
-  useEffect(() => {
-    if (!isInView || hasAnimated.current) return;
-    hasAnimated.current = true;
-
-    const duration = 2000;
-    const startTime = performance.now();
-
-    function tick(now: number) {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      // ease-out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setDisplay(eased * value);
-      if (progress < 1) requestAnimationFrame(tick);
-    }
-
-    requestAnimationFrame(tick);
-  }, [isInView, value]);
-
-  return (
-    <span ref={ref}>
-      {prefix}
-      <span>{isInView ? display.toFixed(decimals) : "0"}</span>
-      {suffix}
-    </span>
-  );
-}
+import { RollingNumber } from "@/components/ui/RollingNumber";
 
 const stats = [
   {
@@ -136,9 +91,11 @@ export function PartnersProof() {
               className={`p-8 md:p-10 text-center ${i > 0 ? "border-t md:border-t-0 md:border-l border-white/10" : ""} ${i >= 2 ? "border-t md:border-t-0 border-white/10" : ""}`}
             >
               <div className="font-wide text-3xl md:text-4xl text-white mb-2">
-                <AnimatedCounter
+                <RollingNumber
                   value={stat.value}
                   suffix={stat.suffix}
+                  prefix={stat.prefix}
+                  decimals={stat.value % 1 !== 0 ? 1 : 0}
                 />
               </div>
               <p className="text-xs text-zinc-300 font-sans uppercase tracking-[0.15em] mb-2">

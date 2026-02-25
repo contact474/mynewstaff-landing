@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Reveal } from "@/components/ui/Reveal";
+import { RollingNumber } from "@/components/ui/RollingNumber";
 import { PartnersApplyModal } from "./PartnersApplyModal";
 
 const plays = [
@@ -113,9 +114,13 @@ export function PartnersBigPlays() {
                   </p>
                   <p className="text-sm text-zinc-400 font-sans mb-6">
                     Value:{" "}
-                    <span className="text-white font-wide text-lg">
-                      {play.credits}
-                    </span>
+                    <RollingNumber
+                      value={play.value}
+                      prefix="$"
+                      separator
+                      duration={2200}
+                      className="text-white font-wide text-lg"
+                    />
                   </p>
                   <p className="text-xs text-zinc-400 font-sans leading-relaxed mb-4">
                     {play.description}
