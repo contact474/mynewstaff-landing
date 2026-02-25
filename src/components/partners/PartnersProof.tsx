@@ -41,28 +41,29 @@ function AnimatedCounter({
 
 const stats = [
   {
-    value: 5,
+    value: 2.6,
+    suffix: "M",
+    prefix: "$",
+    label: "Revenue Closed",
+    detail: "Across 6 active clients in Q1 2026 alone",
+  },
+  {
+    value: 84,
+    suffix: "K+",
+    label: "Leads Generated",
+    detail: "Multi-channel scraping from 7 platforms",
+  },
+  {
+    value: 441,
+    suffix: "%",
+    label: "Avg ROI Delivered",
+    detail: "Before-vs-after tracked for every client",
+  },
+  {
+    value: 13,
     suffix: "",
-    label: "Active Clients",
-    detail: "Across hospitality, legal, insurance, and tech",
-  },
-  {
-    value: 82,
-    suffix: "+",
-    label: "Email Templates",
-    detail: "AI-generated, behavioral-triggered campaigns",
-  },
-  {
-    value: 30,
-    suffix: "+",
-    label: "Carousels / Month",
-    detail: "Content engine producing daily branded visuals",
-  },
-  {
-    value: 9,
-    suffix: "",
-    label: "Discovery Platforms",
-    detail: "Reddit, RSS, Hacker News, and 6 more sources",
+    label: "Landing Pages Live",
+    detail: "Conversion-optimized, A/B tested funnels",
   },
 ];
 
@@ -183,36 +184,44 @@ export function PartnersProof() {
           Live Systems — Real Screenshots
         </span>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="border border-white/10 overflow-hidden group">
-            <div className="p-3 border-b border-white/5 flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-green-500/80" />
-              <span className="text-[10px] tracking-[0.2em] text-zinc-500 uppercase font-sans">
-                MNS Command Center — Live
-              </span>
+          {[
+            {
+              label: "Dashboard Overview",
+              src: "/assets/proof-overview.png",
+              alt: "MNS Dashboard showing $2.6M revenue, 84.2K leads, 441% ROI across 6 clients",
+            },
+            {
+              label: "Cold Outreach Engine",
+              src: "/assets/proof-outreach.png",
+              alt: "Cold outreach dashboard showing 17.4K emails sent, 54.3% open rate, 8.6% reply rate",
+            },
+            {
+              label: "AI Lead Scraper",
+              src: "/assets/proof-leadscraper.png",
+              alt: "Lead scraper showing 65.6K leads scraped from 7 platforms with intent scoring",
+            },
+            {
+              label: "Landing Pages & Funnels",
+              src: "/assets/proof-landingpages.png",
+              alt: "13 landing pages with 776.8K visitors, 6.5% conversion, $1.5M revenue attribution",
+            },
+          ].map((item, i) => (
+            <div key={i} className="border border-white/10 overflow-hidden group">
+              <div className="p-3 border-b border-white/5 flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-green-500/80" />
+                <span className="text-[10px] tracking-[0.2em] text-zinc-500 uppercase font-sans">
+                  {item.label} — Live
+                </span>
+              </div>
+              <div className="overflow-hidden">
+                <img
+                  src={item.src}
+                  alt={item.alt}
+                  className="w-full opacity-80 group-hover:opacity-100 transition-opacity"
+                />
+              </div>
             </div>
-            <div className="overflow-hidden">
-              <img
-                src="/assets/proof-dashboard.png"
-                alt="MNS Command Center Dashboard showing 4 AI agents, 30 tasks, 5 clients, and system metrics"
-                className="w-full opacity-80 group-hover:opacity-100 transition-opacity"
-              />
-            </div>
-          </div>
-          <div className="border border-white/10 overflow-hidden group">
-            <div className="p-3 border-b border-white/5 flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-green-500/80" />
-              <span className="text-[10px] tracking-[0.2em] text-zinc-500 uppercase font-sans">
-                MyNewStaff.ai — Production
-              </span>
-            </div>
-            <div className="overflow-hidden">
-              <img
-                src="/assets/proof-landing.png"
-                alt="MyNewStaff.ai live landing page"
-                className="w-full opacity-80 group-hover:opacity-100 transition-opacity"
-              />
-            </div>
-          </div>
+          ))}
         </div>
       </Reveal>
 
