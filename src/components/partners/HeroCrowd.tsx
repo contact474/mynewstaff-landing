@@ -54,10 +54,10 @@ const CROWD_MASK_H = [
 
 /* ── Shutter audio pool using HTML5 Audio ── */
 const SHUTTER_URLS = [
-  "/assets/shutter.mp3",
-  "/assets/shutter1.mp3",
-  "/assets/shutter2.mp3",
-  "/assets/shutter3.mp3",
+  "/assets/click-a.mp3",
+  "/assets/click-b.mp3",
+  "/assets/click-c.mp3",
+  "/assets/click-d.mp3",
 ];
 
 class ShutterPlayer {
