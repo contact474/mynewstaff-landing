@@ -225,24 +225,29 @@ export function PartnersProof() {
         </div>
       </Reveal>
 
-      {/* Client Logos / Social Proof */}
-      <Reveal className="max-w-3xl mx-auto mt-16 text-center">
-        <p className="text-[10px] tracking-[0.3em] text-zinc-600 uppercase font-sans mb-6">
-          Currently Serving
+      {/* Powered By / Integrations */}
+      <Reveal className="max-w-5xl mx-auto mt-20 text-center">
+        <p className="text-[10px] tracking-[0.3em] text-zinc-600 uppercase font-sans mb-10">
+          Powered By & Integrated With
         </p>
-        <div className="flex flex-wrap justify-center gap-8 md:gap-12">
+        <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 md:gap-x-16">
           {[
-            "MyNewStaff.ai",
-            "Hotel Marina",
-            "BCC Legal",
-            "API De Occidente",
-            "Emin",
-          ].map((client, i) => (
+            "GoHighLevel",
+            "Anthropic",
+            "Google AI",
+            "Stripe",
+            "Vercel",
+            "HubSpot",
+            "Zapier",
+            "Meta",
+            "Reddit",
+            "Cloudflare",
+          ].map((brand, i) => (
             <span
               key={i}
-              className="text-sm md:text-base font-wide uppercase text-zinc-600 hover:text-zinc-400 transition-colors"
+              className="text-[11px] md:text-xs font-wide uppercase text-zinc-600/50 hover:text-zinc-500 tracking-[0.15em] transition-colors duration-500"
             >
-              {client}
+              {brand}
             </span>
           ))}
         </div>
