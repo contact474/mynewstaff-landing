@@ -18,9 +18,9 @@ export default function Partners() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen relative !overflow-visible bg-black text-white selection:bg-white selection:text-black">
+      <main className="min-h-screen relative bg-black text-white selection:bg-white selection:text-black">
         {/* Hero */}
-        <section id="hero-section" className="h-[100dvh] w-full flex flex-col justify-center items-center text-center relative overflow-hidden">
+        <section id="hero-section" className="h-[100dvh] w-full flex flex-col justify-center items-center text-center relative overflow-hidden" style={{ clipPath: "inset(0)" }}>
           <div
             className="absolute inset-0 z-0 opacity-40 smooth-zoom-bg"
             style={{

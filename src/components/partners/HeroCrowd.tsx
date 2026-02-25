@@ -256,12 +256,22 @@ export function HeroCrowd() {
 
   return (
     <div className="absolute bottom-0 left-0 right-0 z-[1] pointer-events-none overflow-hidden">
-      {/* Gradient fade: crowd → black at top */}
+      {/* Heavy gradient fade: crowd dissolves into dark hero background */}
       <div
         className="absolute inset-0 z-10"
         style={{
-          background:
-            "linear-gradient(to bottom, black 0%, rgba(0,0,0,0.7) 20%, rgba(0,0,0,0.2) 40%, transparent 55%)",
+          background: [
+            "linear-gradient(to bottom,",
+            "black 0%,",
+            "rgba(0,0,0,0.95) 15%,",
+            "rgba(0,0,0,0.85) 25%,",
+            "rgba(0,0,0,0.6) 40%,",
+            "rgba(0,0,0,0.3) 55%,",
+            "rgba(0,0,0,0.1) 70%,",
+            "transparent 80%,",
+            "rgba(0,0,0,0.3) 92%,",
+            "black 100%)",
+          ].join(" "),
         }}
       />
 
@@ -288,7 +298,7 @@ export function HeroCrowd() {
         )}
       </AnimatePresence>
 
-      {/* Flash glow dots — larger, brighter, with visible halos */}
+      {/* Flash glow dots */}
       <motion.div
         className="absolute inset-0 z-20"
         style={{ opacity: flashOpacity }}
@@ -304,7 +314,6 @@ export function HeroCrowd() {
               height: pos.size,
             }}
           >
-            {/* Inner bright core */}
             <div
               className="absolute inset-0 rounded-full"
               style={{
@@ -312,7 +321,6 @@ export function HeroCrowd() {
                   "radial-gradient(circle, white 0%, rgba(200,220,255,0.6) 30%, transparent 70%)",
               }}
             />
-            {/* Outer glow halo */}
             <div
               className="absolute rounded-full"
               style={{
