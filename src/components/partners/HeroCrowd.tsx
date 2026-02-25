@@ -28,7 +28,31 @@ const flashPositions = [
   { left: "46%", bottom: "58%", size: 20 },
 ];
 
-/* ── Shutter audio pool using HTML5 Audio (works everywhere) ── */
+/* ── Mask: vertical fade (top + bottom) combined with horizontal side fade ── */
+const CROWD_MASK_V = [
+  "linear-gradient(to bottom,",
+  "transparent 0%,",
+  "rgba(0,0,0,0.03) 10%,",
+  "rgba(0,0,0,0.15) 18%,",
+  "rgba(0,0,0,0.4) 25%,",
+  "rgba(0,0,0,0.7) 32%,",
+  "black 40%,",
+  "black 60%,",
+  "rgba(0,0,0,0.6) 68%,",
+  "rgba(0,0,0,0.25) 76%,",
+  "rgba(0,0,0,0.05) 84%,",
+  "transparent 90%)",
+].join(" ");
+
+const CROWD_MASK_H = [
+  "linear-gradient(to right,",
+  "transparent 0%,",
+  "black 8%,",
+  "black 92%,",
+  "transparent 100%)",
+].join(" ");
+
+/* ── Shutter audio pool using HTML5 Audio ── */
 const SHUTTER_URLS = [
   "/assets/shutter.mp3",
   "/assets/shutter1.mp3",
@@ -43,14 +67,11 @@ class ShutterPlayer {
   init() {
     if (this.ready) return;
     this.ready = true;
-
-    // Pre-create a pool of audio elements for each sound so we can overlap
     for (const url of SHUTTER_URLS) {
       const pool: HTMLAudioElement[] = [];
       for (let i = 0; i < 3; i++) {
         const audio = new Audio(url);
         audio.preload = "auto";
-        audio.volume = 0.3 + Math.random() * 0.3; // 0.3-0.6 volume
         pool.push(audio);
       }
       this.pools.set(url, pool);
@@ -59,15 +80,12 @@ class ShutterPlayer {
 
   play(volume?: number) {
     if (!this.ready) return;
-
     const url = SHUTTER_URLS[Math.floor(Math.random() * SHUTTER_URLS.length)];
     const pool = this.pools.get(url);
     if (!pool) return;
-
-    // Find an audio element that's not currently playing
     const audio = pool.find((a) => a.paused || a.ended) || pool[0];
     audio.currentTime = 0;
-    audio.volume = volume ?? 0.2 + Math.random() * 0.4; // 0.2-0.6
+    audio.volume = volume ?? 0.25 + Math.random() * 0.35;
     audio.play().catch(() => {});
   }
 
@@ -89,7 +107,6 @@ export function HeroCrowd() {
   const timeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
   const [entered, setEntered] = useState(false);
 
-  // Track the parent hero section for parallax
   useEffect(() => {
     const el = document.getElementById("hero-section");
     if (el) sectionRef.current = el;
@@ -100,38 +117,31 @@ export function HeroCrowd() {
     offset: ["start start", "end start"],
   });
 
-  // Parallax transforms
-  const crowdY = useTransform(scrollYProgress, [0, 1], ["0px", "-80px"]);
+  const crowdY = useTransform(scrollYProgress, [0, 1], ["0px", "-60px"]);
   const crowdOpacity = useTransform(
     scrollYProgress,
-    [0, 0.4, 0.8, 1],
-    [0.75, 0.75, 0.35, 0]
+    [0, 0.3, 0.7, 1],
+    [0.65, 0.65, 0.3, 0]
   );
   const crowdScale = useTransform(
     scrollYProgress,
     [0, 0.6, 1],
-    [1, 1.03, 1.08]
+    [1, 1.02, 1.05]
   );
   const flashOpacity = useTransform(
     scrollYProgress,
     [0, 0.5, 0.8],
-    [1, 0.6, 0]
+    [1, 0.5, 0]
   );
 
-  // Entrance animation
   useEffect(() => {
     const t = setTimeout(() => setEntered(true), 600);
     return () => clearTimeout(t);
   }, []);
 
-  // ── Audio engine using real audio files ──
   const startShutterLoop = useCallback(() => {
     if (!shutterRef.current) return;
     const player = shutterRef.current;
-
-    function fireShutter() {
-      player.play();
-    }
 
     function scheduleNext() {
       const isBurst = Math.random() > 0.7;
@@ -140,22 +150,17 @@ export function HeroCrowd() {
         : 800 + Math.random() * 2500;
 
       const t = setTimeout(() => {
-        fireShutter();
+        player.play();
 
-        // During bursts, sometimes fire 2-3 rapid clicks
         if (isBurst && Math.random() > 0.5) {
-          const t2 = setTimeout(() => {
-            fireShutter();
-          }, 100 + Math.random() * 200);
+          const t2 = setTimeout(() => player.play(), 100 + Math.random() * 200);
           timeoutsRef.current.push(t2);
         }
-
         scheduleNext();
       }, delay);
       timeoutsRef.current.push(t);
     }
 
-    // Start with a prominent shutter after entrance animation
     const t0 = setTimeout(() => {
       player.play(0.5);
       scheduleNext();
@@ -175,7 +180,6 @@ export function HeroCrowd() {
       startShutterLoop();
     }
 
-    // Trigger on first user interaction (browser autoplay policy)
     const events = ["click", "touchstart", "scroll", "mousemove", "keydown"] as const;
     events.forEach((e) =>
       window.addEventListener(e, initAudio, { once: true, passive: true })
@@ -189,33 +193,8 @@ export function HeroCrowd() {
   }, [startShutterLoop]);
 
   return (
-    <div
-      className="absolute bottom-0 left-0 right-0 z-[1] pointer-events-none"
-      style={{ overflow: "hidden", maxHeight: "70vh" }}
-    >
-      {/* AGGRESSIVE gradient: crowd fully dissolves into black at top AND bottom */}
-      <div
-        className="absolute inset-0 z-10"
-        style={{
-          background: [
-            "linear-gradient(to bottom,",
-            "black 0%,",
-            "black 10%,",
-            "rgba(0,0,0,0.97) 18%,",
-            "rgba(0,0,0,0.9) 25%,",
-            "rgba(0,0,0,0.7) 35%,",
-            "rgba(0,0,0,0.4) 45%,",
-            "rgba(0,0,0,0.15) 55%,",
-            "rgba(0,0,0,0.05) 65%,",
-            "transparent 72%,",
-            "rgba(0,0,0,0.1) 85%,",
-            "rgba(0,0,0,0.6) 93%,",
-            "black 100%)",
-          ].join(" "),
-        }}
-      />
-
-      {/* Crowd image with parallax + entrance */}
+    <div className="absolute bottom-0 left-0 right-0 z-[1] pointer-events-none overflow-hidden">
+      {/* Crowd image with CSS mask for seamless edge dissolution */}
       <AnimatePresence>
         {entered && (
           <motion.div
@@ -226,6 +205,10 @@ export function HeroCrowd() {
               y: crowdY,
               opacity: crowdOpacity,
               scale: crowdScale,
+              WebkitMaskImage: `${CROWD_MASK_V}, ${CROWD_MASK_H}`,
+              WebkitMaskComposite: "destination-in",
+              maskImage: `${CROWD_MASK_V}, ${CROWD_MASK_H}`,
+              maskComposite: "intersect",
             }}
             className="will-change-transform origin-bottom"
           >
