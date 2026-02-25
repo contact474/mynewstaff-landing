@@ -53,8 +53,13 @@ export default function Partners() {
                 href="#tiers"
                 className="inline-block mt-10 px-10 py-4 rounded-full border border-white/20 text-white text-xs tracking-[0.2em] uppercase font-sans hover:bg-white/5 transition-colors"
               >
-                See The Tiers
+                Build Your Package
               </a>
+            </Reveal>
+            <Reveal delay={0.65}>
+              <p className="mt-6 text-[10px] tracking-[0.2em] text-zinc-600 uppercase font-sans">
+                Limited to 10 partners per quarter &bull; Q1 2026
+              </p>
             </Reveal>
           </div>
         </section>
