@@ -46,8 +46,8 @@ export const useQuiz = (): QuizContextValue => {
 const TOTAL_STEPS = 2; // 0 = name+email, 1 = need selection → auto-submit
 
 const NEED_OPTIONS = [
-  { label: "Free AI scalability audit", route: "/audit" },
-  { label: "More leads & closed deals", route: "/mission-control" },
+  { label: "Free ScaleX diagnostic", route: "/scalex" },
+  { label: "More leads & closed deals", route: "/scale" },
   { label: "AI video content at scale", route: "/videos" },
   { label: "Not sure yet — show me everything", route: "/scale" },
 ];

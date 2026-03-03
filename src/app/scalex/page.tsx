@@ -3,9 +3,9 @@ import { EscalaXDiagnostic } from "@/components/escalax/EscalaXDiagnostic";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "EscalaX — Diagnóstico de Negocio con IA Gratis | MyNewStaff.ai",
+  title: "ScaleX — Free AI Business Diagnostic | MyNewStaff.ai",
   description:
-    "Obtén tu Puntaje EscalaX: diagnóstico con IA que escanea tu sitio web, analiza tu embudo, oferta, posicionamiento, estrategia de anuncios y te califica en 10 pilares de crecimiento.",
+    "Get your ScaleX Score: AI-powered diagnostic that scans your website, analyzes your funnel, offer, positioning, ad strategy, and scores your business across 10 growth pillars. Now with funnel analysis, ad intelligence, and improvement roadmap.",
   alternates: {
     languages: {
       en: "/scalex",
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function EscalaX() {
+export default function ScaleX() {
   return (
     <>
       <Navbar />

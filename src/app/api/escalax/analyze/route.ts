@@ -1,4 +1,4 @@
-/* ─── EscalaX Deep Intelligence Engine ──────────────────────────────
+/* ─── EscalaX Deep Intelligence Engine v2 ────────────────────────────
    POST /api/escalax/analyze
    Accepts { url: string }. Performs multi-source intelligence gathering:
    1. Deep HTML parsing (100+ tool signatures, pixel IDs, conversion events)
@@ -7,13 +7,27 @@
    4. robots.txt & sitemap.xml analysis
    5. External script domain mapping
    6. Structured data (JSON-LD) extraction
-   Returns real pillar scores + comprehensive intelligence findings.
+   7. Multi-page crawling (pricing, about, blog, contact)
+   8. Funnel detection & analysis (5 stages, completeness scoring)
+   9. Offer & value stack analysis (pricing tiers, guarantees, urgency)
+   10. Positioning & messaging audit (headlines, differentiators, clarity)
+   11. Ad intelligence (per-platform maturity, spend estimation)
+   12. AI recommendation engine (prioritized improvement roadmap)
+   13. Bilingual support (EN/ES with geo-detection)
+   Returns scores + findings + funnel + offer + positioning + adIntel + recommendations.
    ─────────────────────────────────────────────────────────────────── */
 
 import dns from "node:dns/promises";
+import { crawlSite, extractInternalLinks } from "@/lib/escalax/crawler";
+import { analyzeFunnel } from "@/lib/escalax/funnel";
+import { analyzeOffer } from "@/lib/escalax/offer";
+import { analyzePositioning } from "@/lib/escalax/positioning";
+import { analyzeAdIntelligence } from "@/lib/escalax/ad-intel";
+import { generateRecommendations } from "@/lib/escalax/recommendations";
+import { detectLocale } from "@/lib/escalax/i18n";
 
 export const runtime = "nodejs";
-export const maxDuration = 25; // seconds — allow time for parallel probes
+export const maxDuration = 40; // seconds — expanded for multi-page crawling
 
 /* ─── Types ────────────────────────────────────────────────────────── */
 
@@ -38,7 +52,7 @@ async function fetchSafe(url: string, timeoutMs = 5000): Promise<{ text: string;
     const timer = setTimeout(() => controller.abort(), timeoutMs);
     const res = await fetch(url, {
       signal: controller.signal,
-      headers: { "User-Agent": "EscalaX-Bot/1.0 (+https://mynewstaff.ai/escalax)" },
+      headers: { "User-Agent": "ScaleX-Bot/2.0 (+https://mynewstaff.ai/scalex)" },
       redirect: "follow",
     });
     clearTimeout(timer);
@@ -62,6 +76,9 @@ export async function POST(req: Request) {
   const baseDomain = extractBaseDomain(domain);
   const baseUrl = `${new URL(normalized).protocol}//${domain}`;
 
+  // Detect locale from request headers
+  const locale = detectLocale(req.headers);
+
   try {
     const start = Date.now();
     const controller = new AbortController();
@@ -69,7 +86,7 @@ export async function POST(req: Request) {
 
     const res = await fetch(normalized, {
       signal: controller.signal,
-      headers: { "User-Agent": "EscalaX-Bot/1.0 (+https://mynewstaff.ai/escalax)" },
+      headers: { "User-Agent": "ScaleX-Bot/2.0 (+https://mynewstaff.ai/scalex)" },
       redirect: "follow",
     });
     clearTimeout(timeout);
@@ -79,13 +96,14 @@ export async function POST(req: Request) {
     const headers = res.headers;
 
     // ── Parallel intelligence probes ──────────────────────────────
-    const [robotsData, sitemapData, dnsData] = await Promise.all([
+    const [robotsData, sitemapData, dnsData, crawledPages] = await Promise.all([
       fetchSafe(`${baseUrl}/robots.txt`),
       fetchSafe(`${baseUrl}/sitemap.xml`),
       probeDNS(baseDomain),
+      crawlSite(html, baseUrl, 5),
     ]);
 
-    // ── Parse everything ─────────────────────────────────────────
+    // ── Parse everything (core engine — unchanged) ───────────────
     const htmlFindings = parseHTML(html, normalized, loadTime);
     const headerFindings = parseHeaders(headers);
     const robotsFindings = parseRobots(robotsData?.ok ? robotsData.text : null);
@@ -99,25 +117,63 @@ export async function POST(req: Request) {
       ...robotsFindings,
       ...sitemapFindings,
       domain: baseDomain,
-      totalSignals: 0, // calculated below
+      totalSignals: 0,
     };
 
-    // Count total signals detected
     findings.totalSignals = countSignals(findings);
-
     const scores = calculateScores(findings);
+
+    // ── Deep Analysis Modules (v2) ───────────────────────────────
+    const internalLinks = extractInternalLinks(html, baseUrl);
+    const funnel = analyzeFunnel(crawledPages, internalLinks);
+    const offer = analyzeOffer(crawledPages);
+    const positioning = analyzePositioning(crawledPages);
+    const adIntel = analyzeAdIntelligence(
+      crawledPages,
+      htmlFindings.trackedTools,
+      htmlFindings.retargetingTools,
+      dnsData.dnsVerifications,
+    );
+
+    // ── Recommendation Engine ────────────────────────────────────
+    const recommendations = generateRecommendations({
+      scores,
+      findings,
+      funnel,
+      offer,
+      positioning,
+      adIntel,
+    });
 
     return Response.json({
       scores,
       findings,
-      meta: { url: normalized, status: res.status, loadTime, domain: baseDomain },
+      funnel,
+      offer,
+      positioning,
+      adIntel,
+      recommendations,
+      meta: {
+        url: normalized,
+        status: res.status,
+        loadTime,
+        domain: baseDomain,
+        locale,
+        pagesCrawled: crawledPages.length,
+        version: "2.0" as const,
+      },
     });
   } catch (e: unknown) {
     const msg = e instanceof Error ? e.message : "Unknown error";
     return Response.json({
       scores: { digital_presence: 1, website_conversion: 0, content_strategy: 1, lead_generation: 0, marketing_automation: 0, advertising: 0, sales_process: 0, customer_journey: 0, tech_ai_readiness: 0, revenue_operations: 0 },
       findings: { title: "", description: "", loadTime: 99999, ssl: false, socialLinks: [], analytics: [], trackedTools: [], formCount: 0, totalSignals: 0, error: msg },
-      meta: { url: normalized, status: 0, loadTime: 0, domain: extractDomain(normalized) },
+      funnel: { stages: [], completeness: 0, gaps: [], funnelType: "none", detectedFunnelBuilder: null, leadMagnets: [], hasCheckout: false, hasThankYouPage: false, hasUpsell: false, hasEmailSequence: false, internalLinks: [] },
+      offer: { hasPricingPage: false, pricingUrl: null, tiers: [], hasFreeOption: false, hasFreeTrial: false, hasMoneyBackGuarantee: false, guaranteeText: null, hasAnnualDiscount: false, urgencyTactics: [], scarcityTactics: [], valueStackElements: [], socialProofOnPricing: [], offerClarity: 0, offerStrength: 0 },
+      positioning: { headlines: [], primaryHeadline: null, subheadline: null, valueProposition: null, targetAudience: null, differentiators: [], problemStatements: [], solutionStatements: [], ctaCopy: [], positioningType: "missing", clarityScore: 0, differentiationScore: 0, messagingConsistency: 0 },
+      adIntel: { platforms: [], maturityLevel: "none", estimatedMonthlySpend: null, trackingSophistication: 0, hasRetargeting: false, hasConversionTracking: false, hasLandingPages: false, landingPageIndicators: [], adRelatedVerifications: [], pixelHealth: "none" },
+      recommendations: [],
+      meta: { url: normalized, status: 0, loadTime: 0, domain: extractDomain(normalized), locale, pagesCrawled: 0, version: "2.0" as const },
     });
   }
 }

@@ -6,7 +6,6 @@ import { Reveal } from "@/components/ui/Reveal";
 import {
   ParallaxSection,
   ScaleReveal,
-  HorizontalSlide,
 } from "@/components/ui/ScrollEffects";
 import { LaunchScaleDiagram } from "@/components/diagrams/LaunchScaleDiagram";
 import { CRMDiagram } from "@/components/diagrams/CRMDiagram";
@@ -15,6 +14,7 @@ import { FunnelDiagram } from "@/components/diagrams/FunnelDiagram";
 import { ValuationChart } from "@/components/diagrams/ValuationChart";
 import { TestimonialCarousel } from "@/components/ui/TestimonialCarousel";
 import { FAQ } from "@/components/ui/FAQ";
+import { PricingTable } from "@/components/ui/PricingTable";
 import { HomeCTA } from "@/components/ui/HomeCTA";
 
 export default function Home() {
@@ -142,56 +142,14 @@ export default function Home() {
           </Section>
         </ParallaxSection>
 
-        {/* Chapter 7: Pricing */}
-        <Section id="pricing" subtitle="Investment" title={<>THREE <span className="shimmer-text">PACKAGES.</span></>}>
-          <Grid>
-            <HorizontalSlide direction="left" delay={0}>
-              <Card
-                label="Starter"
-                value="$1.5K - $2.5K"
-                desc="Per Month. $3K Setup."
-                detail="Ideal for validation. Includes our viral content engine and basic CRM setup. 1 Platform."
-              />
-            </HorizontalSlide>
-            <HorizontalSlide direction="right" delay={0.1}>
-              <Card
-                label="Engine ⭐"
-                value="$8K - $45K"
-                desc="Most Popular. Full Scale."
-                highlight
-                detail="The complete growth stack. Multi-platform viral distribution, 10k monthly leads scraping, and full automated outreach."
-              />
-            </HorizontalSlide>
-            <HorizontalSlide direction="left" delay={0.2}>
-              <Card
-                label="Enterprise"
-                value="$25K+"
-                desc="Franchise Scale."
-                detail="Franchise-level domination. Custom AI models, dedicated support team, and unlimited lead volume."
-              />
-            </HorizontalSlide>
-          </Grid>
+        {/* Chapter 7: Pricing & Value Stack */}
+        <Section id="pricing" subtitle="Investment" title={<>THE VALUE <span className="shimmer-text">STACK.</span></>}>
+          <PricingTable />
         </Section>
 
         {/* Testimonials */}
         <Section id="testimonials" subtitle="The Validation" title={<>MARKET <br /> <span className="shimmer-text">RESPONSE.</span></>}>
           <TestimonialCarousel />
-        </Section>
-
-        {/* Chapter 4: The Proof */}
-        <Section id="results" subtitle="The Proof" title={<>UNFAIR <br /> <span className="shimmer-text">ADVANTAGES.</span></>}>
-          <div className="w-full max-w-[800px] mx-auto border-t border-white/10">
-            {[
-              { label: "Deployment", value: "7-14 DAYS" },
-              { label: "Volume", value: "100+ ASSETS" },
-              { label: "Outcome", value: "3-5X GROWTH" }
-            ].map((stat, i) => (
-              <div key={i} className="flex justify-between items-center py-8 border-b border-white/10">
-                <span className="text-[10px] md:text-xs tracking-[0.2em] uppercase text-zinc-500">{stat.label}</span>
-                <span className="text-xl md:text-3xl font-wide font-bold shimmer-text">{stat.value}</span>
-              </div>
-            ))}
-          </div>
         </Section>
 
         {/* FAQ */}
@@ -203,7 +161,7 @@ export default function Home() {
         <Section id="cta" subtitle="Finality" title={<>READY TO <br /> <span className="shimmer-text">SCALE?</span></>}>
           <div className="text-center mt-12 py-12 md:py-0 relative z-30">
             <div className="inline-block px-8 py-4 border border-white/10 rounded-full bg-white/5 backdrop-blur-sm mb-8">
-              <p className="text-[10px] tracking-[0.4em] uppercase opacity-50">Exclusive Onboarding • Jan 2026</p>
+              <p className="text-[10px] tracking-[0.4em] uppercase opacity-50">Limited Spots • Q1 2026</p>
             </div>
 
             <div className="pb-[400px] md:pb-0">

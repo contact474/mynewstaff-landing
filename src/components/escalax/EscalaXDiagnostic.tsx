@@ -2,6 +2,14 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import type {
+  FunnelAnalysis,
+  OfferAnalysis,
+  PositioningAnalysis,
+  AdIntelligence,
+  Recommendation,
+} from "@/lib/escalax/types";
+import { t, tr, type Locale } from "@/lib/escalax/i18n";
 
 /* ─── Types ────────────────────────────────────────────────────────── */
 
@@ -114,7 +122,12 @@ interface Scores {
 interface AnalysisResult {
   scores: Scores;
   findings: Findings;
-  meta: { url: string; status: number; loadTime: number; domain: string };
+  funnel?: FunnelAnalysis;
+  offer?: OfferAnalysis;
+  positioning?: PositioningAnalysis;
+  adIntel?: AdIntelligence;
+  recommendations?: Recommendation[];
+  meta: { url: string; status: number; loadTime: number; domain: string; locale?: Locale; pagesCrawled?: number; version?: string };
 }
 
 /* ─── Constants ────────────────────────────────────────────────────── */
@@ -185,7 +198,7 @@ const ANALYZING_STEPS = [
   "Analyzing social media footprint...",
   "Scanning ad platforms & retargeting...",
   "Running accessibility audit...",
-  "Calculating your EscalaX Score...",
+  "Calculating your ScaleX Score...",
 ];
 
 const WEBHOOK_URL = "https://hooks.mynewstaff.ai/mission-control-apply";
@@ -389,6 +402,7 @@ export function EscalaXDiagnostic() {
   const [finalScores, setFinalScores] = useState<Scores | null>(null);
   const [overallScore, setOverallScore] = useState(0);
   const [discoveryHighlights, setDiscoveryHighlights] = useState<string[]>([]);
+  const [locale, setLocale] = useState<Locale>("en");
   const containerRef = useRef<HTMLDivElement>(null);
 
   const scrollToTop = useCallback(() => {
@@ -414,6 +428,7 @@ export function EscalaXDiagnostic() {
       });
       const data: AnalysisResult = await resp.json();
       setAnalysisResult(data);
+      if (data.meta?.locale) setLocale(data.meta.locale);
       setDiscoveryHighlights(buildDiscoveryHighlights(data.findings));
     } catch {
       const emptyFindings = { title: "", description: "", ogImage: null, language: null, generator: null, themeColor: null, hasOG: false, hasTwitterCard: false, socialLinks: [], trackedTools: [], analytics: [], pixels: [], crm: null, chat: null, marketingTools: [], retargetingTools: [], abTestingTools: [], popupTools: [], bookingTools: [], privacyTools: [], seoTools: [], reviewPlatforms: [], hasTestimonials: false, ecommerce: null, paymentGateways: [], conversionEvents: [], formCount: 0, formDestinations: [], hasCTAs: false, hasBlog: false, hasVideo: false, hasPodcast: false, imageCount: 0, techStack: [], fonts: [], externalScriptDomains: [], businessName: null, businessType: null, businessPhone: null, businessAddress: null, businessRating: null, structuredDataTypes: [], hasCanonical: false, hasSchema: false, hasMobileViewport: false, hasMultiLang: false, hasAMP: false, ssl: false, loadTime: 99999, scriptCount: 0, stylesheetCount: 0, hasLazyLoading: false, hasWebP: false, hasPWA: false, h1Count: 0, headingStructure: "", imgWithoutAlt: 0, ariaCount: 0, securityHeaders: [], cdnProvider: null, serverHeader: null, poweredBy: null, hasCompression: false, compressionType: null, securityScore: 0, mxRecords: [], emailProvider: null, hasSPF: false, spfSenders: [], hasDMARC: false, dmarcPolicy: null, dnsVerifications: [], hasSitemap: false, sitemapPageCount: 0, sitemapSections: [], hasRobotsTxt: false, robotsDirectives: [], domain: "", totalSignals: 0 } as Findings;
@@ -459,7 +474,7 @@ export function EscalaXDiagnostic() {
   /* ── Submit email + show results ─────────────────────────────── */
   const submitEmail = async () => {
     if (!email.includes("@")) return;
-    try { fetch(WEBHOOK_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ firstName: "", email: email.trim(), company: company.trim(), website: url.trim(), need: "EscalaX Diagnostic", source: "escalax", step: "escalax-email-gate", submittedAt: new Date().toISOString() }) }); } catch { /* non-blocking */ }
+    try { fetch(WEBHOOK_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ firstName: "", email: email.trim(), company: company.trim(), website: url.trim(), need: "ScaleX Diagnostic", source: "scalex", step: "scalex-email-gate", submittedAt: new Date().toISOString() }) }); } catch { /* non-blocking */ }
     computeFinal();
     setStep("results");
     scrollToTop();
@@ -484,7 +499,7 @@ export function EscalaXDiagnostic() {
               We deep-scan your website, probe your DNS, detect every tracking pixel, map your entire tech stack, audit your security headers, and score your business across 10 growth pillars. In seconds.
             </p>
             <button onClick={() => { setStep("input"); scrollToTop(); }} className="px-10 py-5 bg-white text-black font-bold text-[11px] tracking-[0.25em] uppercase font-sans hover:bg-white/90 transition-colors cursor-pointer">
-              Get Your EscalaX Score
+              Get Your ScaleX Score
             </button>
             <div className="flex justify-center gap-6 md:gap-8 mt-10 flex-wrap">
               {["100+ Tools Detected", "DNS Probed", "Security Audited", "Free"].map((t, i) => (
@@ -593,7 +608,7 @@ export function EscalaXDiagnostic() {
           <motion.div key="email" variants={stepVariants} initial="enter" animate="center" exit="exit" className="w-full max-w-[560px] text-center">
             <span className="block text-[10px] md:text-xs font-sans uppercase tracking-[0.3em] text-zinc-500 mb-6">Last Step</span>
             <h2 className="text-3xl md:text-5xl font-wide font-bold uppercase leading-[0.9] mb-4">Your Intelligence<br />Report Is Ready</h2>
-            <p className="text-base text-zinc-400 font-sans mb-10">Enter your email to unlock your full EscalaX diagnostic — {analysisResult?.findings.totalSignals || 0}+ data points, radar chart, security audit, email deliverability, and personalized action plan.</p>
+            <p className="text-base text-zinc-400 font-sans mb-10">Enter your email to unlock your full ScaleX diagnostic — {analysisResult?.findings.totalSignals || 0}+ data points, radar chart, security audit, email deliverability, and personalized action plan.</p>
             <div className="flex flex-col gap-4">
               <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@company.com" className="w-full bg-transparent border-0 border-b-2 border-[#222] text-white text-lg font-sans py-3 outline-none placeholder:text-[#333] focus:border-white transition-colors duration-200 text-center" onKeyDown={(e) => { if (e.key === "Enter" && email.includes("@")) submitEmail(); }} autoFocus />
               <button onClick={submitEmail} disabled={!email.includes("@")} className="w-full mt-2 px-8 py-5 bg-white text-black font-bold text-[11px] tracking-[0.25em] uppercase font-sans disabled:opacity-30 disabled:cursor-not-allowed hover:bg-white/90 transition-colors cursor-pointer">
@@ -613,7 +628,7 @@ export function EscalaXDiagnostic() {
             {/* ── Score Header ─────────────────────────────────────── */}
             <div className="text-center mb-6">
               <span className="block text-[10px] md:text-xs font-sans uppercase tracking-[0.3em] text-zinc-500 mb-6">
-                EscalaX Intelligence Report — {company || f.businessName || "Your Business"}
+                {locale === "es" ? "EscalaX" : "ScaleX"} Intelligence Report — {company || f.businessName || "Your Business"}
               </span>
               <AnimatedScore target={overallScore} zone={zone} />
             </div>
@@ -834,31 +849,321 @@ export function EscalaXDiagnostic() {
               </motion.div>
             )}
 
+            {/* ═══ V2: FUNNEL ANALYSIS ═════════════════════════════════ */}
+            {analysisResult?.funnel && (
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.4, duration: 0.6 }} className="border border-white/5 p-6 md:p-8 mb-8">
+                <h3 className="text-[10px] tracking-[0.3em] uppercase text-zinc-500 font-sans mb-6">{tr(t.funnelTitle, locale)}</h3>
+                {/* Completeness bar */}
+                <div className="mb-6">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-[10px] tracking-[0.2em] uppercase text-zinc-600 font-sans">{tr(t.funnelCompleteness, locale)}</span>
+                    <span className="text-lg font-wide font-bold" style={{ color: analysisResult.funnel.completeness >= 60 ? "#10B981" : analysisResult.funnel.completeness >= 40 ? "#F59E0B" : "#EF4444" }}>
+                      {analysisResult.funnel.completeness}%
+                    </span>
+                  </div>
+                  <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                    <motion.div initial={{ width: 0 }} animate={{ width: `${analysisResult.funnel.completeness}%` }} transition={{ duration: 1.5, ease: "easeOut" }}
+                      className="h-full rounded-full" style={{ background: analysisResult.funnel.completeness >= 60 ? "#10B981" : analysisResult.funnel.completeness >= 40 ? "#F59E0B" : "#EF4444" }} />
+                  </div>
+                  <span className="text-[10px] text-zinc-600 font-sans mt-1 block capitalize">{locale === "es" ? `Tipo: ${analysisResult.funnel.funnelType}` : `Type: ${analysisResult.funnel.funnelType}`}</span>
+                </div>
+                {/* Funnel stages */}
+                <div className="space-y-3 mb-6">
+                  {analysisResult.funnel.stages.map((stage) => (
+                    <div key={stage.stage} className="flex items-start gap-3">
+                      <span className={`w-2 h-2 rounded-full flex-shrink-0 mt-1.5 ${stage.detected ? "bg-emerald-400" : "bg-red-400"}`} />
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-sans text-zinc-300 font-medium">{stage.label}</span>
+                          <span className={`text-[10px] font-mono ${stage.detected ? "text-emerald-400" : "text-red-400"}`}>{stage.score.toFixed(1)}/10</span>
+                        </div>
+                        {stage.signals.length > 0 && (
+                          <span className="text-[10px] text-zinc-600 font-sans">{stage.signals.join(" · ")}</span>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {/* Gaps */}
+                {analysisResult.funnel.gaps.length > 0 && (
+                  <div className="p-3 bg-red-400/[0.05] border border-red-400/20 mb-4">
+                    <span className="block text-[9px] tracking-[0.2em] uppercase text-red-400 font-sans mb-1">{tr(t.funnelGaps, locale)}</span>
+                    <span className="text-xs font-sans text-red-300">{analysisResult.funnel.gaps.join(", ")}</span>
+                  </div>
+                )}
+                {/* Lead magnets */}
+                {analysisResult.funnel.leadMagnets.length > 0 && (
+                  <div className="flex flex-wrap gap-2">
+                    {analysisResult.funnel.leadMagnets.map((lm, i) => (
+                      <span key={i} className="text-[10px] font-mono text-emerald-400 px-3 py-1 border border-emerald-400/20 bg-emerald-400/[0.05]">{lm}</span>
+                    ))}
+                  </div>
+                )}
+                {analysisResult.funnel.detectedFunnelBuilder && (
+                  <div className="mt-3 text-[10px] font-sans text-zinc-500">Funnel Builder: <span className="text-zinc-300">{analysisResult.funnel.detectedFunnelBuilder}</span></div>
+                )}
+              </motion.div>
+            )}
+
+            {/* ═══ V2: OFFER & VALUE STACK ════════════════════════════════ */}
+            {analysisResult?.offer && (
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.6, duration: 0.6 }} className="border border-white/5 p-6 md:p-8 mb-8">
+                <h3 className="text-[10px] tracking-[0.3em] uppercase text-zinc-500 font-sans mb-6">{tr(t.offerTitle, locale)}</h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                  <div className="p-3 bg-white/[0.02] border border-white/5">
+                    <span className="block text-[9px] tracking-[0.2em] uppercase text-zinc-600 font-sans mb-1">{tr(t.offerClarity, locale)}</span>
+                    <span className="text-lg font-wide font-bold" style={{ color: analysisResult.offer.offerClarity >= 6 ? "#10B981" : analysisResult.offer.offerClarity >= 3 ? "#F59E0B" : "#EF4444" }}>
+                      {analysisResult.offer.offerClarity}/10
+                    </span>
+                  </div>
+                  <div className="p-3 bg-white/[0.02] border border-white/5">
+                    <span className="block text-[9px] tracking-[0.2em] uppercase text-zinc-600 font-sans mb-1">{tr(t.offerStrength, locale)}</span>
+                    <span className="text-lg font-wide font-bold" style={{ color: analysisResult.offer.offerStrength >= 6 ? "#10B981" : analysisResult.offer.offerStrength >= 3 ? "#F59E0B" : "#EF4444" }}>
+                      {analysisResult.offer.offerStrength}/10
+                    </span>
+                  </div>
+                  <div className="p-3 bg-white/[0.02] border border-white/5">
+                    <span className="block text-[9px] tracking-[0.2em] uppercase text-zinc-600 font-sans mb-1">{tr(t.offerGuarantee, locale)}</span>
+                    <span className={`text-lg font-wide font-bold ${analysisResult.offer.hasMoneyBackGuarantee ? "text-emerald-400" : "text-red-400"}`}>
+                      {analysisResult.offer.hasMoneyBackGuarantee ? (locale === "es" ? "Sí" : "Yes") : "No"}
+                    </span>
+                  </div>
+                  <div className="p-3 bg-white/[0.02] border border-white/5">
+                    <span className="block text-[9px] tracking-[0.2em] uppercase text-zinc-600 font-sans mb-1">{locale === "es" ? "Precios" : "Pricing"}</span>
+                    <span className={`text-lg font-wide font-bold ${analysisResult.offer.hasPricingPage ? "text-emerald-400" : "text-red-400"}`}>
+                      {analysisResult.offer.hasPricingPage ? (locale === "es" ? "Sí" : "Yes") : "No"}
+                    </span>
+                  </div>
+                </div>
+                {/* Pricing tiers */}
+                {analysisResult.offer.tiers.length > 0 && (
+                  <div className="mb-4">
+                    <span className="block text-[9px] tracking-[0.2em] uppercase text-zinc-600 font-sans mb-2">{tr(t.offerPricing, locale)}</span>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                      {analysisResult.offer.tiers.map((tier, i) => (
+                        <div key={i} className={`p-3 border ${tier.isFeatured ? "border-amber-500/30 bg-amber-500/[0.03]" : "border-white/5 bg-white/[0.02]"}`}>
+                          <span className="block text-xs font-sans text-white font-medium">{tier.name}</span>
+                          {tier.price && <span className="block text-sm font-wide font-bold text-amber-400 mt-1">{tier.price}{tier.period ? `/${tier.period}` : ""}</span>}
+                          {tier.features.length > 0 && (
+                            <div className="mt-2 space-y-0.5">{tier.features.slice(0, 5).map((f, j) => (
+                              <span key={j} className="block text-[10px] text-zinc-500 font-sans">{f}</span>
+                            ))}</div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {/* Tactics detected */}
+                <div className="grid grid-cols-2 gap-3">
+                  {analysisResult.offer.urgencyTactics.length > 0 && (
+                    <div className="p-3 bg-white/[0.02] border border-white/5">
+                      <span className="block text-[9px] tracking-[0.2em] uppercase text-zinc-600 font-sans mb-1">{tr(t.offerUrgency, locale)}</span>
+                      <span className="text-xs font-sans text-amber-400">{analysisResult.offer.urgencyTactics.join(", ")}</span>
+                    </div>
+                  )}
+                  {analysisResult.offer.valueStackElements.length > 0 && (
+                    <div className="p-3 bg-white/[0.02] border border-white/5">
+                      <span className="block text-[9px] tracking-[0.2em] uppercase text-zinc-600 font-sans mb-1">{tr(t.offerValueStack, locale)}</span>
+                      <span className="text-xs font-sans text-emerald-400">{analysisResult.offer.valueStackElements.join(", ")}</span>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            )}
+
+            {/* ═══ V2: POSITIONING & MESSAGING ════════════════════════════ */}
+            {analysisResult?.positioning && (
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.8, duration: 0.6 }} className="border border-white/5 p-6 md:p-8 mb-8">
+                <h3 className="text-[10px] tracking-[0.3em] uppercase text-zinc-500 font-sans mb-6">{tr(t.positioningTitle, locale)}</h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                  <div className="p-3 bg-white/[0.02] border border-white/5">
+                    <span className="block text-[9px] tracking-[0.2em] uppercase text-zinc-600 font-sans mb-1">{tr(t.positioningClarity, locale)}</span>
+                    <span className="text-lg font-wide font-bold" style={{ color: analysisResult.positioning.clarityScore >= 6 ? "#10B981" : analysisResult.positioning.clarityScore >= 3 ? "#F59E0B" : "#EF4444" }}>
+                      {analysisResult.positioning.clarityScore}/10
+                    </span>
+                  </div>
+                  <div className="p-3 bg-white/[0.02] border border-white/5">
+                    <span className="block text-[9px] tracking-[0.2em] uppercase text-zinc-600 font-sans mb-1">{locale === "es" ? "Diferenciación" : "Differentiation"}</span>
+                    <span className="text-lg font-wide font-bold" style={{ color: analysisResult.positioning.differentiationScore >= 6 ? "#10B981" : analysisResult.positioning.differentiationScore >= 3 ? "#F59E0B" : "#EF4444" }}>
+                      {analysisResult.positioning.differentiationScore}/10
+                    </span>
+                  </div>
+                  <div className="p-3 bg-white/[0.02] border border-white/5">
+                    <span className="block text-[9px] tracking-[0.2em] uppercase text-zinc-600 font-sans mb-1">{locale === "es" ? "Consistencia" : "Consistency"}</span>
+                    <span className="text-lg font-wide font-bold" style={{ color: analysisResult.positioning.messagingConsistency >= 6 ? "#10B981" : analysisResult.positioning.messagingConsistency >= 3 ? "#F59E0B" : "#EF4444" }}>
+                      {analysisResult.positioning.messagingConsistency}/10
+                    </span>
+                  </div>
+                  <div className="p-3 bg-white/[0.02] border border-white/5">
+                    <span className="block text-[9px] tracking-[0.2em] uppercase text-zinc-600 font-sans mb-1">{tr(t.positioningType, locale)}</span>
+                    <span className={`text-sm font-sans font-bold uppercase ${analysisResult.positioning.positioningType === "clear" ? "text-emerald-400" : analysisResult.positioning.positioningType === "vague" ? "text-amber-400" : "text-red-400"}`}>
+                      {analysisResult.positioning.positioningType}
+                    </span>
+                  </div>
+                </div>
+                {/* Primary headline */}
+                {analysisResult.positioning.primaryHeadline && (
+                  <div className="p-4 bg-white/[0.02] border border-white/5 mb-4">
+                    <span className="block text-[9px] tracking-[0.2em] uppercase text-zinc-600 font-sans mb-2">{tr(t.positioningHeadline, locale)}</span>
+                    <span className="text-sm font-sans text-white italic">&ldquo;{analysisResult.positioning.primaryHeadline}&rdquo;</span>
+                    {analysisResult.positioning.subheadline && (
+                      <span className="block text-xs font-sans text-zinc-500 mt-1">{analysisResult.positioning.subheadline}</span>
+                    )}
+                  </div>
+                )}
+                {/* Target audience */}
+                {analysisResult.positioning.targetAudience && (
+                  <div className="p-3 bg-emerald-400/[0.05] border border-emerald-400/20 mb-4">
+                    <span className="block text-[9px] tracking-[0.2em] uppercase text-emerald-400 font-sans mb-1">{tr(t.positioningAudience, locale)}</span>
+                    <span className="text-xs font-sans text-emerald-300">{analysisResult.positioning.targetAudience}</span>
+                  </div>
+                )}
+                {/* Differentiators */}
+                {analysisResult.positioning.differentiators.length > 0 && (
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {analysisResult.positioning.differentiators.map((d, i) => (
+                      <span key={i} className="text-[10px] font-mono text-blue-400 px-3 py-1 border border-blue-400/20 bg-blue-400/[0.05]">{d}</span>
+                    ))}
+                  </div>
+                )}
+                {/* CTA copy */}
+                {analysisResult.positioning.ctaCopy.length > 0 && (
+                  <div className="mt-3">
+                    <span className="block text-[9px] tracking-[0.2em] uppercase text-zinc-600 font-sans mb-1">CTAs Found</span>
+                    <div className="flex flex-wrap gap-2">
+                      {analysisResult.positioning.ctaCopy.map((c, i) => (
+                        <span key={i} className="text-[10px] font-sans text-zinc-400 px-2 py-1 border border-white/5 bg-white/[0.02]">{c}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            )}
+
+            {/* ═══ V2: AD INTELLIGENCE ═════════════════════════════════════ */}
+            {analysisResult?.adIntel && (
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 4.0, duration: 0.6 }} className="border border-white/5 p-6 md:p-8 mb-8">
+                <h3 className="text-[10px] tracking-[0.3em] uppercase text-zinc-500 font-sans mb-6">{tr(t.adIntelTitle, locale)}</h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                  <div className="p-3 bg-white/[0.02] border border-white/5">
+                    <span className="block text-[9px] tracking-[0.2em] uppercase text-zinc-600 font-sans mb-1">{tr(t.adIntelMaturity, locale)}</span>
+                    <span className={`text-sm font-wide font-bold uppercase ${
+                      analysisResult.adIntel.maturityLevel === "advanced" || analysisResult.adIntel.maturityLevel === "enterprise" ? "text-emerald-400" :
+                      analysisResult.adIntel.maturityLevel === "intermediate" ? "text-blue-400" :
+                      analysisResult.adIntel.maturityLevel === "basic" ? "text-amber-400" : "text-red-400"
+                    }`}>
+                      {analysisResult.adIntel.maturityLevel}
+                    </span>
+                  </div>
+                  <div className="p-3 bg-white/[0.02] border border-white/5">
+                    <span className="block text-[9px] tracking-[0.2em] uppercase text-zinc-600 font-sans mb-1">{tr(t.adIntelSpend, locale)}</span>
+                    <span className="text-sm font-wide font-bold text-white">{analysisResult.adIntel.estimatedMonthlySpend || (locale === "es" ? "No detectado" : "Not detected")}</span>
+                  </div>
+                  <div className="p-3 bg-white/[0.02] border border-white/5">
+                    <span className="block text-[9px] tracking-[0.2em] uppercase text-zinc-600 font-sans mb-1">{tr(t.adIntelPixelHealth, locale)}</span>
+                    <span className={`text-sm font-wide font-bold uppercase ${
+                      analysisResult.adIntel.pixelHealth === "advanced" ? "text-emerald-400" :
+                      analysisResult.adIntel.pixelHealth === "healthy" ? "text-blue-400" :
+                      analysisResult.adIntel.pixelHealth === "partial" ? "text-amber-400" : "text-red-400"
+                    }`}>
+                      {analysisResult.adIntel.pixelHealth}
+                    </span>
+                  </div>
+                  <div className="p-3 bg-white/[0.02] border border-white/5">
+                    <span className="block text-[9px] tracking-[0.2em] uppercase text-zinc-600 font-sans mb-1">{locale === "es" ? "Sofisticación" : "Sophistication"}</span>
+                    <span className="text-lg font-wide font-bold text-white">{analysisResult.adIntel.trackingSophistication}/10</span>
+                  </div>
+                </div>
+                {/* Per-platform breakdown */}
+                <div className="space-y-2">
+                  {analysisResult.adIntel.platforms.filter(p => p.pixelDetected).map((platform, i) => (
+                    <div key={i} className="flex items-center justify-between p-3 bg-white/[0.02] border border-white/5">
+                      <div className="flex items-center gap-3">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                        <span className="text-xs font-sans text-white">{platform.platform}</span>
+                        {platform.pixelId && <span className="text-[10px] font-mono text-zinc-500">{platform.pixelId}</span>}
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className={`text-[10px] font-mono px-2 py-0.5 border ${
+                          platform.maturity === "full_funnel" ? "text-emerald-400 border-emerald-400/20 bg-emerald-400/[0.05]" :
+                          platform.maturity === "tracking_events" ? "text-blue-400 border-blue-400/20 bg-blue-400/[0.05]" :
+                          "text-amber-400 border-amber-400/20 bg-amber-400/[0.05]"
+                        }`}>
+                          {platform.maturity.replace(/_/g, " ")}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                  {analysisResult.adIntel.platforms.filter(p => !p.pixelDetected).length > 0 && (
+                    <div className="p-3 bg-red-400/[0.03] border border-red-400/10">
+                      <span className="text-[10px] text-red-400 font-sans">
+                        {locale === "es" ? "Sin presencia en: " : "Not on: "}
+                        {analysisResult.adIntel.platforms.filter(p => !p.pixelDetected).map(p => p.platform).join(", ")}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            )}
+
+            {/* ═══ V2: RECOMMENDATIONS ROADMAP ═════════════════════════════ */}
+            {analysisResult?.recommendations && analysisResult.recommendations.length > 0 && (
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 4.2, duration: 0.6 }} className="border border-white/5 p-6 md:p-8 mb-8">
+                <h3 className="text-[10px] tracking-[0.3em] uppercase text-zinc-500 font-sans mb-6">{tr(t.recommendationsTitle, locale)}</h3>
+                <div className="space-y-4">
+                  {analysisResult.recommendations.map((rec, i) => {
+                    const priorityColors: Record<string, string> = { critical: "#EF4444", high: "#F59E0B", medium: "#3B82F6", low: "#6B7280" };
+                    const color = priorityColors[rec.priority] || "#6B7280";
+                    return (
+                      <div key={rec.id || i} className="p-4 border border-white/5 bg-white/[0.01]" style={{ borderLeftColor: color, borderLeftWidth: 3 }}>
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-[9px] font-mono tracking-[0.15em] uppercase px-2 py-0.5 rounded-sm" style={{ color, background: `${color}15`, border: `1px solid ${color}30` }}>
+                            {tr(t.recommendationsPriority[rec.priority as keyof typeof t.recommendationsPriority], locale)}
+                          </span>
+                          <span className="text-[9px] tracking-[0.1em] uppercase text-zinc-600 font-sans">{rec.category}</span>
+                          <span className="text-[9px] text-zinc-700 font-sans ml-auto">{tr(t.recommendationsEffort[rec.effort], locale)}</span>
+                        </div>
+                        <h4 className="text-sm font-sans font-semibold text-white mb-1">{rec.title[locale]}</h4>
+                        <p className="text-xs font-sans text-zinc-500 leading-relaxed">{rec.description[locale]}</p>
+                        {rec.impact && (
+                          <div className="mt-2 flex items-center gap-1">
+                            <span className="text-[9px] tracking-[0.1em] uppercase text-zinc-600 font-sans">{tr(t.recommendationsImpact, locale)}:</span>
+                            <span className="text-[10px] font-sans font-semibold" style={{ color }}>{rec.impact}</span>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            )}
+
             {/* ── Revenue Leak ─────────────────────────────────────── */}
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.5, duration: 0.6 }} className="border border-white/5 p-6 md:p-8 mb-8 text-center">
-              <h3 className="text-[10px] tracking-[0.3em] uppercase text-zinc-500 font-sans mb-3">Estimated Revenue You&apos;re Leaving on the Table</h3>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 4.5, duration: 0.6 }} className="border border-white/5 p-6 md:p-8 mb-8 text-center">
+              <h3 className="text-[10px] tracking-[0.3em] uppercase text-zinc-500 font-sans mb-3">{tr(t.revenueLeak, locale)}</h3>
               <span className="text-4xl md:text-5xl font-wide font-bold" style={{ color: zone.color }}>{estimateRevenueLeak(overallScore)}</span>
               <p className="text-sm text-zinc-500 font-sans mt-3">Based on gaps across {getTopIssues(finalScores, 10).filter(i => i.score < 5).length} underperforming pillars</p>
             </motion.div>
 
             {/* ── CTA ──────────────────────────────────────────────── */}
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 3.8, duration: 0.6 }} className="border border-white/10 bg-white/[0.02] p-8 md:p-12 text-center">
-              <h3 className="text-2xl md:text-4xl font-wide font-bold uppercase leading-[0.9] mb-4">Want Us to<br /><span className="shimmer-text">Fix This?</span></h3>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 4.8, duration: 0.6 }} className="border border-white/10 bg-white/[0.02] p-8 md:p-12 text-center">
+              <h3 className="text-2xl md:text-4xl font-wide font-bold uppercase leading-[0.9] mb-4">{locale === "es" ? "¿Quieres Que Lo" : "Want Us to"}<br /><span className="shimmer-text">{locale === "es" ? "Arreglemos?" : "Fix This?"}</span></h3>
               <p className="text-sm text-zinc-400 font-sans max-w-[500px] mx-auto mb-8">
-                Our AI team builds revenue machines. We found {f.totalSignals} signals — we know exactly where your gaps are. Let us build a custom action plan to fix your weakest pillars.
+                {tr(t.ctaDescription, locale).replace("{signals}", String(f.totalSignals))}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href={`https://wa.me/38640505084?text=${encodeURIComponent(`Hi! I just got my EscalaX score (${overallScore}/100) for ${company || "my business"}. You found ${f.totalSignals} data points. I'd like to know how you can help me improve.`)}`} target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-5 bg-white text-black font-bold text-[11px] tracking-[0.25em] uppercase font-sans hover:bg-white/90 transition-colors cursor-pointer">
-                  Talk to Us on WhatsApp
+                <a href={`https://wa.me/38640505084?text=${encodeURIComponent(locale === "es" ? `¡Hola! Acabo de obtener mi puntaje EscalaX (${overallScore}/100) para ${company || "mi negocio"}. Encontraron ${f.totalSignals} señales. Me gustaría saber cómo pueden ayudarme a mejorar.` : `Hi! I just got my ScaleX score (${overallScore}/100) for ${company || "my business"}. You found ${f.totalSignals} data points. I'd like to know how you can help me improve.`)}`} target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-5 bg-white text-black font-bold text-[11px] tracking-[0.25em] uppercase font-sans hover:bg-white/90 transition-colors cursor-pointer">
+                  {tr(t.ctaWhatsApp, locale)}
                 </a>
-                <button onClick={() => { navigator.clipboard?.writeText(`I just scored ${overallScore}/100 on EscalaX — a free AI diagnostic that deep-scans your website, probes your DNS, audits your security, and scores your business across 10 pillars. It found ${f.totalSignals} data points about my business. Try it: mynewstaff.ai/escalax`); }} className="px-8 py-5 border border-white/20 text-white font-bold text-[11px] tracking-[0.25em] uppercase font-sans hover:border-white/40 hover:bg-white/[0.02] transition-colors cursor-pointer">
-                  Share Your Score
+                <button onClick={() => { navigator.clipboard?.writeText(locale === "es" ? `Acabo de obtener ${overallScore}/100 en EscalaX — un diagnóstico IA gratis que escanea tu sitio web, sondea tu DNS, audita tu seguridad, analiza tu embudo y te califica en 10 pilares. Encontró ${f.totalSignals} señales sobre mi negocio. Pruébalo: mynewstaff.ai/scalex` : `I just scored ${overallScore}/100 on ScaleX — a free AI diagnostic that deep-scans your website, probes your DNS, audits your security, analyzes your funnel, and scores your business across 10 pillars. It found ${f.totalSignals} data points about my business. Try it: mynewstaff.ai/scalex`); }} className="px-8 py-5 border border-white/20 text-white font-bold text-[11px] tracking-[0.25em] uppercase font-sans hover:border-white/40 hover:bg-white/[0.02] transition-colors cursor-pointer">
+                  {tr(t.ctaShare, locale)}
                 </button>
               </div>
             </motion.div>
 
             <div className="text-center mt-10">
-              <span className="text-[9px] tracking-[0.2em] uppercase text-zinc-700 font-sans">Powered by MyNewStaff.ai — We Build Revenue Machines</span>
+              <span className="text-[9px] tracking-[0.2em] uppercase text-zinc-700 font-sans">{tr(t.poweredBy, locale)}</span>
             </div>
           </motion.div>
         )}
