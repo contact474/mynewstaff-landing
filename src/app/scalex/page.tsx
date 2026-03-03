@@ -3,9 +3,9 @@ import { EscalaXDiagnostic } from "@/components/escalax/EscalaXDiagnostic";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "ScaleX — Free AI Business Diagnostic | MyNewStaff.ai",
+  title: "ScaleX AI — Free AI Business Diagnostic | MyNewStaff.ai",
   description:
-    "Get your ScaleX Score: AI-powered diagnostic that scans your website, analyzes your funnel, offer, positioning, ad strategy, and scores your business across 10 growth pillars. Now with funnel analysis, ad intelligence, and improvement roadmap.",
+    "Get your ScaleX AI Score: see exactly where your growth engine is leaking revenue. AI-powered diagnostic scans your website, funnel, offer, positioning, and ad strategy across 10 pillars. Free. Under 5 minutes.",
   alternates: {
     languages: {
       en: "/scalex",

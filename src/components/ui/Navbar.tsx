@@ -11,6 +11,7 @@ export function Navbar() {
             <div className="hidden lg:flex gap-8">
                 <Link href="/#strategy" className="hover:opacity-50 transition-opacity">The Engine</Link>
                 <Link href="/#pricing" className="hover:opacity-50 transition-opacity">Pricing</Link>
+                <Link href="/results" className="hover:opacity-50 transition-opacity">Results</Link>
             </div>
 
             <div className="absolute left-1/2 -translate-x-1/2 font-bold text-sm md:text-base tracking-[0.2em] font-wide">
@@ -21,7 +22,7 @@ export function Navbar() {
             </div>
 
             <div className="hidden lg:flex gap-8">
-                <Link href="/scalex" className="hover:opacity-50 transition-opacity shimmer-text">ScaleX Free</Link>
+                <Link href="/scalex" className="hover:opacity-50 transition-opacity shimmer-text">ScaleX AI</Link>
                 <button onClick={() => openQuiz("navbar-contact")} className="hover:opacity-50 transition-opacity cursor-pointer">
                     Contact
                 </button>

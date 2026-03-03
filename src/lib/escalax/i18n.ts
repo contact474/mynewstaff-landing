@@ -23,7 +23,7 @@ export function detectLocale(headers: Headers): Locale {
 // All UI strings, organized by section
 export const t = {
   // ── App Shell ─────────────────────────────────────────────────
-  brandName: { en: "ScaleX", es: "EscalaX" },
+  brandName: { en: "ScaleX AI", es: "EscalaX" },
   tagline: {
     en: "Free AI Business Diagnostic",
     es: "Diagnóstico de Negocio con IA Gratis",
@@ -143,7 +143,7 @@ export const t = {
   emailSkip: { en: "Skip — show results now", es: "Omitir — ver resultados ahora" },
 
   // ── Results ───────────────────────────────────────────────────
-  resultsTitle: { en: "Your ScaleX Score", es: "Tu Puntaje EscalaX" },
+  resultsTitle: { en: "Your ScaleX AI Score", es: "Tu Puntaje EscalaX" },
   overallScore: { en: "Overall Score", es: "Puntaje General" },
 
   // ── Pillar Names ──────────────────────────────────────────────

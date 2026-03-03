@@ -17,7 +17,7 @@ const Dash = () => <span className="w-4 h-4 flex items-center justify-center tex
 
 const tiers = [
   {
-    name: "ScaleX",
+    name: "ScaleX AI",
     tagline: "Free Forever",
     price: "$0",
     period: "",
@@ -49,10 +49,10 @@ const tiers = [
     setup: "",
     highlight: true,
     cta: "Book Strategy Call",
-    ctaRoute: null, // opens quiz
-    replaces: "Agency retainer ($5-15K/mo) that delivers reports, not revenue",
+    ctaRoute: null,
+    replaces: "Agency retainer ($5–15K/mo) that delivers reports, not revenue",
     features: [
-      { text: "Everything in ScaleX +", included: true },
+      { text: "Everything in ScaleX AI +", included: true },
       { text: "100+ AI content pieces/mo", included: true },
       { text: "3-platform distribution", included: true },
       { text: "10,000 targeted leads/mo scraped", included: true },
@@ -74,7 +74,7 @@ const tiers = [
     setup: "",
     highlight: false,
     cta: "Talk to Founders",
-    ctaRoute: null, // opens quiz
+    ctaRoute: null,
     replaces: "In-house team ($300K+/yr) with management overhead",
     features: [
       { text: "Everything in Growth Engine +", included: true },
@@ -100,6 +100,23 @@ export function PricingTable() {
 
   return (
     <div className="w-full">
+      {/* Scarcity banner */}
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="mb-8 py-4 px-6 border border-white/10 bg-white/[0.03] text-center"
+      >
+        <div className="flex items-center justify-center gap-3 mb-1">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+          </span>
+          <span className="text-[10px] tracking-[0.3em] uppercase text-white font-bold">3 Spots Remaining — Applications Close March 31</span>
+        </div>
+        <p className="text-[10px] tracking-[0.15em] text-zinc-500 font-sans">We onboard a maximum of 5 clients per quarter to maintain execution quality.</p>
+      </motion.div>
+
       {/* Anchor comparison */}
       <div className="max-w-3xl mx-auto text-center mb-16">
         <p className="text-sm md:text-base text-zinc-500 font-sans leading-relaxed">
@@ -133,10 +150,10 @@ export function PricingTable() {
                 {tier.highlight ? tier.name : tier.tagline}
               </span>
               <h3 className="font-wide text-3xl md:text-4xl uppercase font-bold">
-                {tier.highlight ? "" : ""}{tier.name === "ScaleX" ? "" : ""}{tier.price}
+                {tier.price}
                 {tier.period && <span className="text-base text-zinc-500 font-normal">{tier.period}</span>}
               </h3>
-              {tier.name !== "ScaleX" && !tier.highlight && (
+              {tier.name !== "ScaleX AI" && !tier.highlight && (
                 <span className="block text-[10px] tracking-[0.2em] uppercase text-zinc-600 mt-2">
                   {tier.name}
                 </span>
@@ -194,22 +211,30 @@ export function PricingTable() {
         ))}
       </div>
 
-      {/* Guarantee banner */}
+      {/* 90-Day Guarantee */}
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ delay: 0.4 }}
-        className="mt-12 py-8 border border-white/10 text-center"
+        className="mt-12 py-10 border border-white/10 text-center relative overflow-hidden"
       >
-        <p className="text-[10px] tracking-[0.3em] uppercase text-zinc-500 mb-2">Zero Risk</p>
-        <p className="text-lg md:text-xl font-wide uppercase font-bold">
-          Month-to-Month. No Contracts. <span className="shimmer-text">Cancel Anytime.</span>
-        </p>
-        <p className="text-xs text-zinc-500 font-sans mt-3 max-w-md mx-auto">
-          We operate without lock-ins because the ROI makes the decision obvious.
-          If you don&apos;t see results within 30 days, we&apos;ll work for free until you do.
-        </p>
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.02] to-transparent" />
+        <div className="relative z-10">
+          {/* Shield icon */}
+          <div className="mx-auto w-12 h-12 mb-4 border border-white/20 rounded-full flex items-center justify-center">
+            <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+            </svg>
+          </div>
+          <p className="text-[10px] tracking-[0.3em] uppercase text-zinc-500 mb-3">90-Day Pipeline Guarantee</p>
+          <p className="text-lg md:text-2xl font-wide uppercase font-bold max-w-2xl mx-auto leading-tight">
+            100 Qualified Leads <br className="hidden md:block" /> Or We Work <span className="shimmer-text">Free.</span>
+          </p>
+          <p className="text-xs text-zinc-500 font-sans mt-4 max-w-lg mx-auto leading-relaxed px-4">
+            If we don&apos;t generate at least 100 qualified leads in your pipeline within 90 days, we continue working at zero cost until we hit that number. No contracts. No risk. No excuses.
+          </p>
+        </div>
       </motion.div>
 
       {/* Social proof stats */}

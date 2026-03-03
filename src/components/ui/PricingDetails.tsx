@@ -58,7 +58,7 @@ const systems = [
   },
   {
     number: "06",
-    name: "ScaleX Diagnostic",
+    name: "ScaleX AI Diagnostic",
     description: "Deep AI audit of any business — website, DNS, security, funnel, offer, positioning, ad strategy. Scores across 10 pillars with bilingual improvement roadmap. Free for all tiers.",
     metrics: [
       { label: "Data Points", value: "200+" },
