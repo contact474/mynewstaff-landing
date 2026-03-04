@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MNS Lead Flow — Carousel</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #000000;
+    --dark: #0a0a0a;
+    --card: #111111;
+    --card-alt: #0d0d0d;
+    --border: rgba(255,255,255,0.07);
+    --border-active: rgba(255,255,255,0.14);
+    --text: #ffffff;
+    --text-dim: #999999;
+    --text-muted: #555555;
+    --green: #22c55e;
+    --amber: #f59e0b;
+    --red: #ef4444;
+    --blue: #3b82f6;
+    --purple: #a855f7;
+  }
+
+  body {
+    background: #000;
+    color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ═══ SLIDE ═══ */
+  .slide {
+    width: 1080px;
+    height: 1350px;
+    background: var(--black);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 60px 56px;
+    margin-bottom: 4px;
+    page-break-after: always;
+  }
+
+  /* ═══ SLIDE HEADER (phase tag) ═══ */
+  .slide-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .slide-header .phase-tag {
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    white-space: nowrap;
+    padding: 7px 18px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+  }
+  .slide-header .line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ═══ SLIDE TITLE ═══ */
+  .slide-title {
+    font-size: 44px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    margin-bottom: 10px;
+  }
+  .slide-sub {
+    font-size: 16px;
+    color: var(--text-dim);
+    line-height: 1.5;
+    margin-bottom: 36px;
+    max-width: 700px;
+  }
+
+  /* ═══ CONTENT FILL ═══ */
+  .slide-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  /* ═══ CARD GRID ═══ */
+  .grid { display: grid; gap: 10px; }
+  .grid.c2 { grid-template-columns: repeat(2, 1fr); }
+  .grid.c3 { grid-template-columns: repeat(3, 1fr); }
+  .grid.c4 { grid-template-columns: repeat(4, 1fr); }
+
+  /* ═══ CARD ═══ */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+  }
+  .card.hl {
+    border-color: var(--border-active);
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+  }
+  .card .icon {
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    font-size: 20px;
+  }
+  .card .tag {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .card p {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.55;
+    flex: 1;
+  }
+  .card .badge {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 5px 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    border-radius: 3px;
+    align-self: flex-start;
+  }
+
+  /* ═══ STEP FLOW ═══ */
+  .step-flow {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .step-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 24px 20px;
+    text-align: center;
+    position: relative;
+  }
+  .step-box:not(:last-child)::after {
+    content: '\2192';
+    position: absolute;
+    right: -14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 16px;
+    z-index: 2;
+  }
+  .step-box .num {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    display: block;
+  }
+  .step-box h4 {
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .step-box p {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.45;
+  }
+
+  /* ═══ TEMPERATURE LANES ═══ */
+  .lanes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .lane {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 28px 24px;
+  }
+  .lane.hot { border-top: 3px solid var(--red); }
+  .lane.warm { border-top: 3px solid var(--amber); }
+  .lane.cool { border-top: 3px solid var(--blue); }
+  .lane.cold { border-top: 3px solid var(--text-muted); }
+  .lane .ltag {
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: block;
+    font-weight: 600;
+  }
+  .lane.hot .ltag { color: var(--red); }
+  .lane.warm .ltag { color: var(--amber); }
+  .lane.cool .ltag { color: var(--blue); }
+  .lane.cold .ltag { color: var(--text-muted); }
+  .lane h4 {
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .lane .score {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+    display: block;
+  }
+  .lane ul { list-style: none; padding: 0; }
+  .lane ul li {
+    font-size: 14px;
+    color: var(--text-dim);
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .lane ul li::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    flex-shrink: 0;
+  }
+  .lane ul li:last-child { border-bottom: none; }
+
+  /* ═══ DOT ═══ */
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 8px; }
+  .dot.green { background: var(--green); }
+  .dot.amber { background: var(--amber); }
+  .dot.red { background: var(--red); }
+  .dot.blue { background: var(--blue); }
+
+  /* ═══ CAMPAIGN ═══ */
+  .campaign-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 28px 24px;
+  }
+  .campaign-card .cnum {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    display: block;
+  }
+  .campaign-card h4 {
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .campaign-card .emails {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+    display: block;
+  }
+  .campaign-card p {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.55;
+  }
+  .campaign-card .trigger {
+    margin-top: 14px;
+    padding: 8px 14px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: inline-block;
+  }
+
+  /* ═══ FUNNEL ═══ */
+  .funnel { display: flex; gap: 0; }
+  .funnel-step {
+    flex: 1;
+    padding: 28px 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    text-align: center;
+    position: relative;
+  }
+  .funnel-step:not(:last-child) { border-right: none; }
+  .funnel-step:not(:last-child)::after {
+    content: '\2192';
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 18px;
+    z-index: 2;
+  }
+  .funnel-step.active {
+    background: rgba(255,255,255,0.04);
+    border-color: var(--border-active);
+  }
+  .funnel-step .stag {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .funnel-step h4 {
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .funnel-step p {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.4;
+  }
+
+  /* ═══ TIMELINE ═══ */
+  .tl-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .tl-block {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 28px 20px;
+    text-align: center;
+  }
+  .tl-block .time {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    display: block;
+  }
+  .tl-block h4 {
+    font-size: 28px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .tl-block p {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.45;
+  }
+
+  /* ═══ COVER SPECIFIC ═══ */
+  .cover-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .cover-tag {
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    padding: 8px 20px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+  }
+  .cover-h1 {
+    font-size: 72px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    margin-bottom: 28px;
+  }
+  .cover-h1 .shimmer {
+    background: linear-gradient(90deg, #fff 0%, #666 50%, #fff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 100%;
+  }
+  .cover-sub {
+    font-size: 17px;
+    color: var(--text-dim);
+    max-width: 580px;
+    line-height: 1.6;
+    margin-bottom: 48px;
+  }
+  .cover-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+    width: 100%;
+    max-width: 800px;
+  }
+  .cover-stat {
+    padding: 24px 16px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .cover-stat:last-child { border-right: none; }
+  .cover-stat .val {
+    display: block;
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .cover-stat .lbl {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* ═══ CLOSING SLIDE ═══ */
+  .closing-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .closing-h1 {
+    font-size: 56px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+  .closing-sub {
+    font-size: 18px;
+    color: var(--text-dim);
+    max-width: 580px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+  .cta-btn {
+    display: inline-block;
+    padding: 18px 48px;
+    background: white;
+    color: black;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    margin-bottom: 24px;
+  }
+  .closing-guarantee {
+    font-size: 13px;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .closing-guarantee .g-green { color: var(--green); }
+
+  /* ═══ PAGE NUMBER ═══ */
+  .page-num {
+    position: absolute;
+    bottom: 40px;
+    right: 56px;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--text-muted);
+  }
+
+  /* ═══ BRAND FOOTER ON EACH SLIDE ═══ */
+  .brand-footer {
+    position: absolute;
+    bottom: 40px;
+    left: 56px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.12);
+  }
+
+  /* ═══ VERTICAL CONNECTOR BETWEEN SECTIONS ═══ */
+  .vconnector {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+  }
+  .vconnector .varrow {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--border-active), var(--border));
+    position: relative;
+  }
+  .vconnector .varrow::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid rgba(255,255,255,0.15);
+  }
+
+  /* ═══ GUARANTEE BOX ═══ */
+  .guarantee-box {
+    background: var(--card);
+    border: 1px solid var(--border-active);
+    padding: 32px;
+    text-align: center;
+    margin-top: 24px;
+  }
+  .guarantee-box h4 {
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+    color: var(--green);
+  }
+  .guarantee-box p {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 1: COVER
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-1">
+  <div class="cover-content">
+    <div class="cover-tag">MyNewStaff.ai &mdash; Internal System Architecture</div>
+    <h1 class="cover-h1">THE COMPLETE<br><span class="shimmer">REVENUE FLOW.</span></h1>
+    <p class="cover-sub">From first intent signal to closed client &mdash; every touchpoint, every campaign, every conversion step mapped. Zero manual work.</p>
+    <div class="cover-stats">
+      <div class="cover-stat">
+        <span class="val">7</span>
+        <span class="lbl">Phases</span>
+      </div>
+      <div class="cover-stat">
+        <span class="val">6</span>
+        <span class="lbl">Intent Sources</span>
+      </div>
+      <div class="cover-stat">
+        <span class="val">4</span>
+        <span class="lbl">Campaign Flows</span>
+      </div>
+      <div class="cover-stat">
+        <span class="val">90</span>
+        <span class="lbl">Day Guarantee</span>
+      </div>
+    </div>
+  </div>
+  <span class="brand-footer">mynewstaff.ai</span>
+  <span class="page-num">01 / 09</span>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 2: INTENT SIGNALS
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-2">
+  <div class="slide-header">
+    <span class="phase-tag">Phase 01</span>
+    <div class="line"></div>
+  </div>
+  <h2 class="slide-title">Intent Signals</h2>
+  <p class="slide-sub">Where leads first express buying intent online &mdash; 6 sources feeding one system.</p>
+
+  <div class="slide-content">
+    <div class="grid c3" style="margin-bottom:10px;">
+      <div class="card hl">
+        <div class="icon">&#x1F50D;</div>
+        <span class="tag">Organic</span>
+        <h3>Search &amp; SEO</h3>
+        <p>Google &amp; Bing &mdash; actively searching for pipeline, lead gen, or marketing automation solutions.</p>
+      </div>
+      <div class="card hl">
+        <div class="icon">&#x1F4F1;</div>
+        <span class="tag">Social</span>
+        <h3>Content Discovery</h3>
+        <p>Instagram Reels, TikTok, LinkedIn &mdash; scroll-stopping content that pulls them into the ecosystem.</p>
+        <span class="badge">100+ pieces / month</span>
+      </div>
+      <div class="card">
+        <div class="icon">&#x1F4B0;</div>
+        <span class="tag">Paid</span>
+        <h3>Ad Multiplier</h3>
+        <p>Meta, Google, LinkedIn, TikTok &mdash; targeted paid amplification of top-performing organic content.</p>
+      </div>
+    </div>
+    <div class="grid c3">
+      <div class="card">
+        <div class="icon">&#x1F4E7;</div>
+        <span class="tag">Outreach</span>
+        <h3>Cold Email</h3>
+        <p>AI-personalized sequences to 10,000+ scraped &amp; enriched leads per month. Behavioral triggers per open/click.</p>
+        <span class="badge">10K leads / month</span>
+      </div>
+      <div class="card">
+        <div class="icon">&#x1F91D;</div>
+        <span class="tag">Network</span>
+        <h3>Referrals</h3>
+        <p>Client referrals, partner introductions, word-of-mouth from results that speak for themselves.</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#x1F4AC;</div>
+        <span class="tag">Direct</span>
+        <h3>WhatsApp / DM</h3>
+        <p>Warm inbound from social engagement, direct messages, and broadcast list responses.</p>
+      </div>
+    </div>
+  </div>
+  <span class="brand-footer">mynewstaff.ai</span>
+  <span class="page-num">02 / 09</span>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 3: CAPTURE & QUALIFICATION
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-3">
+  <div class="slide-header">
+    <span class="phase-tag">Phase 02</span>
+    <div class="line"></div>
+  </div>
+  <h2 class="slide-title">Capture &amp; Qualification</h2>
+  <p class="slide-sub">Every entry point feeds into the same system &mdash; 3 capture mechanisms, one CRM pipeline.</p>
+
+  <div class="slide-content">
+    <div class="grid c3" style="margin-bottom: 24px;">
+      <div class="card hl" style="padding:32px 28px;">
+        <span class="tag">Lead Magnet &mdash; Primary Entry</span>
+        <h3>ScaleX AI Diagnostic</h3>
+        <p>Free 10-pillar business audit. Captures URL + email + 5 behavioral questions. Shows their revenue leaks with a scored report &mdash; giving massive value BEFORE asking for anything.</p>
+        <span class="badge">Primary funnel entry</span>
+      </div>
+      <div class="card" style="padding:32px 28px;">
+        <span class="tag">Quick Qualifier</span>
+        <h3>2-Step Quiz</h3>
+        <p>Name + email + need selection. Smart routing: interested in full system? &rarr; /scale. Want video only? &rarr; /videos. Undecided? &rarr; ScaleX AI first.</p>
+        <span class="badge">30-second capture</span>
+      </div>
+      <div class="card" style="padding:32px 28px;">
+        <span class="tag">Full Application</span>
+        <h3>5-Step Deep Qualify</h3>
+        <p>Phone, company, industry, revenue tier, bottleneck identification. Fires webhook + auto-redirects to Calendly booking page.</p>
+        <span class="badge">Calendly redirect</span>
+      </div>
+    </div>
+
+    <div class="vconnector"><div class="varrow"></div></div>
+
+    <div style="background:var(--card);border:1px solid var(--border);padding:28px 32px;text-align:center;">
+      <p style="font-size:13px;color:var(--text-dim);letter-spacing:0.1em;text-transform:uppercase;">All 3 entry points &rarr; <span style="color:white;font-weight:700;">Single CRM Pipeline</span> &rarr; Auto-scored &rarr; Auto-routed</p>
+    </div>
+  </div>
+  <span class="brand-footer">mynewstaff.ai</span>
+  <span class="page-num">03 / 09</span>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 4: SYSTEM ENTRY & SCORING
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-4">
+  <div class="slide-header">
+    <span class="phase-tag">Phase 03</span>
+    <div class="line"></div>
+  </div>
+  <h2 class="slide-title">System Entry &amp; Scoring</h2>
+  <p class="slide-sub">Every lead automatically enters the CRM, gets scored, tagged, and routed &mdash; in under 60 seconds. Zero manual work.</p>
+
+  <div class="slide-content">
+    <div style="background:var(--card);border:1px solid var(--border);padding:36px 32px;margin-bottom:20px;">
+      <h3 style="font-size:20px;font-weight:700;text-transform:uppercase;margin-bottom:6px;">CRM Ingestion Pipeline</h3>
+      <p style="font-size:14px;color:var(--text-dim);line-height:1.5;">Webhook fires &rarr; data enriched &rarr; lead scored &rarr; temperature assigned &rarr; pipeline stage set &rarr; first automation triggered. All within 60 seconds of form submission.</p>
+    </div>
+
+    <div class="step-flow" style="margin-bottom:24px;">
+      <div class="step-box">
+        <span class="num">Step 01</span>
+        <h4>Webhook Fire</h4>
+        <p>Lead data hits MNS Command API + GHL CRM simultaneously</p>
+      </div>
+      <div class="step-box">
+        <span class="num">Step 02</span>
+        <h4>Lead Scoring</h4>
+        <p>Scored 0-100: revenue tier, industry, need, engagement signals</p>
+      </div>
+      <div class="step-box">
+        <span class="num">Step 03</span>
+        <h4>Temperature</h4>
+        <p>Classified HOT / WARM / COOL / COLD based on composite score</p>
+      </div>
+      <div class="step-box">
+        <span class="num">Step 04</span>
+        <h4>Tag &amp; Route</h4>
+        <p>31 tags applied. Pipeline stage assigned. First email queued.</p>
+      </div>
+    </div>
+
+    <div class="grid c4">
+      <div style="background:var(--card);border:1px solid var(--border);padding:20px;text-align:center;">
+        <span style="display:block;font-size:28px;font-weight:800;margin-bottom:4px;">31</span>
+        <span style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);">Auto Tags</span>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);padding:20px;text-align:center;">
+        <span style="display:block;font-size:28px;font-weight:800;margin-bottom:4px;">&lt;60s</span>
+        <span style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);">Ingestion Time</span>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);padding:20px;text-align:center;">
+        <span style="display:block;font-size:28px;font-weight:800;margin-bottom:4px;">0</span>
+        <span style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);">Manual Steps</span>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);padding:20px;text-align:center;">
+        <span style="display:block;font-size:28px;font-weight:800;margin-bottom:4px;">24/7</span>
+        <span style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);">Always On</span>
+      </div>
+    </div>
+  </div>
+  <span class="brand-footer">mynewstaff.ai</span>
+  <span class="page-num">04 / 09</span>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 5: TEMPERATURE ROUTING
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-5">
+  <div class="slide-header">
+    <span class="phase-tag">Phase 04</span>
+    <div class="line"></div>
+  </div>
+  <h2 class="slide-title">Temperature Routing</h2>
+  <p class="slide-sub">Each lead gets a personalized journey based on their engagement level and intent signals.</p>
+
+  <div class="slide-content">
+    <div class="lanes">
+      <div class="lane hot">
+        <span class="ltag"><span class="dot red"></span>Hot &mdash; Score 70-100</span>
+        <h4>Fast Track</h4>
+        <span class="score">Highest intent &mdash; ready to buy now</span>
+        <ul>
+          <li>Skip nurture &rarr; direct booking link</li>
+          <li>Immediate strategy call invitation</li>
+          <li>Personal founder outreach within 2h</li>
+          <li>ScaleX AI run live on the call</li>
+          <li>2x send cadence (every 1.5 days)</li>
+        </ul>
+      </div>
+      <div class="lane warm">
+        <span class="ltag"><span class="dot amber"></span>Warm &mdash; Score 40-69</span>
+        <h4>Standard Nurture</h4>
+        <span class="score">Interested &mdash; needs education first</span>
+        <ul>
+          <li>Full 4-campaign email sequence</li>
+          <li>Standard cadence (every 3 days)</li>
+          <li>Case study content delivery</li>
+          <li>Social proof stacking over time</li>
+          <li>Soft CTA &rarr; strategy call booking</li>
+        </ul>
+      </div>
+      <div class="lane cool">
+        <span class="ltag"><span class="dot blue"></span>Cool &mdash; Score 20-39</span>
+        <h4>Education Path</h4>
+        <span class="score">Curious &mdash; not yet convinced</span>
+        <ul>
+          <li>Pure value content only (no selling)</li>
+          <li>Slower cadence (every 4.5 days)</li>
+          <li>Zero sales pressure at this stage</li>
+          <li>ScaleX AI report delivery for free</li>
+          <li>Re-score after engagement signals</li>
+        </ul>
+      </div>
+      <div class="lane cold">
+        <span class="ltag"><span class="dot"></span>Cold &mdash; Score 0-19</span>
+        <h4>Re-Engagement</h4>
+        <span class="score">Dark &mdash; no recent engagement</span>
+        <ul>
+          <li>Pattern interrupt emails only</li>
+          <li>Slowest cadence (every 6 days)</li>
+          <li>New free content offers to re-hook</li>
+          <li>Social media retargeting ads</li>
+          <li>Archive after 3 consecutive non-opens</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <span class="brand-footer">mynewstaff.ai</span>
+  <span class="page-num">05 / 09</span>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 6: 4-CAMPAIGN BEHAVIORAL ENGINE
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-6">
+  <div class="slide-header">
+    <span class="phase-tag">Phase 05</span>
+    <div class="line"></div>
+  </div>
+  <h2 class="slide-title">4-Campaign<br>Behavioral Engine</h2>
+  <p class="slide-sub">Behavioral triggers advance leads through campaigns automatically. The golden rule: never pitch a cold lead.</p>
+
+  <div class="slide-content">
+    <div class="grid c2">
+      <div class="campaign-card">
+        <span class="cnum">Campaign 01</span>
+        <h4>Pure Value</h4>
+        <span class="emails">5-7 emails &bull; Days 0-14</span>
+        <p>Zero selling. Build trust with actionable insights, frameworks, and quick wins. Every email ends with a reply-bait question to trigger engagement.</p>
+        <span class="trigger">Trigger &rarr; First form submission</span>
+      </div>
+      <div class="campaign-card">
+        <span class="cnum">Campaign 02</span>
+        <h4>Social Proof</h4>
+        <span class="emails">3-5 emails &bull; Days 15-28</span>
+        <p>Case studies, client transformations, results with numbers. Soft bridge to the offer. Each email name-drops a real deployment.</p>
+        <span class="trigger">Trigger &rarr; 2+ emails opened in Campaign 01</span>
+      </div>
+      <div class="campaign-card">
+        <span class="cnum">Campaign 03</span>
+        <h4>Conversion</h4>
+        <span class="emails">3-5 emails &bull; Days 29-42</span>
+        <p>Direct pitch. Only WARM+ leads reach this stage. ROI math, guarantee, scarcity, and a hard CTA to book a strategy call.</p>
+        <span class="trigger">Trigger &rarr; Link click or reply in Campaign 02</span>
+      </div>
+      <div class="campaign-card">
+        <span class="cnum">Campaign 04</span>
+        <h4>Re-Engagement</h4>
+        <span class="emails">2-3 emails &bull; Day 60+</span>
+        <p>For dark/cold leads only. Pattern interrupts, fresh free content, and an updated ScaleX AI score offer to reignite interest.</p>
+        <span class="trigger">Trigger &rarr; 30+ days of zero engagement</span>
+      </div>
+    </div>
+  </div>
+  <span class="brand-footer">mynewstaff.ai</span>
+  <span class="page-num">06 / 09</span>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 7: CONVERSION PATH
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-7">
+  <div class="slide-header">
+    <span class="phase-tag">Phase 06</span>
+    <div class="line"></div>
+  </div>
+  <h2 class="slide-title">Conversion Path</h2>
+  <p class="slide-sub">From qualified lead to signed client &mdash; 4 stages, each designed to reduce friction and increase certainty.</p>
+
+  <div class="slide-content">
+    <div class="funnel" style="margin-bottom:32px;">
+      <div class="funnel-step">
+        <span class="stag">Stage 01</span>
+        <h4>Strategy Call</h4>
+        <p>30-min Calendly booking. Run ScaleX AI live. Map all gaps.</p>
+      </div>
+      <div class="funnel-step">
+        <span class="stag">Stage 02</span>
+        <h4>Custom Plan</h4>
+        <p>Tailored growth blueprint based on diagnostic results.</p>
+      </div>
+      <div class="funnel-step active">
+        <span class="stag">Stage 03</span>
+        <h4>Proposal</h4>
+        <p>Tier recommendation + ROI projection + guarantee terms.</p>
+      </div>
+      <div class="funnel-step">
+        <span class="stag">Stage 04</span>
+        <h4>Close</h4>
+        <p>Sign. Onboard. Deploy within 7-14 days.</p>
+      </div>
+    </div>
+
+    <div class="grid c2">
+      <div style="background:var(--card);border:1px solid var(--border);padding:28px;">
+        <span style="display:block;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">What Happens On The Strategy Call</span>
+        <ul style="list-style:none;padding:0;">
+          <li style="font-size:14px;color:var(--text-dim);padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;gap:10px;align-items:center;"><span style="color:var(--green);">&#x2713;</span> Run ScaleX AI diagnostic live</li>
+          <li style="font-size:14px;color:var(--text-dim);padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;gap:10px;align-items:center;"><span style="color:var(--green);">&#x2713;</span> Identify top 3 revenue leaks</li>
+          <li style="font-size:14px;color:var(--text-dim);padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;gap:10px;align-items:center;"><span style="color:var(--green);">&#x2713;</span> Show implementation roadmap</li>
+          <li style="font-size:14px;color:var(--text-dim);padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;gap:10px;align-items:center;"><span style="color:var(--green);">&#x2713;</span> Calculate projected ROI together</li>
+          <li style="font-size:14px;color:var(--text-dim);padding:8px 0;display:flex;gap:10px;align-items:center;"><span style="color:var(--green);">&#x2713;</span> Recommend right tier (no upsell)</li>
+        </ul>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);padding:28px;">
+        <span style="display:block;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">The ROI Math We Show</span>
+        <div style="padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
+          <span style="display:block;font-size:14px;color:var(--text-dim);">10,000 leads scraped</span>
+          <span style="font-size:12px;color:var(--text-muted);">&darr; 2% response rate</span>
+        </div>
+        <div style="padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
+          <span style="display:block;font-size:14px;color:var(--text-dim);">200 conversations &rarr; 20 meetings</span>
+          <span style="font-size:12px;color:var(--text-muted);">&darr; 25% close rate</span>
+        </div>
+        <div style="padding:16px 0;">
+          <span style="display:block;font-size:20px;font-weight:800;color:white;">5 clients &times; $10K = $50K/mo</span>
+          <span style="font-size:13px;color:var(--green);">Investment: $8,500 &bull; ROI: 5.9x</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <span class="brand-footer">mynewstaff.ai</span>
+  <span class="page-num">07 / 09</span>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 8: CLIENT ONBOARDING & RESULTS
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-8">
+  <div class="slide-header">
+    <span class="phase-tag">Phase 07</span>
+    <div class="line"></div>
+  </div>
+  <h2 class="slide-title">Client Onboarding<br>&amp; Results</h2>
+  <p class="slide-sub">From signed contract to 100+ qualified leads in pipeline. Every milestone mapped.</p>
+
+  <div class="slide-content">
+    <div class="tl-grid" style="margin-bottom:20px;">
+      <div class="tl-block">
+        <span class="time">Week 1-2</span>
+        <h4>Deploy</h4>
+        <p>CRM configured. AI content trained. Lead scraping activated. Outreach sequences live.</p>
+      </div>
+      <div class="tl-block">
+        <span class="time">Week 3-4</span>
+        <h4>Engage</h4>
+        <p>10K+ leads scraped. AI outreach sending. First meetings booked. Content across 3-5 platforms.</p>
+      </div>
+      <div class="tl-block">
+        <span class="time">Month 2-3</span>
+        <h4>Scale</h4>
+        <p>Pipeline filling predictably. Ad multiplier activated. A/B testing optimizing conversion daily.</p>
+      </div>
+      <div class="tl-block" style="border-top:3px solid var(--green);">
+        <span class="time" style="color:var(--green);">Day 90</span>
+        <h4 style="color:var(--green);">Results</h4>
+        <p>100+ qualified leads in pipeline. Predictable meetings. Full autonomous engine running.</p>
+      </div>
+    </div>
+
+    <div class="guarantee-box">
+      <h4>&#x1F6E1; 90-Day Pipeline Guarantee</h4>
+      <p>If we don't generate at least 100 qualified leads in your pipeline within 90 days, we continue working at zero cost until we hit that number. No contracts. No risk. No exceptions.</p>
+    </div>
+
+    <div class="grid c3" style="margin-top:20px;">
+      <div style="background:var(--card);border:1px solid var(--border);padding:24px;text-align:center;">
+        <span style="display:block;font-size:32px;font-weight:800;margin-bottom:4px;">7-14</span>
+        <span style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);">Days to Deploy</span>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);padding:24px;text-align:center;">
+        <span style="display:block;font-size:32px;font-weight:800;margin-bottom:4px;">100%</span>
+        <span style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);">Autonomous</span>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);padding:24px;text-align:center;">
+        <span style="display:block;font-size:32px;font-weight:800;margin-bottom:4px;">5.9x</span>
+        <span style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);">Projected ROI</span>
+      </div>
+    </div>
+  </div>
+  <span class="brand-footer">mynewstaff.ai</span>
+  <span class="page-num">08 / 09</span>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 9: CLOSING CTA
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide" id="slide-9">
+  <div class="closing-content">
+    <div class="cover-tag" style="margin-bottom:40px;">MyNewStaff.ai</div>
+    <h1 class="closing-h1">READY TO BUILD<br>YOUR REVENUE<br><span style="background:linear-gradient(90deg, #fff 0%, #666 50%, #fff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">MACHINE?</span></h1>
+    <p class="closing-sub">Every system you just saw deploys in 7-14 days. Fully autonomous. 90-Day Pipeline Guarantee. No contracts.</p>
+    <div class="cta-btn">Get Your Free ScaleX AI Score</div>
+    <p class="closing-guarantee"><span class="g-green">&#x2713;</span> 100 Qualified Leads or We Work Free &bull; <span class="g-green">&#x2713;</span> Cancel Anytime</p>
+  </div>
+  <span class="brand-footer">mynewstaff.ai</span>
+  <span class="page-num">09 / 09</span>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MNS Lead Flow</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #000000;
+    --dark: #0a0a0a;
+    --card: #111111;
+    --border: rgba(255,255,255,0.08);
+    --border-active: rgba(255,255,255,0.15);
+    --text: #ffffff;
+    --text-dim: #888888;
+    --text-muted: #555555;
+    --accent: linear-gradient(135deg, #ffffff 0%, #888888 100%);
+    --glow: rgba(255,255,255,0.03);
+    --green: #22c55e;
+    --amber: #f59e0b;
+    --red: #ef4444;
+    --blue: #3b82f6;
+    --purple: #a855f7;
+  }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ═══ CONTAINER ═══ */
+  .flow-container {
+    width: 1080px;
+    margin: 0 auto;
+    padding: 60px 40px 80px;
+    position: relative;
+  }
+
+  /* Desktop mode */
+  .flow-container.desktop {
+    width: 1920px;
+    padding: 60px 80px 80px;
+  }
+
+  /* ═══ HEADER ═══ */
+  .header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .header .tag {
+    display: inline-block;
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    padding: 6px 16px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+  }
+  .header h1 {
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .header h1 .shimmer {
+    background: linear-gradient(90deg, #fff 0%, #888 40%, #fff 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 100%;
+  }
+  .header p {
+    font-size: 13px;
+    color: var(--text-dim);
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* ═══ PHASE WRAPPER ═══ */
+  .phase {
+    margin-bottom: 40px;
+    position: relative;
+  }
+  .phase-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .phase-number {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  .phase-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .phase-title {
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+
+  /* ═══ CONNECTOR ═══ */
+  .connector {
+    display: flex;
+    justify-content: center;
+    padding: 12px 0;
+  }
+  .connector .arrow {
+    width: 1px;
+    height: 32px;
+    background: linear-gradient(to bottom, var(--border-active), var(--border));
+    position: relative;
+  }
+  .connector .arrow::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid rgba(255,255,255,0.15);
+  }
+
+  /* ═══ CARD GRID ═══ */
+  .card-grid {
+    display: grid;
+    gap: 8px;
+  }
+  .card-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .card-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .card-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .card-grid.cols-5 { grid-template-columns: repeat(5, 1fr); }
+
+  /* ═══ CARD ═══ */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card.highlight {
+    border-color: var(--border-active);
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+  }
+  .card .icon {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    font-size: 14px;
+  }
+  .card .card-tag {
+    font-size: 8px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    display: block;
+  }
+  .card h3 {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+  .card p {
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+  .card .metric {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 3px 8px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    border-radius: 2px;
+  }
+
+  /* ═══ STATUS DOTS ═══ */
+  .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+  .dot.green { background: var(--green); }
+  .dot.amber { background: var(--amber); }
+  .dot.red { background: var(--red); }
+  .dot.blue { background: var(--blue); }
+  .dot.purple { background: var(--purple); }
+
+  /* ═══ BIG FLOW CARD ═══ */
+  .flow-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 28px;
+    margin-bottom: 8px;
+  }
+  .flow-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+  .flow-card p {
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+  .flow-card .flow-steps {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .flow-card .step {
+    flex: 1;
+    min-width: 120px;
+    padding: 12px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+  }
+  .flow-card .step .step-num {
+    font-size: 8px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    display: block;
+  }
+  .flow-card .step h4 {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .flow-card .step p {
+    font-size: 10px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* ═══ TEMPERATURE LANES ═══ */
+  .temp-lanes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .temp-lane {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 20px;
+  }
+  .temp-lane.hot { border-top: 2px solid var(--red); }
+  .temp-lane.warm { border-top: 2px solid var(--amber); }
+  .temp-lane.cool { border-top: 2px solid var(--blue); }
+  .temp-lane.cold { border-top: 2px solid var(--text-muted); }
+  .temp-lane .temp-tag {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .temp-lane.hot .temp-tag { color: var(--red); }
+  .temp-lane.warm .temp-tag { color: var(--amber); }
+  .temp-lane.cool .temp-tag { color: var(--blue); }
+  .temp-lane.cold .temp-tag { color: var(--text-muted); }
+  .temp-lane h4 {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .temp-lane .score {
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+    display: block;
+  }
+  .temp-lane ul {
+    list-style: none;
+    padding: 0;
+  }
+  .temp-lane ul li {
+    font-size: 10px;
+    color: var(--text-dim);
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    line-height: 1.4;
+  }
+  .temp-lane ul li:last-child { border-bottom: none; }
+
+  /* ═══ TIMELINE ═══ */
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .timeline-block {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 20px;
+    text-align: center;
+  }
+  .timeline-block .time-tag {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .timeline-block h4 {
+    font-size: 22px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .timeline-block p {
+    font-size: 10px;
+    color: var(--text-dim);
+    line-height: 1.4;
+  }
+
+  /* ═══ FOOTER ═══ */
+  .footer {
+    margin-top: 48px;
+    text-align: center;
+    padding: 24px;
+    border: 1px solid var(--border);
+    background: var(--card);
+  }
+  .footer .logo {
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .footer p {
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* ═══ CAMPAIGN DETAIL ═══ */
+  .campaign-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .campaign {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 20px;
+  }
+  .campaign .campaign-num {
+    font-size: 8px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    display: block;
+  }
+  .campaign h4 {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .campaign .emails {
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .campaign p {
+    font-size: 10px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* ═══ CONVERSION FUNNEL ═══ */
+  .funnel {
+    display: flex;
+    gap: 0;
+    position: relative;
+  }
+  .funnel-step {
+    flex: 1;
+    padding: 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    text-align: center;
+    position: relative;
+  }
+  .funnel-step:not(:last-child) { border-right: none; }
+  .funnel-step:not(:last-child)::after {
+    content: '\2192';
+    position: absolute;
+    right: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 14px;
+    z-index: 1;
+  }
+  .funnel-step .step-tag {
+    font-size: 8px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    display: block;
+  }
+  .funnel-step h4 {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .funnel-step p {
+    font-size: 9px;
+    color: var(--text-muted);
+    line-height: 1.3;
+  }
+  .funnel-step.active {
+    background: rgba(255,255,255,0.04);
+    border-color: var(--border-active);
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     INSTAGRAM VERSION (1080 wide, tall portrait)
+     ═══════════════════════════════════════════════════════════════════ -->
+<div class="flow-container" id="instagram-flow">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="tag">MyNewStaff.ai &mdash; Lead-to-Client System</div>
+    <h1>THE COMPLETE <br><span class="shimmer">REVENUE FLOW.</span></h1>
+    <p>From first intent signal to closed client &mdash; every touchpoint, every campaign, every conversion step mapped.</p>
+  </div>
+
+  <!-- ═══ PHASE 01: INTENT SIGNALS ═══ -->
+  <div class="phase">
+    <div class="phase-label">
+      <span class="phase-number">Phase 01</span>
+      <div class="phase-line"></div>
+    </div>
+    <div class="phase-title">Intent Signals</div>
+    <p style="font-size:11px;color:var(--text-dim);margin-bottom:16px;">Where leads first express buying intent online</p>
+
+    <div class="card-grid cols-3">
+      <div class="card">
+        <div class="icon">&#x1F50D;</div>
+        <span class="card-tag">Organic</span>
+        <h3>Search &amp; SEO</h3>
+        <p>Google, Bing &mdash; searching for solutions to their pipeline problem</p>
+      </div>
+      <div class="card highlight">
+        <div class="icon">&#x1F4F1;</div>
+        <span class="card-tag">Social</span>
+        <h3>Content Discovery</h3>
+        <p>IG Reels, TikTok, LinkedIn &mdash; viral content stops the scroll</p>
+        <span class="metric">100+ pieces/mo</span>
+      </div>
+      <div class="card">
+        <div class="icon">&#x1F4B0;</div>
+        <span class="card-tag">Paid</span>
+        <h3>Ad Multiplier</h3>
+        <p>Meta, Google, LinkedIn, TikTok &mdash; targeted amplification</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#x1F4E7;</div>
+        <span class="card-tag">Outreach</span>
+        <h3>Cold Email</h3>
+        <p>AI-personalized sequences to 10,000+ scraped &amp; enriched leads/mo</p>
+        <span class="metric">10K leads/mo</span>
+      </div>
+      <div class="card">
+        <div class="icon">&#x1F91D;</div>
+        <span class="card-tag">Network</span>
+        <h3>Referrals</h3>
+        <p>Client referrals, partner introductions, word of mouth</p>
+      </div>
+      <div class="card">
+        <div class="icon">&#x1F4AC;</div>
+        <span class="card-tag">Direct</span>
+        <h3>WhatsApp / DM</h3>
+        <p>Warm inbound from social engagement, DMs, and broadcast lists</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"><div class="arrow"></div></div>
+
+  <!-- ═══ PHASE 02: CAPTURE POINTS ═══ -->
+  <div class="phase">
+    <div class="phase-label">
+      <span class="phase-number">Phase 02</span>
+      <div class="phase-line"></div>
+    </div>
+    <div class="phase-title">Capture &amp; Qualification</div>
+    <p style="font-size:11px;color:var(--text-dim);margin-bottom:16px;">Every entry point feeds into the same system</p>
+
+    <div class="card-grid cols-3">
+      <div class="card highlight">
+        <span class="card-tag">Lead Magnet</span>
+        <h3>ScaleX AI Diagnostic</h3>
+        <p>Free 10-pillar business audit. Captures URL + email + 5 behavioral questions. Shows their revenue leak.</p>
+        <span class="metric">Primary funnel entry</span>
+      </div>
+      <div class="card">
+        <span class="card-tag">Quick Quiz</span>
+        <h3>2-Step Qualifier</h3>
+        <p>Name + email + need selection. Routes to ScaleX, /scale, or /videos based on expressed interest.</p>
+        <span class="metric">30-second capture</span>
+      </div>
+      <div class="card">
+        <span class="card-tag">Full Application</span>
+        <h3>5-Step Deep Qualify</h3>
+        <p>Phone, company, industry, revenue tier, bottleneck. Fires webhook + redirects to Calendly.</p>
+        <span class="metric">Calendly redirect</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"><div class="arrow"></div></div>
+
+  <!-- ═══ PHASE 03: SYSTEM ENTRY ═══ -->
+  <div class="phase">
+    <div class="phase-label">
+      <span class="phase-number">Phase 03</span>
+      <div class="phase-line"></div>
+    </div>
+    <div class="phase-title">System Entry &amp; Scoring</div>
+    <p style="font-size:11px;color:var(--text-dim);margin-bottom:16px;">Automated ingestion, scoring, and routing &mdash; zero manual work</p>
+
+    <div class="flow-card">
+      <h3>CRM Ingestion Pipeline</h3>
+      <p>Every lead automatically enters the system via webhook, gets scored, tagged, and routed &mdash; in under 60 seconds.</p>
+      <div class="flow-steps">
+        <div class="step">
+          <span class="step-num">Step 01</span>
+          <h4>Webhook Fire</h4>
+          <p>Lead data hits MNS Command API + GHL CRM simultaneously</p>
+        </div>
+        <div class="step">
+          <span class="step-num">Step 02</span>
+          <h4>Lead Scoring</h4>
+          <p>Scored 0-100 based on revenue tier, industry, expressed need, engagement</p>
+        </div>
+        <div class="step">
+          <span class="step-num">Step 03</span>
+          <h4>Temperature</h4>
+          <p>Classified HOT / WARM / COOL / COLD based on composite score</p>
+        </div>
+        <div class="step">
+          <span class="step-num">Step 04</span>
+          <h4>Tag &amp; Route</h4>
+          <p>31 tags applied (source, program, score grade). Pipeline stage assigned.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"><div class="arrow"></div></div>
+
+  <!-- ═══ PHASE 04: TEMPERATURE ROUTING ═══ -->
+  <div class="phase">
+    <div class="phase-label">
+      <span class="phase-number">Phase 04</span>
+      <div class="phase-line"></div>
+    </div>
+    <div class="phase-title">Temperature Routing</div>
+    <p style="font-size:11px;color:var(--text-dim);margin-bottom:16px;">Each lead gets a personalized journey based on their engagement level</p>
+
+    <div class="temp-lanes">
+      <div class="temp-lane hot">
+        <span class="temp-tag"><span class="dot red"></span>Hot &mdash; 70-100</span>
+        <h4>Fast Track</h4>
+        <span class="score">Highest intent &mdash; ready to buy</span>
+        <ul>
+          <li>Skip nurture &rarr; direct booking</li>
+          <li>Immediate strategy call invite</li>
+          <li>Personal founder outreach</li>
+          <li>ScaleX AI run live on call</li>
+          <li>2x send cadence (every 1.5 days)</li>
+        </ul>
+      </div>
+      <div class="temp-lane warm">
+        <span class="temp-tag"><span class="dot amber"></span>Warm &mdash; 40-69</span>
+        <h4>Standard Nurture</h4>
+        <span class="score">Interested &mdash; needs education</span>
+        <ul>
+          <li>Full 4-campaign email sequence</li>
+          <li>Standard cadence (every 3 days)</li>
+          <li>Content delivery (case studies)</li>
+          <li>Social proof stacking</li>
+          <li>Soft CTA &rarr; strategy call</li>
+        </ul>
+      </div>
+      <div class="temp-lane cool">
+        <span class="temp-tag"><span class="dot blue"></span>Cool &mdash; 20-39</span>
+        <h4>Education Path</h4>
+        <span class="score">Curious &mdash; not yet convinced</span>
+        <ul>
+          <li>Pure value content only</li>
+          <li>Slower cadence (every 4.5 days)</li>
+          <li>No sales pressure</li>
+          <li>ScaleX AI report delivery</li>
+          <li>Re-score after engagement</li>
+        </ul>
+      </div>
+      <div class="temp-lane cold">
+        <span class="temp-tag"><span class="dot"></span>Cold &mdash; 0-19</span>
+        <h4>Re-Engagement</h4>
+        <span class="score">Dark &mdash; no recent engagement</span>
+        <ul>
+          <li>Pattern interrupt emails</li>
+          <li>Slowest cadence (every 6 days)</li>
+          <li>New free content offers</li>
+          <li>Social media retargeting</li>
+          <li>Archive after 3 non-opens</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"><div class="arrow"></div></div>
+
+  <!-- ═══ PHASE 05: CAMPAIGN ENGINE ═══ -->
+  <div class="phase">
+    <div class="phase-label">
+      <span class="phase-number">Phase 05</span>
+      <div class="phase-line"></div>
+    </div>
+    <div class="phase-title">4-Campaign Behavioral Engine</div>
+    <p style="font-size:11px;color:var(--text-dim);margin-bottom:16px;">Behavioral triggers advance leads through campaigns &mdash; never pitch cold leads</p>
+
+    <div class="campaign-grid">
+      <div class="campaign">
+        <span class="campaign-num">Campaign 01</span>
+        <h4>Pure Value</h4>
+        <span class="emails">5-7 emails &bull; Days 0-14</span>
+        <p>Zero selling. Build trust with insights, frameworks, and quick wins. Every email ends with a reply-bait question.</p>
+      </div>
+      <div class="campaign">
+        <span class="campaign-num">Campaign 02</span>
+        <h4>Social Proof</h4>
+        <span class="emails">3-5 emails &bull; Days 15-28</span>
+        <p>Case studies, client results, transformation stories. Soft bridge to the offer. Name-drop builds credibility.</p>
+      </div>
+      <div class="campaign">
+        <span class="campaign-num">Campaign 03</span>
+        <h4>Conversion</h4>
+        <span class="emails">3-5 emails &bull; Days 29-42</span>
+        <p>Direct pitch. Only WARM+ leads reach this stage. ROI math, guarantee, scarcity, hard CTA to strategy call.</p>
+      </div>
+      <div class="campaign">
+        <span class="campaign-num">Campaign 04</span>
+        <h4>Re-Engagement</h4>
+        <span class="emails">2-3 emails &bull; Day 60+</span>
+        <p>For dark/cold leads only. Pattern interrupts, new free content, updated ScaleX AI score offer.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"><div class="arrow"></div></div>
+
+  <!-- ═══ PHASE 06: CONVERSION PATH ═══ -->
+  <div class="phase">
+    <div class="phase-label">
+      <span class="phase-number">Phase 06</span>
+      <div class="phase-line"></div>
+    </div>
+    <div class="phase-title">Conversion Path</div>
+    <p style="font-size:11px;color:var(--text-dim);margin-bottom:16px;">From qualified lead to signed client &mdash; every step designed to reduce friction</p>
+
+    <div class="funnel">
+      <div class="funnel-step">
+        <span class="step-tag">Stage 01</span>
+        <h4>Strategy Call</h4>
+        <p>30-min Calendly. Run ScaleX AI live. Map their gaps.</p>
+      </div>
+      <div class="funnel-step">
+        <span class="step-tag">Stage 02</span>
+        <h4>Custom Plan</h4>
+        <p>Tailored growth blueprint based on diagnostic results.</p>
+      </div>
+      <div class="funnel-step active">
+        <span class="step-tag">Stage 03</span>
+        <h4>Proposal</h4>
+        <p>Tier recommendation + ROI projection + guarantee terms.</p>
+      </div>
+      <div class="funnel-step">
+        <span class="step-tag">Stage 04</span>
+        <h4>Close</h4>
+        <p>Sign. Onboard. Deploy within 7-14 days.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"><div class="arrow"></div></div>
+
+  <!-- ═══ PHASE 07: CLIENT JOURNEY ═══ -->
+  <div class="phase">
+    <div class="phase-label">
+      <span class="phase-number">Phase 07</span>
+      <div class="phase-line"></div>
+    </div>
+    <div class="phase-title">Client Onboarding &amp; Results</div>
+    <p style="font-size:11px;color:var(--text-dim);margin-bottom:16px;">90-Day Pipeline Guarantee &mdash; 100 qualified leads or we work free</p>
+
+    <div class="timeline">
+      <div class="timeline-block">
+        <span class="time-tag">Week 1-2</span>
+        <h4>Deploy</h4>
+        <p>CRM, AI content, lead scraping, outreach &mdash; all systems live</p>
+      </div>
+      <div class="timeline-block">
+        <span class="time-tag">Week 3-4</span>
+        <h4>Engage</h4>
+        <p>10K+ leads scraped, outreach live, first meetings booked</p>
+      </div>
+      <div class="timeline-block">
+        <span class="time-tag">Month 2-3</span>
+        <h4>Scale</h4>
+        <p>Pipeline filling, ads amplifying, A/B optimizing daily</p>
+      </div>
+      <div class="timeline-block" style="border-top:2px solid var(--green);">
+        <span class="time-tag" style="color:var(--green);">Day 90</span>
+        <h4 style="color:var(--green);">Results</h4>
+        <p>100+ qualified leads guaranteed &mdash; or we keep working free</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="logo">mynewstaff.ai</div>
+    <p>AI-Powered Revenue Machines &bull; Deployed in 14 Days</p>
+  </div>
+
+</div>
+
+</body>
+</html>
