@@ -4,12 +4,12 @@ import type { Tier } from "@/lib/tiers";
 
 // Map Whop product/plan IDs to our tiers
 const PLAN_TO_TIER: Record<string, Tier> = {
-  [process.env.WHOP_PLAN_STARTER_MONTHLY || ""]: "starter",
-  [process.env.WHOP_PLAN_STARTER_ANNUAL || ""]: "starter",
-  [process.env.WHOP_PLAN_GROWTH_MONTHLY || ""]: "growth",
-  [process.env.WHOP_PLAN_GROWTH_ANNUAL || ""]: "growth",
-  [process.env.WHOP_PLAN_SCALE_MONTHLY || ""]: "scale",
-  [process.env.WHOP_PLAN_SCALE_ANNUAL || ""]: "scale",
+  [process.env.NEXT_PUBLIC_WHOP_PLAN_STARTER_MONTHLY || ""]: "starter",
+  [process.env.NEXT_PUBLIC_WHOP_PLAN_STARTER_ANNUAL || ""]: "starter",
+  [process.env.NEXT_PUBLIC_WHOP_PLAN_GROWTH_MONTHLY || ""]: "growth",
+  [process.env.NEXT_PUBLIC_WHOP_PLAN_GROWTH_ANNUAL || ""]: "growth",
+  [process.env.NEXT_PUBLIC_WHOP_PLAN_SCALE_MONTHLY || ""]: "scale",
+  [process.env.NEXT_PUBLIC_WHOP_PLAN_SCALE_ANNUAL || ""]: "scale",
 };
 
 function resolveTier(planId: string): Tier {

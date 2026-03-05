@@ -9,17 +9,17 @@ export function getWhop() {
 
 // Plan IDs — set these in Whop dashboard, store in env vars
 export const WHOP_PLANS = {
-  starter_monthly: process.env.WHOP_PLAN_STARTER_MONTHLY || "",
-  starter_annual: process.env.WHOP_PLAN_STARTER_ANNUAL || "",
-  growth_monthly: process.env.WHOP_PLAN_GROWTH_MONTHLY || "",
-  growth_annual: process.env.WHOP_PLAN_GROWTH_ANNUAL || "",
-  scale_monthly: process.env.WHOP_PLAN_SCALE_MONTHLY || "",
-  scale_annual: process.env.WHOP_PLAN_SCALE_ANNUAL || "",
+  starter_monthly: process.env.NEXT_PUBLIC_WHOP_PLAN_STARTER_MONTHLY || "",
+  starter_annual: process.env.NEXT_PUBLIC_WHOP_PLAN_STARTER_ANNUAL || "",
+  growth_monthly: process.env.NEXT_PUBLIC_WHOP_PLAN_GROWTH_MONTHLY || "",
+  growth_annual: process.env.NEXT_PUBLIC_WHOP_PLAN_GROWTH_ANNUAL || "",
+  scale_monthly: process.env.NEXT_PUBLIC_WHOP_PLAN_SCALE_MONTHLY || "",
+  scale_annual: process.env.NEXT_PUBLIC_WHOP_PLAN_SCALE_ANNUAL || "",
 } as const;
 
 // Access Pass IDs — one per tier, used for access verification
 export const WHOP_ACCESS_PASSES = {
-  starter: process.env.WHOP_ACCESS_PASS_STARTER || "",
-  growth: process.env.WHOP_ACCESS_PASS_GROWTH || "",
-  scale: process.env.WHOP_ACCESS_PASS_SCALE || "",
+  starter: process.env.NEXT_PUBLIC_WHOP_ACCESS_PASS_STARTER || "",
+  growth: process.env.NEXT_PUBLIC_WHOP_ACCESS_PASS_GROWTH || "",
+  scale: process.env.NEXT_PUBLIC_WHOP_ACCESS_PASS_SCALE || "",
 } as const;
