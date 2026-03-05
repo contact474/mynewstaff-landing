@@ -5,69 +5,18 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Reveal } from "@/components/ui/Reveal";
 import { RollingNumber } from "@/components/ui/RollingNumber";
 import { PartnersApplyModal } from "./PartnersApplyModal";
-
-const plays = [
-  {
-    tag: "Option A",
-    name: "BUSINESS-IN-A-BOX",
-    subtitle: "Franchise Model",
-    credits: "$7,500",
-    value: 7500,
-    trade: "Custom scope (alignment call required)",
-    delivery: "7–10 business days (after alignment call)",
-    description:
-      "Turn your audience into a revenue engine by selling MyNewStaff.ai services under your brand. We fulfill delivery behind the scenes.",
-    highlight: "30% commission on all sales (cash collected)",
-    includes: [
-      "White-label offer kit (positioning + package structure)",
-      "Sales assets (deck + scripts + DM flow)",
-      "Delivery playbook + fulfillment pipeline",
-      '"What to sell" menu: Mission Control, lead gen, content systems',
-    ],
-    whoItsFor:
-      "Operators, agency owners, and high-influence creators who want to resell premium AI marketing services without building the backend.",
-    projection:
-      "Partners reselling services at $3K–$10K/client earn $900–$3,000 per deal. 3 deals covers the full barter value.",
-  },
-  {
-    tag: "Option B",
-    name: "90-DAY BLITZ",
-    subtitle: "Full-Scale Build",
-    credits: "$71,900",
-    value: 71900,
-    trade: "Custom scope (strategy session required)",
-    delivery: "90 days (weekly milestones)",
-    description:
-      "We build, launch, and scale your business with a full system. Content, outreach, conversion assets, and growth ops.",
-    highlight: "5x step-change in visibility + pipeline",
-    phases: [
-      "Build the machine",
-      "Launch the offer",
-      "Scale distribution",
-      "Drive 5x growth",
-    ],
-    includes: [
-      "Brand + offer architecture",
-      "Landing pages + conversion assets",
-      "Press / media kit",
-      "Content production system (monthly)",
-      "Lead gen + outreach system",
-      "Mission Control buildout (CRM + automation)",
-      "Weekly optimization cadence for 90 days",
-    ],
-    whoItsFor:
-      "Ambitious founders and established creators ready for a full-scale digital transformation — brand, content, outreach, and systems all built in 90 days.",
-    projection:
-      "Clients in the 90-Day Blitz see an average 5x increase in qualified pipeline and 3x increase in content output within the first 60 days.",
-  },
-];
+import { usePartnerLocale } from "./PartnersLocaleProvider";
+import type { PlayData } from "@/lib/partners-i18n";
 
 export function PartnersBigPlays() {
+  const { t } = usePartnerLocale();
+  const plays = t.bigPlays.data;
+
   const [expanded, setExpanded] = useState<number | null>(null);
   const [applyOpen, setApplyOpen] = useState(false);
-  const [applyPlay, setApplyPlay] = useState<(typeof plays)[0] | null>(null);
+  const [applyPlay, setApplyPlay] = useState<PlayData | null>(null);
 
-  const handleApply = (play: (typeof plays)[0]) => {
+  const handleApply = (play: PlayData) => {
     setApplyPlay(play);
     setApplyOpen(true);
   };
@@ -77,13 +26,13 @@ export function PartnersBigPlays() {
       <section className="py-20 md:py-32 px-4 md:px-8 border-t border-white/5 bg-zinc-950">
         <Reveal className="max-w-5xl mx-auto text-center mb-16">
           <span className="block text-xs font-sans uppercase tracking-[0.2em] text-zinc-500 mb-8">
-            For Operators
+            {t.bigPlays.label}
           </span>
           <h2 className="text-3xl md:text-6xl lg:text-7xl font-wide font-bold uppercase leading-[0.9] text-white mb-4">
-            BIGGER <span className="shimmer-text">PLAYS.</span>
+            {t.bigPlays.heading + " "}<span className="shimmer-text">{t.bigPlays.headingAccent}</span>
           </h2>
           <p className="text-xs text-zinc-500 font-sans tracking-[0.15em] uppercase">
-            Ready to go beyond barter? These are full-scale partnerships.
+            {t.bigPlays.subtitle}
           </p>
         </Reveal>
 
@@ -113,7 +62,7 @@ export function PartnersBigPlays() {
                     {play.subtitle}
                   </p>
                   <p className="text-sm text-zinc-400 font-sans mb-6">
-                    Value:{" "}
+                    {t.bigPlays.value}:{" "}
                     <RollingNumber
                       value={play.value}
                       prefix="$"
@@ -131,12 +80,12 @@ export function PartnersBigPlays() {
 
                   <div className="mt-auto pt-4 border-t border-white/5 flex items-center justify-between">
                     <span className="text-xs text-zinc-500 font-sans">
-                      {play.includes.length} deliverables
+                      {play.includes.length + " " + t.bigPlays.deliverables}
                     </span>
                     <span
                       className={`text-xs font-sans transition-colors ${expanded === i ? "text-white" : "text-zinc-600"}`}
                     >
-                      {expanded === i ? "Details ↓" : "View Details →"}
+                      {expanded === i ? t.bigPlays.details : t.bigPlays.viewDetails}
                     </span>
                   </div>
                 </div>
@@ -166,7 +115,7 @@ export function PartnersBigPlays() {
                   {/* Left: What's Included */}
                   <div className="p-8 md:p-10 lg:border-r border-white/5">
                     <span className="block text-[10px] tracking-[0.3em] text-green-400/80 uppercase mb-4 font-sans">
-                      What&apos;s Included
+                      {t.bigPlays.whatsIncluded}
                     </span>
                     <ul className="space-y-3 mb-6">
                       {plays[expanded].includes.map((item, j) => (
@@ -186,7 +135,7 @@ export function PartnersBigPlays() {
                     {plays[expanded].phases && (
                       <div className="mb-6">
                         <span className="block text-[10px] tracking-[0.3em] text-zinc-600 uppercase mb-3 font-sans">
-                          Phases
+                          {t.bigPlays.phasesLabel}
                         </span>
                         <div className="grid grid-cols-2 gap-2">
                           {plays[expanded].phases!.map((phase, j) => (
@@ -206,7 +155,7 @@ export function PartnersBigPlays() {
                     <div className="flex items-center gap-6 pt-4 border-t border-white/5">
                       <div>
                         <span className="block text-[10px] tracking-[0.2em] text-zinc-600 uppercase font-sans">
-                          Delivery
+                          {t.bigPlays.delivery}
                         </span>
                         <span className="text-sm text-white font-sans">
                           {plays[expanded].delivery}
@@ -214,7 +163,7 @@ export function PartnersBigPlays() {
                       </div>
                       <div>
                         <span className="block text-[10px] tracking-[0.2em] text-zinc-600 uppercase font-sans">
-                          Value
+                          {t.bigPlays.value}
                         </span>
                         <span className="text-sm text-white font-sans">
                           {plays[expanded].credits}
@@ -227,7 +176,7 @@ export function PartnersBigPlays() {
                   <div className="p-8 md:p-10 flex flex-col">
                     <div className="mb-6">
                       <span className="block text-[10px] tracking-[0.3em] text-amber-400/80 uppercase mb-3 font-sans">
-                        Who This Is For
+                        {t.bigPlays.whoThisIsFor}
                       </span>
                       <p className="text-sm text-zinc-300 font-sans leading-relaxed">
                         {plays[expanded].whoItsFor}
@@ -236,7 +185,7 @@ export function PartnersBigPlays() {
 
                     <div className="p-4 border border-white/5 bg-white/[0.02] mb-6">
                       <span className="block text-[10px] tracking-[0.2em] text-zinc-600 uppercase mb-2 font-sans">
-                        Projected Impact
+                        {t.bigPlays.projectedImpact}
                       </span>
                       <p className="text-xs text-zinc-400 font-sans leading-relaxed italic">
                         &ldquo;{plays[expanded].projection}&rdquo;
@@ -248,10 +197,10 @@ export function PartnersBigPlays() {
                         onClick={() => handleApply(plays[expanded!])}
                         className="w-full py-4 bg-white text-black font-bold text-xs tracking-[0.15em] uppercase hover:scale-[1.02] transition-transform cursor-pointer"
                       >
-                        Apply for {plays[expanded].name}
+                        {t.bigPlays.applyFor + " " + plays[expanded].name}
                       </button>
                       <p className="text-[10px] text-zinc-600 font-sans text-center mt-2">
-                        By application only — schedule a strategy call
+                        {t.bigPlays.applicationOnly}
                       </p>
                     </div>
                   </div>

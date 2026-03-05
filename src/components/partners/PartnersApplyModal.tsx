@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePartnerLocale } from "./PartnersLocaleProvider";
 
 interface ApplyModalProps {
   open: boolean;
@@ -38,26 +39,13 @@ const followerRanges = [
   "1M+",
 ];
 
-const niches = [
-  "Fitness & Health",
-  "Beauty & Fashion",
-  "Tech & Gadgets",
-  "Business & Finance",
-  "Travel & Lifestyle",
-  "Food & Cooking",
-  "Education & Learning",
-  "Entertainment & Comedy",
-  "Real Estate",
-  "Crypto & Web3",
-  "Other",
-];
-
 export function PartnersApplyModal({
   open,
   onClose,
   tier,
   bundle,
 }: ApplyModalProps) {
+  const { t } = usePartnerLocale();
   const [step, setStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -211,21 +199,22 @@ export function PartnersApplyModal({
                   <span className="text-green-400 text-2xl">✓</span>
                 </div>
                 <h3 className="font-wide text-2xl uppercase text-white mb-3">
-                  APPLICATION SENT
+                  {t.applyModal.appSent}
                 </h3>
                 <p className="text-sm text-zinc-400 font-sans leading-relaxed mb-6">
-                  We&apos;ll review your profile within 48 hours and reach out
-                  via email to confirm your tier.
+                  {t.applyModal.appSentSubtitle}
                 </p>
 
                 <div className="p-6 border border-white/10 bg-white/[0.02] mb-6">
                   <span className="block text-[10px] tracking-[0.3em] text-amber-400/80 uppercase mb-3 font-sans">
-                    Speed Up Your Approval
+                    {t.applyModal.speedUp}
                   </span>
                   <p className="text-xs text-zinc-400 font-sans leading-relaxed mb-4">
                     {screenshots.length > 0
-                      ? `You uploaded ${screenshots.length} screenshot${screenshots.length > 1 ? "s" : ""} — great! DM us on Instagram to confirm and we'll fast-track your review.`
-                      : "DM us your latest Instagram Insights screenshots (followers, reach, engagement). This helps us fast-track your application."}
+                      ? t.applyModal.speedUpWithScreenshots
+                          .replace("{n}", String(screenshots.length))
+                          .replace("{s}", screenshots.length > 1 ? "s" : "")
+                      : t.applyModal.speedUpWithout}
                   </p>
                   <a
                     href="https://instagram.com/mynewstaff.ai"
@@ -233,7 +222,7 @@ export function PartnersApplyModal({
                     rel="noopener noreferrer"
                     className="inline-block px-8 py-3 bg-white text-black font-bold text-xs tracking-[0.15em] uppercase hover:scale-105 transition-transform"
                   >
-                    DM @mynewstaff.ai
+                    {t.applyModal.dmButton}
                   </a>
                 </div>
 
@@ -241,7 +230,7 @@ export function PartnersApplyModal({
                   onClick={onClose}
                   className="text-xs text-zinc-600 font-sans hover:text-zinc-400 transition-colors cursor-pointer"
                 >
-                  Close
+                  {t.applyModal.close}
                 </button>
               </div>
             ) : (
@@ -260,7 +249,9 @@ export function PartnersApplyModal({
                     ))}
                   </div>
                   <span className="text-[10px] tracking-[0.3em] text-zinc-600 uppercase font-sans">
-                    Step {step + 1} of {totalSteps}
+                    {t.applyModal.stepOf
+                      .replace("{current}", String(step + 1))
+                      .replace("{total}", String(totalSteps))}
                   </span>
                 </div>
 
@@ -275,22 +266,22 @@ export function PartnersApplyModal({
                       transition={{ duration: 0.25 }}
                     >
                       <h3 className="font-wide text-xl uppercase text-white mb-1">
-                        TELL US ABOUT YOU
+                        {t.applyModal.step0Title}
                       </h3>
                       <p className="text-xs text-zinc-500 font-sans mb-6">
-                        Basic details so we can reach you.
+                        {t.applyModal.step0Subtitle}
                       </p>
 
                       <div className="space-y-4">
                         <Field
-                          label="Full Name"
+                          label={t.applyModal.fullName}
                           value={form.name}
                           onChange={(v) => update("name", v)}
                           placeholder="Your name"
                           required
                         />
                         <Field
-                          label="Email"
+                          label={t.applyModal.email}
                           value={form.email}
                           onChange={(v) => update("email", v)}
                           placeholder="you@example.com"
@@ -298,7 +289,7 @@ export function PartnersApplyModal({
                           required
                         />
                         <Field
-                          label="Instagram Handle"
+                          label={t.applyModal.instagramHandle}
                           value={form.instagram}
                           onChange={(v) => update("instagram", v)}
                           placeholder="@yourhandle"
@@ -318,41 +309,43 @@ export function PartnersApplyModal({
                       transition={{ duration: 0.25 }}
                     >
                       <h3 className="font-wide text-xl uppercase text-white mb-1">
-                        YOUR AUDIENCE
+                        {t.applyModal.step1Title}
                       </h3>
                       <p className="text-xs text-zinc-500 font-sans mb-6">
-                        Helps us match you to the right tier.
+                        {t.applyModal.step1Subtitle}
                       </p>
 
                       <div className="space-y-4">
                         <SelectField
-                          label="Follower Count"
+                          label={t.applyModal.followerCount}
                           value={form.followers}
                           onChange={(v) => update("followers", v)}
                           options={followerRanges}
+                          selectPlaceholder={t.applyModal.selectPlaceholder}
                           required
                         />
                         <SelectField
-                          label="Niche / Industry"
+                          label={t.applyModal.nicheIndustry}
                           value={form.niche}
                           onChange={(v) => update("niche", v)}
-                          options={niches}
+                          options={t.applyModal.niches}
+                          selectPlaceholder={t.applyModal.selectPlaceholder}
                           required
                         />
                         <Field
-                          label="Avg Story Views"
+                          label={t.applyModal.avgStoryViews}
                           value={form.avgStoryViews}
                           onChange={(v) => update("avgStoryViews", v)}
                           placeholder="e.g. 2,500"
                         />
                         <Field
-                          label="Avg Reel Views"
+                          label={t.applyModal.avgReelViews}
                           value={form.avgReelViews}
                           onChange={(v) => update("avgReelViews", v)}
                           placeholder="e.g. 15,000"
                         />
                         <Field
-                          label="Engagement Rate (if known)"
+                          label={t.applyModal.engagementRate}
                           value={form.engagementRate}
                           onChange={(v) => update("engagementRate", v)}
                           placeholder="e.g. 4.2%"
@@ -371,14 +364,13 @@ export function PartnersApplyModal({
                       transition={{ duration: 0.25 }}
                     >
                       <h3 className="font-wide text-xl uppercase text-white mb-1">
-                        PROVE YOUR REACH
+                        {t.applyModal.step2Title}
                       </h3>
                       <p className="text-xs text-zinc-500 font-sans mb-2">
-                        Upload Instagram Insights screenshots to fast-track your
-                        approval.
+                        {t.applyModal.step2Subtitle}
                       </p>
                       <p className="text-[10px] text-zinc-600 font-sans mb-6 tracking-wide uppercase">
-                        Optional — you can skip this step
+                        {t.applyModal.step2Optional}
                       </p>
 
                       {/* Upload area */}
@@ -410,11 +402,10 @@ export function PartnersApplyModal({
                           </svg>
                         </div>
                         <p className="text-sm text-zinc-400 font-sans mb-1">
-                          Click to upload screenshots
+                          {t.applyModal.clickUpload}
                         </p>
                         <p className="text-[10px] text-zinc-600 font-sans">
-                          PNG, JPG up to 5 files — Insights overview, reach,
-                          audience demographics
+                          {t.applyModal.uploadHint}
                         </p>
                       </div>
 
@@ -450,7 +441,7 @@ export function PartnersApplyModal({
                                 onClick={() => removeFile(idx)}
                                 className="text-zinc-600 hover:text-red-400 transition-colors text-xs cursor-pointer shrink-0 ml-2"
                               >
-                                Remove
+                                {t.applyModal.remove}
                               </button>
                             </div>
                           ))}
@@ -460,14 +451,10 @@ export function PartnersApplyModal({
                       {/* What to upload hint */}
                       <div className="p-4 border border-white/5 bg-white/[0.01]">
                         <span className="block text-[10px] tracking-[0.2em] text-zinc-600 uppercase mb-2 font-sans">
-                          What to screenshot
+                          {t.applyModal.whatToScreenshot}
                         </span>
                         <ul className="space-y-1">
-                          {[
-                            "Instagram Insights → Overview (accounts reached, engaged)",
-                            "Audience demographics (top locations, age range)",
-                            "Content → Reels or Stories performance",
-                          ].map((hint, i) => (
+                          {t.applyModal.screenshotHints.map((hint, i) => (
                             <li
                               key={i}
                               className="flex items-start gap-2 text-[11px] text-zinc-500 font-sans"
@@ -491,17 +478,17 @@ export function PartnersApplyModal({
                       transition={{ duration: 0.25 }}
                     >
                       <h3 className="font-wide text-xl uppercase text-white mb-1">
-                        CONFIRM YOUR APPLICATION
+                        {t.applyModal.step3Title}
                       </h3>
                       <p className="text-xs text-zinc-500 font-sans mb-6">
-                        Review everything before submitting.
+                        {t.applyModal.step3Subtitle}
                       </p>
 
                       {/* Selection Summary */}
                       <div className="p-5 border border-white/10 bg-white/[0.02] mb-4">
                         <div className="flex items-center justify-between mb-3">
                           <span className="text-[10px] tracking-[0.2em] text-zinc-600 uppercase font-sans">
-                            Your Package
+                            {t.applyModal.yourPackage}
                           </span>
                           <span className="font-wide text-lg text-white">
                             {tier?.credits}
@@ -516,7 +503,7 @@ export function PartnersApplyModal({
                         <div className="mt-3 pt-3 border-t border-white/5 flex gap-6">
                           <div>
                             <span className="text-[9px] text-zinc-600 uppercase font-sans">
-                              You Post
+                              {t.applyModal.youPost}
                             </span>
                             <p className="text-xs text-zinc-400 font-sans">
                               {tier?.trade}
@@ -536,33 +523,34 @@ export function PartnersApplyModal({
                       {/* Profile Summary */}
                       <div className="p-5 border border-white/10 bg-white/[0.02] mb-4">
                         <span className="block text-[10px] tracking-[0.2em] text-zinc-600 uppercase font-sans mb-3">
-                          Your Profile
+                          {t.applyModal.yourProfile}
                         </span>
                         <div className="grid grid-cols-2 gap-3 text-xs font-sans">
                           <div>
-                            <span className="text-zinc-600">Name</span>
+                            <span className="text-zinc-600">{t.applyModal.name}</span>
                             <p className="text-zinc-300">{form.name}</p>
                           </div>
                           <div>
-                            <span className="text-zinc-600">Instagram</span>
+                            <span className="text-zinc-600">{t.applyModal.instagram}</span>
                             <p className="text-zinc-300">
                               @{form.instagram.replace("@", "")}
                             </p>
                           </div>
                           <div>
-                            <span className="text-zinc-600">Followers</span>
+                            <span className="text-zinc-600">{t.applyModal.followers}</span>
                             <p className="text-zinc-300">{form.followers}</p>
                           </div>
                           <div>
-                            <span className="text-zinc-600">Niche</span>
+                            <span className="text-zinc-600">{t.applyModal.niche}</span>
                             <p className="text-zinc-300">{form.niche}</p>
                           </div>
                         </div>
                         {screenshots.length > 0 && (
                           <div className="mt-3 pt-3 border-t border-white/5">
                             <span className="text-[9px] text-green-400/60 uppercase font-sans">
-                              {screenshots.length} screenshot
-                              {screenshots.length > 1 ? "s" : ""} attached
+                              {t.applyModal.screenshotsAttached
+                                .replace("{n}", String(screenshots.length))
+                                .replace("{s}", screenshots.length > 1 ? "s" : "")}
                             </span>
                           </div>
                         )}
@@ -571,7 +559,7 @@ export function PartnersApplyModal({
                       {/* Optional note */}
                       <div className="mb-2">
                         <label className="block text-[10px] tracking-[0.2em] text-zinc-600 uppercase font-sans mb-2">
-                          Anything else? (optional)
+                          {t.applyModal.anythingElse}
                         </label>
                         <textarea
                           value={form.whyPartner}
@@ -580,7 +568,7 @@ export function PartnersApplyModal({
                           }
                           rows={3}
                           className="w-full bg-zinc-900 border border-white/10 text-zinc-300 text-sm font-sans p-3 outline-none focus:border-white/30 transition-colors resize-none"
-                          placeholder="Links to previous brand collabs, your vision for the partnership, etc."
+                          placeholder={t.applyModal.anythingElsePlaceholder}
                         />
                       </div>
                     </motion.div>
@@ -594,14 +582,14 @@ export function PartnersApplyModal({
                       onClick={() => setStep((s) => s - 1)}
                       className="text-xs text-zinc-500 font-sans hover:text-white transition-colors cursor-pointer"
                     >
-                      ← Back
+                      {t.applyModal.back}
                     </button>
                   ) : (
                     <button
                       onClick={onClose}
                       className="text-xs text-zinc-500 font-sans hover:text-white transition-colors cursor-pointer"
                     >
-                      ← Change Selection
+                      {t.applyModal.changeSelection}
                     </button>
                   )}
 
@@ -617,9 +605,9 @@ export function PartnersApplyModal({
                     >
                       {step === 2
                         ? screenshots.length > 0
-                          ? "Next →"
-                          : "Skip →"
-                        : "Next →"}
+                          ? t.applyModal.next
+                          : t.applyModal.skip
+                        : t.applyModal.next}
                     </button>
                   ) : (
                     <button
@@ -627,7 +615,7 @@ export function PartnersApplyModal({
                       disabled={submitting}
                       className="px-8 py-3 bg-white text-black font-bold text-xs tracking-[0.15em] uppercase hover:scale-105 transition-transform cursor-pointer disabled:opacity-50"
                     >
-                      {submitting ? "Sending..." : "Submit Application"}
+                      {submitting ? t.applyModal.sending : t.applyModal.submitApplication}
                     </button>
                   )}
                 </div>
@@ -680,12 +668,14 @@ function SelectField({
   onChange,
   options,
   required,
+  selectPlaceholder = "Select...",
 }: {
   label: string;
   value: string;
   onChange: (v: string) => void;
   options: string[];
   required?: boolean;
+  selectPlaceholder?: string;
 }) {
   return (
     <div>
@@ -698,7 +688,7 @@ function SelectField({
         onChange={(e) => onChange(e.target.value)}
         className="w-full bg-zinc-900 border border-white/10 text-zinc-300 text-sm font-sans p-3 outline-none focus:border-white/30 transition-colors appearance-none cursor-pointer"
       >
-        <option value="">Select...</option>
+        <option value="">{selectPlaceholder}</option>
         {options.map((opt) => (
           <option key={opt} value={opt}>
             {opt}

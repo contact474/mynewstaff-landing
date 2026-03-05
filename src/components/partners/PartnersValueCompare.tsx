@@ -1,49 +1,22 @@
 "use client";
 
 import { Reveal } from "@/components/ui/Reveal";
-
-const comparisons = [
-  {
-    item: "Landing Page",
-    market: "$3,000 – $8,000",
-    here: "Included in $1,500 tier",
-  },
-  {
-    item: "Press Kit (Pro)",
-    market: "$1,500 – $4,000",
-    here: "Included in $1,500 tier",
-  },
-  {
-    item: "Explainer Video",
-    market: "$2,000 – $5,000",
-    here: "Included in $1,500 tier",
-  },
-  {
-    item: "30-Day Content Pack",
-    market: "$4,000 – $10,000",
-    here: "Included in $3,500 tier",
-  },
-  {
-    item: "Full Visibility Stack",
-    market: "$6,000 – $15,000",
-    here: "Included in $3,500 tier",
-  },
-];
+import { usePartnerLocale } from "./PartnersLocaleProvider";
 
 export function PartnersValueCompare() {
+  const { t } = usePartnerLocale();
   return (
     <section className="py-16 md:py-24 px-4 md:px-8 border-t border-white/5">
       <Reveal className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <span className="block text-xs font-sans uppercase tracking-[0.2em] text-zinc-500 mb-6">
-            Why This Deal Works
+            {t.valueCompare.label}
           </span>
           <h2 className="text-2xl md:text-5xl font-wide font-bold uppercase leading-[0.9] text-white mb-4">
-            MARKET RATE VS. <span className="shimmer-text">YOUR COST.</span>
+            {t.valueCompare.heading} <span className="shimmer-text">{t.valueCompare.headingAccent}</span>
           </h2>
           <p className="text-xs text-zinc-500 font-sans max-w-lg mx-auto">
-            You post content you&apos;d already be creating. We build assets that
-            would cost thousands elsewhere.
+            {t.valueCompare.subtitle}
           </p>
         </div>
 
@@ -52,26 +25,26 @@ export function PartnersValueCompare() {
           <div className="grid grid-cols-3 bg-white/[0.03] border-b border-white/10">
             <div className="p-4 md:p-5">
               <span className="text-[10px] tracking-[0.2em] text-zinc-500 uppercase font-sans">
-                Deliverable
+                {t.valueCompare.colDeliverable}
               </span>
             </div>
             <div className="p-4 md:p-5 border-l border-white/10">
               <span className="text-[10px] tracking-[0.2em] text-zinc-500 uppercase font-sans">
-                Market Rate
+                {t.valueCompare.colMarketRate}
               </span>
             </div>
             <div className="p-4 md:p-5 border-l border-white/10">
               <span className="text-[10px] tracking-[0.2em] text-green-400/60 uppercase font-sans">
-                With Partner Credits
+                {t.valueCompare.colPartnerCredits}
               </span>
             </div>
           </div>
 
           {/* Rows */}
-          {comparisons.map((row, i) => (
+          {t.valueCompare.rows.map((row, i) => (
             <div
               key={i}
-              className={`grid grid-cols-3 ${i < comparisons.length - 1 ? "border-b border-white/5" : ""} hover:bg-white/[0.02] transition-colors`}
+              className={`grid grid-cols-3 ${i < t.valueCompare.rows.length - 1 ? "border-b border-white/5" : ""} hover:bg-white/[0.02] transition-colors`}
             >
               <div className="p-4 md:p-5">
                 <span className="text-sm text-white font-sans">{row.item}</span>
@@ -91,7 +64,7 @@ export function PartnersValueCompare() {
         </div>
 
         <p className="text-center text-[10px] text-zinc-600 font-sans mt-4 tracking-wide">
-          All you invest is content you&apos;re already making. Zero cash out of pocket.
+          {t.valueCompare.footer}
         </p>
       </Reveal>
     </section>

@@ -2,9 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { usePartnerLocale } from "./PartnersLocaleProvider";
 
 export function PartnersFloatingCTA() {
   const [visible, setVisible] = useState(false);
+  const { t } = usePartnerLocale();
 
   useEffect(() => {
     const onScroll = () => {
@@ -41,7 +43,7 @@ export function PartnersFloatingCTA() {
             href="#tiers"
             className="h-12 px-6 rounded-full bg-white text-black font-bold text-xs tracking-[0.15em] uppercase flex items-center gap-2 hover:scale-105 transition-transform shadow-lg"
           >
-            Apply Now
+            {t.floatingCta.applyNow}
           </a>
         </motion.div>
       )}
