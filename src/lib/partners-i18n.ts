@@ -61,6 +61,7 @@ export interface PartnersTranslations {
   };
   proof: {
     label: string;
+    headingPrefix: string;
     headingBuild: string;
     headingShip: string;
     subtitle: string;
@@ -229,6 +230,7 @@ const en: PartnersTranslations = {
   },
   proof: {
     label: "Proof of Work",
+    headingPrefix: "WE ",
     headingBuild: "BUILD.",
     headingShip: "SHIP.",
     subtitle: "Everything we offer in this program is built and battle-tested across real client deployments. This isn't theory \u2014 it's live infrastructure.",
@@ -588,6 +590,7 @@ const es: PartnersTranslations = {
   },
   proof: {
     label: "Resultados Reales",
+    headingPrefix: "",
     headingBuild: "CONSTRUIMOS.",
     headingShip: "ENTREGAMOS.",
     subtitle: "Todo lo que ofrecemos en este programa est\u00e1 construido y probado en despliegues reales con clientes. Esto no es teor\u00eda \u2014 es infraestructura en vivo.",

@@ -43,8 +43,7 @@ export function PartnersProof() {
           {t.proof.label}
         </span>
         <h2 className="text-3xl md:text-6xl lg:text-7xl font-wide font-bold uppercase leading-[0.9] text-white mb-6">
-          WE <span className="shimmer-text">{t.proof.headingBuild}</span> WE{" "}
-          <span className="shimmer-text">{t.proof.headingShip}</span>
+          {t.proof.headingPrefix}<span className="shimmer-text">{t.proof.headingBuild}</span> {t.proof.headingPrefix}<span className="shimmer-text">{t.proof.headingShip}</span>
         </h2>
         <p className="text-sm text-zinc-400 font-sans max-w-lg mx-auto leading-relaxed">
           {t.proof.subtitle}
