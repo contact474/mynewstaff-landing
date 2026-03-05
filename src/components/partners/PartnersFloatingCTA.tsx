@@ -26,7 +26,7 @@ export function PartnersFloatingCTA() {
         >
           {/* WhatsApp floating */}
           <a
-            href="https://wa.me/34642757321?text=Hey%20Luka!%20I%27m%20interested%20in%20the%20MyNewStaff%20partner%20program%20%F0%9F%91%8B"
+            href="https://wa.me/13058503664?text=Hey%20Luka!%20I%27m%20interested%20in%20the%20MyNewStaff%20partner%20program%20%F0%9F%91%8B"
             target="_blank"
             rel="noopener noreferrer"
             className="w-12 h-12 rounded-full bg-green-600 hover:bg-green-500 transition-colors flex items-center justify-center shadow-lg shadow-green-900/30"

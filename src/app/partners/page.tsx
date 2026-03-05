@@ -64,7 +64,7 @@ export default function Partners() {
                   Build Your Package
                 </a>
                 <a
-                  href="https://wa.me/34642757321?text=Hey%20Luka!%20I%27m%20interested%20in%20the%20MyNewStaff%20partner%20program%20%F0%9F%91%8B"
+                  href="https://wa.me/13058503664?text=Hey%20Luka!%20I%27m%20interested%20in%20the%20MyNewStaff%20partner%20program%20%F0%9F%91%8B"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-green-500/30 text-green-400 text-xs tracking-[0.2em] uppercase hover:bg-green-500/10 transition-colors font-sans"
