@@ -9,7 +9,7 @@ const stats = [
     suffix: "M",
     prefix: "$",
     label: "Revenue Closed",
-    detail: "Across 6 active clients in Q1 2026 alone",
+    detail: "Across 6 active clients in 2026",
   },
   {
     value: 84,

@@ -14,6 +14,7 @@ export function Navbar() {
                 <Link href="/#strategy" className="hover:opacity-50 transition-opacity">The Engine</Link>
                 <Link href="/#pricing" className="hover:opacity-50 transition-opacity">Pricing</Link>
                 <Link href="/results" className="hover:opacity-50 transition-opacity">Results</Link>
+                <Link href="/partners" className="hover:opacity-50 transition-opacity shimmer-text">Partners</Link>
             </div>
 
             <div className="absolute left-1/2 -translate-x-1/2 font-bold text-sm md:text-base tracking-[0.2em] font-wide">
