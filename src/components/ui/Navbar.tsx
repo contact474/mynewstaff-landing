@@ -2,9 +2,11 @@
 
 import Link from 'next/link';
 import { useQuiz } from './QuizModal';
+import { useAuth } from '@/lib/supabase/auth-context';
 
 export function Navbar() {
     const { openQuiz } = useQuiz();
+    const { user, loading } = useAuth();
 
     return (
         <nav className="fixed top-0 left-0 w-full p-6 md:p-8 flex justify-between items-center z-50 text-white mix-blend-difference uppercase tracking-[0.2em] text-[10px] md:text-xs font-sans">
@@ -26,6 +28,13 @@ export function Navbar() {
                 <button onClick={() => openQuiz("navbar-contact")} className="hover:opacity-50 transition-opacity cursor-pointer">
                     Contact
                 </button>
+                {!loading && (
+                    user ? (
+                        <Link href="/app/dashboard" className="hover:opacity-50 transition-opacity">Dashboard</Link>
+                    ) : (
+                        <Link href="/login" className="hover:opacity-50 transition-opacity">Login</Link>
+                    )
+                )}
             </div>
         </nav>
     );

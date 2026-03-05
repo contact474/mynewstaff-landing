@@ -2,12 +2,15 @@
 
 import { QuizProvider } from "./QuizModal";
 import { GrainOverlay } from "./ScrollEffects";
+import { AuthProvider } from "@/lib/supabase/auth-context";
 
 export function ClientLayout({ children }: { children: React.ReactNode }) {
     return (
-        <QuizProvider>
-            <GrainOverlay />
-            {children}
-        </QuizProvider>
+        <AuthProvider>
+            <QuizProvider>
+                <GrainOverlay />
+                {children}
+            </QuizProvider>
+        </AuthProvider>
     );
 }
