@@ -118,9 +118,10 @@ export function PartnersApplyModal({
     };
 
     try {
-      const res = await fetch("/command-api/api/v1/leads", {
+      const res = await fetch("https://mynewstaff.ai/command-api/api/v1/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        redirect: "follow",
         body: JSON.stringify({
           company_name: form.instagram,
           contact_name: form.name,
