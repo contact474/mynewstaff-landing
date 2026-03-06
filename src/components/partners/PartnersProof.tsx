@@ -76,6 +76,31 @@ export function PartnersProof() {
         </div>
       </Reveal>
 
+      {/* Kardashian Testimonial */}
+      <Reveal className="max-w-5xl mx-auto mb-20">
+        <div className="border border-white/10 bg-white/[0.02] p-8 md:p-12">
+          <span className="block text-[10px] tracking-[0.3em] text-amber-400/80 uppercase mb-4 font-sans text-center">
+            {t.proof.testimonialLabel}
+          </span>
+          <p className="text-sm text-zinc-400 font-sans text-center max-w-lg mx-auto mb-8 leading-relaxed">
+            {t.proof.testimonialQuote}
+          </p>
+          <div className="max-w-2xl mx-auto aspect-video border border-white/10 overflow-hidden">
+            <video
+              src="/videos/kris-jenner.mp4"
+              controls
+              playsInline
+              preload="metadata"
+              className="w-full h-full object-cover"
+              poster=""
+            />
+          </div>
+          <p className="text-[10px] tracking-[0.2em] text-zinc-600 uppercase font-sans text-center mt-4">
+            {t.proof.testimonialAttribution}
+          </p>
+        </div>
+      </Reveal>
+
       <Reveal className="max-w-5xl mx-auto">
         <span className="block text-[10px] tracking-[0.3em] text-zinc-600 uppercase mb-6 font-sans text-center">
           {t.proof.capabilitiesLabel}
