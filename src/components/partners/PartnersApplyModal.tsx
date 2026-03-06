@@ -125,10 +125,9 @@ export function PartnersApplyModal({
           company_name: form.instagram,
           contact_name: form.name,
           contact_email: form.email,
-          source: "influencer_barter",
           status: "new",
           notes: JSON.stringify(payload, null, 2),
-          score: 0,
+          tags: ["source:partner_application"],
         }),
       });
 
