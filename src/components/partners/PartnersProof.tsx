@@ -76,30 +76,33 @@ export function PartnersProof() {
         </div>
       </Reveal>
 
-      {/* Kardashian Testimonial */}
-      <Reveal className="max-w-5xl mx-auto mb-20">
-        <div className="border border-white/10 bg-white/[0.02] p-8 md:p-12">
-          <span className="block text-[10px] tracking-[0.3em] text-amber-400/80 uppercase mb-4 font-sans text-center">
+      {/* Kardashian Testimonial — Cinematic Background Video */}
+      <div className="relative w-full overflow-hidden my-20" style={{ minHeight: "60vh" }}>
+        {/* Background video */}
+        <video
+          src="/videos/kris-jenner.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        {/* Dark gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/70 to-zinc-950/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/50 via-transparent to-zinc-950/50" />
+        {/* Content overlay */}
+        <Reveal className="relative z-10 flex flex-col items-center justify-end h-full min-h-[60vh] px-4 pb-16 pt-32 md:pb-24 md:pt-48 text-center">
+          <span className="block text-[10px] tracking-[0.3em] text-amber-400 uppercase mb-5 font-sans drop-shadow-lg">
             {t.proof.testimonialLabel}
           </span>
-          <p className="text-sm text-zinc-400 font-sans text-center max-w-lg mx-auto mb-8 leading-relaxed">
-            {t.proof.testimonialQuote}
+          <p className="text-lg md:text-2xl text-white font-sans max-w-2xl mx-auto leading-relaxed mb-6 drop-shadow-lg">
+            &ldquo;{t.proof.testimonialQuote}&rdquo;
           </p>
-          <div className="max-w-2xl mx-auto aspect-video border border-white/10 overflow-hidden">
-            <video
-              src="/videos/kris-jenner.mp4"
-              controls
-              playsInline
-              preload="metadata"
-              className="w-full h-full object-cover"
-              poster=""
-            />
-          </div>
-          <p className="text-[10px] tracking-[0.2em] text-zinc-600 uppercase font-sans text-center mt-4">
+          <p className="text-[10px] tracking-[0.2em] text-zinc-400 uppercase font-sans drop-shadow-lg">
             {t.proof.testimonialAttribution}
           </p>
-        </div>
-      </Reveal>
+        </Reveal>
+      </div>
 
       <Reveal className="max-w-5xl mx-auto">
         <span className="block text-[10px] tracking-[0.3em] text-zinc-600 uppercase mb-6 font-sans text-center">
