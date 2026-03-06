@@ -217,7 +217,7 @@ export function PartnersApplyModal({
                       : t.applyModal.speedUpWithout}
                   </p>
                   <a
-                    href="https://instagram.com/mynewstaff.ai"
+                    href="https://ig.me/m/mynewstaff"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block px-8 py-3 bg-white text-black font-bold text-xs tracking-[0.15em] uppercase hover:scale-105 transition-transform"

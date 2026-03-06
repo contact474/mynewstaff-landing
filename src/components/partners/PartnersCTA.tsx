@@ -38,7 +38,7 @@ export function PartnersCTA() {
               {t.cta.whatsapp}
             </a>
             <a
-              href="https://instagram.com/mynewstaff.ai"
+              href="https://ig.me/m/mynewstaff"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block px-10 py-4 rounded-full border border-white/20 text-white text-xs tracking-[0.15em] uppercase hover:bg-white/5 transition-colors"
