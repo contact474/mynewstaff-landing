@@ -76,33 +76,38 @@ export function PartnersProof() {
         </div>
       </Reveal>
 
-      {/* Kardashian Testimonial — Cinematic Background Video */}
-      <div className="relative w-full overflow-hidden my-20" style={{ height: "50vh" }}>
-        {/* Background video */}
-        <video
-          src="/videos/kris-jenner.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover object-[center_38%]"
-        />
-        {/* Dark gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/70 to-zinc-950/40" />
-        <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/50 via-transparent to-zinc-950/50" />
-        {/* Content overlay */}
-        <Reveal className="relative z-10 flex flex-col items-center justify-end h-full min-h-[50vh] px-4 pb-16 pt-32 md:pb-24 md:pt-48 text-center">
-          <span className="block text-[10px] tracking-[0.3em] text-amber-400 uppercase mb-5 font-sans drop-shadow-lg">
-            {t.proof.testimonialLabel}
-          </span>
-          <p className="text-lg md:text-2xl text-white font-sans max-w-2xl mx-auto leading-relaxed mb-6 drop-shadow-lg">
-            &ldquo;{t.proof.testimonialQuote}&rdquo;
-          </p>
-          <p className="text-[10px] tracking-[0.2em] text-zinc-400 uppercase font-sans drop-shadow-lg">
-            {t.proof.testimonialAttribution}
-          </p>
-        </Reveal>
-      </div>
+      {/* Kardashian Testimonial — Editorial Split */}
+      <Reveal className="max-w-6xl mx-auto my-20 px-4 md:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 border border-white/10 overflow-hidden">
+          {/* Video — portrait, left side */}
+          <div className="relative aspect-[9/12] md:aspect-auto overflow-hidden bg-black">
+            <video
+              src="/videos/kris-jenner.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover object-[center_30%]"
+            />
+            {/* Subtle edge gradient blending into the dark right panel */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-zinc-950/60 hidden md:block" />
+            <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent md:hidden" />
+          </div>
+          {/* Quote — right side */}
+          <div className="flex flex-col items-start justify-center p-8 md:p-14 lg:p-20 bg-zinc-950">
+            <span className="block text-[10px] tracking-[0.3em] text-amber-400/80 uppercase mb-6 font-sans">
+              {t.proof.testimonialLabel}
+            </span>
+            <p className="text-xl md:text-2xl lg:text-3xl text-white font-sans leading-relaxed mb-8">
+              &ldquo;{t.proof.testimonialQuote}&rdquo;
+            </p>
+            <div className="w-12 h-px bg-amber-400/40 mb-6" />
+            <p className="text-[10px] tracking-[0.2em] text-zinc-500 uppercase font-sans">
+              {t.proof.testimonialAttribution}
+            </p>
+          </div>
+        </div>
+      </Reveal>
 
       <Reveal className="max-w-5xl mx-auto">
         <span className="block text-[10px] tracking-[0.3em] text-zinc-600 uppercase mb-6 font-sans text-center">
