@@ -118,44 +118,35 @@ export function PartnersApplyModal({
     };
 
     try {
-      const res = await fetch("https://mynewstaff.ai/command-api/api/v1/leads", {
+      const res = await fetch("/api/partners/apply", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        redirect: "follow",
-        body: JSON.stringify({
-          company_name: form.instagram,
-          contact_name: form.name,
-          contact_email: form.email,
-          status: "new",
-          notes: JSON.stringify(payload, null, 2),
-          tags: ["source:partner_application"],
-        }),
+        body: JSON.stringify(payload),
       });
 
-      if (!res.ok) throw new Error("CRM post failed");
+      if (!res.ok) throw new Error("Submit failed");
     } catch {
-      const subject = encodeURIComponent(
-        `Influencer Application: ${form.instagram} — ${tier?.credits} / ${bundle?.name}`
-      );
-      const body = encodeURIComponent(
-        `New Influencer Application\n\n` +
-          `Name: ${form.name}\n` +
-          `Email: ${form.email}\n` +
-          `Instagram: @${form.instagram.replace("@", "")}\n` +
-          `Followers: ${form.followers}\n` +
-          `Niche: ${form.niche}\n` +
-          `Avg Story Views: ${form.avgStoryViews || "N/A"}\n` +
-          `Avg Reel Views: ${form.avgReelViews || "N/A"}\n` +
-          `Engagement Rate: ${form.engagementRate || "N/A"}\n` +
-          `Screenshots: ${screenshots.length} attached\n\n` +
-          `Tier: ${tier?.credits}\n` +
-          `Bundle: ${bundle?.name}\n` +
-          `Note: ${form.whyPartner || "N/A"}\n`
-      );
-      window.open(
-        `mailto:contact@mynewstaff.ai?subject=${subject}&body=${body}`,
-        "_blank"
-      );
+      // Fallback: direct CRM post
+      try {
+        await fetch("https://mynewstaff.ai/command-api/api/v1/leads", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          redirect: "follow",
+          body: JSON.stringify({
+            company_name: form.instagram,
+            contact_name: form.name,
+            contact_email: form.email,
+            status: "new",
+            notes: JSON.stringify(payload, null, 2),
+            tags: ["source:partner_application"],
+          }),
+        });
+      } catch {
+        window.open(
+          `mailto:contact@mynewstaff.ai?subject=${encodeURIComponent(`Partner Application: ${form.instagram}`)}`,
+          "_blank"
+        );
+      }
     }
 
     setSubmitting(false);
