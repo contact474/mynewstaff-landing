@@ -77,7 +77,7 @@ export function PartnersProof() {
       </Reveal>
 
       {/* Kardashian Testimonial — Cinematic Background Video */}
-      <div className="relative w-full overflow-hidden my-20" style={{ minHeight: "80vh" }}>
+      <div className="relative w-full overflow-hidden my-20" style={{ height: "50vh" }}>
         {/* Background video */}
         <video
           src="/videos/kris-jenner.mp4"
@@ -85,13 +85,13 @@ export function PartnersProof() {
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover object-top"
+          className="absolute inset-0 w-full h-full object-cover object-[center_15%]"
         />
         {/* Dark gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/70 to-zinc-950/40" />
         <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/50 via-transparent to-zinc-950/50" />
         {/* Content overlay */}
-        <Reveal className="relative z-10 flex flex-col items-center justify-end h-full min-h-[80vh] px-4 pb-16 pt-32 md:pb-24 md:pt-48 text-center">
+        <Reveal className="relative z-10 flex flex-col items-center justify-end h-full min-h-[50vh] px-4 pb-16 pt-32 md:pb-24 md:pt-48 text-center">
           <span className="block text-[10px] tracking-[0.3em] text-amber-400 uppercase mb-5 font-sans drop-shadow-lg">
             {t.proof.testimonialLabel}
           </span>
