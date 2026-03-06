@@ -85,7 +85,7 @@ export function PartnersProof() {
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover object-[center_15%]"
+          className="absolute inset-0 w-full h-full object-cover object-[center_38%]"
         />
         {/* Dark gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/70 to-zinc-950/40" />
