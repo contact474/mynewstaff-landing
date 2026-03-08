@@ -15,6 +15,7 @@ import {
     HookTestingDiagram, RetentionArchDiagram, AlgorithmLockDiagram
 } from "@/components/diagrams/CapabilityDiagrams";
 import { VideosCTA } from "@/components/ui/VideosCTA";
+import { ScaleXBanner } from "@/components/ui/ScaleXBanner";
 
 export default function Videos() {
     return (
@@ -140,6 +141,9 @@ export default function Videos() {
                 <Section id="faq" subtitle="FAQ" title={<>COMMON <br /> <span className="shimmer-text">QUESTIONS.</span></>}>
                     <VideoFAQ />
                 </Section>
+
+                {/* ScaleX AI Diagnostic Banner */}
+                <ScaleXBanner />
 
                 {/* Section 7: CTA */}
                 <Section id="cta" subtitle="Finality" title={<>OWN YOUR <br /> <span className="shimmer-text">NICHE.</span></>}>

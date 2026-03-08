@@ -10,6 +10,7 @@ import { PartnersBigPlays } from "@/components/partners/PartnersBigPlays";
 import { PartnersAddOn } from "@/components/partners/PartnersAddOn";
 import { PartnersTerms } from "@/components/partners/PartnersTerms";
 import { PartnersCTA } from "@/components/partners/PartnersCTA";
+import { ScaleXBanner } from "@/components/ui/ScaleXBanner";
 import { PartnersFloatingCTA } from "@/components/partners/PartnersFloatingCTA";
 import type { Metadata } from "next";
 
@@ -33,6 +34,7 @@ export default function Partners() {
         <PartnersBigPlays />
         <PartnersAddOn />
         <PartnersTerms />
+        <ScaleXBanner />
         <PartnersCTA />
         <PartnersFloatingCTA />
       </main>

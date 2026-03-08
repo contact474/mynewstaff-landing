@@ -20,6 +20,7 @@ export type Feature =
   | "ad_copy"
   | "email_sequence"
   | "positioning_workshop"
+  | "ai_advisor_full"
   | "white_label"
   | "team_access"
   | "api_access";
@@ -30,6 +31,7 @@ export const FEATURE_TIERS: Record<Feature, Tier> = {
   basic_playbooks: "starter",
   offer_builder: "starter",
   marketing_plays: "starter",
+  ai_advisor_full: "starter",
   value_stack: "growth",
   funnel_blueprint: "growth",
   ad_copy: "growth",
@@ -50,6 +52,13 @@ export const SCAN_LIMITS: Record<Tier, number> = {
 export const PLAYBOOK_LIMITS: Record<Tier, number> = {
   free: 0,
   starter: 3,
+  growth: -1,
+  scale: -1,
+};
+
+export const ADVISOR_MESSAGE_LIMITS: Record<Tier, number> = {
+  free: 10,
+  starter: -1, // unlimited
   growth: -1,
   scale: -1,
 };
@@ -77,8 +86,8 @@ export const TIER_LABELS: Record<Tier, string> = {
 
 export const TIER_PRICES: Record<Tier, { monthly: number; annual: number }> = {
   free: { monthly: 0, annual: 0 },
-  starter: { monthly: 19, annual: 190 },
-  growth: { monthly: 49, annual: 490 },
+  starter: { monthly: 9, annual: 90 },
+  growth: { monthly: 39, annual: 390 },
   scale: { monthly: 149, annual: 1490 },
 };
 

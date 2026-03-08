@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/ScrollEffects";
 
 import { ScaleCTA } from "@/components/ui/ScaleCTA";
+import { ScaleXBanner } from "@/components/ui/ScaleXBanner";
 
 export default function Scale() {
     return (
@@ -122,6 +123,9 @@ export default function Scale() {
                 <Section id="faq" subtitle="FAQ" title={<>COMMON <br /> <span className="shimmer-text">QUESTIONS.</span></>}>
                     <ScaleFAQ />
                 </Section>
+
+                {/* ScaleX AI Diagnostic Banner */}
+                <ScaleXBanner />
 
                 {/* Section 7: CTA */}
                 <Section id="cta" subtitle="Finality" title={<>READY TO <br /> <span className="shimmer-text">SCALE?</span></>}>
