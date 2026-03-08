@@ -2,6 +2,7 @@ import { Navbar } from "@/components/ui/Navbar";
 import { SocialProofBar } from "@/components/ui/SocialProofBar";
 import { PricingTable } from "@/components/ui/PricingTable";
 import { PricingDetails } from "@/components/ui/PricingDetails";
+import { ScaleXBanner } from "@/components/ui/ScaleXBanner";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -46,6 +47,8 @@ export default function Pricing() {
             <PricingDetails />
           </div>
         </section>
+
+        <ScaleXBanner />
       </main>
     </>
   );

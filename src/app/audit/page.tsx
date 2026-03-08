@@ -5,6 +5,7 @@ import { Card, Grid } from "@/components/ui/Card";
 import { Reveal } from "@/components/ui/Reveal";
 import { ParallaxSection, ScaleReveal } from "@/components/ui/ScrollEffects";
 import { AuditForm } from "@/components/ui/AuditForm";
+import { ScaleXBanner } from "@/components/ui/ScaleXBanner";
 
 export const metadata = {
     title: "Free AI Scalability Audit | MyNewStaff.ai",
@@ -132,6 +133,8 @@ export default function Audit() {
                         <AuditForm />
                     </Reveal>
                 </section>
+
+                <ScaleXBanner />
 
                 {/* Final CTA */}
                 <Section id="final" subtitle="No Risk" title={<>COMPLETELY<br /> <span className="shimmer-text">FREE.</span></>}>
