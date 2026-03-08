@@ -208,11 +208,11 @@ const WEBHOOK_URL = "https://hooks.mynewstaff.ai/mission-control-apply";
 
 /* ─── Helpers ──────────────────────────────────────────────────────── */
 
-function getZone(score: number) {
-  if (score < 40) return { label: "Zona Roja", color: "#EF4444", bg: "rgba(239,68,68,0.08)", border: "rgba(239,68,68,0.2)" };
-  if (score < 60) return { label: "Zona de Riesgo", color: "#F59E0B", bg: "rgba(245,158,11,0.08)", border: "rgba(245,158,11,0.2)" };
-  if (score < 80) return { label: "Zona de Crecimiento", color: "#3B82F6", bg: "rgba(59,130,246,0.08)", border: "rgba(59,130,246,0.2)" };
-  return { label: "Zona de Dominio", color: "#10B981", bg: "rgba(16,185,129,0.08)", border: "rgba(16,185,129,0.2)" };
+function getZone(score: number, loc: Locale = "en") {
+  if (score < 40) return { label: loc === "es" ? "Zona Roja" : "Red Zone", color: "#EF4444", bg: "rgba(239,68,68,0.08)", border: "rgba(239,68,68,0.2)" };
+  if (score < 60) return { label: loc === "es" ? "Zona de Riesgo" : "Risk Zone", color: "#F59E0B", bg: "rgba(245,158,11,0.08)", border: "rgba(245,158,11,0.2)" };
+  if (score < 80) return { label: loc === "es" ? "Zona de Crecimiento" : "Growth Zone", color: "#3B82F6", bg: "rgba(59,130,246,0.08)", border: "rgba(59,130,246,0.2)" };
+  return { label: loc === "es" ? "Zona de Dominio" : "Dominance Zone", color: "#10B981", bg: "rgba(16,185,129,0.08)", border: "rgba(16,185,129,0.2)" };
 }
 
 function computeOverallScore(scores: Scores): number {
@@ -415,6 +415,102 @@ export function EscalaXDiagnostic() {
   const isAuthenticated = !!user;
   const canSeeFullResults = hasAccess(tier, "full_results");
 
+  // AI Advisor Chat state
+  const [chatOpen, setChatOpen] = useState(false);
+  const [chatMessages, setChatMessages] = useState<{ role: "user" | "assistant"; text: string }[]>([]);
+  const [chatInput, setChatInput] = useState("");
+  const [chatLoading, setChatLoading] = useState(false);
+  const [bookCall, setBookCall] = useState(false);
+  const [showPricing, setShowPricing] = useState(false);
+  const chatEndRef = useRef<HTMLDivElement>(null);
+  const chatInitRef = useRef(false);
+
+  const scrollChatToBottom = useCallback(() => {
+    requestAnimationFrame(() => chatEndRef.current?.scrollIntoView({ behavior: "smooth" }));
+  }, []);
+
+  // Build scan context string for the AI
+  const buildScanContextString = useCallback(() => {
+    if (!finalScores || !analysisResult) return "";
+    const f = analysisResult.findings;
+    const lines = [
+      `COMPANY: ${company || f.businessName || "Unknown"}`,
+      `WEBSITE: ${analysisResult.meta.url}`,
+      `OVERALL SCORE: ${overallScore}/100`,
+      ``,
+      `PILLAR SCORES (0-10 each):`,
+      ...PILLAR_KEYS.map(k => `- ${PILLAR_LABELS[k]}: ${finalScores[k].toFixed(1)}`),
+      ``,
+      `TOP 3 WEAKEST PILLARS:`,
+      ...getTopIssues(finalScores, 3).map((issue, i) => `${i+1}. ${issue.label}: ${issue.score.toFixed(1)}/10`),
+      ``,
+      `REVENUE LEAK ESTIMATE: ${estimateRevenueLeak(overallScore)} of potential revenue`,
+      `TOTAL DATA POINTS FOUND: ${f.totalSignals}`,
+    ];
+    if (f.trackedTools?.length) lines.push(`TRACKING: ${f.trackedTools.map(t => t.tool + (t.id ? `: ${t.id}` : "")).join(", ")}`);
+    if (f.emailProvider) lines.push(`EMAIL PROVIDER: ${f.emailProvider}`);
+    if (f.crm) lines.push(`CRM: ${f.crm}`);
+    if (f.techStack?.length) lines.push(`TECH STACK: ${f.techStack.join(", ")}`);
+    if (f.securityScore !== undefined) lines.push(`SECURITY: ${f.securityScore}/7 headers`);
+    if (analysisResult.positioning) {
+      const p = analysisResult.positioning;
+      lines.push(`POSITIONING: clarity ${p.clarityScore}/10, differentiation ${p.differentiationScore}/10`);
+      if (p.primaryHeadline) lines.push(`HEADLINE: "${p.primaryHeadline}"`);
+    }
+    if (analysisResult.offer) {
+      const o = analysisResult.offer;
+      lines.push(`OFFER: clarity ${o.offerClarity}/10, strength ${o.offerStrength}/10`);
+    }
+    if (analysisResult.funnel) {
+      const fn = analysisResult.funnel;
+      lines.push(`FUNNEL: ${fn.funnelType}, completeness ${fn.completeness}%`);
+      if (fn.gaps?.length) lines.push(`FUNNEL GAPS: ${fn.gaps.join(", ")}`);
+    }
+    return lines.join("\n");
+  }, [finalScores, analysisResult, company, overallScore]);
+
+  // Initialize chat with opening message when chat opens
+  useEffect(() => {
+    if (!chatOpen || chatInitRef.current || !finalScores) return;
+    chatInitRef.current = true;
+    const topIssues = getTopIssues(finalScores, 3);
+    const opening = `I've analyzed your full ScaleX diagnostic — **${overallScore}/100** overall with ${analysisResult?.findings.totalSignals || 0} data points scanned.\n\nYour biggest gaps are **${topIssues.map(i => `${i.label} (${i.score.toFixed(1)}/10)`).join(", ")}**. That means you're likely leaving **${estimateRevenueLeak(overallScore)}** of your potential revenue on the table right now.\n\nLet's figure out exactly what's costing you money. What does your current marketing and lead generation setup look like?`;
+    setChatMessages([{ role: "assistant", text: opening }]);
+  }, [chatOpen, finalScores, overallScore, analysisResult]);
+
+  // Send chat message
+  const handleChatSend = async () => {
+    const text = chatInput.trim();
+    if (!text || chatLoading) return;
+    const userMsg = { role: "user" as const, text };
+    const updated = [...chatMessages, userMsg];
+    setChatMessages(updated);
+    setChatInput("");
+    setChatLoading(true);
+    setTimeout(scrollChatToBottom, 50);
+
+    try {
+      const res = await fetch("/api/scalex-advisor", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: updated.map(m => ({ role: m.role, text: m.text })),
+          scanContext: buildScanContextString(),
+        }),
+      });
+      const data = await res.json();
+      const reply = data.reply || "I'm having trouble connecting. Please try again.";
+      setChatMessages(prev => [...prev, { role: "assistant", text: reply }]);
+      if (data.bookCall) setBookCall(true);
+      if (data.showPricing) setShowPricing(true);
+    } catch {
+      setChatMessages(prev => [...prev, { role: "assistant", text: "Connection error. Please try again." }]);
+    } finally {
+      setChatLoading(false);
+      setTimeout(scrollChatToBottom, 100);
+    }
+  };
+
   const scrollToTop = useCallback(() => {
     containerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
@@ -560,7 +656,7 @@ export function EscalaXDiagnostic() {
     showResults();
   };
 
-  const zone = getZone(overallScore);
+  const zone = getZone(overallScore, locale);
   const currentQ = step.startsWith("q") ? parseInt(step[1]) - 1 : -1;
   const f = analysisResult?.findings;
 
@@ -1348,6 +1444,119 @@ export function EscalaXDiagnostic() {
             <div className="text-center mt-10">
               <span className="text-[9px] tracking-[0.2em] uppercase text-zinc-700 font-sans">{tr(t.poweredBy, locale)}</span>
             </div>
+
+            {/* ── AI ADVISOR CHAT ─────────────────────────────────── */}
+            {!chatOpen && (
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 5.5, duration: 0.6 }} className="mt-10">
+                <button
+                  onClick={() => setChatOpen(true)}
+                  className="w-full border border-white/20 bg-white/[0.03] hover:bg-white/[0.06] transition-all p-6 md:p-8 text-center cursor-pointer group"
+                >
+                  <div className="flex items-center justify-center gap-3 mb-3">
+                    <div className="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center text-[10px] font-bold tracking-wider">SX</div>
+                    <h3 className="text-lg md:text-xl font-wide font-bold uppercase">Talk to Your AI Advisor</h3>
+                  </div>
+                  <p className="text-sm text-zinc-400 font-sans max-w-[500px] mx-auto mb-4">
+                    Get a personalized growth plan based on your scan. I&apos;ll show you exactly what&apos;s broken, what it&apos;s costing you, and how to fix it.
+                  </p>
+                  <span className="inline-block px-6 py-3 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold group-hover:bg-white/90 transition-colors">
+                    Start Conversation
+                  </span>
+                </button>
+              </motion.div>
+            )}
+
+            {chatOpen && (
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mt-10 border border-white/20 bg-black/50 backdrop-blur-sm">
+                {/* Chat header */}
+                <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
+                  <div className="flex items-center gap-3">
+                    <div className="w-7 h-7 rounded-full bg-white text-black flex items-center justify-center text-[9px] font-bold tracking-wider">SX</div>
+                    <div>
+                      <span className="text-[10px] tracking-[0.3em] uppercase text-zinc-500 block">ScaleX</span>
+                      <span className="text-sm font-wide font-bold uppercase">AI Growth Advisor</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-[10px] tracking-[0.15em] uppercase text-zinc-500 font-sans">Live</span>
+                  </div>
+                </div>
+
+                {/* Messages */}
+                <div className="h-[450px] overflow-y-auto px-6 py-6 space-y-5">
+                  {chatMessages.map((msg, i) => (
+                    <div key={i} className={`flex gap-3 ${msg.role === "user" ? "flex-row-reverse" : ""}`}>
+                      <div className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-[9px] font-bold tracking-wider mt-0.5 ${msg.role === "assistant" ? "bg-white text-black" : "bg-white/10 border border-white/20 text-white"}`}>
+                        {msg.role === "assistant" ? "SX" : "You"}
+                      </div>
+                      <div className={`max-w-[80%] text-sm font-sans leading-relaxed ${msg.role === "assistant" ? "text-zinc-300" : "bg-white/[0.04] border border-white/10 rounded-2xl rounded-tr-lg px-4 py-3 text-zinc-300"}`}>
+                        <div className="whitespace-pre-wrap">{msg.text.split(/\*\*(.*?)\*\*/g).map((part, j) => j % 2 === 1 ? <strong key={j} className="text-white font-semibold">{part}</strong> : part)}</div>
+                      </div>
+                    </div>
+                  ))}
+
+                  {chatLoading && (
+                    <div className="flex gap-3">
+                      <div className="flex-shrink-0 w-7 h-7 rounded-full bg-white text-black flex items-center justify-center text-[9px] font-bold tracking-wider">SX</div>
+                      <div className="flex items-center gap-1.5 py-2">
+                        <span className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-pulse" />
+                        <span className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-pulse [animation-delay:150ms]" />
+                        <span className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-pulse [animation-delay:300ms]" />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Book call CTA */}
+                  {bookCall && (
+                    <div className="flex gap-3">
+                      <div className="flex-shrink-0 w-7 h-7" />
+                      <a href="https://wa.me/38640505084?text=Hi%2C%20I%20just%20did%20a%20ScaleX%20scan%20and%20I%27d%20like%20to%20book%20a%20strategy%20call." target="_blank" rel="noopener noreferrer" className="inline-block px-6 py-3 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold hover:bg-white/90 transition-all cursor-pointer">
+                        Book Free Strategy Call
+                      </a>
+                    </div>
+                  )}
+
+                  {/* Pricing CTA */}
+                  {showPricing && (
+                    <div className="flex gap-3">
+                      <div className="flex-shrink-0 w-7 h-7" />
+                      <div className="border border-white/20 bg-white/[0.03] p-4 max-w-[80%]">
+                        <p className="text-[10px] tracking-[0.2em] uppercase text-zinc-500 mb-2">Growth Plans</p>
+                        <p className="text-sm text-zinc-300 font-sans mb-3">Get done-for-you marketing, funnel building, and growth execution from the MNS team.</p>
+                        <a href="https://wa.me/38640505084?text=I%27m%20interested%20in%20MyNewStaff.ai%20growth%20plans.%20Can%20we%20talk%3F" target="_blank" rel="noopener noreferrer" className="inline-block px-5 py-2.5 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold hover:bg-white/90 transition-all cursor-pointer">
+                          Get Started
+                        </a>
+                      </div>
+                    </div>
+                  )}
+
+                  <div ref={chatEndRef} />
+                </div>
+
+                {/* Input */}
+                <div className="px-6 py-4 border-t border-white/10">
+                  <div className="flex items-end gap-3">
+                    <input
+                      value={chatInput}
+                      onChange={(e) => setChatInput(e.target.value)}
+                      onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleChatSend(); } }}
+                      placeholder="Ask about your growth strategy..."
+                      disabled={chatLoading}
+                      className="flex-1 bg-transparent border border-white/20 py-3 px-4 text-sm font-sans text-white outline-none focus:border-white/40 transition-colors placeholder:text-zinc-600 disabled:opacity-50"
+                    />
+                    <button
+                      onClick={handleChatSend}
+                      disabled={!chatInput.trim() || chatLoading}
+                      className="px-5 py-3 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold hover:bg-white/90 transition-all disabled:opacity-25 disabled:cursor-not-allowed flex-shrink-0 cursor-pointer"
+                    >
+                      Send
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
           </motion.div>
         )}
 
