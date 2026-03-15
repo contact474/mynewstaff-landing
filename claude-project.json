@@ -1,0 +1,45 @@
+{
+  "project_id": "mynewstaff-landing",
+  "name": "MyNewStaff Landing",
+  "status": "LIVE",
+  "deploy_target": "vercel",
+  "deploy_command": null,
+  "stack": {
+    "framework": "next.js",
+    "version": "16",
+    "css": "tailwind-v4"
+  },
+  "dependencies": {
+    "DS1": {
+      "name": "Premium Design System",
+      "installed_version": "2026-03-08",
+      "golden_source": "C:\\Users\\Vitaly/projects/mns-premium-design/",
+      "install_command": "bash C:\\Users\\Vitaly/projects/mns-premium-design/install.sh"
+    },
+    "F1": {
+      "name": "Base template (any project)",
+      "installed_version": "2026-03-10",
+      "golden_source": "mynewstaff-landing",
+      "install_command": null
+    },
+    "F7": {
+      "name": "EscalaX Business Intel",
+      "installed_version": "2026-03-10",
+      "golden_source": "C:\\Users\\Vitaly/projects/mynewstaff-landing/src/lib/escalax/ (7 files)",
+      "install_command": null
+    },
+    "F8": {
+      "name": "AI Tools Hub",
+      "installed_version": "2026-03-10",
+      "golden_source": "C:\\Users\\Vitaly/projects/mynewstaff-landing/src/app/api/ai/[tool]/ + src/lib/ai/",
+      "install_command": null
+    }
+  },
+  "capabilities_used": [
+    "premium-design",
+    "ig-virality"
+  ],
+  "blocked": null,
+  "notes": null,
+  "last_verified": "2026-03-11T23:09:49.840Z"
+}
