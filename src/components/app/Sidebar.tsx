@@ -95,6 +95,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Playbooks", href: "/app/playbooks", icon: <IconPlaybooks /> },
   { label: "AI Tools", href: "/app/ai-tools", icon: <IconAITools /> },
   { label: "ROI Calculator", href: "/app/roi-calculator", icon: <IconScans /> },
+  { label: "Proposals", href: "/app/proposals", icon: <IconPlaybooks /> },
   { label: "Settings", href: "/app/settings", icon: <IconSettings /> },
 ];
 
