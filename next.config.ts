@@ -18,6 +18,11 @@ const nextConfig: NextConfig = {
           source: "/command-api/:path*",
           destination: "https://mns-dashboard.vercel.app/command-api/:path*",
         },
+        // A/B Testing API — proxy to Armando Franco portal
+        {
+          source: "/ab-api/:path*",
+          destination: "https://armando-franco.com/api/ab/:path*",
+        },
         // Scalability Reports — public links
         {
           source: "/report/:id",
