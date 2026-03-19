@@ -429,6 +429,21 @@ export function EscalaXDiagnostic() {
     requestAnimationFrame(() => chatEndRef.current?.scrollIntoView({ behavior: "smooth" }));
   }, []);
 
+  /* ── URL param pre-fill (from proposal links) ─────────────────── */
+  const prefillDone = useRef(false);
+  useEffect(() => {
+    if (prefillDone.current) return;
+    prefillDone.current = true;
+    const params = new URLSearchParams(window.location.search);
+    const pCompany = params.get("company");
+    const pUrl = params.get("url");
+    if (pCompany || pUrl) {
+      if (pCompany) setCompany(pCompany);
+      if (pUrl) setUrl(pUrl.startsWith("http") ? pUrl : `https://${pUrl}`);
+      setStep("input");
+    }
+  }, []);
+
   // Build scan context string for the AI
   const buildScanContextString = useCallback(() => {
     if (!finalScores || !analysisResult) return "";
@@ -1427,16 +1442,19 @@ export function EscalaXDiagnostic() {
             ) : (
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 4.8, duration: 0.6 }} className="border border-white/10 bg-white/[0.02] p-8 md:p-12 text-center">
                 <h3 className="text-2xl md:text-4xl font-wide font-bold uppercase leading-[0.9] mb-4">{locale === "es" ? "¿Quieres Que Lo" : "Want Us to"}<br /><span className="shimmer-text">{locale === "es" ? "Arreglemos?" : "Fix This?"}</span></h3>
-                <p className="text-sm text-zinc-400 font-sans max-w-[500px] mx-auto mb-8">
+                <p className="text-sm text-zinc-400 font-sans max-w-[500px] mx-auto mb-4">
                   {tr(t.ctaDescription, locale).replace("{signals}", String(f.totalSignals))}
                 </p>
+                <p className="text-xs text-zinc-500 font-sans max-w-[500px] mx-auto mb-8">
+                  Book a free 30-minute strategy call. We&apos;ll walk through your score, build a custom action plan, and give you a complete DIY implementation guide — worth $2,500. No obligation.
+                </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link href="/signup" className="inline-block px-8 py-5 bg-white text-black font-bold text-[11px] tracking-[0.25em] uppercase font-sans hover:bg-white/90 transition-colors">
+                  <a href="https://wa.me/38640505084?text=Hey%20Luka%2C%20I%20just%20got%20my%20ScaleX%20score%20and%20I%27d%20like%20to%20book%20the%20free%20strategy%20call." target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-5 bg-white text-black font-bold text-[11px] tracking-[0.25em] uppercase font-sans hover:bg-white/90 transition-colors cursor-pointer">
+                    Book Free Strategy Call
+                  </a>
+                  <Link href="/signup" className="px-8 py-5 border border-white/20 text-white font-bold text-[11px] tracking-[0.25em] uppercase font-sans hover:border-white/40 hover:bg-white/[0.02] transition-colors">
                     {locale === "es" ? "Crear Cuenta Gratis" : "Create Free Account"}
                   </Link>
-                  <button onClick={() => { navigator.clipboard?.writeText(locale === "es" ? `Acabo de obtener ${overallScore}/100 en EscalaX — un diagnóstico IA gratis que escanea tu sitio web, sondea tu DNS, audita tu seguridad, analiza tu embudo y te califica en 10 pilares. Encontró ${f.totalSignals} señales sobre mi negocio. Pruébalo: mynewstaff.ai/scalex` : `I just scored ${overallScore}/100 on ScaleX — a free AI diagnostic that deep-scans your website, probes your DNS, audits your security, analyzes your funnel, and scores your business across 10 pillars. It found ${f.totalSignals} data points about my business. Try it: mynewstaff.ai/scalex`); }} className="px-8 py-5 border border-white/20 text-white font-bold text-[11px] tracking-[0.25em] uppercase font-sans hover:border-white/40 hover:bg-white/[0.02] transition-colors cursor-pointer">
-                    {tr(t.ctaShare, locale)}
-                  </button>
                 </div>
               </motion.div>
             )}
