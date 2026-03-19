@@ -13,6 +13,15 @@ const nextConfig: NextConfig = {
           source: "/admin/:path*",
           destination: "https://mns-dashboard.vercel.app/admin/:path*",
         },
+        // Public proposal viewer — clean URLs (no /admin/)
+        {
+          source: "/p/:id",
+          destination: "https://mns-dashboard.vercel.app/p/:id",
+        },
+        {
+          source: "/p/:id/:file",
+          destination: "https://mns-dashboard.vercel.app/p/:id/:file",
+        },
         // MNS Command API — proxied through dashboard's Vercel rewrite
         {
           source: "/command-api/:path*",
