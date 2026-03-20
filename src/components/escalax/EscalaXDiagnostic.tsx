@@ -921,7 +921,26 @@ export function EscalaXDiagnostic() {
                             className="flex-1 bg-transparent border border-white/20 py-2 px-3 text-sm font-sans text-white outline-none focus:border-white/40 placeholder:text-zinc-600"
                           />
                           <button
-                            onClick={() => { if (chatEmail.trim()) { setEmail(chatEmail.trim()); setShowEmailCapture(false); setChatMessages(prev => [...prev, { role: "assistant", text: `Got it. I'll send the full breakdown to **${chatEmail.trim()}**. Now, where were we?` }]); } }}
+                            onClick={() => {
+                              if (chatEmail.trim()) {
+                                const capturedEmail = chatEmail.trim();
+                                setEmail(capturedEmail);
+                                setShowEmailCapture(false);
+                                setChatMessages(prev => [...prev, { role: "assistant", text: `Got it. I'll send the full breakdown to **${capturedEmail}**. Now, where were we?` }]);
+                                // Push to GHL + MNS Command + Instantly
+                                fetch("/api/scalex-lead", {
+                                  method: "POST",
+                                  headers: { "Content-Type": "application/json" },
+                                  body: JSON.stringify({
+                                    email: capturedEmail,
+                                    company: company || analysisResult?.findings.businessName || "",
+                                    score: overallScore,
+                                    source: "scalex_advisor_chat",
+                                    gaps: finalScores ? getTopIssues(finalScores, 3).map(i => i.label) : [],
+                                  }),
+                                }).catch(() => {});
+                              }
+                            }}
                             className="px-4 py-2 bg-white text-black text-[10px] tracking-[0.2em] uppercase font-bold hover:bg-white/90 transition-all cursor-pointer flex-shrink-0"
                           >
                             Send
