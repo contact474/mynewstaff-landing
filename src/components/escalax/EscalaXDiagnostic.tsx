@@ -1449,7 +1449,7 @@ export function EscalaXDiagnostic() {
                   Book a free 30-minute strategy call. We&apos;ll walk through your score, build a custom action plan, and give you a complete DIY implementation guide — worth $2,500. No obligation.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <a href="https://wa.me/38640505084?text=Hey%20Luka%2C%20I%20just%20got%20my%20ScaleX%20score%20and%20I%27d%20like%20to%20book%20the%20free%20strategy%20call." target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-5 bg-white text-black font-bold text-[11px] tracking-[0.25em] uppercase font-sans hover:bg-white/90 transition-colors cursor-pointer">
+                  <a href="https://wa.me/13058503664?text=Hey%20Luka%2C%20I%20just%20got%20my%20ScaleX%20score%20and%20I%27d%20like%20to%20book%20the%20free%20strategy%20call." target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-5 bg-white text-black font-bold text-[11px] tracking-[0.25em] uppercase font-sans hover:bg-white/90 transition-colors cursor-pointer">
                     Book Free Strategy Call
                   </a>
                   <Link href="/signup" className="px-8 py-5 border border-white/20 text-white font-bold text-[11px] tracking-[0.25em] uppercase font-sans hover:border-white/40 hover:bg-white/[0.02] transition-colors">
@@ -1529,7 +1529,7 @@ export function EscalaXDiagnostic() {
                   {bookCall && (
                     <div className="flex gap-3">
                       <div className="flex-shrink-0 w-7 h-7" />
-                      <a href="https://wa.me/38640505084?text=Hi%2C%20I%20just%20did%20a%20ScaleX%20scan%20and%20I%27d%20like%20to%20book%20a%20strategy%20call." target="_blank" rel="noopener noreferrer" className="inline-block px-6 py-3 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold hover:bg-white/90 transition-all cursor-pointer">
+                      <a href="https://wa.me/13058503664?text=Hi%2C%20I%20just%20did%20a%20ScaleX%20scan%20and%20I%27d%20like%20to%20book%20a%20strategy%20call." target="_blank" rel="noopener noreferrer" className="inline-block px-6 py-3 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold hover:bg-white/90 transition-all cursor-pointer">
                         Book Free Strategy Call
                       </a>
                     </div>
@@ -1542,7 +1542,7 @@ export function EscalaXDiagnostic() {
                       <div className="border border-white/20 bg-white/[0.03] p-4 max-w-[80%]">
                         <p className="text-[10px] tracking-[0.2em] uppercase text-zinc-500 mb-2">Growth Plans</p>
                         <p className="text-sm text-zinc-300 font-sans mb-3">Get done-for-you marketing, funnel building, and growth execution from the MNS team.</p>
-                        <a href="https://wa.me/38640505084?text=I%27m%20interested%20in%20MyNewStaff.ai%20growth%20plans.%20Can%20we%20talk%3F" target="_blank" rel="noopener noreferrer" className="inline-block px-5 py-2.5 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold hover:bg-white/90 transition-all cursor-pointer">
+                        <a href="https://wa.me/13058503664?text=I%27m%20interested%20in%20MyNewStaff.ai%20growth%20plans.%20Can%20we%20talk%3F" target="_blank" rel="noopener noreferrer" className="inline-block px-5 py-2.5 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold hover:bg-white/90 transition-all cursor-pointer">
                           Get Started
                         </a>
                       </div>
