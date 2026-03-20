@@ -523,6 +523,7 @@ export function EscalaXDiagnostic() {
         body: JSON.stringify({
           messages: updated.map(m => ({ role: m.role, text: m.text })),
           scanContext: buildScanContextString(),
+          userTier: tier || "free",
         }),
       });
       const data = await res.json();
