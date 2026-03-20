@@ -1449,12 +1449,12 @@ export function EscalaXDiagnostic() {
                   Book a free 30-minute strategy call. We&apos;ll walk through your score, build a custom action plan, and give you a complete DIY implementation guide — worth $2,500. No obligation.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <a href="https://wa.me/13058503664?text=Hey%20Luka%2C%20I%20just%20got%20my%20ScaleX%20score%20and%20I%27d%20like%20to%20book%20the%20free%20strategy%20call." target="_blank" rel="noopener noreferrer" className="inline-block px-8 py-5 bg-white text-black font-bold text-[11px] tracking-[0.25em] uppercase font-sans hover:bg-white/90 transition-colors cursor-pointer">
+                  <Link href={`/book?source=scalex&company=${encodeURIComponent(company)}`} className="inline-block px-8 py-5 bg-white text-black font-bold text-[11px] tracking-[0.25em] uppercase font-sans hover:bg-white/90 transition-colors cursor-pointer text-center">
                     Book Free Strategy Call
-                  </a>
-                  <Link href="/signup" className="px-8 py-5 border border-white/20 text-white font-bold text-[11px] tracking-[0.25em] uppercase font-sans hover:border-white/40 hover:bg-white/[0.02] transition-colors">
-                    {locale === "es" ? "Crear Cuenta Gratis" : "Create Free Account"}
                   </Link>
+                  <a href="https://wa.me/13058503664?text=Hey%20Luka%2C%20I%20just%20got%20my%20ScaleX%20score%20and%20I%27d%20like%20to%20chat%20about%20it." target="_blank" rel="noopener noreferrer" className="px-8 py-5 border border-white/20 text-white font-bold text-[11px] tracking-[0.25em] uppercase font-sans hover:border-white/40 hover:bg-white/[0.02] transition-colors text-center cursor-pointer">
+                    {locale === "es" ? "Chatear por WhatsApp" : "Chat on WhatsApp"}
+                  </a>
                 </div>
               </motion.div>
             )}
