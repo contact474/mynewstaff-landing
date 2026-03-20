@@ -484,12 +484,22 @@ export function EscalaXDiagnostic() {
     return lines.join("\n");
   }, [finalScores, analysisResult, company, overallScore]);
 
+  // Auto-open chat when results load (after score animation)
+  useEffect(() => {
+    if (step !== "results" || !finalScores || chatInitRef.current) return;
+    const timer = setTimeout(() => {
+      setChatOpen(true);
+    }, 2500); // Wait for score animation to finish
+    return () => clearTimeout(timer);
+  }, [step, finalScores]);
+
   // Initialize chat with opening message when chat opens
   useEffect(() => {
     if (!chatOpen || chatInitRef.current || !finalScores) return;
     chatInitRef.current = true;
     const topIssues = getTopIssues(finalScores, 3);
-    const opening = `I've analyzed your full ScaleX diagnostic — **${overallScore}/100** overall with ${analysisResult?.findings.totalSignals || 0} data points scanned.\n\nYour biggest gaps are **${topIssues.map(i => `${i.label} (${i.score.toFixed(1)}/10)`).join(", ")}**. That means you're likely leaving **${estimateRevenueLeak(overallScore)}** of your potential revenue on the table right now.\n\nLet's figure out exactly what's costing you money. What does your current marketing and lead generation setup look like?`;
+    const companyName = company || analysisResult?.findings.businessName || "your business";
+    const opening = `Hey — I just went through ${companyName}'s full diagnostic. **${overallScore}/100** overall, ${analysisResult?.findings.totalSignals || 0} data points scanned.\n\nThree things jumped out:\n\n**1. ${topIssues[0]?.label}** — scored ${topIssues[0]?.score.toFixed(1)}/10. This is probably your biggest leak right now.\n**2. ${topIssues[1]?.label}** — ${topIssues[1]?.score.toFixed(1)}/10. Most businesses in your space are at 6+.\n**3. ${topIssues[2]?.label}** — ${topIssues[2]?.score.toFixed(1)}/10. Quick win opportunity here.\n\nThat gap is roughly **${estimateRevenueLeak(overallScore)}/year** you're leaving behind.\n\nI can walk you through exactly what I'd fix first and how. What's your biggest bottleneck right now — leads, conversion, or keeping clients?`;
     setChatMessages([{ role: "assistant", text: opening }]);
   }, [chatOpen, finalScores, overallScore, analysisResult]);
 
@@ -825,11 +835,117 @@ export function EscalaXDiagnostic() {
             </div>
 
             {/* Signal count */}
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="text-center mb-16">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="text-center mb-10">
               <span className="text-[10px] tracking-[0.2em] uppercase text-zinc-600 font-sans">
                 {f.totalSignals} data points analyzed across website, DNS, security & social
               </span>
             </motion.div>
+
+            {/* ── AI ADVISOR — PRIMARY CONVERSION (auto-opens) ─────── */}
+            {chatOpen && (
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 2.5 }} className="mb-12 border border-white/20 bg-black/50 backdrop-blur-sm">
+                <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
+                  <div className="flex items-center gap-3">
+                    <div className="w-7 h-7 rounded-full bg-white text-black flex items-center justify-center text-[9px] font-bold tracking-wider">SX</div>
+                    <div>
+                      <span className="text-[10px] tracking-[0.3em] uppercase text-zinc-500 block">ScaleX</span>
+                      <span className="text-sm font-wide font-bold uppercase">AI Growth Advisor</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-[10px] tracking-[0.15em] uppercase text-zinc-500 font-sans">Live</span>
+                  </div>
+                </div>
+                <div className="h-[400px] overflow-y-auto px-6 py-6 space-y-5">
+                  {chatMessages.map((msg, i) => (
+                    <div key={i} className={`flex gap-3 ${msg.role === "user" ? "flex-row-reverse" : ""}`}>
+                      <div className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-[9px] font-bold tracking-wider mt-0.5 ${msg.role === "assistant" ? "bg-white text-black" : "bg-white/10 border border-white/20 text-white"}`}>
+                        {msg.role === "assistant" ? "SX" : "You"}
+                      </div>
+                      <div className={`max-w-[80%] text-sm font-sans leading-relaxed ${msg.role === "assistant" ? "text-zinc-300" : "bg-white/[0.04] border border-white/10 rounded-2xl rounded-tr-lg px-4 py-3 text-zinc-300"}`}>
+                        <div className="whitespace-pre-wrap">{msg.text.split(/\*\*(.*?)\*\*/g).map((part: string, j: number) => j % 2 === 1 ? <strong key={j} className="text-white font-semibold">{part}</strong> : part)}</div>
+                      </div>
+                    </div>
+                  ))}
+                  {chatLoading && (
+                    <div className="flex gap-3">
+                      <div className="flex-shrink-0 w-7 h-7 rounded-full bg-white text-black flex items-center justify-center text-[9px] font-bold tracking-wider">SX</div>
+                      <div className="flex items-center gap-1.5 py-2">
+                        <span className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-pulse" />
+                        <span className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-pulse [animation-delay:150ms]" />
+                        <span className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-pulse [animation-delay:300ms]" />
+                      </div>
+                    </div>
+                  )}
+                  {bookCall && (
+                    <div className="flex gap-3">
+                      <div className="flex-shrink-0 w-7 h-7" />
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <Link href={`/book?source=scalex-chat&company=${encodeURIComponent(company)}`} className="inline-block px-6 py-3 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold hover:bg-white/90 transition-all cursor-pointer text-center">
+                          Book Free Strategy Call
+                        </Link>
+                        <a href="https://wa.me/13058503664?text=Hey%20Luka%2C%20the%20AI%20advisor%20suggested%20I%20book%20a%20call.%20I%27m%20interested." target="_blank" rel="noopener noreferrer" className="inline-block px-6 py-3 border border-white/20 text-white text-[10px] tracking-[0.25em] uppercase font-bold hover:border-white/40 transition-all cursor-pointer text-center">
+                          WhatsApp Luka
+                        </a>
+                      </div>
+                    </div>
+                  )}
+                  {showPricing && (
+                    <div className="flex gap-3">
+                      <div className="flex-shrink-0 w-7 h-7" />
+                      <div className="border border-white/20 bg-white/[0.03] p-4 max-w-[80%]">
+                        <p className="text-[10px] tracking-[0.2em] uppercase text-zinc-500 mb-2">Growth Plans</p>
+                        <p className="text-sm text-zinc-300 font-sans mb-3">Done-for-you AI marketing engine. We build and run everything.</p>
+                        <Link href={`/book?source=scalex-pricing&company=${encodeURIComponent(company)}`} className="inline-block px-5 py-2.5 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold hover:bg-white/90 transition-all cursor-pointer">
+                          Book Strategy Call
+                        </Link>
+                      </div>
+                    </div>
+                  )}
+                  <div ref={chatEndRef} />
+                </div>
+                <div className="px-6 py-4 border-t border-white/10">
+                  <div className="flex items-end gap-3">
+                    <input
+                      value={chatInput}
+                      onChange={(e) => setChatInput(e.target.value)}
+                      onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleChatSend(); } }}
+                      placeholder="Ask about your growth strategy..."
+                      disabled={chatLoading}
+                      className="flex-1 bg-transparent border border-white/20 py-3 px-4 text-sm font-sans text-white outline-none focus:border-white/40 transition-colors placeholder:text-zinc-600 disabled:opacity-50"
+                    />
+                    <button
+                      onClick={handleChatSend}
+                      disabled={!chatInput.trim() || chatLoading}
+                      className="px-5 py-3 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold hover:bg-white/90 transition-all disabled:opacity-25 disabled:cursor-not-allowed flex-shrink-0 cursor-pointer"
+                    >
+                      Send
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {!chatOpen && (
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2, duration: 0.6 }} className="mb-12">
+                <button
+                  onClick={() => setChatOpen(true)}
+                  className="w-full border border-white/20 bg-white/[0.03] hover:bg-white/[0.06] transition-all p-6 md:p-8 text-center cursor-pointer group"
+                >
+                  <div className="flex items-center justify-center gap-3 mb-3">
+                    <div className="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center text-[10px] font-bold tracking-wider">SX</div>
+                    <h3 className="text-lg md:text-xl font-wide font-bold uppercase">Your AI Advisor Is Ready</h3>
+                  </div>
+                  <p className="text-sm text-zinc-400 font-sans max-w-[500px] mx-auto mb-4">
+                    I&apos;ve analyzed your results. Let me show you exactly what to fix first and how.
+                  </p>
+                  <span className="inline-block px-6 py-3 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold group-hover:bg-white/90 transition-colors">
+                    Talk to Your Advisor
+                  </span>
+                </button>
+              </motion.div>
+            )}
 
             {/* ── Radar + Pillars ──────────────────────────────────── */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
@@ -1463,116 +1579,7 @@ export function EscalaXDiagnostic() {
               <span className="text-[9px] tracking-[0.2em] uppercase text-zinc-700 font-sans">{tr(t.poweredBy, locale)}</span>
             </div>
 
-            {/* ── AI ADVISOR CHAT ─────────────────────────────────── */}
-            {!chatOpen && (
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 5.5, duration: 0.6 }} className="mt-10">
-                <button
-                  onClick={() => setChatOpen(true)}
-                  className="w-full border border-white/20 bg-white/[0.03] hover:bg-white/[0.06] transition-all p-6 md:p-8 text-center cursor-pointer group"
-                >
-                  <div className="flex items-center justify-center gap-3 mb-3">
-                    <div className="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center text-[10px] font-bold tracking-wider">SX</div>
-                    <h3 className="text-lg md:text-xl font-wide font-bold uppercase">Talk to Your AI Advisor</h3>
-                  </div>
-                  <p className="text-sm text-zinc-400 font-sans max-w-[500px] mx-auto mb-4">
-                    Get a personalized growth plan based on your scan. I&apos;ll show you exactly what&apos;s broken, what it&apos;s costing you, and how to fix it.
-                  </p>
-                  <span className="inline-block px-6 py-3 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold group-hover:bg-white/90 transition-colors">
-                    Start Conversation
-                  </span>
-                </button>
-              </motion.div>
-            )}
-
-            {chatOpen && (
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mt-10 border border-white/20 bg-black/50 backdrop-blur-sm">
-                {/* Chat header */}
-                <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
-                  <div className="flex items-center gap-3">
-                    <div className="w-7 h-7 rounded-full bg-white text-black flex items-center justify-center text-[9px] font-bold tracking-wider">SX</div>
-                    <div>
-                      <span className="text-[10px] tracking-[0.3em] uppercase text-zinc-500 block">ScaleX</span>
-                      <span className="text-sm font-wide font-bold uppercase">AI Growth Advisor</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="text-[10px] tracking-[0.15em] uppercase text-zinc-500 font-sans">Live</span>
-                  </div>
-                </div>
-
-                {/* Messages */}
-                <div className="h-[450px] overflow-y-auto px-6 py-6 space-y-5">
-                  {chatMessages.map((msg, i) => (
-                    <div key={i} className={`flex gap-3 ${msg.role === "user" ? "flex-row-reverse" : ""}`}>
-                      <div className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-[9px] font-bold tracking-wider mt-0.5 ${msg.role === "assistant" ? "bg-white text-black" : "bg-white/10 border border-white/20 text-white"}`}>
-                        {msg.role === "assistant" ? "SX" : "You"}
-                      </div>
-                      <div className={`max-w-[80%] text-sm font-sans leading-relaxed ${msg.role === "assistant" ? "text-zinc-300" : "bg-white/[0.04] border border-white/10 rounded-2xl rounded-tr-lg px-4 py-3 text-zinc-300"}`}>
-                        <div className="whitespace-pre-wrap">{msg.text.split(/\*\*(.*?)\*\*/g).map((part, j) => j % 2 === 1 ? <strong key={j} className="text-white font-semibold">{part}</strong> : part)}</div>
-                      </div>
-                    </div>
-                  ))}
-
-                  {chatLoading && (
-                    <div className="flex gap-3">
-                      <div className="flex-shrink-0 w-7 h-7 rounded-full bg-white text-black flex items-center justify-center text-[9px] font-bold tracking-wider">SX</div>
-                      <div className="flex items-center gap-1.5 py-2">
-                        <span className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-pulse" />
-                        <span className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-pulse [animation-delay:150ms]" />
-                        <span className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-pulse [animation-delay:300ms]" />
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Book call CTA */}
-                  {bookCall && (
-                    <div className="flex gap-3">
-                      <div className="flex-shrink-0 w-7 h-7" />
-                      <a href="https://wa.me/13058503664?text=Hi%2C%20I%20just%20did%20a%20ScaleX%20scan%20and%20I%27d%20like%20to%20book%20a%20strategy%20call." target="_blank" rel="noopener noreferrer" className="inline-block px-6 py-3 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold hover:bg-white/90 transition-all cursor-pointer">
-                        Book Free Strategy Call
-                      </a>
-                    </div>
-                  )}
-
-                  {/* Pricing CTA */}
-                  {showPricing && (
-                    <div className="flex gap-3">
-                      <div className="flex-shrink-0 w-7 h-7" />
-                      <div className="border border-white/20 bg-white/[0.03] p-4 max-w-[80%]">
-                        <p className="text-[10px] tracking-[0.2em] uppercase text-zinc-500 mb-2">Growth Plans</p>
-                        <p className="text-sm text-zinc-300 font-sans mb-3">Get done-for-you marketing, funnel building, and growth execution from the MNS team.</p>
-                        <a href="https://wa.me/13058503664?text=I%27m%20interested%20in%20MyNewStaff.ai%20growth%20plans.%20Can%20we%20talk%3F" target="_blank" rel="noopener noreferrer" className="inline-block px-5 py-2.5 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold hover:bg-white/90 transition-all cursor-pointer">
-                          Get Started
-                        </a>
-                      </div>
-                    </div>
-                  )}
-
-                  <div ref={chatEndRef} />
-                </div>
-
-                {/* Input */}
-                <div className="px-6 py-4 border-t border-white/10">
-                  <div className="flex items-end gap-3">
-                    <input
-                      value={chatInput}
-                      onChange={(e) => setChatInput(e.target.value)}
-                      onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleChatSend(); } }}
-                      placeholder="Ask about your growth strategy..."
-                      disabled={chatLoading}
-                      className="flex-1 bg-transparent border border-white/20 py-3 px-4 text-sm font-sans text-white outline-none focus:border-white/40 transition-colors placeholder:text-zinc-600 disabled:opacity-50"
-                    />
-                    <button
-                      onClick={handleChatSend}
-                      disabled={!chatInput.trim() || chatLoading}
-                      className="px-5 py-3 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold hover:bg-white/90 transition-all disabled:opacity-25 disabled:cursor-not-allowed flex-shrink-0 cursor-pointer"
-                    >
-                      Send
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
+            {/* AI chat is now above — this section removed */
             )}
 
           </motion.div>
