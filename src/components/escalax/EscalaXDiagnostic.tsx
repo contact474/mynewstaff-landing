@@ -422,6 +422,8 @@ export function EscalaXDiagnostic() {
   const [chatLoading, setChatLoading] = useState(false);
   const [bookCall, setBookCall] = useState(false);
   const [showPricing, setShowPricing] = useState(false);
+  const [showEmailCapture, setShowEmailCapture] = useState(false);
+  const [chatEmail, setChatEmail] = useState("");
   const chatEndRef = useRef<HTMLDivElement>(null);
   const chatInitRef = useRef(false);
 
@@ -499,7 +501,7 @@ export function EscalaXDiagnostic() {
     chatInitRef.current = true;
     const topIssues = getTopIssues(finalScores, 3);
     const companyName = company || analysisResult?.findings.businessName || "your business";
-    const opening = `Hey — I just went through ${companyName}'s full diagnostic. **${overallScore}/100** overall, ${analysisResult?.findings.totalSignals || 0} data points scanned.\n\nThree things jumped out:\n\n**1. ${topIssues[0]?.label}** — scored ${topIssues[0]?.score.toFixed(1)}/10. This is probably your biggest leak right now.\n**2. ${topIssues[1]?.label}** — ${topIssues[1]?.score.toFixed(1)}/10. Most businesses in your space are at 6+.\n**3. ${topIssues[2]?.label}** — ${topIssues[2]?.score.toFixed(1)}/10. Quick win opportunity here.\n\nThat gap is roughly **${estimateRevenueLeak(overallScore)}/year** you're leaving behind.\n\nI can walk you through exactly what I'd fix first and how. What's your biggest bottleneck right now — leads, conversion, or keeping clients?`;
+    const opening = `Hey. Just finished scanning ${companyName}. **${overallScore}/100** across ${analysisResult?.findings.totalSignals || 0} data points.\n\nThree things stood out to me:\n\n**${topIssues[0]?.label}** scored ${topIssues[0]?.score.toFixed(1)}/10. That's where the biggest money is leaking.\n**${topIssues[1]?.label}** at ${topIssues[1]?.score.toFixed(1)}/10. Your competitors in this space are sitting at 6+.\n**${topIssues[2]?.label}** at ${topIssues[2]?.score.toFixed(1)}/10. This one's actually a quick fix.\n\nRough math says that gap is costing you around **${estimateRevenueLeak(overallScore)}/year**.\n\nBefore I go deeper on any of this though, what's actually keeping you up at night? Is it getting more leads, closing the ones you have, or something else entirely?`;
     setChatMessages([{ role: "assistant", text: opening }]);
   }, [chatOpen, finalScores, overallScore, analysisResult]);
 
@@ -528,6 +530,7 @@ export function EscalaXDiagnostic() {
       setChatMessages(prev => [...prev, { role: "assistant", text: reply }]);
       if (data.bookCall) setBookCall(true);
       if (data.showPricing) setShowPricing(true);
+      if (data.getEmail) setShowEmailCapture(true);
     } catch {
       setChatMessages(prev => [...prev, { role: "assistant", text: "Connection error. Please try again." }]);
     } finally {
@@ -900,6 +903,29 @@ export function EscalaXDiagnostic() {
                         <Link href={`/book?source=scalex-pricing&company=${encodeURIComponent(company)}`} className="inline-block px-5 py-2.5 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold hover:bg-white/90 transition-all cursor-pointer">
                           Book Strategy Call
                         </Link>
+                      </div>
+                    </div>
+                  )}
+                  {showEmailCapture && !email && (
+                    <div className="flex gap-3">
+                      <div className="flex-shrink-0 w-7 h-7" />
+                      <div className="border border-white/20 bg-white/[0.03] p-4 max-w-[80%]">
+                        <p className="text-[10px] tracking-[0.2em] uppercase text-zinc-500 mb-2">Send Your Report</p>
+                        <div className="flex gap-2">
+                          <input
+                            type="email"
+                            value={chatEmail}
+                            onChange={(e) => setChatEmail(e.target.value)}
+                            placeholder="your@email.com"
+                            className="flex-1 bg-transparent border border-white/20 py-2 px-3 text-sm font-sans text-white outline-none focus:border-white/40 placeholder:text-zinc-600"
+                          />
+                          <button
+                            onClick={() => { if (chatEmail.trim()) { setEmail(chatEmail.trim()); setShowEmailCapture(false); setChatMessages(prev => [...prev, { role: "assistant", text: `Got it. I'll send the full breakdown to **${chatEmail.trim()}**. Now, where were we?` }]); } }}
+                            className="px-4 py-2 bg-white text-black text-[10px] tracking-[0.2em] uppercase font-bold hover:bg-white/90 transition-all cursor-pointer flex-shrink-0"
+                          >
+                            Send
+                          </button>
+                        </div>
                       </div>
                     </div>
                   )}
