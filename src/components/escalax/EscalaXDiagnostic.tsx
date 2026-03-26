@@ -1625,8 +1625,7 @@ export function EscalaXDiagnostic() {
               <span className="text-[9px] tracking-[0.2em] uppercase text-zinc-700 font-sans">{tr(t.poweredBy, locale)}</span>
             </div>
 
-            {/* AI chat is now above — this section removed */
-            )}
+            {/* AI chat is now above — this section removed */}
 
           </motion.div>
         )}
