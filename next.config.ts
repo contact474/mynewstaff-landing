@@ -22,6 +22,16 @@ const nextConfig: NextConfig = {
           source: "/p/:id/:file",
           destination: "https://mns-dashboard.vercel.app/p/:id/:file",
         },
+        // ScaleX Reports API — proxied through dashboard's Vercel rewrite
+        {
+          source: "/api/reports/:path*",
+          destination: "https://mns-dashboard.vercel.app/api/reports/:path*",
+        },
+        // ScaleX EscalaX API — proxied through dashboard's Vercel rewrite
+        {
+          source: "/api/escalax/:path*",
+          destination: "https://mns-dashboard.vercel.app/api/escalax/:path*",
+        },
         // MNS Command API — proxied through dashboard's Vercel rewrite
         {
           source: "/command-api/:path*",
