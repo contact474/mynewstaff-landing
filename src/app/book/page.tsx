@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Navbar } from "@/components/ui/Navbar";
 import { BookingPage } from "@/components/booking/BookingPage";
 import type { Metadata } from "next";
@@ -13,7 +14,9 @@ export default function Book() {
     <>
       <Navbar />
       <main className="min-h-screen bg-black text-white selection:bg-white selection:text-black">
-        <BookingPage />
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><span className="text-zinc-600 text-sm font-sans">Loading...</span></div>}>
+          <BookingPage />
+        </Suspense>
       </main>
     </>
   );
