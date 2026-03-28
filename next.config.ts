@@ -1,20 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  async redirects() {
-    return [
-      {
-        source: "/ads/audit",
-        destination: "/audit",
-        permanent: false,
-      },
-      {
-        source: "/ads/:path*",
-        destination: "/audit",
-        permanent: false,
-      },
-    ];
-  },
   async rewrites() {
     return {
       beforeFiles: [
