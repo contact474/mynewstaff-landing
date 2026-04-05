@@ -14,7 +14,13 @@
    11. Ad intelligence (per-platform maturity, spend estimation)
    12. AI recommendation engine (prioritized improvement roadmap)
    13. Bilingual support (EN/ES with geo-detection)
-   Returns scores + findings + funnel + offer + positioning + adIntel + recommendations.
+   14. PageSpeed Insights (Core Web Vitals via Google API)
+   15. Wayback Machine domain age detection
+   16. Smart form classification (lead capture vs search/cart/login)
+   17. Enhanced Schema.org parsing (products, ratings, contacts, sameAs)
+   18. E-commerce detection (Shopify, WooCommerce, BigCommerce, etc.)
+   Returns scores + findings + funnel + offer + positioning + adIntel + recommendations
+         + pageSpeed + wayback + formClassification + isEcommerce + schemaOrg.
    ─────────────────────────────────────────────────────────────────── */
 
 import dns from "node:dns/promises";
@@ -27,7 +33,7 @@ import { generateRecommendations } from "@/lib/escalax/recommendations";
 import { detectLocale } from "@/lib/escalax/i18n";
 
 export const runtime = "nodejs";
-export const maxDuration = 40; // seconds — expanded for multi-page crawling
+export const maxDuration = 55; // seconds — expanded for PageSpeed + multi-page crawling
 
 /* ─── Types ────────────────────────────────────────────────────────── */
 
@@ -65,6 +71,127 @@ async function safeDns<T>(fn: () => Promise<T>, fallback: T): Promise<T> {
   try { return await fn(); } catch { return fallback; }
 }
 
+/* ─── PageSpeed Insights Probe ─────────────────────────────────────── */
+
+interface PageSpeedResult {
+  performanceScore: number;
+  lcp: number | null;
+  cls: number | null;
+  tbt: number | null;
+  fcp: number | null;
+  speedIndex: number | null;
+  overallCategory: "FAST" | "AVERAGE" | "SLOW" | "UNKNOWN";
+}
+
+async function probePageSpeed(url: string): Promise<PageSpeedResult | null> {
+  try {
+    const apiUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&strategy=mobile`;
+    const res = await fetch(apiUrl, { signal: AbortSignal.timeout(30000) });
+    if (!res.ok) return null;
+    const data = await res.json();
+    return {
+      performanceScore: Math.round((data.lighthouseResult?.categories?.performance?.score || 0) * 100),
+      lcp: data.lighthouseResult?.audits?.["largest-contentful-paint"]?.numericValue ?? null,
+      cls: data.lighthouseResult?.audits?.["cumulative-layout-shift"]?.numericValue ?? null,
+      tbt: data.lighthouseResult?.audits?.["total-blocking-time"]?.numericValue ?? null,
+      fcp: data.lighthouseResult?.audits?.["first-contentful-paint"]?.numericValue ?? null,
+      speedIndex: data.lighthouseResult?.audits?.["speed-index"]?.numericValue ?? null,
+      overallCategory: (data.loadingExperience?.overall_category as PageSpeedResult["overallCategory"]) || "UNKNOWN",
+    };
+  } catch {
+    return null;
+  }
+}
+
+/* ─── Wayback Machine Domain Age Probe ─────────────────────────────── */
+
+interface WaybackResult {
+  firstSeen: string;
+  domainAgeYears: number;
+}
+
+async function probeWayback(domain: string): Promise<WaybackResult | null> {
+  try {
+    const cdxUrl = `https://web.archive.org/cdx/search/cdx?url=${domain}&output=json&limit=1&fl=timestamp`;
+    const res = await fetch(cdxUrl, { signal: AbortSignal.timeout(10000) });
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (!Array.isArray(data) || data.length < 2) return null;
+    const firstSeen = data[1][0] as string; // timestamp format: YYYYMMDDHHmmss
+    const year = parseInt(firstSeen.substring(0, 4));
+    const month = parseInt(firstSeen.substring(4, 6));
+    const day = parseInt(firstSeen.substring(6, 8));
+    const firstDate = new Date(year, month - 1, day);
+    const ageYears = (Date.now() - firstDate.getTime()) / (365.25 * 24 * 60 * 60 * 1000);
+    return {
+      firstSeen: `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`,
+      domainAgeYears: Math.round(ageYears * 10) / 10,
+    };
+  } catch {
+    return null;
+  }
+}
+
+/* ─── Smart Form Classification ────────────────────────────────────── */
+
+interface FormClassificationResult {
+  totalForms: number;
+  leadCaptureForms: number;
+  hasEmailOptin: boolean;
+  hasLeadMagnet: boolean;
+  hasBooking: boolean;
+  isEcommerce: boolean;
+}
+
+function classifyForms(html: string): FormClassificationResult {
+  const formRegex = /<form[\s\S]*?<\/form>/gi;
+  const forms = html.match(formRegex) || [];
+  const totalForms = forms.length;
+
+  // Patterns that indicate NON-lead-capture forms
+  const nonLeadPatterns = /action=["'][^"']*(\/search|\/cart|\/checkout|\/login|\/register|\/signin|\/signup)[^"']*["']/i;
+  const searchInputPattern = /type=["']search["']|name=["'](q|query|search|s)["']|role=["']search["']/i;
+  const cartPattern = /add.?to.?cart|checkout|shopping.?cart/i;
+  const loginPattern = /type=["']password["'].*type=["']password["']|login.?form|sign.?in.?form/i;
+
+  // Email optin patterns
+  const emailInputPattern = /type=["']email["']|name=["'](email|correo|e-?mail)["']/i;
+  const leadMagnetPattern = /lead.?magnet|free.?guide|free.?download|free.?ebook|free.?report|cheat.?sheet|checklist|whitepaper|webinar|masterclass/i;
+  const bookingPattern = /calendly|cal\.com|acuity|booksy|simplybook|book.?a.?call|schedule.?a|book.?now|agendar|reservar/i;
+
+  // E-commerce detection
+  const ecommercePattern = /shopify|woocommerce|bigcommerce|magento|add.?to.?cart|product.?price|buy.?now|tiendanube|vtex|ecwid|prestashop/i;
+  const isEcommerce = ecommercePattern.test(html);
+
+  let leadCaptureForms = 0;
+  let hasEmailOptin = false;
+  const hasLeadMagnet = leadMagnetPattern.test(html);
+  const hasBooking = bookingPattern.test(html);
+
+  for (const form of forms) {
+    // Skip non-lead forms
+    if (nonLeadPatterns.test(form)) continue;
+    if (searchInputPattern.test(form) && !emailInputPattern.test(form)) continue;
+    if (cartPattern.test(form) && !emailInputPattern.test(form)) continue;
+    if (loginPattern.test(form)) continue;
+
+    // If it has an email input, it's likely a lead capture form
+    if (emailInputPattern.test(form)) {
+      leadCaptureForms++;
+      hasEmailOptin = true;
+    }
+  }
+
+  return {
+    totalForms,
+    leadCaptureForms,
+    hasEmailOptin,
+    hasLeadMagnet,
+    hasBooking,
+    isEcommerce,
+  };
+}
+
 /* ─── Main Handler ─────────────────────────────────────────────────── */
 
 export async function POST(req: Request) {
@@ -96,10 +223,12 @@ export async function POST(req: Request) {
     const headers = res.headers;
 
     // ── Parallel intelligence probes ──────────────────────────────
-    const [robotsData, sitemapData, dnsData, crawledPages] = await Promise.all([
+    const [robotsData, sitemapData, dnsData, pageSpeedData, waybackData, crawledPages] = await Promise.all([
       fetchSafe(`${baseUrl}/robots.txt`),
       fetchSafe(`${baseUrl}/sitemap.xml`),
       probeDNS(baseDomain),
+      probePageSpeed(normalized),
+      probeWayback(baseDomain),
       crawlSite(html, baseUrl, 5),
     ]);
 
@@ -108,6 +237,9 @@ export async function POST(req: Request) {
     const headerFindings = parseHeaders(headers);
     const robotsFindings = parseRobots(robotsData?.ok ? robotsData.text : null);
     const sitemapFindings = parseSitemap(sitemapData?.ok ? sitemapData.text : null);
+
+    // ── Form Classification ──────────────────────────────────────
+    const formClassification = classifyForms(html);
 
     // ── Merge into unified findings object ───────────────────────
     const findings = {
@@ -118,10 +250,13 @@ export async function POST(req: Request) {
       ...sitemapFindings,
       domain: baseDomain,
       totalSignals: 0,
+      // Enhanced fields
+      isEcommerce: formClassification.isEcommerce || htmlFindings.ecommerce !== null,
+      formClassification,
     };
 
     findings.totalSignals = countSignals(findings);
-    const scores = calculateScores(findings);
+    const scores = calculateScores(findings, formClassification);
 
     // ── Deep Analysis Modules (v2) ───────────────────────────────
     const internalLinks = extractInternalLinks(html, baseUrl);
@@ -153,6 +288,11 @@ export async function POST(req: Request) {
       positioning,
       adIntel,
       recommendations,
+      pageSpeed: pageSpeedData,
+      wayback: waybackData,
+      formClassification,
+      isEcommerce: formClassification.isEcommerce || htmlFindings.ecommerce !== null,
+      schemaOrg: htmlFindings.schemaOrg,
       meta: {
         url: normalized,
         status: res.status,
@@ -173,6 +313,11 @@ export async function POST(req: Request) {
       positioning: { headlines: [], primaryHeadline: null, subheadline: null, valueProposition: null, targetAudience: null, differentiators: [], problemStatements: [], solutionStatements: [], ctaCopy: [], positioningType: "missing", clarityScore: 0, differentiationScore: 0, messagingConsistency: 0 },
       adIntel: { platforms: [], maturityLevel: "none", estimatedMonthlySpend: null, trackingSophistication: 0, hasRetargeting: false, hasConversionTracking: false, hasLandingPages: false, landingPageIndicators: [], adRelatedVerifications: [], pixelHealth: "none" },
       recommendations: [],
+      pageSpeed: null,
+      wayback: null,
+      formClassification: { totalForms: 0, leadCaptureForms: 0, hasEmailOptin: false, hasLeadMagnet: false, hasBooking: false, isEcommerce: false },
+      isEcommerce: false,
+      schemaOrg: { productCount: 0, aggregateRating: null, contactPoints: [], sameAsLinks: [] },
       meta: { url: normalized, status: 0, loadTime: 0, domain: extractDomain(normalized), locale, pagesCrawled: 0, version: "2.0" as const },
     });
   }
@@ -535,6 +680,12 @@ function parseHTML(html: string, url: string, loadTime: number) {
   let businessAddress: string | null = null;
   let businessRating: string | null = null;
 
+  // Enhanced Schema.org extraction
+  let schemaProductCount = 0;
+  let schemaAggregateRating: { value: string; count: string } | null = null;
+  const schemaContactPoints: string[] = [];
+  const schemaSameAsLinks: string[] = [];
+
   for (const block of jsonLdBlocks) {
     try {
       const data = JSON.parse(block);
@@ -543,6 +694,10 @@ function parseHTML(html: string, url: string, loadTime: number) {
         if (item["@type"]) {
           const types = Array.isArray(item["@type"]) ? item["@type"] : [item["@type"]];
           structuredDataTypes.push(...types);
+          // Count Product types
+          for (const t of types) {
+            if (t === "Product") schemaProductCount++;
+          }
         }
         if (item.name && !businessName) businessName = item.name;
         if (item["@type"] && !businessType) businessType = Array.isArray(item["@type"]) ? item["@type"][0] : item["@type"];
@@ -553,10 +708,40 @@ function parseHTML(html: string, url: string, loadTime: number) {
         }
         if (item.aggregateRating?.ratingValue) {
           businessRating = `${item.aggregateRating.ratingValue}/5 (${item.aggregateRating.reviewCount || "?"} reviews)`;
+          if (!schemaAggregateRating) {
+            schemaAggregateRating = {
+              value: String(item.aggregateRating.ratingValue),
+              count: String(item.aggregateRating.reviewCount || "0"),
+            };
+          }
+        }
+        // ContactPoint extraction
+        if (item.contactPoint) {
+          const points = Array.isArray(item.contactPoint) ? item.contactPoint : [item.contactPoint];
+          for (const cp of points) {
+            const label = [cp.contactType, cp.telephone, cp.email].filter(Boolean).join(" — ");
+            if (label) schemaContactPoints.push(label);
+          }
+        }
+        // sameAs social links
+        if (item.sameAs) {
+          const links = Array.isArray(item.sameAs) ? item.sameAs : [item.sameAs];
+          for (const link of links) {
+            if (typeof link === "string" && link.startsWith("http")) {
+              schemaSameAsLinks.push(link);
+            }
+          }
         }
       }
     } catch { /* malformed JSON-LD */ }
   }
+
+  const schemaOrg = {
+    productCount: schemaProductCount,
+    aggregateRating: schemaAggregateRating,
+    contactPoints: schemaContactPoints,
+    sameAsLinks: [...new Set(schemaSameAsLinks)],
+  };
 
   // ── Conversion Events Detected ─────────────────────────────────
   const conversionEvents: string[] = [];
@@ -680,6 +865,7 @@ function parseHTML(html: string, url: string, loadTime: number) {
     businessAddress,
     businessRating,
     structuredDataTypes: [...new Set(structuredDataTypes)],
+    schemaOrg,
 
     // SEO
     hasCanonical: test(/<link[^>]*rel=["']canonical["']/i),
@@ -984,7 +1170,7 @@ function clamp(v: number) { return Math.round(Math.min(10, Math.max(0, v)) * 10)
 
 type AllFindings = ReturnType<typeof parseHTML> & ReturnType<typeof parseHeaders> & Awaited<ReturnType<typeof probeDNS>> & ReturnType<typeof parseRobots> & ReturnType<typeof parseSitemap>;
 
-function calculateScores(f: AllFindings) {
+function calculateScores(f: AllFindings, formClass?: FormClassificationResult) {
   // ── Digital Presence ───────────────────────────────────────────
   let dp = 0;
   if (f.title) dp += 1;
@@ -1039,6 +1225,15 @@ function calculateScores(f: AllFindings) {
   lg += Math.min(f.popupTools.length * 0.8, 1.5);
   if (f.hasTestimonials) lg += 0.5;
   if (f.reviewPlatforms.length > 0) lg += 0.5;
+
+  // Lead generation scoring cap: if no real lead capture forms, no lead magnets,
+  // no booking, no email optin → cap at 3.0
+  if (formClass) {
+    const hasRealLeadCapture = formClass.leadCaptureForms > 0 || formClass.hasLeadMagnet || formClass.hasBooking || formClass.hasEmailOptin;
+    if (!hasRealLeadCapture) {
+      lg = Math.min(lg, 3.0);
+    }
+  }
 
   // ── Marketing Automation ───────────────────────────────────────
   let ma = 0;

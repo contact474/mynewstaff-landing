@@ -22,6 +22,15 @@ const nextConfig: NextConfig = {
           source: "/p/:id/:file",
           destination: "https://mns-dashboard.vercel.app/p/:id/:file",
         },
+        // Closer Portal — standalone page served by dashboard
+        {
+          source: "/closer",
+          destination: "https://mns-dashboard.vercel.app/closer",
+        },
+        {
+          source: "/closer/:path*",
+          destination: "https://mns-dashboard.vercel.app/closer/:path*",
+        },
         // MNS Command API — proxied through dashboard's Vercel rewrite
         {
           source: "/command-api/:path*",

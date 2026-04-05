@@ -119,6 +119,45 @@ export interface Recommendation {
   pillarAffected: string;
 }
 
+/* ─── PageSpeed Insights ──────────────────────────────────────────── */
+
+export interface PageSpeedData {
+  performanceScore: number;
+  lcp: number | null;
+  cls: number | null;
+  tbt: number | null;
+  fcp: number | null;
+  speedIndex: number | null;
+  overallCategory: 'FAST' | 'AVERAGE' | 'SLOW' | 'UNKNOWN';
+}
+
+/* ─── Wayback Machine ─────────────────────────────────────────────── */
+
+export interface WaybackData {
+  firstSeen: string;
+  domainAgeYears: number;
+}
+
+/* ─── Form Classification ─────────────────────────────────────────── */
+
+export interface FormClassification {
+  totalForms: number;
+  leadCaptureForms: number;
+  hasEmailOptin: boolean;
+  hasLeadMagnet: boolean;
+  hasBooking: boolean;
+  isEcommerce: boolean;
+}
+
+/* ─── Enhanced Schema.org Data ────────────────────────────────────── */
+
+export interface SchemaOrgEnhanced {
+  productCount: number;
+  aggregateRating: { value: string; count: string } | null;
+  contactPoints: string[];
+  sameAsLinks: string[];
+}
+
 /* ─── Complete Response ────────────────────────────────────────────── */
 
 export interface EscalaXResponse {
@@ -129,6 +168,11 @@ export interface EscalaXResponse {
   positioning: PositioningAnalysis;
   adIntel: AdIntelligence;
   recommendations: Recommendation[];
+  pageSpeed: PageSpeedData | null;
+  wayback: WaybackData | null;
+  formClassification: FormClassification;
+  isEcommerce: boolean;
+  schemaOrg: SchemaOrgEnhanced;
   meta: {
     url: string;
     status: number;

@@ -10,20 +10,26 @@ import { TIER_LABELS } from "@/lib/tiers";
 /* ─── Feature comparison matrix data ────────────────────────────────── */
 
 const MATRIX_ROWS = [
-  { label: "Scans/month",             free: "1",         starter: "10",        growth: "50",         scale: "Unlimited" },
-  { label: "Full results",            free: false,       starter: true,        growth: true,         scale: true },
-  { label: "Save scan history",       free: false,       starter: true,        growth: true,         scale: true },
-  { label: "Basic playbooks",         free: false,       starter: "3/mo",      growth: "Unlimited",  scale: "Unlimited" },
-  { label: "AI Offer Builder",        free: false,       starter: true,        growth: true,         scale: true },
-  { label: "Value Stack Creator",     free: false,       starter: false,       growth: true,         scale: true },
-  { label: "Marketing Play Generator",free: false,       starter: true,        growth: true,         scale: true },
-  { label: "Funnel Blueprints",       free: false,       starter: false,       growth: true,         scale: true },
-  { label: "Ad Copy Generator",       free: false,       starter: false,       growth: true,         scale: true },
-  { label: "Email Sequence Builder",  free: false,       starter: false,       growth: true,         scale: true },
-  { label: "Positioning Workshop",    free: false,       starter: false,       growth: true,         scale: true },
-  { label: "White-label reports",     free: false,       starter: false,       growth: false,        scale: true },
-  { label: "Team members",            free: "1",         starter: "1",         growth: "3",          scale: "10" },
-  { label: "API access",              free: false,       starter: false,       growth: false,        scale: true },
+  { label: "Scans/month",                free: "1",         starter: "10",        growth: "Unlimited",  scale: "Unlimited" },
+  { label: "Full pillar results",        free: false,       starter: true,        growth: true,         scale: true },
+  { label: "AI Advisor messages",        free: "10",        starter: "Unlimited", growth: "Unlimited",  scale: "Unlimited" },
+  { label: "Step-by-step fix guidance",  free: false,       starter: true,        growth: true,         scale: true },
+  { label: "90-day action plan",         free: false,       starter: true,        growth: true,         scale: true },
+  { label: "Monthly re-scan + progress", free: false,       starter: true,        growth: true,         scale: true },
+  { label: "Playbooks",                  free: false,       starter: "5/mo",      growth: "Unlimited",  scale: "Unlimited" },
+  { label: "AI Offer Builder",           free: false,       starter: true,        growth: true,         scale: true },
+  { label: "Competitor comparisons",     free: false,       starter: "1",         growth: "3 + monitoring", scale: "Unlimited" },
+  { label: "AI Ad Copy Generator",       free: false,       starter: false,       growth: true,         scale: true },
+  { label: "AI Email Sequence Builder",  free: false,       starter: false,       growth: true,         scale: true },
+  { label: "AI Funnel Blueprints",       free: false,       starter: false,       growth: true,         scale: true },
+  { label: "Positioning Workshop",       free: false,       starter: false,       growth: true,         scale: true },
+  { label: "Value Stack Creator",        free: false,       starter: false,       growth: true,         scale: true },
+  { label: "White-label reports",        free: false,       starter: false,       growth: false,        scale: true },
+  { label: "AI Proposal Generator",      free: false,       starter: false,       growth: false,        scale: true },
+  { label: "Bulk scanning",              free: false,       starter: false,       growth: false,        scale: true },
+  { label: "Client management",          free: false,       starter: false,       growth: false,        scale: true },
+  { label: "Team members",               free: "1",         starter: "1",         growth: "3",          scale: "10" },
+  { label: "API access",                 free: false,       starter: false,       growth: false,        scale: true },
 ];
 
 /* ─── Icons ──────────────────────────────────────────────────────────── */
@@ -93,7 +99,7 @@ export default function ScaleXPricing() {
               Your AI{" "}
               <span className="shimmer-text">Marketing</span>
               <br />
-              Guide
+              Companion
             </h1>
 
             <p className="text-sm md:text-base text-zinc-400 font-sans max-w-2xl mx-auto leading-relaxed">
@@ -114,10 +120,10 @@ export default function ScaleXPricing() {
               className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10"
             >
               {[
-                { value: "2,400+", label: "Businesses scanned" },
+                { value: "3,200+", label: "Businesses scanned" },
                 { value: "10", label: "Growth pillars analyzed" },
-                { value: "98%", label: "Find actionable issues" },
-                { value: "< 30s", label: "Time to first insight" },
+                { value: "97%", label: "Find revenue leaks" },
+                { value: "< 60s", label: "Time to first insight" },
               ].map((stat, i) => (
                 <div key={i} className="text-center">
                   <span className="block text-lg md:text-xl font-wide font-bold text-white">{stat.value}</span>
@@ -132,6 +138,18 @@ export default function ScaleXPricing() {
         <section className="px-4 py-16">
           <div className="max-w-[1200px] mx-auto">
             <SaaSPricingTable annual={annual} onToggle={() => setAnnual((a) => !a)} />
+          </div>
+        </section>
+
+        {/* DFY Bridge Offer */}
+        <section className="px-4 py-8">
+          <div className="max-w-[1200px] mx-auto">
+            <div className="border border-white/10 p-8 text-center">
+              <p className="text-[10px] tracking-[0.3em] uppercase text-zinc-500 mb-3">Rather have us do it?</p>
+              <h3 className="text-2xl md:text-3xl font-wide font-bold uppercase mb-4">Growth Sprint — <span className="shimmer-text">$997</span></h3>
+              <p className="text-sm text-zinc-400 font-sans max-w-xl mx-auto mb-6">We implement your top 3 ScaleX recommendations in 30 days. Then re-scan to prove the impact. One-time investment, measurable results.</p>
+              <a href="/book?source=growth-sprint" className="inline-block px-8 py-4 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold hover:bg-white/90 transition-all">Book Strategy Call</a>
+            </div>
           </div>
         </section>
 
@@ -156,7 +174,7 @@ export default function ScaleXPricing() {
                       <th className="py-4 px-6 text-left text-[9px] tracking-[0.3em] uppercase text-zinc-600 font-normal w-1/3">
                         Feature
                       </th>
-                      {(["Free", "Starter", "Growth", "Scale"] as const).map((label, i) => (
+                      {(["Free", "Growth Guide", "Growth Accelerator", "Agency Command"] as const).map((label, i) => (
                         <th
                           key={label}
                           className={`py-4 px-4 text-center text-[9px] tracking-[0.3em] uppercase font-bold ${
@@ -243,8 +261,8 @@ export default function ScaleXPricing() {
                 </p>
                 <p className="text-xs text-zinc-500 font-sans mt-4 max-w-lg mx-auto leading-relaxed px-4">
                   Every paid plan comes with a 14-day money-back guarantee. If ScaleX
-                  AI doesn&apos;t surface actionable insights for your business, we&apos;ll refund
-                  you — no questions asked. Cancel anytime from your dashboard.
+                  AI doesn&apos;t surface actionable insights that help you grow, we&apos;ll refund
+                  every dollar — no questions asked. Cancel anytime from your dashboard.
                 </p>
               </div>
             </motion.div>

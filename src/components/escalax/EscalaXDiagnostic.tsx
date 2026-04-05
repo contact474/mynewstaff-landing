@@ -11,7 +11,7 @@ import type {
 } from "@/lib/escalax/types";
 import { t, tr, type Locale } from "@/lib/escalax/i18n";
 import { useAuth, useSubscription } from "@/lib/supabase/auth-context";
-import { hasAccess } from "@/lib/tiers";
+import { hasAccess, totalRevenueLoss, estimateRevenueLoss } from "@/lib/tiers";
 import Link from "next/link";
 
 /* ─── Types ────────────────────────────────────────────────────────── */
@@ -899,11 +899,16 @@ export function EscalaXDiagnostic() {
                     <div className="flex gap-3">
                       <div className="flex-shrink-0 w-7 h-7" />
                       <div className="border border-white/20 bg-white/[0.03] p-4 max-w-[80%]">
-                        <p className="text-[10px] tracking-[0.2em] uppercase text-zinc-500 mb-2">Growth Plans</p>
-                        <p className="text-sm text-zinc-300 font-sans mb-3">Done-for-you AI marketing engine. We build and run everything.</p>
-                        <Link href={`/book?source=scalex-pricing&company=${encodeURIComponent(company)}`} className="inline-block px-5 py-2.5 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold hover:bg-white/90 transition-all cursor-pointer">
-                          Book Strategy Call
-                        </Link>
+                        <p className="text-[10px] tracking-[0.2em] uppercase text-zinc-500 mb-2">Two Paths Forward</p>
+                        <p className="text-sm text-zinc-300 font-sans mb-3">AI-guided DIY from $29/mo, or let our team handle it.</p>
+                        <div className="flex flex-col sm:flex-row gap-2">
+                          <Link href="/scalex/pricing" className="inline-block px-5 py-2.5 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold hover:bg-white/90 transition-all cursor-pointer text-center">
+                            See Plans
+                          </Link>
+                          <Link href={`/book?source=scalex-pricing&company=${encodeURIComponent(company)}`} className="inline-block px-5 py-2.5 border border-white/20 text-white text-[10px] tracking-[0.25em] uppercase font-bold hover:border-white/40 transition-all cursor-pointer text-center">
+                            Book Strategy Call
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   )}
@@ -1021,18 +1026,80 @@ export function EscalaXDiagnostic() {
               </motion.div>
             </div>
 
-            {/* ── Top Issues ───────────────────────────────────────── */}
+            {/* ── Top Issues + Revenue Impact ────────────────────── */}
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2, duration: 0.6 }} className="border border-white/5 p-6 md:p-8 mb-8">
               <h3 className="text-[10px] tracking-[0.3em] uppercase text-zinc-500 font-sans mb-6">Top 3 Issues Holding You Back</h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {getTopIssues(finalScores, 3).map((issue, i) => (
-                  <div key={issue.key} className="border border-red-500/10 bg-red-500/[0.03] p-5">
-                    <div className="flex items-center gap-2 mb-3"><span className="text-red-400 text-2xl font-wide font-bold">{i + 1}</span><span className="text-[10px] tracking-[0.2em] uppercase text-zinc-500 font-sans">{issue.label}</span></div>
-                    <div className="flex items-baseline gap-1"><span className="text-2xl font-wide font-bold text-red-400">{issue.score.toFixed(1)}</span><span className="text-xs text-zinc-600 font-sans">/10</span></div>
-                  </div>
-                ))}
+                {getTopIssues(finalScores, 3).map((issue, i) => {
+                  const loss = estimateRevenueLoss(issue.key, issue.score);
+                  return (
+                    <div key={issue.key} className="border border-red-500/10 bg-red-500/[0.03] p-5">
+                      <div className="flex items-center gap-2 mb-3"><span className="text-red-400 text-2xl font-wide font-bold">{i + 1}</span><span className="text-[10px] tracking-[0.2em] uppercase text-zinc-500 font-sans">{issue.label}</span></div>
+                      <div className="flex items-baseline gap-1 mb-2"><span className="text-2xl font-wide font-bold text-red-400">{issue.score.toFixed(1)}</span><span className="text-xs text-zinc-600 font-sans">/10</span></div>
+                      {loss && (
+                        <div className="text-[10px] font-sans text-amber-400/80">
+                          Est. ${loss.low.toLocaleString()}-${loss.high.toLocaleString()}/mo in missed revenue
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </motion.div>
+
+            {/* ── Revenue Recovery Summary + Score-Segmented CTA ── */}
+            {(() => {
+              const revLoss = totalRevenueLoss(finalScores as unknown as Record<string, number>);
+              const scoreBand = overallScore < 50 ? "critical" : overallScore < 70 ? "growth" : "strong";
+              return (
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.2, duration: 0.6 }} className="border border-white/10 bg-white/[0.02] p-6 md:p-8 mb-8 text-center">
+                  <p className="text-[10px] tracking-[0.3em] uppercase text-zinc-500 mb-4">Estimated Monthly Revenue You&apos;re Missing</p>
+                  <p className="text-3xl md:text-5xl font-wide font-bold text-amber-400 mb-2">
+                    ${revLoss.low.toLocaleString()} — ${revLoss.high.toLocaleString()}
+                  </p>
+                  <p className="text-xs text-zinc-500 font-sans mb-6">per month, based on your pillar scores vs industry benchmarks</p>
+
+                  <p className="text-sm text-zinc-300 font-sans mb-6 max-w-xl mx-auto">
+                    {scoreBand === "critical"
+                      ? "Your business has critical revenue leaks across multiple pillars. The fastest path to recovery is working with a team that's done this hundreds of times."
+                      : scoreBand === "growth"
+                      ? "You're leaving money on the table. A few targeted fixes could recover thousands per month. Your AI companion can guide you step by step."
+                      : "You're ahead of most businesses. Fine-tuning what's working and monitoring competitors will push you even further ahead."}
+                  </p>
+
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                    {scoreBand === "critical" ? (
+                      <>
+                        <Link href="/book?source=scalex-critical" className="inline-block px-6 py-4 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold hover:bg-white/90 transition-all">
+                          Book Free Strategy Call
+                        </Link>
+                        <Link href="/scalex/pricing" className="inline-block px-6 py-4 border border-white/20 text-white text-[10px] tracking-[0.25em] uppercase font-bold hover:border-white/40 transition-all">
+                          Fix It Yourself with AI Guide — $29/mo
+                        </Link>
+                      </>
+                    ) : scoreBand === "growth" ? (
+                      <>
+                        <Link href="/scalex/pricing" className="inline-block px-6 py-4 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold hover:bg-white/90 transition-all">
+                          Start Growth Guide — $29/mo
+                        </Link>
+                        <Link href="/book?source=scalex-growth" className="inline-block px-6 py-4 border border-white/20 text-white text-[10px] tracking-[0.25em] uppercase font-bold hover:border-white/40 transition-all">
+                          Or Let Us Handle It — Book Call
+                        </Link>
+                      </>
+                    ) : (
+                      <>
+                        <Link href="/scalex/pricing" className="inline-block px-6 py-4 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold hover:bg-white/90 transition-all">
+                          Unlock Growth Accelerator — $99/mo
+                        </Link>
+                        <Link href="/book?source=scalex-optimize" className="inline-block px-6 py-4 border border-white/20 text-white text-[10px] tracking-[0.25em] uppercase font-bold hover:border-white/40 transition-all">
+                          Scale Faster with Our Team
+                        </Link>
+                      </>
+                    )}
+                  </div>
+                </motion.div>
+              );
+            })()}
 
             {/* ── PAYWALL: everything below top 3 issues is gated for free users ── */}
             {!canSeeFullResults && (() => {
@@ -1092,7 +1159,7 @@ export function EscalaXDiagnostic() {
                           : "7+ more sections: security audit, email, funnel, offer, positioning, ad intel, and action plan."}
                       </p>
                       <p className="text-[10px] tracking-[0.2em] uppercase text-zinc-500 mb-5">
-                        {locale === "es" ? "Desde" : "Starting at"} <span className="text-white font-bold">$19/mo</span>
+                        {locale === "es" ? "Desde" : "Starting at"} <span className="text-white font-bold">$29/mo</span> — {locale === "es" ? "tu compañero AI de marketing" : "your AI marketing companion"}
                       </p>
                       {isAuthenticated ? (
                         <Link href="/scalex/pricing" className="block w-full py-4 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold hover:bg-white/90 transition-colors">

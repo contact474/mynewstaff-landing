@@ -58,101 +58,72 @@ const TIERS: TierDef[] = [
   {
     id: "free",
     name: "Free",
-    tagline: "Try ScaleX AI",
+    tagline: "See what's broken",
     monthlyPrice: 0,
     annualPrice: 0,
     highlight: false,
     features: [
       { text: "1 scan/month", included: true },
       { text: "Basic 10-pillar score", included: true },
-      { text: "Full results", included: false },
-      { text: "Save scan history", included: false },
-      { text: "Basic playbooks", included: false },
-      { text: "AI Offer Builder", included: false },
-      { text: "Value Stack Creator", included: false },
-      { text: "Marketing Play Generator", included: false },
-      { text: "Funnel Blueprints", included: false },
-      { text: "Ad Copy Generator", included: false },
-      { text: "Email Sequence Builder", included: false },
-      { text: "Positioning Workshop", included: false },
-      { text: "White-label reports", included: false },
-      { text: "1 team member", included: true },
-      { text: "API access", included: false },
+      { text: "10 AI advisor messages", included: true },
+      { text: "Top 3 issues visible", included: true },
     ],
   },
   {
     id: "starter",
-    name: "Starter",
-    tagline: "Build your baseline",
-    monthlyPrice: 19,
-    annualPrice: 190,
+    name: "Growth Guide",
+    tagline: "AI guides you to fix it",
+    monthlyPrice: 29,
+    annualPrice: 290,
     highlight: false,
     features: [
       { text: "10 scans/month", included: true },
-      { text: "Basic 10-pillar score", included: true },
-      { text: "Full results", included: true },
+      { text: "Full 10-pillar results", included: true },
+      { text: "Unlimited AI advisor", included: true },
+      { text: "Step-by-step fix guidance", included: true },
+      { text: "90-day action plan", included: true },
+      { text: "Monthly re-scan + progress", included: true },
       { text: "Save scan history", included: true },
-      { text: "3 playbooks/month", included: true },
+      { text: "5 playbooks/month", included: true },
       { text: "AI Offer Builder", included: true },
-      { text: "Value Stack Creator", included: false },
-      { text: "Marketing Play Generator", included: true },
-      { text: "Funnel Blueprints", included: false },
-      { text: "Ad Copy Generator", included: false },
-      { text: "Email Sequence Builder", included: false },
-      { text: "Positioning Workshop", included: false },
-      { text: "White-label reports", included: false },
-      { text: "1 team member", included: true },
-      { text: "API access", included: false },
+      { text: "1 competitor comparison", included: true },
     ],
   },
   {
     id: "growth",
-    name: "Growth",
-    tagline: "Full AI marketing suite",
-    monthlyPrice: 49,
-    annualPrice: 490,
+    name: "Growth Accelerator",
+    tagline: "AI builds it for you",
+    monthlyPrice: 99,
+    annualPrice: 990,
     highlight: true,
     features: [
-      { text: "50 scans/month", included: true },
-      { text: "Basic 10-pillar score", included: true },
-      { text: "Full results", included: true },
-      { text: "Save scan history", included: true },
-      { text: "Unlimited playbooks", included: true },
-      { text: "AI Offer Builder", included: true },
+      { text: "Unlimited scans", included: true },
+      { text: "Everything in Growth Guide", included: true },
+      { text: "AI generates ad copy", included: true },
+      { text: "AI builds email sequences", included: true },
+      { text: "AI creates funnel blueprints", included: true },
+      { text: "Positioning workshop", included: true },
       { text: "Value Stack Creator", included: true },
-      { text: "Marketing Play Generator", included: true },
-      { text: "Funnel Blueprints", included: true },
-      { text: "Ad Copy Generator", included: true },
-      { text: "Email Sequence Builder", included: true },
-      { text: "Positioning Workshop", included: true },
-      { text: "White-label reports", included: false },
+      { text: "3 competitor comparisons + monitoring", included: true },
       { text: "3 team members", included: true },
-      { text: "API access", included: false },
     ],
   },
   {
     id: "scale",
-    name: "Scale",
-    tagline: "Unlimited + white-label",
-    monthlyPrice: 149,
-    annualPrice: 1490,
+    name: "Agency Command",
+    tagline: "Full agency toolkit",
+    monthlyPrice: 499,
+    annualPrice: 4990,
     highlight: false,
     features: [
-      { text: "Unlimited scans", included: true },
-      { text: "Basic 10-pillar score", included: true },
-      { text: "Full results", included: true },
-      { text: "Save scan history", included: true },
-      { text: "Unlimited playbooks", included: true },
-      { text: "AI Offer Builder", included: true },
-      { text: "Value Stack Creator", included: true },
-      { text: "Marketing Play Generator", included: true },
-      { text: "Funnel Blueprints", included: true },
-      { text: "Ad Copy Generator", included: true },
-      { text: "Email Sequence Builder", included: true },
-      { text: "Positioning Workshop", included: true },
+      { text: "Everything in Accelerator", included: true },
       { text: "White-label reports", included: true },
+      { text: "AI generates proposals", included: true },
+      { text: "Bulk scanning (CSV upload)", included: true },
+      { text: "Client management dashboard", included: true },
       { text: "10 team members", included: true },
       { text: "API access", included: true },
+      { text: "Custom domain support", included: true },
     ],
   },
 ];
@@ -174,10 +145,10 @@ function CTAButton({ tierId, annual, highlight, userTier }: CTAButtonProps) {
   if (tierId === "free") {
     return (
       <a
-        href="/signup"
+        href="/scalex"
         className="block w-full py-4 text-center text-[10px] tracking-[0.25em] uppercase font-bold transition-all border border-white/20 text-white hover:border-white/40 hover:bg-white/[0.02]"
       >
-        Start Free
+        Start Free Scan
       </a>
     );
   }
@@ -227,7 +198,7 @@ function CTAButton({ tierId, annual, highlight, userTier }: CTAButtonProps) {
           : "border border-white/20 text-white hover:border-white/40 hover:bg-white/[0.02]"
       }`}
     >
-      {loading ? "Loading..." : "Get Started"}
+      {loading ? "Loading..." : "Start 7-Day Free Trial"}
     </button>
   );
 }
@@ -380,6 +351,21 @@ export function SaaSPricingTable({ annual, onToggle }: SaaSPricingTableProps) {
                 highlight={tier.highlight}
                 userTier={userTier}
               />
+
+              {/* DFY callout for Agency Command */}
+              {tier.id === "scale" && (
+                <div className="mt-4 border border-white/10 p-4 text-center">
+                  <p className="text-[9px] tracking-[0.2em] uppercase text-zinc-500 mb-1">
+                    Need it done for you?
+                  </p>
+                  <a
+                    href="/book"
+                    className="text-[10px] tracking-[0.2em] uppercase text-white hover:text-zinc-300 transition-colors font-bold"
+                  >
+                    Book a strategy call — from $997
+                  </a>
+                </div>
+              )}
             </motion.div>
           );
         })}

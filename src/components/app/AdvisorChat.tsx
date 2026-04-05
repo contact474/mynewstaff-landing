@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useAuth, useSubscription } from "@/lib/supabase/auth-context";
 import type { Scan } from "@/lib/supabase/types";
-import { TIER_HIERARCHY } from "@/lib/tiers";
+import { TIER_HIERARCHY, TIER_LABELS } from "@/lib/tiers";
 
 interface Message {
   id: string;
@@ -63,18 +63,20 @@ export function AdvisorChat() {
       });
   }, [user]);
 
-  // Opening message
+  // Opening message — tier-aware companion greeting
   useEffect(() => {
     if (initRef.current) return;
     initRef.current = true;
 
-    addMessage(
-      "assistant",
-      isPaid
-        ? "Welcome back to your ScaleX AI Advisor. I have your full diagnostic data loaded and I'm ready to build you a custom growth plan.\n\nWhat's the biggest challenge you want to tackle today?"
-        : "Hey, welcome to your ScaleX AI Advisor. I have your diagnostic data loaded.\n\nI'll analyze your biggest growth gaps and show you exactly what's broken — let's start with your biggest challenge right now."
-    );
-  }, [addMessage, isPaid]);
+    const tierGreetings: Record<string, string> = {
+      free: "Hey, welcome to your ScaleX AI Marketing Companion. I have your diagnostic data loaded.\n\nI'll show you exactly what's broken and how much it's costing you — then give you two paths: fix it yourself with my guidance, or let our team handle it.\n\nWhat's your biggest marketing challenge right now?",
+      starter: "Welcome back to your ScaleX Marketing Companion. I have your full diagnostic data and I'm ready to walk you through fixing your biggest gaps step by step.\n\nI'll build you a custom action plan with specific tasks, timelines, and revenue projections. What do you want to tackle first?",
+      growth: "Welcome back. I'm your Growth Accelerator companion — I don't just advise, I build. I can generate ad copy, email sequences, funnel blueprints, and positioning docs based on your scan data.\n\nWhat should I create for you today?",
+      scale: "Welcome back to Agency Command. I'm your full agency AI assistant — I can generate client proposals, white-label reports, and pitch materials from any scan.\n\nWhat do you need?",
+    };
+
+    addMessage("assistant", tierGreetings[subscription.tier] || tierGreetings.free);
+  }, [addMessage, subscription.tier]);
 
   function getHistory() {
     return messages.map((m) => ({
@@ -135,18 +137,15 @@ export function AdvisorChat() {
         <div className="flex items-center gap-3">
           <div>
             <span className="text-[10px] tracking-[0.3em] uppercase text-zinc-500 block">ScaleX</span>
-            <h1 className="text-lg font-wide font-bold uppercase">AI Advisor</h1>
+            <h1 className="text-lg font-wide font-bold uppercase">Marketing Companion</h1>
           </div>
-          {!isPaid && (
-            <span className="text-[8px] tracking-[0.2em] uppercase bg-zinc-800 border border-zinc-700 text-zinc-400 px-2 py-0.5">
-              Free
-            </span>
-          )}
-          {isPaid && (
-            <span className="text-[8px] tracking-[0.2em] uppercase bg-white/10 border border-white/20 text-white px-2 py-0.5">
-              Pro
-            </span>
-          )}
+          <span className={`text-[8px] tracking-[0.2em] uppercase px-2 py-0.5 ${
+            isPaid
+              ? "bg-white/10 border border-white/20 text-white"
+              : "bg-zinc-800 border border-zinc-700 text-zinc-400"
+          }`}>
+            {TIER_LABELS[subscription.tier] || "Free"}
+          </span>
         </div>
 
         {scans.length > 0 && (
@@ -212,21 +211,29 @@ export function AdvisorChat() {
           </div>
         )}
 
-        {/* Upgrade CTA */}
+        {/* Upgrade CTA — two paths: DIY and DFY */}
         {showUpgradeCta && !isPaid && (
           <div className="flex gap-3">
             <div className="flex-shrink-0 w-7 h-7" />
             <div className="border border-white/20 bg-white/[0.03] p-4 max-w-[80%]">
-              <p className="text-[10px] tracking-[0.2em] uppercase text-zinc-500 mb-2">Unlock Full Advisor</p>
-              <p className="text-sm text-zinc-300 font-sans mb-3">
-                Get full execution plans, marketing plays, implementation checklists, and unlimited conversations — less than a coffee a week.
+              <p className="text-[10px] tracking-[0.2em] uppercase text-zinc-500 mb-2">Two Paths Forward</p>
+              <p className="text-sm text-zinc-300 font-sans mb-4">
+                I can guide you through fixing everything step by step, or our team can handle it for you.
               </p>
-              <a
-                href="/app/settings"
-                className="inline-block px-5 py-2.5 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold hover:bg-white/90 transition-all"
-              >
-                Upgrade to Starter — $9/mo
-              </a>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <a
+                  href="/scalex/pricing"
+                  className="inline-block px-5 py-2.5 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold hover:bg-white/90 transition-all text-center"
+                >
+                  DIY with AI Guide — $29/mo
+                </a>
+                <a
+                  href="/book?source=scalex-advisor"
+                  className="inline-block px-5 py-2.5 border border-white/20 text-white text-[10px] tracking-[0.25em] uppercase font-bold hover:border-white/40 transition-all text-center"
+                >
+                  Let Us Handle It — Book Call
+                </a>
+              </div>
             </div>
           </div>
         )}
@@ -258,19 +265,27 @@ export function AdvisorChat() {
         </div>
       )}
 
-      {/* Tier limit reached banner */}
+      {/* Tier limit reached — two paths */}
       {tierLimited && (
         <div className="flex-shrink-0 px-6 py-4 border-t border-white/20 bg-white/[0.03]">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
             <p className="text-sm text-zinc-300 font-sans">
-              You&apos;ve reached the free message limit. Upgrade for unlimited access.
+              You&apos;ve used all 10 free messages. Continue with AI guidance or let us handle it.
             </p>
-            <a
-              href="/app/settings"
-              className="px-5 py-2 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold hover:bg-white/90 transition-all flex-shrink-0 ml-4"
-            >
-              Upgrade
-            </a>
+            <div className="flex gap-2 flex-shrink-0">
+              <a
+                href="/scalex/pricing"
+                className="px-4 py-2 bg-white text-black text-[10px] tracking-[0.25em] uppercase font-bold hover:bg-white/90 transition-all"
+              >
+                Growth Guide — $29/mo
+              </a>
+              <a
+                href="/book?source=scalex-limit"
+                className="px-4 py-2 border border-white/20 text-white text-[10px] tracking-[0.25em] uppercase font-bold hover:border-white/40 transition-all"
+              >
+                Book Call
+              </a>
+            </div>
           </div>
         </div>
       )}
