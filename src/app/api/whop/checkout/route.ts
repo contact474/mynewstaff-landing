@@ -6,6 +6,36 @@ function getWhop() {
   return new Whop({ apiKey: process.env.WHOP_API_KEY! });
 }
 
+// GET handler for direct link checkout (used by Deep Dive tripwire)
+export async function GET(request: NextRequest) {
+  try {
+    const planId = request.nextUrl.searchParams.get("plan");
+    const redirect = request.nextUrl.searchParams.get("redirect") || "/app/dashboard?upgraded=true";
+
+    if (!planId) {
+      return NextResponse.redirect(new URL("/scalex/pricing", request.url));
+    }
+
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    const checkout = await getWhop().checkoutConfigurations.create({
+      plan_id: planId,
+      metadata: {
+        supabase_user_id: user?.id || "anonymous",
+        email: user?.email || "",
+        billing: "one-time",
+      },
+      redirect_url: `${request.nextUrl.origin}${redirect}`,
+    });
+
+    return NextResponse.redirect(checkout.purchase_url);
+  } catch (err) {
+    console.error("Whop GET checkout error:", err);
+    return NextResponse.redirect(new URL("/scalex/pricing?error=checkout", request.url));
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const supabase = await createClient();

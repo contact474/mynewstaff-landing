@@ -422,6 +422,7 @@ export function EscalaXDiagnostic() {
   const [chatLoading, setChatLoading] = useState(false);
   const [bookCall, setBookCall] = useState(false);
   const [showPricing, setShowPricing] = useState(false);
+  const [showDeepDive, setShowDeepDive] = useState(false);
   const [showEmailCapture, setShowEmailCapture] = useState(false);
   const [chatEmail, setChatEmail] = useState("");
   const chatEndRef = useRef<HTMLDivElement>(null);
@@ -531,6 +532,7 @@ export function EscalaXDiagnostic() {
       setChatMessages(prev => [...prev, { role: "assistant", text: reply }]);
       if (data.bookCall) setBookCall(true);
       if (data.showPricing) setShowPricing(true);
+      if (data.showDeepDive) setShowDeepDive(true);
       if (data.getEmail) setShowEmailCapture(true);
     } catch {
       setChatMessages(prev => [...prev, { role: "assistant", text: "Connection error. Please try again." }]);
@@ -908,6 +910,27 @@ export function EscalaXDiagnostic() {
                           <Link href={`/book?source=scalex-pricing&company=${encodeURIComponent(company)}`} className="inline-block px-5 py-2.5 border border-white/20 text-white text-[10px] tracking-[0.25em] uppercase font-bold hover:border-white/40 transition-all cursor-pointer text-center">
                             Book Strategy Call
                           </Link>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  {showDeepDive && (
+                    <div className="flex gap-3">
+                      <div className="flex-shrink-0 w-7 h-7" />
+                      <div className="border border-violet-500/30 bg-violet-500/[0.05] p-4 max-w-[80%]">
+                        <p className="text-[10px] tracking-[0.2em] uppercase text-violet-400 mb-1">Deep Dive Report</p>
+                        <p className="text-sm text-zinc-300 font-sans mb-1 font-semibold">Full competitor analysis + 90-day action plan</p>
+                        <p className="text-xs text-zinc-500 font-sans mb-3">Your score breakdown, 3 competitor comparisons, prioritized fixes with estimated revenue impact.</p>
+                        <div className="flex flex-col sm:flex-row gap-2 items-start sm:items-center">
+                          <a
+                            href={process.env.NEXT_PUBLIC_WHOP_PLAN_TRIPWIRE
+                              ? `/api/whop/checkout?plan=${process.env.NEXT_PUBLIC_WHOP_PLAN_TRIPWIRE}&redirect=/scalex/deep-dive`
+                              : `/book?source=deep-dive&company=${encodeURIComponent(company)}`}
+                            className="inline-block px-6 py-3 bg-violet-600 text-white text-[10px] tracking-[0.25em] uppercase font-bold hover:bg-violet-500 transition-all cursor-pointer text-center"
+                          >
+                            Get Deep Dive — $7
+                          </a>
+                          <span className="text-[10px] text-zinc-600">One-time. Instant delivery.</span>
                         </div>
                       </div>
                     </div>
