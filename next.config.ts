@@ -60,6 +60,11 @@ const nextConfig: NextConfig = {
           source: "/mission-control-es",
           destination: "/mission-control-es/index.html",
         },
+        // Products showcase — static HTML with Brooke voice widget
+        {
+          source: "/products",
+          destination: "/products.html",
+        },
       ],
     };
   },

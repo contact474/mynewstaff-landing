@@ -12,6 +12,7 @@ export function Navbar() {
         <nav className="fixed top-0 left-0 w-full p-6 md:p-8 flex justify-between items-center z-50 text-white mix-blend-difference uppercase tracking-[0.2em] text-[10px] md:text-xs font-sans">
             <div className="hidden lg:flex gap-8">
                 <Link href="/#strategy" className="hover:opacity-50 transition-opacity">The Engine</Link>
+                <Link href="/products" className="hover:opacity-50 transition-opacity">Products</Link>
                 <Link href="/#pricing" className="hover:opacity-50 transition-opacity">Pricing</Link>
                 <Link href="/results" className="hover:opacity-50 transition-opacity">Results</Link>
                 <Link href="/partners" className="hover:opacity-50 transition-opacity shimmer-text">Partners</Link>
