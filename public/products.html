@@ -455,6 +455,52 @@ const FAQ=[
   {q:"What is the next step if I am interested?",a:"Talk to Brooke on this page (she can scroll you to relevant products and walk you through the ROI calculator), or book a 15-minute call directly with Luka. He pulls up your real business data on the call and builds a custom proposal live. No contracts. No pressure."}
 ];
 document.getElementById('faqList').innerHTML=FAQ.map((f,i)=>`<div class="faq-item" onclick="this.classList.toggle('op')"><div class="faq-q"><span>${f.q}</span><span class="plus">+</span></div><div class="faq-a">${f.a}</div></div>`).join('');
+
+/* ═══ TRACKING BEACONS — products funnel instrumentation ═══ */
+(function(){
+  var TRACK_BASE='https://srv1246837.hstgr.cloud/command/api/v1/track';
+  var p=new URLSearchParams(location.search);
+  var ctx={
+    referrer:document.referrer||null,
+    utm_source:p.get('utm_source'),
+    utm_medium:p.get('utm_medium'),
+    utm_campaign:p.get('utm_campaign'),
+    company:p.get('company'),
+    score:p.get('score')?parseInt(p.get('score')):null,
+    grade:p.get('grade'),
+    path:location.pathname
+  };
+  function beacon(endpoint,body){
+    try{
+      if(navigator.sendBeacon){
+        var blob=new Blob([JSON.stringify(body)],{type:'application/json'});
+        navigator.sendBeacon(TRACK_BASE+'/'+endpoint,blob);
+      }else{
+        fetch(TRACK_BASE+'/'+endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),keepalive:true}).catch(function(){});
+      }
+    }catch(e){}
+  }
+  // Fire page view once DOM is ready
+  beacon('products-view',ctx);
+  // CTA click delegation — fires when user interacts with Brooke, packages, FAQ, ROI
+  document.addEventListener('click',function(e){
+    var target=null,pkgIdx=null;
+    var el=e.target.closest('#bvw-start');
+    if(el){target='brooke_start';}
+    else if((el=e.target.closest('.faq-item'))){target='faq';}
+    else if((el=e.target.closest('.pkc'))){
+      target='package';
+      var nodes=Array.prototype.slice.call(document.querySelectorAll('.pkc'));
+      pkgIdx=nodes.indexOf(el);
+    }
+    else if((el=e.target.closest('#roiPkg,.roi-select,.roi-input'))){target='roi_interact';}
+    else if((el=e.target.closest('.products-cta-btn'))){target='book';}
+    if(target){
+      beacon('products-cta-click',{target:target,package_index:pkgIdx,company:ctx.company,score:ctx.score,utm_source:ctx.utm_source});
+    }
+  },{passive:true});
+  window.__mnsTrack=beacon;
+})();
 </script>
 </body>
 </html>
