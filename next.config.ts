@@ -13,6 +13,15 @@ const nextConfig: NextConfig = {
           source: "/admin/:path*",
           destination: "https://mns-dashboard.vercel.app/admin/:path*",
         },
+        // Dashboard API proxies — admin SPA calls these from www.mynewstaff.ai
+        {
+          source: "/vps-api/:path*",
+          destination: "https://mns-dashboard.vercel.app/vps-api/:path*",
+        },
+        {
+          source: "/scalex-api/:path*",
+          destination: "https://mns-dashboard.vercel.app/scalex-api/:path*",
+        },
         // Public proposal viewer — clean URLs (no /admin/)
         {
           source: "/p/:id",
