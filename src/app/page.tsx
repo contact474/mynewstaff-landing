@@ -339,7 +339,7 @@ export default function Home() {
         <Section id="cta" subtitle="Finality" title={<>READY TO <br /> <span className="shimmer-text">SCALE?</span></>}>
           <div className="text-center mt-12 py-12 md:py-0 relative z-30">
             <div className="inline-block px-8 py-4 border border-white/10 rounded-full bg-white/5 backdrop-blur-sm mb-4">
-              <p className="text-[10px] tracking-[0.4em] uppercase opacity-50">Applications Close March 31 • 3 Spots Left</p>
+              <p className="text-[10px] tracking-[0.4em] uppercase opacity-50">Applications Close April 30 • 3 Spots Left</p>
             </div>
             <p className="text-xs text-zinc-500 font-sans mb-8 max-w-md mx-auto">
               We onboard a maximum of 5 clients per quarter to maintain execution quality.

@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brooke — AI Avatar That Joins Your Calls | MyNewStaff.ai</title>
+<meta name="description" content="Brooke is an AI avatar with a moving face, natural voice, and NEPQ sales intelligence. Paste a Zoom link. She joins in 30 seconds. Closes deals while you sleep.">
+<meta name="author" content="Luka Lah · MyNewStaff.ai">
+<link rel="canonical" href="https://mynewstaff.ai/brooke">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mynewstaff.ai/brooke">
+<meta property="og:title" content="Brooke — AI Avatar That Joins Your Calls">
+<meta property="og:description" content="Paste a Zoom link. Type what you want her to do. Brooke joins with a moving face, natural voice, and sales intelligence. 30 seconds flat.">
+<meta property="og:image" content="https://mynewstaff.ai/og-preview.png">
+<meta property="og:site_name" content="MyNewStaff.ai">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Brooke — AI Avatar That Joins Your Calls">
+<meta name="twitter:description" content="AI avatar with a moving face, natural voice, and NEPQ sales intelligence. 30 seconds to join any call.">
+<meta name="twitter:image" content="https://mynewstaff.ai/og-preview.png">
+
+<link rel="icon" href="/favicon.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0f1318;--bg2:#1a1f2e;--fg:#fff;
+  --z3:#d4d4d8;--z4:#a1a1aa;--z5:#71717a;--z6:#52525b;--z7:#3f3f46;--z8:#27272a;--z9:#18181b;
+  --brd:rgba(255,255,255,0.08);--brd2:rgba(255,255,255,0.15);
+  --vio:#7c3aed;--vio2:#8b5cf6;--vio-glow:rgba(124,58,237,0.25);--vio-soft:rgba(124,58,237,0.08);
+  --grn:#34d399;--grn2:rgba(52,211,153,0.12);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--fg);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.6}
+body::before{content:'';position:fixed;inset:0;z-index:9000;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:128px;animation:grain 10s ease-in-out infinite}
+@keyframes grain{0%,100%{transform:translate(0);opacity:.02}25%{transform:translate(-5%,-4%);opacity:.04}40%{transform:translate(3%,5%);opacity:.06}75%{transform:translate(-3%,2%);opacity:.035}}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:#333;border-radius:3px}
+h1,h2,h3,h4{font-family:'Syne',sans-serif;font-weight:700;letter-spacing:-0.03em}
+.mono{font-family:'JetBrains Mono',monospace}
+a{color:inherit;text-decoration:none}
+
+/* CONTAINER */
+.ctn{max-width:1200px;margin:0 auto;padding:0 40px}
+@media(max-width:768px){.ctn{padding:0 20px}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(15,19,24,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--brd);height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 40px}
+.nav-l{font-family:'Syne';font-weight:800;font-size:15px;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;gap:12px}
+.nav-l .dot{width:6px;height:6px;background:var(--vio);border-radius:50%;animation:pulse-dot 2s ease infinite}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 var(--vio-glow)}50%{box-shadow:0 0 0 8px transparent}}
+.nav-r{display:flex;gap:28px;align-items:center}
+.nav-r a{color:var(--z5);font-size:11px;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;transition:color 0.2s}
+.nav-r a:hover{color:#fff}
+.nav-cta{padding:8px 20px;background:var(--vio);color:#fff;font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;border:none;cursor:pointer;transition:all 0.2s}
+.nav-cta:hover{background:var(--vio2);box-shadow:0 0 24px var(--vio-glow)}
+@media(max-width:900px){.nav-r .hide-m{display:none}nav{padding:0 20px}}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:140px 40px 80px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,var(--vio-glow) 0%,transparent 70%);pointer-events:none;opacity:0.4}
+.hero-tag{font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--vio2);margin-bottom:24px;font-weight:600;display:flex;align-items:center;gap:8px}
+.hero-tag::before,.hero-tag::after{content:'';width:24px;height:1px;background:var(--vio)}
+.hero h1{font-size:clamp(42px,7vw,86px);line-height:1.0;letter-spacing:-0.04em;margin-bottom:24px;text-transform:uppercase}
+.hero h1 .vio{color:var(--vio2)}
+.hero-sub{font-size:17px;color:var(--z4);max-width:560px;margin:0 auto 48px;line-height:1.8}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-bottom:64px}
+.btn-primary{padding:16px 40px;background:var(--vio);color:#fff;font-family:'Syne';font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;border:none;cursor:pointer;transition:all 0.25s;position:relative;overflow:hidden}
+.btn-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,transparent,rgba(255,255,255,0.1),transparent);transform:translateX(-100%);transition:transform 0.6s}
+.btn-primary:hover::after{transform:translateX(100%)}
+.btn-primary:hover{background:var(--vio2);box-shadow:0 0 40px var(--vio-glow);transform:translateY(-1px)}
+.btn-ghost{padding:16px 40px;background:transparent;color:#fff;font-family:'Syne';font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;border:1px solid var(--brd2);cursor:pointer;transition:all 0.25s}
+.btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,0.03)}
+
+/* AVATAR PREVIEW */
+.avatar-preview{position:relative;width:280px;height:280px;margin:0 auto}
+.avatar-ring{position:absolute;inset:-20px;border:1px solid var(--vio-glow);border-radius:50%;animation:spin-slow 20s linear infinite}
+.avatar-ring:nth-child(2){inset:-40px;border-color:rgba(124,58,237,0.1);animation-duration:30s;animation-direction:reverse}
+@keyframes spin-slow{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.avatar-circle{width:280px;height:280px;border-radius:50%;background:linear-gradient(135deg,var(--bg2),#252a3a);border:2px solid var(--vio-glow);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.avatar-circle::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,var(--vio-glow),transparent 60%);opacity:0.5}
+.avatar-face{font-size:80px;position:relative;z-index:1;filter:drop-shadow(0 0 20px var(--vio-glow))}
+.avatar-status{position:absolute;bottom:12px;right:12px;background:var(--grn);width:16px;height:16px;border-radius:50%;border:3px solid var(--bg);z-index:2;animation:pulse-dot 2s ease infinite}
+
+/* STATS BAR */
+.stats-bar{border-top:1px solid var(--brd);border-bottom:1px solid var(--brd);padding:32px 0;background:rgba(255,255,255,0.01)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);max-width:900px;margin:0 auto;padding:0 40px;gap:32px}
+.stat-item{text-align:center}
+.stat-item .n{font-family:'JetBrains Mono';font-size:28px;font-weight:500;color:#fff}
+.stat-item .n .vio{color:var(--vio2)}
+.stat-item .l{font-size:10px;color:var(--z5);text-transform:uppercase;letter-spacing:0.15em;margin-top:6px}
+@media(max-width:768px){.stats-grid{grid-template-columns:repeat(2,1fr);gap:24px}}
+
+/* SECTION BASE */
+section{padding:120px 0}
+.stag{font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--vio2);margin-bottom:12px;font-weight:600;text-align:center}
+.stitle{font-family:'Syne';font-size:clamp(28px,4vw,48px);text-align:center;margin-bottom:16px;line-height:1.1;text-transform:uppercase}
+.sdesc{font-size:15px;color:var(--z4);text-align:center;max-width:560px;margin:0 auto 64px;line-height:1.7}
+
+/* DEMO VIDEO */
+.demo-section{position:relative;overflow:hidden}
+.demo-wrapper{max-width:900px;margin:0 auto;position:relative;aspect-ratio:16/9;background:var(--bg2);border:1px solid var(--brd);cursor:pointer;overflow:hidden;transition:border-color 0.3s}
+.demo-wrapper:hover{border-color:var(--vio-glow)}
+.demo-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(15,19,24,0.7);transition:background 0.3s;z-index:2}
+.demo-wrapper:hover .demo-overlay{background:rgba(15,19,24,0.5)}
+.play-btn{width:80px;height:80px;border-radius:50%;border:2px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;margin-bottom:24px;transition:all 0.3s;background:rgba(124,58,237,0.15)}
+.demo-wrapper:hover .play-btn{border-color:var(--vio);background:rgba(124,58,237,0.3);transform:scale(1.05)}
+.play-btn svg{width:32px;height:32px;fill:#fff;margin-left:4px}
+.demo-label{font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:var(--z4)}
+.demo-bg{position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center}
+.demo-bg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;width:100%;height:100%;background:var(--brd)}
+.demo-bg-cell{background:var(--bg2)}
+
+/* HOW IT WORKS */
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--brd);max-width:1000px;margin:0 auto}
+.step{background:var(--bg);padding:48px 40px;text-align:center;position:relative}
+.step-num{font-family:'JetBrains Mono';font-size:48px;font-weight:500;color:rgba(124,58,237,0.15);position:absolute;top:20px;left:24px}
+.step-icon{font-size:40px;margin-bottom:20px;display:block}
+.step-title{font-family:'Syne';font-size:18px;font-weight:700;text-transform:uppercase;margin-bottom:12px;letter-spacing:-0.02em}
+.step-desc{font-size:14px;color:var(--z4);line-height:1.7}
+.step-time{font-family:'JetBrains Mono';font-size:12px;color:var(--vio2);margin-top:16px}
+@media(max-width:768px){.steps-grid{grid-template-columns:1fr}}
+
+/* CONNECTOR ARROWS BETWEEN STEPS */
+.step::after{content:'→';position:absolute;right:-14px;top:50%;transform:translateY(-50%);font-family:'JetBrains Mono';font-size:20px;color:var(--z6);z-index:2}
+.step:last-child::after{display:none}
+@media(max-width:768px){.step::after{content:'↓';right:auto;left:50%;top:auto;bottom:-14px;transform:translateX(-50%)}.step:last-child::after{display:none}}
+
+/* USE CASES */
+.use-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1px;background:var(--brd)}
+.use-card{background:var(--bg);padding:40px;transition:background 0.3s;cursor:default}
+.use-card:hover{background:rgba(124,58,237,0.03)}
+.use-icon{font-size:32px;margin-bottom:16px}
+.use-title{font-family:'Syne';font-size:18px;font-weight:700;text-transform:uppercase;margin-bottom:8px;letter-spacing:-0.02em}
+.use-desc{font-size:14px;color:var(--z4);line-height:1.7;margin-bottom:16px}
+.use-stat{font-family:'JetBrains Mono';font-size:13px;color:var(--grn);display:flex;align-items:center;gap:8px}
+.use-stat::before{content:'';width:6px;height:6px;background:var(--grn);border-radius:50%;flex-shrink:0}
+@media(max-width:500px){.use-grid{grid-template-columns:1fr}}
+
+/* SOCIAL PROOF */
+.proof-section{background:rgba(255,255,255,0.015);border-top:1px solid var(--brd);border-bottom:1px solid var(--brd)}
+.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--brd);max-width:1000px;margin:0 auto}
+.proof-card{background:var(--bg);padding:48px 36px;position:relative}
+.proof-card::before{content:'"';font-family:'Syne';font-size:64px;color:rgba(124,58,237,0.15);position:absolute;top:20px;left:24px;line-height:1}
+.proof-quote{font-size:15px;color:var(--z3);line-height:1.7;margin-bottom:24px;font-style:italic}
+.proof-metric{font-family:'JetBrains Mono';font-size:24px;font-weight:500;color:var(--vio2);margin-bottom:8px}
+.proof-who{font-size:12px;color:var(--z5);text-transform:uppercase;letter-spacing:0.1em}
+@media(max-width:768px){.proof-grid{grid-template-columns:1fr}}
+
+/* PRICING */
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--brd);max-width:1100px;margin:0 auto}
+.price-card{background:var(--bg);padding:48px 36px;position:relative}
+.price-card.featured{background:rgba(124,58,237,0.04)}
+.price-card.featured::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--vio)}
+.price-tag{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--z5);margin-bottom:8px;font-weight:600}
+.price-tag.pop{color:var(--vio2)}
+.price-name{font-family:'Syne';font-size:24px;font-weight:800;text-transform:uppercase;margin-bottom:4px}
+.price-for{font-size:12px;color:var(--z5);margin-bottom:28px}
+.price-amount{font-family:'Syne';font-size:52px;font-weight:800;letter-spacing:-0.04em;margin-bottom:4px}
+.price-amount .per{font-size:16px;color:var(--z5);font-weight:400}
+.price-includes{font-size:12px;color:var(--z5);margin-bottom:28px;font-family:'JetBrains Mono'}
+.price-features{list-style:none;border-top:1px solid var(--brd);padding:0;margin:0 0 32px}
+.price-features li{padding:12px 0;font-size:14px;color:var(--z4);display:flex;gap:12px;border-bottom:1px solid rgba(255,255,255,0.03)}
+.price-features .ck{color:var(--vio2);font-family:'JetBrains Mono';font-size:12px;flex-shrink:0;margin-top:2px}
+.price-cta{width:100%;padding:14px;font-family:'Syne';font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;border:none;cursor:pointer;transition:all 0.25s}
+.price-cta.fill{background:var(--vio);color:#fff}
+.price-cta.fill:hover{background:var(--vio2);box-shadow:0 0 32px var(--vio-glow)}
+.price-cta.outline{background:transparent;color:#fff;border:1px solid var(--brd2)}
+.price-cta.outline:hover{border-color:#fff;background:rgba(255,255,255,0.03)}
+.price-note{text-align:center;margin-top:40px;font-size:13px;color:var(--z5)}
+@media(max-width:768px){.price-grid{grid-template-columns:1fr}}
+
+/* TRY-IT FORM */
+.try-section{position:relative}
+.try-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,var(--vio-glow),transparent 70%);pointer-events:none;opacity:0.2}
+.try-box{max-width:680px;margin:0 auto;border:1px solid var(--brd);background:rgba(26,31,46,0.5);padding:48px;position:relative;backdrop-filter:blur(8px)}
+.try-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,transparent,var(--vio),transparent)}
+.try-field{margin-bottom:20px}
+.try-label{font-size:10px;color:var(--z5);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:8px;font-weight:600;display:block}
+.try-input,.try-textarea{width:100%;background:rgba(255,255,255,0.03);border:1px solid var(--brd);padding:14px 18px;color:#fff;font-family:'Space Grotesk';font-size:14px;outline:0;transition:border 0.2s}
+.try-input:focus,.try-textarea:focus{border-color:var(--vio)}
+.try-input::placeholder,.try-textarea::placeholder{color:var(--z6)}
+.try-textarea{resize:vertical;min-height:100px}
+.try-submit{width:100%;padding:16px;background:var(--vio);color:#fff;font-family:'Syne';font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;border:none;cursor:pointer;transition:all 0.25s;margin-top:8px;position:relative;overflow:hidden}
+.try-submit:hover{background:var(--vio2);box-shadow:0 0 40px var(--vio-glow)}
+.try-submit:disabled{opacity:0.5;cursor:not-allowed}
+.try-submit::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,transparent,rgba(255,255,255,0.1),transparent);transform:translateX(-100%);transition:transform 0.6s}
+.try-submit:hover::after{transform:translateX(100%)}
+.try-status{margin-top:16px;padding:12px;font-size:13px;text-align:center;display:none}
+.try-status.ok{display:block;background:var(--grn2);color:var(--grn);border:1px solid rgba(52,211,153,0.2)}
+.try-status.err{display:block;background:rgba(248,113,113,0.1);color:#f87171;border:1px solid rgba(248,113,113,0.2)}
+.try-status.loading{display:block;color:var(--z4)}
+.try-note{font-size:11px;color:var(--z6);text-align:center;margin-top:20px}
+
+/* FAQ */
+.faq-list{max-width:780px;margin:0 auto}
+.faq-item{border-bottom:1px solid var(--brd);padding:24px 0;cursor:pointer;transition:background 0.2s}
+.faq-item:hover{background:rgba(255,255,255,0.01)}
+.faq-q{display:flex;justify-content:space-between;align-items:center;font-size:16px;font-weight:600;color:#fff;font-family:'Syne'}
+.faq-q .plus{font-family:'JetBrains Mono';font-size:20px;color:var(--z5);transition:transform 0.3s,color 0.3s}
+.faq-item.op .faq-q .plus{transform:rotate(45deg);color:var(--vio2)}
+.faq-a{max-height:0;overflow:hidden;font-size:14px;color:var(--z4);line-height:1.7;transition:max-height 0.4s,padding 0.4s}
+.faq-item.op .faq-a{max-height:400px;padding-top:16px}
+
+/* FOOTER CTA */
+.footer-cta{text-align:center;padding:120px 40px;position:relative;overflow:hidden}
+.footer-cta::before{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:800px;height:400px;background:radial-gradient(ellipse,var(--vio-glow),transparent 70%);pointer-events:none;opacity:0.25}
+.footer-cta h2{font-family:'Syne';font-size:clamp(28px,4.5vw,56px);text-transform:uppercase;margin-bottom:16px;letter-spacing:-0.04em;position:relative}
+.footer-cta p{font-size:16px;color:var(--z4);margin-bottom:40px;max-width:500px;margin-left:auto;margin-right:auto;position:relative}
+
+/* FOOTER */
+footer{padding:48px 40px;border-top:1px solid var(--brd);text-align:center}
+footer p{font-size:12px;color:var(--z6);margin-bottom:4px}
+footer .flinks{display:flex;gap:24px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+footer .flinks a{color:var(--z5);font-size:11px;letter-spacing:0.15em;text-transform:uppercase;transition:color 0.2s}
+footer .flinks a:hover{color:#fff}
+
+/* UTILITY */
+.reveal{opacity:0;transform:translateY(30px);}
+.sep{height:1px;background:var(--brd)}
+
+/* ANIMATE COUNTER */
+@keyframes countUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="https://mynewstaff.ai" class="nav-l"><span class="dot"></span> MYNEWSTAFF.AI</a>
+  <div class="nav-r">
+    <a href="#how" class="hide-m">How It Works</a>
+    <a href="#use-cases" class="hide-m">Use Cases</a>
+    <a href="#pricing" class="hide-m">Pricing</a>
+    <a href="#try-it" class="nav-cta">Try Brooke Free</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-tag reveal">AI Avatar · Live Calls · NEPQ Intelligence</div>
+  <h1 class="reveal">Meet <span class="vio">Brooke.</span><br>Your AI That<br>Joins Calls.</h1>
+  <p class="hero-sub reveal">She has a moving face. A natural voice. And sales intelligence trained on 10,000+ NEPQ conversations. Paste a Zoom link. She joins in 30 seconds. Closes while you sleep.</p>
+  <div class="hero-btns reveal">
+    <a href="#try-it" class="btn-primary">Send Brooke on a Call</a>
+    <a href="#demo" class="btn-ghost">Watch the Demo</a>
+  </div>
+  <div class="avatar-preview reveal">
+    <div class="avatar-ring"></div>
+    <div class="avatar-ring"></div>
+    <div class="avatar-circle">
+      <div class="avatar-face">👩‍💼</div>
+      <div class="avatar-status"></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-grid">
+    <div class="stat-item reveal">
+      <div class="n"><span class="vio">30</span>s</div>
+      <div class="l">Join Time</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="n">2,400<span class="vio">+</span></div>
+      <div class="l">Calls Completed</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="n">$<span class="vio">0.04</span></div>
+      <div class="l">Per Minute</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="n">5<span class="vio">x</span></div>
+      <div class="l">Persona Types</div>
+    </div>
+  </div>
+</div>
+
+<!-- DEMO VIDEO -->
+<section class="demo-section" id="demo">
+  <div class="ctn">
+    <div class="stag reveal">See It In Action</div>
+    <h2 class="stitle reveal">Watch Brooke Close a Deal</h2>
+    <p class="sdesc reveal">Real call. Real prospect. Real NEPQ framework. No scripts. No teleprompter. Just Brooke doing her thing.</p>
+    <div class="demo-wrapper reveal" id="demo-player">
+      <div class="demo-bg">
+        <div class="demo-bg-grid">
+          <div class="demo-bg-cell"></div>
+          <div class="demo-bg-cell"></div>
+          <div class="demo-bg-cell"></div>
+          <div class="demo-bg-cell"></div>
+          <div class="demo-bg-cell"></div>
+          <div class="demo-bg-cell"></div>
+          <div class="demo-bg-cell"></div>
+          <div class="demo-bg-cell"></div>
+          <div class="demo-bg-cell"></div>
+        </div>
+      </div>
+      <div class="demo-overlay">
+        <div class="play-btn">
+          <svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg>
+        </div>
+        <div class="demo-label">Demo Coming Soon — 2:47</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="ctn">
+    <div class="stag reveal">Simple as 1-2-3</div>
+    <h2 class="stitle reveal">How It Works</h2>
+    <p class="sdesc reveal">No SDK. No integration. No training. Three clicks and Brooke is on your call.</p>
+    <div class="steps-grid">
+      <div class="step reveal">
+        <span class="step-num">01</span>
+        <span class="step-icon">🔗</span>
+        <h3 class="step-title">Paste a Zoom Link</h3>
+        <p class="step-desc">Zoom, Google Meet, Teams — any video call platform. Just paste the invite link.</p>
+        <div class="step-time">~5 seconds</div>
+      </div>
+      <div class="step reveal">
+        <span class="step-num">02</span>
+        <span class="step-icon">🎭</span>
+        <h3 class="step-title">Choose a Persona</h3>
+        <p class="step-desc">Sales discovery, product demo, onboarding, screening, support. Tell Brooke what to do in plain English.</p>
+        <div class="step-time">~10 seconds</div>
+      </div>
+      <div class="step reveal">
+        <span class="step-num">03</span>
+        <span class="step-icon">🚀</span>
+        <h3 class="step-title">Brooke Joins in 30s</h3>
+        <p class="step-desc">She appears with a moving face, natural voice, and full context on the call. Records, transcribes, and follows up automatically.</p>
+        <div class="step-time">30 seconds</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- USE CASES -->
+<section id="use-cases">
+  <div class="ctn">
+    <div class="stag reveal">Built for Every Conversation</div>
+    <h2 class="stitle reveal">One Avatar. Five Personas.</h2>
+    <p class="sdesc reveal">Brooke adapts to whatever you need. Same face. Same voice. Different mission.</p>
+    <div class="use-grid">
+      <div class="use-card reveal">
+        <div class="use-icon">💰</div>
+        <h3 class="use-title">Sales Discovery</h3>
+        <p class="use-desc">NEPQ-trained probing questions that surface pain, budget, and urgency. Brooke qualifies in 8 minutes what your SDR does in 30.</p>
+        <div class="use-stat">3.2x more qualified pipeline</div>
+      </div>
+      <div class="use-card reveal">
+        <div class="use-icon">🖥️</div>
+        <h3 class="use-title">Product Demos</h3>
+        <p class="use-desc">Give Brooke your product brief. She walks prospects through features, handles objections in real-time, and books the next call before hanging up.</p>
+        <div class="use-stat">47% demo-to-close rate</div>
+      </div>
+      <div class="use-card reveal">
+        <div class="use-icon">🤝</div>
+        <h3 class="use-title">Client Onboarding</h3>
+        <p class="use-desc">Consistent, thorough, patient. Brooke walks every new client through setup, answers questions, and flags issues to your team — 24/7.</p>
+        <div class="use-stat">92% onboarding completion</div>
+      </div>
+      <div class="use-card reveal">
+        <div class="use-icon">📋</div>
+        <h3 class="use-title">Screening Interviews</h3>
+        <p class="use-desc">Screen 50 candidates a day. Same questions. Same scoring. Zero bias. Brooke sends you a ranked shortlist by morning.</p>
+        <div class="use-stat">12 hours saved per hire</div>
+      </div>
+      <div class="use-card reveal">
+        <div class="use-icon">🛟</div>
+        <h3 class="use-title">Client Support</h3>
+        <p class="use-desc">Frustrated client at 2 AM? Brooke joins the call, de-escalates, troubleshoots, and resolves. No hold music. No ticket queue. Just answers.</p>
+        <div class="use-stat">94% first-call resolution</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="proof-section" id="proof">
+  <div class="ctn">
+    <div class="stag reveal">Real Numbers. Real Businesses.</div>
+    <h2 class="stitle reveal">What Happens When Brooke<br>Gets on the Phone</h2>
+    <p class="sdesc reveal">These aren't projections. These are results from businesses that let Brooke handle their calls.</p>
+    <div class="proof-grid">
+      <div class="proof-card reveal">
+        <p class="proof-quote">We put Brooke on discovery calls for our dental implant practice. She booked 23 consults in the first month that our front desk couldn't get to.</p>
+        <div class="proof-metric">+$22K/mo</div>
+        <div class="proof-who">Dental Practice · Phoenix, AZ</div>
+      </div>
+      <div class="proof-card reveal">
+        <p class="proof-quote">Our cost per lead was $400. Brooke started handling inbound calls and qualifying before we even spoke to them. CPL dropped to $108.</p>
+        <div class="proof-metric">$400 → $108 CPL</div>
+        <div class="proof-who">Personal Injury Law Firm · Miami, FL</div>
+      </div>
+      <div class="proof-card reveal">
+        <p class="proof-quote">We had zero online bookings. Brooke handled every lead call, answered class questions, and booked directly into our calendar. 47 bookings in 30 days.</p>
+        <div class="proof-metric">0 → 47 Bookings</div>
+        <div class="proof-who">Pilates Studio · Austin, TX</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="ctn">
+    <div class="stag reveal">Transparent Pricing</div>
+    <h2 class="stitle reveal">Pick Your Volume</h2>
+    <p class="sdesc reveal">No setup fees. No contracts. Cancel anytime. Every plan includes the full avatar experience — face, voice, intelligence.</p>
+    <div class="price-grid">
+      <!-- Starter -->
+      <div class="price-card reveal">
+        <div class="price-tag">Start Here</div>
+        <h3 class="price-name">Starter</h3>
+        <div class="price-for">For teams testing AI on calls</div>
+        <div class="price-amount">$500<span class="per">/mo</span></div>
+        <div class="price-includes">50 calls included</div>
+        <ul class="price-features">
+          <li><span class="ck">→</span> Moving face + natural voice</li>
+          <li><span class="ck">→</span> NEPQ sales intelligence</li>
+          <li><span class="ck">→</span> Zoom, Meet, Teams support</li>
+          <li><span class="ck">→</span> Call recordings + transcripts</li>
+          <li><span class="ck">→</span> Email support</li>
+        </ul>
+        <a href="#try-it" class="price-cta outline">Start Free Trial</a>
+      </div>
+      <!-- Pro -->
+      <div class="price-card featured reveal">
+        <div class="price-tag pop">Most Popular</div>
+        <h3 class="price-name">Pro</h3>
+        <div class="price-for">For teams replacing SDRs</div>
+        <div class="price-amount">$2,000<span class="per">/mo</span></div>
+        <div class="price-includes">200 calls included</div>
+        <ul class="price-features">
+          <li><span class="ck">→</span> Everything in Starter</li>
+          <li><span class="ck">→</span> Custom persona builder</li>
+          <li><span class="ck">→</span> CRM integration (HubSpot, GHL)</li>
+          <li><span class="ck">→</span> Custom voice cloning</li>
+          <li><span class="ck">→</span> Priority support + Slack</li>
+          <li><span class="ck">→</span> Analytics dashboard</li>
+        </ul>
+        <a href="#try-it" class="price-cta fill">Start Free Trial</a>
+      </div>
+      <!-- Enterprise -->
+      <div class="price-card reveal">
+        <div class="price-tag">Scale</div>
+        <h3 class="price-name">Enterprise</h3>
+        <div class="price-for">For agencies & high-volume ops</div>
+        <div class="price-amount">$5,000<span class="per">/mo</span></div>
+        <div class="price-includes">Unlimited calls</div>
+        <ul class="price-features">
+          <li><span class="ck">→</span> Everything in Pro</li>
+          <li><span class="ck">→</span> Unlimited concurrent calls</li>
+          <li><span class="ck">→</span> White-label option</li>
+          <li><span class="ck">→</span> Custom AI training on your data</li>
+          <li><span class="ck">→</span> Dedicated account manager</li>
+          <li><span class="ck">→</span> SLA + 99.9% uptime</li>
+        </ul>
+        <a href="https://mynewstaff.ai/#booking" class="price-cta outline">Talk to Sales</a>
+      </div>
+    </div>
+    <p class="price-note reveal">Every plan includes a 7-day free trial. No credit card required to start.</p>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- TRY IT -->
+<section class="try-section" id="try-it">
+  <div class="ctn">
+    <div class="stag reveal">Try It Right Now</div>
+    <h2 class="stitle reveal">Send Brooke on a Call</h2>
+    <p class="sdesc reveal">Paste your Zoom link. Tell her what to do. She'll join in 30 seconds. First 3 calls are free.</p>
+    <div class="try-box reveal">
+      <form id="brooke-form" onsubmit="return false;">
+        <div class="try-field">
+          <label class="try-label">Meeting Link</label>
+          <input type="url" class="try-input" id="zoom-link" placeholder="https://zoom.us/j/123456789 or Google Meet link" required>
+        </div>
+        <div class="try-field">
+          <label class="try-label">What should Brooke do?</label>
+          <textarea class="try-textarea" id="context" placeholder="E.g. &quot;This is a sales discovery call with a dental practice owner. Qualify for budget, timeline, and decision process. Use NEPQ probing questions.&quot;" required></textarea>
+        </div>
+        <div class="try-field">
+          <label class="try-label">Your Email (for call recording)</label>
+          <input type="email" class="try-input" id="user-email" placeholder="you@company.com" required>
+        </div>
+        <button type="submit" class="try-submit" id="submit-btn" onclick="deployBrooke()">
+          Send Brooke Now →
+        </button>
+        <div class="try-status" id="form-status"></div>
+      </form>
+      <p class="try-note">Brooke joins as a participant with camera on. Your prospect will see a professional female avatar with natural lip sync and voice.</p>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="ctn">
+    <div class="stag reveal">Common Questions</div>
+    <h2 class="stitle reveal">FAQ</h2>
+    <div class="sdesc" style="margin-bottom:48px"></div>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Does Brooke actually have a visible face on the call?</span>
+          <span class="plus">+</span>
+        </div>
+        <div class="faq-a">Yes. Brooke appears as a video participant with a moving, lip-synced avatar face. She looks like a real person on camera. Prospects don't know they're talking to AI unless you tell them.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>What platforms does Brooke work on?</span>
+          <span class="plus">+</span>
+        </div>
+        <div class="faq-a">Zoom, Google Meet, and Microsoft Teams. Any platform that accepts a meeting join link. We're adding Webex and custom SIP in Q2 2026.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>How does Brooke handle objections?</span>
+          <span class="plus">+</span>
+        </div>
+        <div class="faq-a">Brooke is trained on the NEPQ (Neuro-Emotional Persuasion Questioning) framework by Jeremy Miner. She doesn't push or pitch. She asks calibrated questions that let the prospect sell themselves. When objections come up, she acknowledges, probes deeper, and reframes — exactly how a top 1% closer would.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Can I customize Brooke's persona?</span>
+          <span class="plus">+</span>
+        </div>
+        <div class="faq-a">On Pro and Enterprise plans, you can build custom personas. Define her name, voice, personality, product knowledge, qualification criteria, and follow-up behavior. She becomes YOUR employee — with your company's knowledge and your sales playbook.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>What happens after the call?</span>
+          <span class="plus">+</span>
+        </div>
+        <div class="faq-a">You get a full recording, transcript, and AI-generated summary with key insights, qualification score, and recommended next steps. On Pro+, this syncs directly to your CRM. Brooke can also send a personalized follow-up email within 60 seconds of hanging up.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Is this legal / compliant?</span>
+          <span class="plus">+</span>
+        </div>
+        <div class="faq-a">Brooke operates within all standard video call recording consent laws. She identifies as an AI assistant at the start of each call (configurable). You're responsible for compliance with your local recording consent regulations, just like with any call recording tool.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>How much does each call cost?</span>
+          <span class="plus">+</span>
+        </div>
+        <div class="faq-a">Underlying cost is $0.04/minute. On Starter ($500/mo for 50 calls), that averages about $10/call for a 15-minute conversation. Compare that to a $4,500/mo SDR who can make maybe 8 quality calls a day. The math speaks for itself.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Can Brooke handle multiple calls at once?</span>
+          <span class="plus">+</span>
+        </div>
+        <div class="faq-a">Yes. On Enterprise, Brooke can be on 10+ calls simultaneously. Each instance is fully independent with its own context. Your bottleneck stops being headcount.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<section class="footer-cta">
+  <div class="ctn">
+    <h2 class="reveal">Ready to Put Brooke<br>on Your Next Call?</h2>
+    <p class="reveal">Every hour without Brooke is an hour your team spends on calls they shouldn't be making. Three free calls. No credit card. No commitment.</p>
+    <div class="hero-btns reveal">
+      <a href="#try-it" class="btn-primary">Send Brooke Now</a>
+      <a href="https://mynewstaff.ai/#booking" class="btn-ghost">Book a Demo With Luka</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p style="font-family:'Syne';font-weight:700;font-size:13px;color:var(--z4);letter-spacing:0.1em;text-transform:uppercase">MYNEWSTAFF.AI</p>
+  <p>Built by <strong style="color:var(--z4)">Luka Lah</strong> · AI Marketing Infrastructure</p>
+  <div class="flinks">
+    <a href="https://mynewstaff.ai">Home</a>
+    <a href="https://mynewstaff.ai/products">Products</a>
+    <a href="https://mynewstaff.ai/#booking">Book a Call</a>
+    <a href="mailto:contact@mynewstaff.ai">Contact</a>
+  </div>
+  <p style="margin-top:24px;font-size:11px;color:var(--z7)">&copy; 2026 MyNewStaff.ai. All rights reserved.</p>
+</footer>
+
+<!-- SCRIPTS -->
+<script>
+// GSAP ScrollTrigger Animations
+gsap.registerPlugin(ScrollTrigger);
+
+// Reveal animations
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  gsap.to(el, {
+    opacity: 1,
+    y: 0,
+    duration: 0.8,
+    ease: 'power2.out',
+    scrollTrigger: {
+      trigger: el,
+      start: 'top 88%',
+      once: true
+    },
+    delay: (i % 4) * 0.1
+  });
+});
+
+// Avatar floating animation
+gsap.to('.avatar-preview', {
+  y: -12,
+  duration: 3,
+  ease: 'sine.inOut',
+  yoyo: true,
+  repeat: -1
+});
+
+// Stats counter animation
+document.querySelectorAll('.stat-item .n').forEach(el => {
+  gsap.from(el, {
+    opacity: 0,
+    y: 12,
+    duration: 0.6,
+    ease: 'power2.out',
+    scrollTrigger: {
+      trigger: el,
+      start: 'top 90%',
+      once: true
+    }
+  });
+});
+
+// Proof metrics stagger
+gsap.utils.toArray('.proof-metric').forEach(el => {
+  gsap.from(el, {
+    scale: 0.8,
+    opacity: 0,
+    duration: 0.5,
+    ease: 'back.out(1.4)',
+    scrollTrigger: {
+      trigger: el,
+      start: 'top 85%',
+      once: true
+    }
+  });
+});
+
+// Pricing cards stagger entrance
+gsap.utils.toArray('.price-card').forEach((el, i) => {
+  gsap.from(el, {
+    opacity: 0,
+    y: 40,
+    duration: 0.7,
+    delay: i * 0.15,
+    ease: 'power2.out',
+    scrollTrigger: {
+      trigger: el,
+      start: 'top 85%',
+      once: true
+    }
+  });
+});
+
+// Try-it box subtle glow pulse
+gsap.to('.try-box', {
+  boxShadow: '0 0 60px rgba(124,58,237,0.08)',
+  duration: 2,
+  ease: 'sine.inOut',
+  yoyo: true,
+  repeat: -1
+});
+
+// FAQ toggle
+function toggleFaq(el) {
+  const item = el.closest('.faq-item');
+  const wasOpen = item.classList.contains('op');
+  document.querySelectorAll('.faq-item.op').forEach(i => i.classList.remove('op'));
+  if (!wasOpen) item.classList.add('op');
+}
+
+// Deploy Brooke — real API call
+async function deployBrooke() {
+  const btn = document.getElementById('submit-btn');
+  const status = document.getElementById('form-status');
+  const zoomLink = document.getElementById('zoom-link').value.trim();
+  const context = document.getElementById('context').value.trim();
+  const email = document.getElementById('user-email').value.trim();
+
+  if (!zoomLink || !context || !email) {
+    status.className = 'try-status err';
+    status.textContent = 'Please fill in all fields.';
+    return;
+  }
+
+  // Validate URL
+  try {
+    new URL(zoomLink);
+  } catch {
+    status.className = 'try-status err';
+    status.textContent = 'Please enter a valid meeting link.';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Deploying Brooke...';
+  status.className = 'try-status loading';
+  status.style.display = 'block';
+  status.textContent = 'Connecting to Brooke...';
+
+  try {
+    const res = await fetch('https://cold-caller.mynewstaff.ai/api/brooke/deploy', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        meeting_link: zoomLink,
+        context: context,
+        email: email,
+        source: 'landing-page'
+      })
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      status.className = 'try-status ok';
+      status.textContent = 'Brooke is joining your call now. She\'ll appear in about 30 seconds. Check your email for the recording link after the call.';
+      btn.textContent = 'Brooke Deployed ✓';
+
+      // Track conversion
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'brooke_deploy', { event_category: 'conversion', event_label: 'landing_page' });
+      }
+    } else {
+      const errData = await res.json().catch(() => ({}));
+      status.className = 'try-status err';
+      status.textContent = errData.detail || errData.message || 'Something went wrong. Try again or book a demo with Luka instead.';
+      btn.disabled = false;
+      btn.textContent = 'Send Brooke Now →';
+    }
+  } catch (err) {
+    status.className = 'try-status err';
+    status.textContent = 'Could not reach Brooke\'s server. The service may be temporarily offline. Book a demo with Luka instead.';
+    btn.disabled = false;
+    btn.textContent = 'Send Brooke Now →';
+  }
+}
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// Nav background on scroll
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  if (window.scrollY > 50) {
+    nav.style.background = 'rgba(15,19,24,0.95)';
+  } else {
+    nav.style.background = 'rgba(15,19,24,0.85)';
+  }
+});
+</script>
+
+</body>
+</html>

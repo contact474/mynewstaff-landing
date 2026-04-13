@@ -112,7 +112,7 @@ export function PricingTable() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
           </span>
-          <span className="text-[10px] tracking-[0.3em] uppercase text-white font-bold">3 Spots Remaining — Applications Close March 31</span>
+          <span className="text-[10px] tracking-[0.3em] uppercase text-white font-bold">3 Spots Remaining — Applications Close April 30</span>
         </div>
         <p className="text-[10px] tracking-[0.15em] text-zinc-500 font-sans">We onboard a maximum of 5 clients per quarter to maintain execution quality.</p>
       </motion.div>

@@ -74,6 +74,11 @@ const nextConfig: NextConfig = {
           source: "/products",
           destination: "/products.html",
         },
+        // Brooke AI Avatar landing page
+        {
+          source: "/brooke",
+          destination: "/brooke.html",
+        },
       ],
     };
   },
