@@ -909,12 +909,12 @@ async function startBrookeDemo() {
 
     demoRoom.on(LivekitClient.RoomEvent.ParticipantConnected, (p) => {
       if (p.identity.includes('hedra') || p.identity.includes('agent')) {
-        statusText.textContent = 'Brooke is joining...';
+        statusText.textContent = 'Give her a sec — she\u2019s fixing her hair \uD83D\uDC81\u200D\u2640\uFE0F';
       }
     });
 
     await demoRoom.connect(data.lk_url, data.token);
-    statusText.textContent = 'Waiting for Brooke...';
+    statusText.textContent = 'Give her a minute — she\u2019s fixing her hair \uD83D\uDC85';
 
     // 5. Publish mic (and camera if allowed)
     try { await demoRoom.localParticipant.setMicrophoneEnabled(true); } catch(e) {}
