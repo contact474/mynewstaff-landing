@@ -82,8 +82,12 @@ body {
   animation: shimmer 4s linear infinite;
 }
 
-/* Reveal base */
+/* Reveal base — visible by default, GSAP animates from below */
 .reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal.gsap-ready {
   opacity: 0;
   transform: translateY(40px);
 }
@@ -686,6 +690,9 @@ Or: "You&#39;re my AI receptionist at a dental practice"'
 <script>
 gsap.registerPlugin(ScrollTrigger);
 
+// ---- Mark elements as GSAP-ready ONLY after GSAP loads ----
+document.querySelectorAll('.reveal').forEach(el => el.classList.add('gsap-ready'));
+
 // ---- Reveal animations with stagger ----
 document.querySelectorAll('.reveal').forEach((el, i) => {
   gsap.to(el, {
@@ -971,6 +978,18 @@ window.addEventListener('scroll', () => {
   const nav = document.querySelector('nav');
   nav.style.background = window.scrollY > 50 ? 'rgba(0,0,0,0.95)' : 'rgba(0,0,0,0.85)';
 });
+</script>
+
+<!-- Fallback: if GSAP fails, show all content after 2s -->
+<script>
+setTimeout(() => {
+  document.querySelectorAll('.reveal.gsap-ready').forEach(el => {
+    if (getComputedStyle(el).opacity === '0') {
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    }
+  });
+}, 2000);
 </script>
 
 </body>
