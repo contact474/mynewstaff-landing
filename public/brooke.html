@@ -475,43 +475,89 @@ input::placeholder, textarea::placeholder {
   <div class="max-w-[1200px] mx-auto px-10">
 
     <div class="text-center mb-16">
-      <div class="reveal text-xs uppercase tracking-[0.3em] text-zinc-500 font-semibold mb-4">Try It Now</div>
+      <div class="reveal text-xs uppercase tracking-[0.3em] text-zinc-500 font-semibold mb-4">Experience It</div>
       <h2 class="reveal font-wide font-extrabold text-[clamp(28px,4vw,52px)] leading-[1.05] tracking-[-0.04em] uppercase">
-        Send <span class="shimmer">Brooke</span> on a Call
+        Talk to <span class="shimmer">Brooke</span> Right Now
       </h2>
-      <p class="reveal text-zinc-400 text-[16px] max-w-[480px] mx-auto mt-6">Paste a meeting link. Tell her what to do. She joins in 30 seconds. First 3 calls are on us.</p>
+      <p class="reveal text-zinc-400 text-[16px] max-w-[520px] mx-auto mt-6">Tell her who to be. She becomes it. No signup. No Zoom. Just click and talk.</p>
     </div>
 
-    <div class="max-w-[640px] mx-auto border border-white/10 bg-white/[0.02] p-12 reveal">
-      <form id="brooke-form" onsubmit="return false;">
+    <!-- LIVE DEMO WIDGET -->
+    <div class="max-w-[800px] mx-auto reveal">
 
+      <!-- Pre-call: context input -->
+      <div id="demo-setup" class="border border-white/10 bg-white/[0.02] p-10">
         <div class="mb-6">
+          <label class="block text-xs uppercase tracking-[0.2em] text-zinc-500 font-semibold mb-3">Tell Brooke who to be</label>
+          <textarea id="demo-context" placeholder='Try: "Be a car sales closer — I&#39;m shopping for an SUV for my family"
+Or: "Interview me for a marketing director position"
+Or: "You&#39;re my AI receptionist at a dental practice"'
+            class="w-full bg-transparent border border-white/10 px-5 py-4 text-white text-[15px] font-body transition-colors resize-vertical min-h-[120px] focus:border-white/30 outline-none"></textarea>
+        </div>
+
+        <button onclick="startBrookeDemo()" id="demo-start-btn"
+          class="w-full bg-white text-black font-bold text-[11px] tracking-[0.25em] uppercase py-4 btn-sweep hover:bg-zinc-100 transition-colors">
+          Talk to Brooke Now
+        </button>
+        <p class="text-zinc-600 text-[11px] text-center mt-4">Requires microphone access. Camera optional — Brooke can see you if you allow it.</p>
+      </div>
+
+      <!-- Live call: avatar + controls -->
+      <div id="demo-live" class="hidden">
+        <div class="border border-white/10 bg-black relative" style="aspect-ratio: 16/9;">
+          <!-- Brooke avatar video -->
+          <div id="demo-avatar-container" class="w-full h-full flex items-center justify-center">
+            <img src="https://cold-caller.mynewstaff.ai/static/brooke-avatar.png" alt="Brooke" id="demo-avatar-img" class="h-full object-contain">
+          </div>
+          <!-- Status overlay -->
+          <div id="demo-status" class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-sm px-4 py-2 flex items-center gap-2">
+            <div id="demo-dot" class="w-2 h-2 rounded-full bg-zinc-500"></div>
+            <span id="demo-status-text" class="text-zinc-400 text-[12px] font-body">Connecting...</span>
+          </div>
+        </div>
+        <div class="flex gap-3 mt-3">
+          <button onclick="endBrookeDemo()" class="flex-1 border border-white/10 text-zinc-400 font-bold text-[11px] tracking-[0.25em] uppercase py-3 hover:border-white/30 hover:text-white transition-colors">
+            End Conversation
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Divider -->
+    <div class="max-w-[800px] mx-auto my-16 flex items-center gap-6">
+      <div class="flex-1 border-t border-white/5"></div>
+      <span class="text-zinc-600 text-[11px] uppercase tracking-[0.3em]">or send her to your meeting</span>
+      <div class="flex-1 border-t border-white/5"></div>
+    </div>
+
+    <!-- ZOOM DEPLOY -->
+    <div class="max-w-[640px] mx-auto border border-white/10 bg-white/[0.02] p-10 reveal">
+      <div class="text-center mb-6">
+        <div class="text-xs uppercase tracking-[0.2em] text-zinc-500 font-semibold mb-2">Deploy to Meeting</div>
+      </div>
+      <form id="brooke-form" onsubmit="return false;">
+        <div class="mb-5">
           <label class="block text-xs uppercase tracking-[0.2em] text-zinc-500 font-semibold mb-2">Meeting Link</label>
           <input type="url" id="zoom-link" placeholder="https://zoom.us/j/123456789" required
-            class="w-full bg-transparent border border-white/10 px-5 py-3.5 text-white text-[14px] font-body transition-colors">
+            class="w-full bg-transparent border border-white/10 px-5 py-3.5 text-white text-[14px] font-body transition-colors focus:border-white/30 outline-none">
         </div>
-
-        <div class="mb-6">
-          <label class="block text-xs uppercase tracking-[0.2em] text-zinc-500 font-semibold mb-2">What Should Brooke Do?</label>
-          <textarea id="context" placeholder='E.g. "Sales discovery with a dental practice owner. Qualify for budget, timeline, and decision process."' required
-            class="w-full bg-transparent border border-white/10 px-5 py-3.5 text-white text-[14px] font-body transition-colors resize-vertical min-h-[100px]"></textarea>
+        <div class="mb-5">
+          <label class="block text-xs uppercase tracking-[0.2em] text-zinc-500 font-semibold mb-2">Context for Brooke</label>
+          <textarea id="context" placeholder='What should she do on this call?' required
+            class="w-full bg-transparent border border-white/10 px-5 py-3.5 text-white text-[14px] font-body transition-colors resize-vertical min-h-[80px] focus:border-white/30 outline-none"></textarea>
         </div>
-
-        <div class="mb-6">
+        <div class="mb-5">
           <label class="block text-xs uppercase tracking-[0.2em] text-zinc-500 font-semibold mb-2">Your Email</label>
           <input type="email" id="user-email" placeholder="you@company.com" required
-            class="w-full bg-transparent border border-white/10 px-5 py-3.5 text-white text-[14px] font-body transition-colors">
+            class="w-full bg-transparent border border-white/10 px-5 py-3.5 text-white text-[14px] font-body transition-colors focus:border-white/30 outline-none">
         </div>
-
         <button type="submit" id="submit-btn" onclick="deployBrooke()"
           class="w-full bg-white text-black font-bold text-[11px] tracking-[0.25em] uppercase py-4 btn-sweep hover:bg-zinc-100 transition-colors">
-          Deploy Brooke Now
+          Send Brooke to Meeting
         </button>
-
         <div id="form-status" class="mt-4 p-3 text-[13px] text-center hidden"></div>
-
       </form>
-      <p class="text-zinc-600 text-[11px] text-center mt-6">Brooke joins as a video participant with face and voice. Your prospect sees a professional avatar with natural lip sync.</p>
     </div>
   </div>
 </section>
@@ -810,6 +856,105 @@ async function deployBrooke() {
     btn.textContent = 'DEPLOY BROOKE NOW';
     btn.style.opacity = '1';
   }
+}
+
+// ---- LIVE DEMO: Talk to Brooke on the page ----
+let demoRoom = null;
+
+async function startBrookeDemo() {
+  const ctx = document.getElementById('demo-context').value.trim();
+  const btn = document.getElementById('demo-start-btn');
+  const setup = document.getElementById('demo-setup');
+  const live = document.getElementById('demo-live');
+  const dot = document.getElementById('demo-dot');
+  const statusText = document.getElementById('demo-status-text');
+
+  btn.disabled = true;
+  btn.textContent = 'CONNECTING...';
+  btn.style.opacity = '0.5';
+
+  try {
+    // 1. Get demo room token from API
+    const res = await fetch('https://cold-caller.mynewstaff.ai/api/brooke/demo', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ context: ctx || 'General sales demo — greet and ask what they need' }),
+    });
+    const data = await res.json();
+    if (!data.token) throw new Error('No token');
+
+    // 2. Load LiveKit client
+    const lkScript = document.createElement('script');
+    lkScript.src = 'https://cold-caller.mynewstaff.ai/static/livekit-client.umd.js';
+    document.head.appendChild(lkScript);
+    await new Promise((r, j) => { lkScript.onload = r; lkScript.onerror = j; setTimeout(j, 10000); });
+
+    // 3. Show live UI
+    setup.classList.add('hidden');
+    live.classList.remove('hidden');
+    statusText.textContent = 'Connecting to Brooke...';
+
+    // 4. Connect to LiveKit room
+    demoRoom = new LivekitClient.Room();
+
+    demoRoom.on(LivekitClient.RoomEvent.TrackSubscribed, (track, pub, participant) => {
+      const container = document.getElementById('demo-avatar-container');
+      if (track.kind === 'video') {
+        const el = track.attach();
+        el.style.width = '100%';
+        el.style.height = '100%';
+        el.style.objectFit = 'contain';
+        container.innerHTML = '';
+        container.appendChild(el);
+        dot.className = 'w-2 h-2 rounded-full bg-green-400';
+        dot.style.boxShadow = '0 0 6px #4ade80';
+        statusText.textContent = 'Brooke is live — talk to her';
+        statusText.style.color = '#fff';
+      }
+      if (track.kind === 'audio') {
+        const el = track.attach();
+        el.style.display = 'none';
+        document.body.appendChild(el);
+      }
+    });
+
+    demoRoom.on(LivekitClient.RoomEvent.ParticipantConnected, (p) => {
+      if (p.identity.includes('hedra') || p.identity.includes('agent')) {
+        statusText.textContent = 'Brooke is joining...';
+      }
+    });
+
+    await demoRoom.connect(data.lk_url, data.token);
+    statusText.textContent = 'Waiting for Brooke...';
+
+    // 5. Publish mic (and camera if allowed)
+    try { await demoRoom.localParticipant.setMicrophoneEnabled(true); } catch(e) {}
+    try { await demoRoom.localParticipant.setCameraEnabled(true); } catch(e) {}
+
+    // Track conversion
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'brooke_demo_start', { event_category: 'engagement', event_label: ctx.substring(0, 50) });
+    }
+
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = 'TALK TO BROOKE NOW';
+    btn.style.opacity = '1';
+    alert('Could not connect. Please try again or book a demo with Luka.');
+  }
+}
+
+async function endBrookeDemo() {
+  if (demoRoom) {
+    await demoRoom.disconnect();
+    demoRoom = null;
+  }
+  document.getElementById('demo-setup').classList.remove('hidden');
+  document.getElementById('demo-live').classList.add('hidden');
+  const btn = document.getElementById('demo-start-btn');
+  btn.disabled = false;
+  btn.textContent = 'TALK TO BROOKE NOW';
+  btn.style.opacity = '1';
 }
 
 // ---- Smooth scroll ----
