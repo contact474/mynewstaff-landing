@@ -82,14 +82,10 @@ body {
   animation: shimmer 4s linear infinite;
 }
 
-/* Reveal base — visible by default, GSAP animates from below */
+/* Reveal — no hiding, GSAP just adds polish */
 .reveal {
   opacity: 1;
-  transform: translateY(0);
-}
-.reveal.gsap-ready {
-  opacity: 0;
-  transform: translateY(40px);
+  transform: none;
 }
 
 /* Parallax sections */
@@ -690,33 +686,19 @@ Or: "You&#39;re my AI receptionist at a dental practice"'
 <script>
 gsap.registerPlugin(ScrollTrigger);
 
-// ---- Mark elements as GSAP-ready ONLY after GSAP loads ----
-document.querySelectorAll('.reveal').forEach(el => el.classList.add('gsap-ready'));
-
-// ---- Reveal animations with stagger ----
+// ---- Subtle scroll reveals — never hides content ----
 document.querySelectorAll('.reveal').forEach((el, i) => {
-  gsap.to(el, {
-    opacity: 1,
-    y: 0,
-    duration: 0.9,
-    ease: 'power3.out',
+  gsap.from(el, {
+    y: 20,
+    duration: 0.6,
+    ease: 'power2.out',
     scrollTrigger: {
       trigger: el,
-      start: 'top 88%',
+      start: 'top 92%',
       once: true
     },
-    delay: (i % 5) * 0.08
+    delay: (i % 4) * 0.05
   });
-});
-
-// ---- Hero text stagger ----
-gsap.from('#hero .reveal', {
-  opacity: 0,
-  y: 60,
-  duration: 1,
-  stagger: 0.12,
-  ease: 'power3.out',
-  delay: 0.3
 });
 
 // ---- Parallax scroll ----
@@ -980,17 +962,6 @@ window.addEventListener('scroll', () => {
 });
 </script>
 
-<!-- Fallback: if GSAP fails, show all content after 2s -->
-<script>
-setTimeout(() => {
-  document.querySelectorAll('.reveal.gsap-ready').forEach(el => {
-    if (getComputedStyle(el).opacity === '0') {
-      el.style.opacity = '1';
-      el.style.transform = 'translateY(0)';
-    }
-  });
-}, 2000);
-</script>
 
 </body>
 </html>
