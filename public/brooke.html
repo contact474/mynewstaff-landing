@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Brooke — AI Cold Caller That Never Sleeps | MyNewStaff.ai</title>
-<meta name="description" content="Brooke is an AI cold caller with NEPQ sales intelligence. She makes calls 24/7, books meetings, and costs $0.04/min. Your sales team just became infinite.">
+<title>Brooke — AI Sales Avatar for Video Calls | MyNewStaff.ai</title>
+<meta name="description" content="Brooke is an AI avatar that joins your Zoom and Google Meet calls with a real face, real voice, and NEPQ sales intelligence. She sees, hears, and closes.">
 <meta name="author" content="Luka Lah · MyNewStaff.ai">
 <link rel="canonical" href="https://mynewstaff.ai/brooke">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://mynewstaff.ai/brooke">
-<meta property="og:title" content="Brooke — AI Cold Caller That Never Sleeps">
-<meta property="og:description" content="AI cold caller with NEPQ intelligence. 2,400+ calls completed. $0.04/min. Books meetings while your team sleeps.">
+<meta property="og:title" content="Brooke — AI Sales Avatar That Joins Your Calls">
+<meta property="og:description" content="AI avatar with a real face, real voice, and NEPQ sales brain. Joins Zoom/Meet in 30 seconds. Sees participants. Closes deals.">
 <meta property="og:image" content="https://mynewstaff.ai/og-preview.png">
 <meta property="og:site_name" content="MyNewStaff.ai">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Brooke — AI Cold Caller That Never Sleeps">
-<meta name="twitter:description" content="AI cold caller with NEPQ intelligence. 2,400+ calls. $0.04/min. She never takes a sick day.">
+<meta name="twitter:title" content="Brooke — AI Sales Avatar That Joins Your Calls">
+<meta name="twitter:description" content="AI avatar with a real face, real voice, and NEPQ sales brain. Joins Zoom/Meet in 30 seconds.">
 <meta name="twitter:image" content="https://mynewstaff.ai/og-preview.png">
 
 <link rel="icon" href="/favicon.png" type="image/png">
@@ -71,7 +71,7 @@ body {
     90deg,
     #fff 0%,
     #fff 40%,
-    rgba(255,255,255,0.4) 50%,
+    rgba(139,92,246,0.6) 50%,
     #fff 60%,
     #fff 100%
   );
@@ -104,7 +104,7 @@ nav {
 /* Form focus */
 input:focus, textarea:focus {
   outline: none;
-  border-color: rgba(255,255,255,0.3) !important;
+  border-color: rgba(139,92,246,0.5) !important;
 }
 input::placeholder, textarea::placeholder {
   color: rgba(255,255,255,0.2);
@@ -133,7 +133,7 @@ input::placeholder, textarea::placeholder {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, transparent, rgba(0,0,0,0.1), transparent);
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.15), transparent);
   transform: translateX(-100%);
   transition: transform 0.5s;
 }
@@ -147,6 +147,16 @@ input::placeholder, textarea::placeholder {
   50% { transform: translateY(-16px); }
 }
 
+/* Call waveform */
+@keyframes wave {
+  0%,100% { transform: scaleY(0.4); }
+  50% { transform: scaleY(1); }
+}
+@keyframes pulse-ring {
+  0%,100% { border-color: #3f3f46; }
+  50% { border-color: #8b5cf6; box-shadow: 0 0 30px rgba(139,92,246,0.3); }
+}
+
 /* Pricing featured top line */
 .price-featured::before {
   content: '';
@@ -154,8 +164,255 @@ input::placeholder, textarea::placeholder {
   top: 0;
   left: 0;
   right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #8b5cf6, #a78bfa, #8b5cf6);
+}
+
+/* Violet glow */
+.violet-glow {
+  box-shadow: 0 0 80px rgba(139,92,246,0.15), 0 0 160px rgba(139,92,246,0.05);
+}
+
+/* Hero gradient orbs */
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+/* Grid line */
+.grid-line {
+  background: linear-gradient(to bottom, rgba(255,255,255,0.03), transparent);
+}
+
+/* Capability card hover */
+.cap-card {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.cap-card:hover {
+  background: rgba(139,92,246,0.04);
+  border-color: rgba(139,92,246,0.2);
+  transform: translateY(-4px);
+}
+
+/* Step connector line */
+.step-line {
+  position: absolute;
+  top: 50%;
+  right: -32px;
+  width: 64px;
   height: 1px;
+  background: linear-gradient(90deg, rgba(139,92,246,0.3), transparent);
+}
+
+/* Stat pill */
+.stat-pill {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  backdrop-filter: blur(10px);
+}
+
+/* CTA button violet */
+.btn-violet {
+  background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+  transition: all 0.3s;
+}
+.btn-violet:hover {
+  background: linear-gradient(135deg, #6d28d9, #7c3aed);
+  box-shadow: 0 8px 32px rgba(139,92,246,0.3);
+  transform: translateY(-1px);
+}
+
+/* Proof card number */
+.proof-number {
+  background: linear-gradient(135deg, #fff, rgba(139,92,246,0.8));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Pricing card hover */
+.pricing-hover {
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.pricing-hover:hover {
+  transform: scale(1.02);
+  border-color: rgba(139,92,246,0.3);
+  box-shadow: 0 0 40px rgba(139,92,246,0.08);
+}
+
+/* Back to top */
+#back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 50;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(139,92,246,0.2);
+  border: 1px solid rgba(139,92,246,0.3);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, background 0.3s;
+}
+#back-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+#back-to-top:hover {
+  background: rgba(139,92,246,0.4);
+}
+
+/* Scroll indicator */
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+.scroll-indicator {
+  animation: scroll-bounce 2s ease-in-out infinite;
+}
+
+/* Floating mobile CTA */
+#floating-cta {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 45;
+  background: rgba(0,0,0,0.95);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(139,92,246,0.2);
+  padding: 12px 16px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+#floating-cta.visible {
+  transform: translateY(0);
+}
+@media (min-width: 768px) {
+  #floating-cta { display: none !important; }
+}
+
+/* Hamburger menu */
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 60;
+}
+.hamburger-btn span {
+  display: block;
+  width: 22px;
+  height: 2px;
   background: #fff;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.hamburger-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger-btn.open span:nth-child(2) { opacity: 0; }
+.hamburger-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+@media (max-width: 767px) {
+  .hamburger-btn { display: flex; }
+}
+
+#mobile-menu {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 49;
+  background: rgba(0,0,0,0.97);
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+#mobile-menu.open {
+  transform: translateX(0);
+}
+
+/* Language selector */
+.lang-selector {
+  position: relative;
+}
+.lang-selector select {
+  appearance: none;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #a1a1aa;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 24px 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.lang-selector select:hover { border-color: rgba(255,255,255,0.2); }
+.lang-selector select:focus { outline: none; border-color: rgba(139,92,246,0.5); }
+.lang-selector::after {
+  content: '';
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #71717a;
+  pointer-events: none;
+}
+
+/* Video play overlay */
+.video-play-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.3);
+  cursor: pointer;
+  transition: background 0.3s;
+  z-index: 5;
+}
+.video-play-overlay:hover { background: rgba(0,0,0,0.15); }
+.video-play-overlay.hidden { display: none; }
+
+/* Mobile responsive overrides */
+@media (max-width: 767px) {
+  #back-to-top { bottom: 80px; }
+  .stat-pill { padding: 8px 12px; }
+  .stat-pill .text-sm { font-size: 12px; }
+  .stat-pill .text-\\[11px\\] { font-size: 10px; }
+}
+
+/* Inline CTA between sections */
+.section-cta {
+  text-align: center;
+  padding: 16px 24px;
+}
+.section-cta a {
+  display: inline-block;
+  transition: all 0.3s;
+}
+.section-cta a:hover {
+  transform: translateY(-2px);
 }
 </style>
 </head>
@@ -166,123 +423,412 @@ input::placeholder, textarea::placeholder {
 <!-- NAV -->
 <!-- ============================================ -->
 <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/5" style="background: rgba(0,0,0,0.85);">
-  <div class="max-w-[1200px] mx-auto px-10 h-14 flex items-center justify-between">
+  <div class="max-w-[1200px] mx-auto px-6 md:px-10 h-14 flex items-center justify-between">
     <a href="https://mynewstaff.ai" class="font-wide font-extrabold text-[13px] tracking-[0.12em] uppercase">MYNEWSTAFF.AI</a>
-    <div class="flex items-center gap-7">
+    <div class="flex items-center gap-4 md:gap-7">
+      <a href="#try-it" class="hidden md:block text-zinc-500 text-[11px] font-medium tracking-[0.15em] uppercase hover:text-white transition-colors">Try Brooke</a>
       <a href="#how" class="hidden md:block text-zinc-500 text-[11px] font-medium tracking-[0.15em] uppercase hover:text-white transition-colors">How It Works</a>
+      <a href="#cost" class="hidden md:block text-zinc-500 text-[11px] font-medium tracking-[0.15em] uppercase hover:text-white transition-colors">Cost</a>
       <a href="#pricing" class="hidden md:block text-zinc-500 text-[11px] font-medium tracking-[0.15em] uppercase hover:text-white transition-colors">Pricing</a>
-      <a href="#proof" class="hidden md:block text-zinc-500 text-[11px] font-medium tracking-[0.15em] uppercase hover:text-white transition-colors">Results</a>
-      <a href="#try-it" class="bg-white text-black font-bold text-[11px] tracking-[0.25em] uppercase px-5 py-2 btn-sweep hover:bg-zinc-100 transition-colors">Try Brooke</a>
+      <div class="lang-selector hidden md:block">
+        <select id="lang-select" onchange="switchLanguage(this.value)">
+          <option value="en">EN</option>
+          <option value="es">ES</option>
+          <option value="de">DE</option>
+          <option value="fr">FR</option>
+          <option value="pt">PT</option>
+          <option value="sl">SL</option>
+        </select>
+      </div>
+      <a href="#booking" class="hidden md:block bg-white text-black font-bold text-[11px] tracking-[0.25em] uppercase px-5 py-2 btn-sweep hover:bg-zinc-100 transition-colors">Book Demo</a>
+      <div class="hamburger-btn" id="hamburger" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+      </div>
     </div>
   </div>
 </nav>
 
+<!-- Mobile Menu -->
+<div id="mobile-menu">
+  <a href="#try-it" onclick="closeMobileMenu()" class="text-zinc-300 text-lg font-wide font-semibold uppercase tracking-[0.15em] hover:text-white transition-colors">Try Brooke</a>
+  <a href="#how" onclick="closeMobileMenu()" class="text-zinc-300 text-lg font-wide font-semibold uppercase tracking-[0.15em] hover:text-white transition-colors">How It Works</a>
+  <a href="#cost" onclick="closeMobileMenu()" class="text-zinc-300 text-lg font-wide font-semibold uppercase tracking-[0.15em] hover:text-white transition-colors">Cost</a>
+  <a href="#pricing" onclick="closeMobileMenu()" class="text-zinc-300 text-lg font-wide font-semibold uppercase tracking-[0.15em] hover:text-white transition-colors">Pricing</a>
+  <a href="#faq" onclick="closeMobileMenu()" class="text-zinc-300 text-lg font-wide font-semibold uppercase tracking-[0.15em] hover:text-white transition-colors">FAQ</a>
+  <a href="#book-luka" onclick="closeMobileMenu()" class="text-zinc-300 text-lg font-wide font-semibold uppercase tracking-[0.15em] hover:text-white transition-colors">Talk to Luka</a>
+  <div class="lang-selector mt-4">
+    <select id="lang-select-mobile" onchange="switchLanguage(this.value)">
+      <option value="en">EN</option>
+      <option value="es">ES</option>
+      <option value="de">DE</option>
+      <option value="fr">FR</option>
+      <option value="pt">PT</option>
+      <option value="sl">SL</option>
+    </select>
+  </div>
+  <a href="#booking" onclick="closeMobileMenu()" class="mt-4 bg-white text-black font-bold text-[13px] tracking-[0.25em] uppercase px-8 py-3 btn-sweep hover:bg-zinc-100 transition-colors">Book Demo</a>
+</div>
+
 <!-- ============================================ -->
 <!-- HERO -->
 <!-- ============================================ -->
-<section class="min-h-screen flex flex-col justify-center items-center text-center px-10 pt-32 pb-20 relative" id="hero">
-  <div class="max-w-[1200px] mx-auto relative z-10">
+<section class="min-h-screen flex flex-col justify-center items-center text-center px-6 md:px-10 pt-20 pb-12 relative overflow-hidden" id="hero">
+
+  <!-- Background orbs -->
+  <div class="hero-orb w-[600px] h-[600px] bg-violet-600 -top-48 -right-48" style="position:absolute;"></div>
+  <div class="hero-orb w-[400px] h-[400px] bg-violet-500 bottom-0 -left-32" style="position:absolute;"></div>
+
+  <div class="max-w-[1000px] mx-auto relative z-10">
 
     <!-- Label -->
-    <div class="reveal text-xs uppercase tracking-[0.3em] text-zinc-500 font-semibold mb-8">
-      AI Cold Caller &mdash; NEPQ Intelligence &mdash; $0.04/min
+    <div class="reveal text-[11px] uppercase tracking-[0.35em] text-violet-400/70 font-semibold mb-10">
+      AI Sales Agent &middot; Voice + Video Avatar
+    </div>
+
+    <!-- Avatar — large, centered, floating -->
+    <div class="reveal relative w-[180px] h-[180px] md:w-[220px] md:h-[220px] mx-auto mb-10" style="animation: float 5s ease-in-out infinite;">
+      <div class="absolute inset-0 rounded-full violet-glow"></div>
+      <img src="https://cold-caller.mynewstaff.ai/static/brooke-avatar.png" alt="Brooke AI Avatar"
+        class="w-full h-full object-cover rounded-full border-2 border-violet-500/30 relative z-10"
+        onerror="this.style.display='none'">
+      <div class="absolute bottom-3 right-3 w-5 h-5 bg-green-500 rounded-full border-[3px] border-black z-20"></div>
+      <!-- Pulse rings -->
+      <div class="absolute inset-[-12px] rounded-full border border-violet-500/10 animate-ping" style="animation-duration:3s;"></div>
     </div>
 
     <!-- Main headline -->
-    <h1 class="reveal font-wide font-extrabold text-[clamp(48px,8vw,110px)] leading-[0.9] tracking-[-0.04em] uppercase mb-8">
-      <span class="shimmer">BROOKE</span>
+    <h1 class="reveal font-wide font-extrabold text-[clamp(52px,9vw,120px)] leading-[0.88] tracking-[-0.05em] uppercase mb-6">
+      <span class="shimmer" data-i18n="hero_headline">MEET BROOKE</span>
     </h1>
 
-    <p class="reveal font-wide font-bold text-[clamp(18px,2.5vw,28px)] leading-tight tracking-[-0.02em] uppercase text-zinc-300 mb-6">
-      Your AI that makes the calls<br>you don't want to make.
+    <p class="reveal font-wide font-bold text-[clamp(16px,2.2vw,26px)] leading-snug tracking-[-0.01em] text-zinc-300 mb-6 max-w-[700px] mx-auto" data-i18n="hero_subheadline">
+      The AI That Calls, Qualifies,<br>and Closes — With a Face
     </p>
 
-    <p class="reveal text-zinc-400 text-[17px] max-w-[540px] mx-auto mb-12 leading-relaxed">
-      How many deals did you lose this month because nobody picked up the phone? Brooke calls 24/7. She never takes a sick day. She never asks for commission. And she closes.
+    <p class="reveal text-zinc-500 text-[15px] md:text-[17px] max-w-[600px] mx-auto mb-12 leading-relaxed">
+      Voice agent for cold calls at $0.25/min. Video avatar that joins Zoom with a real face at $2.50/min. NEPQ sales brain trained on the top 1% of closers. Computer vision that reads the room. Your SDR costs $54K/year. Brooke costs less than your coffee.
     </p>
 
-    <!-- Buttons -->
-    <div class="reveal flex gap-4 flex-wrap justify-center mb-20">
-      <a href="#try-it" class="bg-white text-black font-bold text-[11px] tracking-[0.25em] uppercase px-10 py-4 btn-sweep hover:bg-zinc-100 transition-colors">Try Brooke Free</a>
-      <a href="#proof" class="border border-white/10 text-white font-bold text-[11px] tracking-[0.25em] uppercase px-10 py-4 hover:border-white/30 transition-colors">See the Numbers</a>
+    <!-- CTA -->
+    <div class="reveal flex gap-4 flex-wrap justify-center mb-10">
+      <a href="#try-it" class="btn-violet text-white font-bold text-[11px] tracking-[0.25em] uppercase px-10 py-4 rounded-sm" data-i18n="cta_talk_now">Talk to Brooke Now</a>
+      <a href="#cost" class="border border-white/10 text-white font-bold text-[11px] tracking-[0.25em] uppercase px-10 py-4 hover:border-white/30 transition-colors rounded-sm">See the Math</a>
     </div>
 
-    <!-- Avatar -->
-    <div class="reveal relative w-[200px] h-[200px] mx-auto" style="animation: float 4s ease-in-out infinite;">
-      <img src="https://cold-caller.mynewstaff.ai/static/brooke-avatar.png" alt="Brooke AI Avatar" class="w-full h-full object-cover rounded-full border border-white/10" onerror="this.style.display='none'">
-      <div class="absolute bottom-2 right-2 w-4 h-4 bg-white rounded-full border-[3px] border-black"></div>
+    <!-- Stats bar -->
+    <div class="reveal flex flex-wrap justify-center gap-3 md:gap-4">
+      <div class="stat-pill px-5 py-2.5 rounded-full flex items-center gap-2">
+        <span class="text-violet-400 text-sm font-semibold"><span class="counter" data-target="2400">0</span>+</span>
+        <span class="text-zinc-500 text-[11px] uppercase tracking-wider">Calls Made</span>
+      </div>
+      <div class="stat-pill px-5 py-2.5 rounded-full flex items-center gap-2">
+        <span class="text-violet-400 text-sm font-semibold">$0.25</span>
+        <span class="text-zinc-500 text-[11px] uppercase tracking-wider">Voice /min</span>
+      </div>
+      <div class="stat-pill px-5 py-2.5 rounded-full flex items-center gap-2">
+        <span class="text-violet-400 text-sm font-semibold">$2.50</span>
+        <span class="text-zinc-500 text-[11px] uppercase tracking-wider">Avatar /min</span>
+      </div>
+      <div class="stat-pill px-5 py-2.5 rounded-full flex items-center gap-2">
+        <svg class="w-3.5 h-3.5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+        <span class="text-zinc-500 text-[11px] uppercase tracking-wider">Vision + NEPQ</span>
+      </div>
+      <div class="stat-pill px-5 py-2.5 rounded-full flex items-center gap-2">
+        <span class="text-violet-400 text-sm font-semibold">24/7</span>
+        <span class="text-zinc-500 text-[11px] uppercase tracking-wider">Always On</span>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator mt-12">
+      <svg class="w-6 h-6 text-zinc-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+      </svg>
     </div>
 
   </div>
 </section>
 
 <!-- ============================================ -->
-<!-- STATS BAR -->
+<!-- TRY BROOKE — RIGHT AFTER HERO -->
 <!-- ============================================ -->
-<div class="border-t border-b border-white/5 py-10 parallax-slow">
-  <div class="max-w-[1000px] mx-auto px-10 grid grid-cols-2 md:grid-cols-5 gap-8">
-    <div class="text-center reveal">
-      <div class="text-3xl font-wide font-bold"><span class="counter" data-target="30">0</span>s</div>
-      <div class="text-xs uppercase tracking-[0.2em] text-zinc-500 mt-2">Deploy Time</div>
+<section class="py-16 md:py-24 border-t border-white/5 relative" id="try-it">
+  <div class="max-w-[1200px] mx-auto px-6 md:px-10">
+
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-violet-600/5 blur-[100px]"></div>
     </div>
-    <div class="text-center reveal">
-      <div class="text-3xl font-wide font-bold"><span class="counter" data-target="2400">0</span>+</div>
-      <div class="text-xs uppercase tracking-[0.2em] text-zinc-500 mt-2">Calls Made</div>
+
+    <div class="text-center mb-12 relative z-10">
+      <div class="reveal text-[11px] uppercase tracking-[0.35em] text-violet-400/60 font-semibold mb-4" data-i18n="try_it_label">Try It Now</div>
+      <h2 class="reveal font-wide font-extrabold text-[clamp(28px,4vw,48px)] leading-[1] tracking-[-0.04em] uppercase" data-i18n="try_it_heading">
+        Talk to <span class="shimmer">Brooke</span> Right Now
+      </h2>
+      <p class="reveal text-zinc-500 text-[15px] max-w-[540px] mx-auto mt-4">No signup. No Zoom. Pick your experience — face-to-face or voice call.</p>
     </div>
-    <div class="text-center reveal">
-      <div class="text-3xl font-wide font-bold"><span class="counter" data-target="95">0</span>%</div>
-      <div class="text-xs uppercase tracking-[0.2em] text-zinc-500 mt-2">Satisfaction</div>
-    </div>
-    <div class="text-center reveal">
-      <div class="text-3xl font-wide font-bold">$<span class="counter" data-target="0.04" data-decimals="2">0</span></div>
-      <div class="text-xs uppercase tracking-[0.2em] text-zinc-500 mt-2">Per Minute</div>
-    </div>
-    <div class="text-center reveal col-span-2 md:col-span-1">
-      <div class="text-3xl font-wide font-bold"><span class="counter" data-target="5">0</span></div>
-      <div class="text-xs uppercase tracking-[0.2em] text-zinc-500 mt-2">Personas</div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 relative z-10">
+
+      <!-- ═══ LEFT: VIDEO AVATAR WIDGET ═══ -->
+      <div class="reveal">
+        <div class="border border-white/10 bg-white/[0.02] rounded-sm p-6 md:p-8 text-center violet-glow h-full flex flex-col">
+          <div id="avatar-container" class="relative w-full aspect-video bg-black/40 rounded-lg overflow-hidden mb-5 border border-white/5">
+            <img src="https://files2.heygen.ai/avatar/v3/74447a27859a456c955e01f21ef18216_45620/preview_talk_1.webp" alt="Brooke"
+              id="avatar-preview" class="w-full h-full object-cover">
+            <div id="avatar-loading" class="hidden absolute inset-0 flex items-center justify-center bg-black/60">
+              <div class="flex flex-col items-center gap-3">
+                <div class="w-8 h-8 border-2 border-violet-500 border-t-transparent rounded-full animate-spin"></div>
+                <span class="text-violet-400 text-xs uppercase tracking-wider">Connecting avatar...</span>
+              </div>
+            </div>
+            <div id="avatar-badge" class="absolute bottom-3 left-3 flex items-center gap-2 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-full">
+              <div class="w-2 h-2 rounded-full bg-zinc-500" id="avatar-dot"></div>
+              <span class="text-white text-xs font-medium">Brooke</span>
+            </div>
+          </div>
+          <div class="font-wide font-bold text-base mb-1">Video Avatar</div>
+          <div class="text-violet-400/60 text-[11px] mb-4 uppercase tracking-wider">Face-to-Face with AI</div>
+          <div id="avatar-status" class="text-zinc-500 text-sm mb-4">See and talk to Brooke live</div>
+          <div id="avatar-waveform" class="hidden justify-center items-center gap-1 h-6 mb-3">
+            <div class="w-1 bg-violet-500 rounded-full" style="animation: wave 0.6s ease-in-out infinite; height: 10px;"></div>
+            <div class="w-1 bg-violet-500 rounded-full" style="animation: wave 0.6s ease-in-out infinite 0.1s; height: 20px;"></div>
+            <div class="w-1 bg-violet-500 rounded-full" style="animation: wave 0.6s ease-in-out infinite 0.2s; height: 14px;"></div>
+            <div class="w-1 bg-violet-500 rounded-full" style="animation: wave 0.6s ease-in-out infinite 0.3s; height: 26px;"></div>
+            <div class="w-1 bg-violet-500 rounded-full" style="animation: wave 0.6s ease-in-out infinite 0.15s; height: 16px;"></div>
+          </div>
+          <div id="avatar-timer" class="text-xl font-light mb-4 hidden font-body" style="font-variant-numeric: tabular-nums;">00:00</div>
+          <!-- Email gate form (shows first) -->
+          <div id="avatar-gate" class="mt-auto">
+            <div class="space-y-2 mb-3">
+              <input type="text" id="avatar-gate-name" placeholder="Your name"
+                class="w-full bg-transparent border border-white/10 px-4 py-2.5 text-white text-[13px] font-body rounded-sm focus:border-violet-500/50 transition-colors">
+              <input type="email" id="avatar-gate-email" placeholder="Your email"
+                class="w-full bg-transparent border border-white/10 px-4 py-2.5 text-white text-[13px] font-body rounded-sm focus:border-violet-500/50 transition-colors">
+              <input type="tel" id="avatar-gate-phone" placeholder="Phone (we'll text you something useful)"
+                class="w-full bg-transparent border border-white/10 px-4 py-2.5 text-white text-[13px] font-body rounded-sm focus:border-violet-500/50 transition-colors">
+            </div>
+            <button id="avatar-btn" onclick="startAvatarWithGate()"
+              class="btn-sweep bg-violet-600 hover:bg-violet-500 text-white font-bold text-[11px] tracking-[0.2em] uppercase px-8 py-3.5 rounded-sm transition-colors w-full"
+              data-i18n="btn_video_chat">
+              Start Video Chat
+            </button>
+            <div id="avatar-gate-error" class="text-red-400 text-[11px] mt-2 hidden"></div>
+          </div>
+          <!-- End session button (shows during session) -->
+          <div id="avatar-end-wrap" class="mt-auto hidden">
+            <button id="avatar-end-btn" onclick="endAvatarSession()"
+              class="btn-sweep bg-red-600 hover:bg-red-500 text-white font-bold text-[11px] tracking-[0.2em] uppercase px-8 py-3.5 rounded-sm transition-colors w-full">
+              End Session
+            </button>
+          </div>
+          <p class="text-zinc-700 text-[11px] mt-4">Requires mic + camera. Chrome or Safari.</p>
+        </div>
+      </div>
+
+      <!-- ═══ RIGHT: VOICE CALL WIDGET ═══ -->
+      <div class="reveal">
+        <div class="border border-white/10 bg-white/[0.02] rounded-sm p-6 md:p-8 text-center h-full flex flex-col">
+          <div class="relative w-full aspect-video bg-black/40 rounded-lg overflow-hidden mb-5 border border-white/5 flex items-center justify-center">
+            <img src="https://cold-caller.mynewstaff.ai/static/brooke-avatar.png" alt="Brooke"
+              id="call-avatar"
+              class="w-28 h-28 md:w-32 md:h-32 rounded-full object-cover border-2 border-white/10 transition-all"
+              style="object-position: center 25%;">
+          </div>
+          <div class="font-wide font-bold text-base mb-1">Voice Call</div>
+          <div class="text-zinc-500 text-[11px] mb-4 uppercase tracking-wider">Phone-style conversation</div>
+          <div id="call-status" class="text-zinc-500 text-sm mb-4">Click to call — she picks up in 3 seconds</div>
+          <div id="call-waveform" class="hidden justify-center items-center gap-1 h-6 mb-3">
+            <div class="w-1 bg-green-500 rounded-full" style="animation: wave 0.6s ease-in-out infinite; height: 10px;"></div>
+            <div class="w-1 bg-green-500 rounded-full" style="animation: wave 0.6s ease-in-out infinite 0.1s; height: 20px;"></div>
+            <div class="w-1 bg-green-500 rounded-full" style="animation: wave 0.6s ease-in-out infinite 0.2s; height: 14px;"></div>
+            <div class="w-1 bg-green-500 rounded-full" style="animation: wave 0.6s ease-in-out infinite 0.3s; height: 26px;"></div>
+            <div class="w-1 bg-green-500 rounded-full" style="animation: wave 0.6s ease-in-out infinite 0.15s; height: 16px;"></div>
+          </div>
+          <div id="call-timer" class="text-xl font-light mb-4 hidden font-body" style="font-variant-numeric: tabular-nums;">00:00</div>
+          <div id="call-transcript" class="hidden text-left max-h-32 overflow-y-auto p-3 bg-white/[0.02] border border-white/5 rounded-lg mb-4 text-xs"></div>
+          <div class="mt-auto">
+            <button id="call-btn" onclick="toggleBrookeCall()"
+              class="btn-sweep bg-green-600 hover:bg-green-500 text-white font-bold text-[11px] tracking-[0.2em] uppercase px-8 py-3.5 rounded-sm transition-colors w-full"
+              data-i18n="btn_voice_call">
+              Start Voice Call
+            </button>
+          </div>
+          <p class="text-zinc-700 text-[11px] mt-4">Requires microphone only. All browsers.</p>
+        </div>
+      </div>
+
     </div>
   </div>
-</div>
+</section>
+
+<!-- ============================================ -->
+<!-- THE PROBLEM -->
+<!-- ============================================ -->
+<section class="py-16 md:py-24 border-t border-white/5 relative" id="problem">
+  <div class="max-w-[1100px] mx-auto px-6 md:px-10">
+
+    <div class="text-center mb-12">
+      <div class="reveal text-[11px] uppercase tracking-[0.35em] text-violet-400/60 font-semibold mb-4">The Problem</div>
+      <h2 class="reveal font-wide font-extrabold text-[clamp(30px,4.5vw,56px)] leading-[1] tracking-[-0.04em] uppercase">
+        Your Sales Team Is<br><span class="shimmer">Burning Money</span>
+      </h2>
+      <p class="reveal text-zinc-500 text-[15px] max-w-[560px] mx-auto mt-6">Here's what you're actually paying for when you hire humans to sell.</p>
+    </div>
+
+    <div class="grid md:grid-cols-4 gap-5">
+
+      <div class="border border-white/[0.06] bg-white/[0.015] p-6 md:p-8 rounded-sm reveal text-center">
+        <div class="proof-number font-wide font-extrabold text-4xl md:text-5xl tracking-[-0.04em] mb-2">$54K</div>
+        <div class="text-[11px] uppercase tracking-[0.2em] text-zinc-500 mb-4">SDR Base Salary /yr</div>
+        <p class="text-zinc-600 text-[13px] leading-relaxed">Before commission, benefits, desk, software, and management overhead. Real cost: $75K-$120K.</p>
+      </div>
+
+      <div class="border border-white/[0.06] bg-white/[0.015] p-6 md:p-8 rounded-sm reveal text-center">
+        <div class="proof-number font-wide font-extrabold text-4xl md:text-5xl tracking-[-0.04em] mb-2">2.5h</div>
+        <div class="text-[11px] uppercase tracking-[0.2em] text-zinc-500 mb-4">Productive /Day</div>
+        <p class="text-zinc-600 text-[13px] leading-relaxed">Out of 8 hours, your SDR spends 2-3 hours actually talking to prospects. The rest? CRM, meetings, lunch, Slack.</p>
+      </div>
+
+      <div class="border border-white/[0.06] bg-white/[0.015] p-6 md:p-8 rounded-sm reveal text-center">
+        <div class="proof-number font-wide font-extrabold text-4xl md:text-5xl tracking-[-0.04em] mb-2">3-6</div>
+        <div class="text-[11px] uppercase tracking-[0.2em] text-zinc-500 mb-4">Months to Ramp</div>
+        <p class="text-zinc-600 text-[13px] leading-relaxed">New hires need training, shadowing, and practice calls before they produce. Half quit before month 6.</p>
+      </div>
+
+      <div class="border border-white/[0.06] bg-white/[0.015] p-6 md:p-8 rounded-sm reveal text-center">
+        <div class="proof-number font-wide font-extrabold text-4xl md:text-5xl tracking-[-0.04em] mb-2">35%</div>
+        <div class="text-[11px] uppercase tracking-[0.2em] text-zinc-500 mb-4">Annual Turnover</div>
+        <p class="text-zinc-600 text-[13px] leading-relaxed">Average SDR tenure is 14 months. Every departure costs you 3-6 months of pipeline and another $15K in hiring.</p>
+      </div>
+
+    </div>
+
+    <p class="reveal text-center text-zinc-500 text-[15px] mt-12 max-w-[600px] mx-auto">
+      You're not paying for calls. You're paying for humans to sit at desks, get distracted, call in sick, and eventually quit. <span class="text-white font-semibold">What if the calls just... happened?</span>
+    </p>
+
+    <!-- CTA after problem -->
+    <div class="section-cta mt-6 reveal">
+      <a href="#try-it" class="btn-violet text-white font-bold text-[11px] tracking-[0.25em] uppercase px-8 py-3.5 rounded-sm">
+        See How Brooke Solves This &rarr;
+      </a>
+    </div>
+  </div>
+</section>
 
 <!-- ============================================ -->
 <!-- HOW IT WORKS -->
 <!-- ============================================ -->
-<section class="py-32 border-t border-white/5" id="how">
-  <div class="max-w-[1200px] mx-auto px-10">
+<section class="py-16 md:py-24 border-t border-white/5 relative" id="how">
+  <div class="max-w-[1100px] mx-auto px-6 md:px-10">
 
-    <div class="text-center mb-20">
-      <div class="reveal text-xs uppercase tracking-[0.3em] text-zinc-500 font-semibold mb-4">Three Steps</div>
-      <h2 class="reveal font-wide font-extrabold text-[clamp(28px,4vw,52px)] leading-[1.05] tracking-[-0.04em] uppercase">
-        How It <span class="shimmer">Works</span>
+    <div class="text-center mb-12">
+      <div class="reveal text-[11px] uppercase tracking-[0.35em] text-violet-400/60 font-semibold mb-4">How It Works</div>
+      <h2 class="reveal font-wide font-extrabold text-[clamp(30px,4.5vw,56px)] leading-[1] tracking-[-0.04em] uppercase">
+        Three Modes. <span class="shimmer">One Brain.</span>
       </h2>
+      <p class="reveal text-zinc-500 text-[15px] max-w-[560px] mx-auto mt-6">Brooke works however you need her. On your website, on the phone, or on camera.</p>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-[1px] bg-white/5">
+    <div class="grid md:grid-cols-3 gap-6">
 
-      <div class="bg-black p-12 relative reveal">
-        <div class="font-wide text-[72px] font-extrabold text-white/[0.04] leading-none absolute top-6 left-8">01</div>
-        <div class="relative z-10">
-          <div class="text-xs uppercase tracking-[0.2em] text-zinc-500 mb-4">Step One</div>
-          <h3 class="font-wide font-bold text-xl uppercase tracking-[-0.02em] mb-4">Paste a Meeting Link</h3>
-          <p class="text-zinc-400 text-[15px] leading-relaxed">Zoom. Google Meet. Teams. Any video platform. Drop the link. That's it. No SDK. No integration. No IT department.</p>
+      <!-- Mode 1: On-Page Widget -->
+      <div class="reveal border border-white/[0.06] bg-white/[0.015] rounded-sm overflow-hidden">
+        <!-- Preview -->
+        <div class="relative aspect-[4/3] bg-black/40 overflow-hidden border-b border-white/5">
+          <div class="absolute inset-0 flex items-center justify-center p-4">
+            <!-- Mini mockup of the widget -->
+            <div class="w-full max-w-[240px] border border-white/10 rounded-lg overflow-hidden bg-black/60">
+              <div class="aspect-video relative">
+                <img src="https://files2.heygen.ai/avatar/v3/74447a27859a456c955e01f21ef18216_45620/preview_talk_1.webp" alt="Brooke on page" class="w-full h-full object-cover opacity-80">
+                <div class="absolute bottom-2 left-2 flex items-center gap-1.5 bg-black/60 backdrop-blur-sm px-2 py-1 rounded-full">
+                  <div class="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+                  <span class="text-white text-[9px] font-medium">Live</span>
+                </div>
+              </div>
+              <div class="p-2.5 text-center">
+                <div class="text-white text-[10px] font-bold mb-1">Video Avatar</div>
+                <div class="bg-violet-600 text-white text-[8px] font-bold uppercase tracking-wider py-1.5 px-3 rounded-sm">Start Video Chat</div>
+              </div>
+            </div>
+          </div>
+          <div class="absolute top-3 right-3 text-[9px] uppercase tracking-wider text-violet-400/60 font-semibold bg-black/40 px-2 py-0.5 rounded-full">Embedded widget</div>
+        </div>
+        <div class="p-6">
+          <div class="text-[11px] uppercase tracking-[0.2em] text-violet-400/50 font-semibold mb-2">Mode 01</div>
+          <h3 class="font-wide font-bold text-lg uppercase tracking-[-0.02em] mb-3">On-Page Demo</h3>
+          <p class="text-zinc-500 text-[13px] leading-relaxed mb-4">Embed Brooke on your website. Visitors talk to her face-to-face or via voice call — right in the browser. No downloads, no signups.</p>
+          <div class="text-[12px] text-zinc-600 border-t border-white/5 pt-3">
+            <span class="text-violet-400 font-semibold">Use case:</span> Landing pages, product demos, lead qualification.
+          </div>
         </div>
       </div>
 
-      <div class="bg-black p-12 relative reveal">
-        <div class="font-wide text-[72px] font-extrabold text-white/[0.04] leading-none absolute top-6 left-8">02</div>
-        <div class="relative z-10">
-          <div class="text-xs uppercase tracking-[0.2em] text-zinc-500 mb-4">Step Two</div>
-          <h3 class="font-wide font-bold text-xl uppercase tracking-[-0.02em] mb-4">Tell Her What to Do</h3>
-          <p class="text-zinc-400 text-[15px] leading-relaxed">Plain English. "Qualify this dental practice for implant marketing budget." Brooke understands context, objections, and when to push.</p>
+      <!-- Mode 2: Voice Agent -->
+      <div class="reveal border border-white/[0.06] bg-white/[0.015] rounded-sm overflow-hidden">
+        <!-- Preview -->
+        <div class="relative aspect-[4/3] bg-black/40 overflow-hidden border-b border-white/5">
+          <div class="absolute inset-0 flex items-center justify-center p-4">
+            <!-- Phone call mockup -->
+            <div class="w-[160px] border border-white/10 rounded-2xl overflow-hidden bg-black/80 p-4 text-center">
+              <img src="https://cold-caller.mynewstaff.ai/static/brooke-avatar.png" alt="Brooke calling" class="w-16 h-16 rounded-full object-cover mx-auto mb-3 border-2 border-green-500/30" style="object-position: center 25%;">
+              <div class="text-white text-[11px] font-bold mb-0.5">Brooke</div>
+              <div class="text-green-400 text-[9px] mb-3">Connected 02:34</div>
+              <div class="flex justify-center gap-1 mb-3 h-5 items-center">
+                <div class="w-0.5 bg-green-500 rounded-full" style="animation: wave 0.6s ease-in-out infinite; height: 6px;"></div>
+                <div class="w-0.5 bg-green-500 rounded-full" style="animation: wave 0.6s ease-in-out infinite 0.1s; height: 14px;"></div>
+                <div class="w-0.5 bg-green-500 rounded-full" style="animation: wave 0.6s ease-in-out infinite 0.2s; height: 8px;"></div>
+                <div class="w-0.5 bg-green-500 rounded-full" style="animation: wave 0.6s ease-in-out infinite 0.3s; height: 18px;"></div>
+                <div class="w-0.5 bg-green-500 rounded-full" style="animation: wave 0.6s ease-in-out infinite 0.15s; height: 10px;"></div>
+              </div>
+              <div class="bg-red-500 text-white text-[8px] font-bold uppercase py-1.5 px-4 rounded-full inline-block">End Call</div>
+            </div>
+          </div>
+          <div class="absolute top-3 right-3 text-[9px] uppercase tracking-wider text-green-400/60 font-semibold bg-black/40 px-2 py-0.5 rounded-full">$0.25/min</div>
+        </div>
+        <div class="p-6">
+          <div class="text-[11px] uppercase tracking-[0.2em] text-violet-400/50 font-semibold mb-2">Mode 02</div>
+          <h3 class="font-wide font-bold text-lg uppercase tracking-[-0.02em] mb-3">Voice Agent</h3>
+          <p class="text-zinc-500 text-[13px] leading-relaxed mb-4">Cold calling, warm follow-ups, inbound qualification. Brooke calls your leads, qualifies with NEPQ, and books meetings. $0.25/min.</p>
+          <div class="text-[12px] text-zinc-600 border-t border-white/5 pt-3">
+            <span class="text-violet-400 font-semibold">Use case:</span> Outbound calls, speed-to-lead, appointment setting, after-hours.
+          </div>
         </div>
       </div>
 
-      <div class="bg-black p-12 relative reveal">
-        <div class="font-wide text-[72px] font-extrabold text-white/[0.04] leading-none absolute top-6 left-8">03</div>
-        <div class="relative z-10">
-          <div class="text-xs uppercase tracking-[0.2em] text-zinc-500 mb-4">Step Three</div>
-          <h3 class="font-wide font-bold text-xl uppercase tracking-[-0.02em] mb-4">Brooke Joins in 30s</h3>
-          <p class="text-zinc-400 text-[15px] leading-relaxed">She shows up with a face, a voice, and your playbook memorized. Records everything. Transcribes. Sends you the summary before the prospect even hangs up.</p>
+      <!-- Mode 3: Video Avatar -->
+      <div class="reveal border border-violet-500/10 bg-violet-500/[0.03] rounded-sm overflow-hidden">
+        <!-- Preview -->
+        <div class="relative aspect-[4/3] bg-black/40 overflow-hidden border-b border-violet-500/10">
+          <div class="absolute inset-0 flex items-center justify-center p-3">
+            <!-- Zoom meeting mockup -->
+            <div class="w-full border border-white/10 rounded-lg overflow-hidden bg-[#1a1a2e]">
+              <div class="grid grid-cols-2 gap-0.5 p-0.5">
+                <div class="aspect-video bg-black/50 rounded-sm relative overflow-hidden">
+                  <img src="https://files2.heygen.ai/avatar/v3/74447a27859a456c955e01f21ef18216_45620/preview_talk_1.webp" alt="Brooke on Zoom" class="w-full h-full object-cover">
+                  <div class="absolute bottom-1 left-1 bg-black/60 px-1.5 py-0.5 rounded text-[7px] text-white font-medium">Brooke (AI)</div>
+                </div>
+                <div class="aspect-video bg-zinc-900 rounded-sm flex items-center justify-center relative">
+                  <svg class="w-8 h-8 text-zinc-700" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                  <div class="absolute bottom-1 left-1 bg-black/60 px-1.5 py-0.5 rounded text-[7px] text-white font-medium">Prospect</div>
+                </div>
+              </div>
+              <div class="flex items-center justify-center gap-3 py-1.5 bg-[#1a1a2e]">
+                <div class="w-5 h-5 rounded-full bg-zinc-700 flex items-center justify-center"><svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg></div>
+                <div class="w-5 h-5 rounded-full bg-zinc-700 flex items-center justify-center"><svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg></div>
+                <div class="w-5 h-5 rounded-full bg-red-500 flex items-center justify-center"><svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z"/></svg></div>
+              </div>
+            </div>
+          </div>
+          <div class="absolute top-3 right-3 text-[9px] uppercase tracking-wider text-green-400/60 font-semibold bg-black/40 px-2 py-0.5 rounded-full">$2.50/min</div>
+        </div>
+        <div class="p-6">
+          <div class="text-[11px] uppercase tracking-[0.2em] text-violet-400/50 font-semibold mb-2">Mode 03</div>
+          <h3 class="font-wide font-bold text-lg uppercase tracking-[-0.02em] mb-3">Video Avatar</h3>
+          <p class="text-zinc-500 text-[13px] leading-relaxed mb-4">Brooke joins Zoom, Meet, or Teams with a real face. Computer vision reads body language. NEPQ closes. $2.50/min.</p>
+          <div class="text-[12px] text-zinc-600 border-t border-violet-500/5 pt-3">
+            <span class="text-violet-400 font-semibold">Use case:</span> Discovery calls, demos, high-ticket consults, follow-ups.
+          </div>
         </div>
       </div>
 
@@ -291,63 +837,280 @@ input::placeholder, textarea::placeholder {
 </section>
 
 <!-- ============================================ -->
-<!-- USE CASES -->
+<!-- CAPABILITIES -->
 <!-- ============================================ -->
-<section class="py-32 border-t border-white/5" id="use-cases">
-  <div class="max-w-[1200px] mx-auto px-10">
+<section class="py-16 md:py-24 border-t border-white/5" id="capabilities">
+  <div class="max-w-[1100px] mx-auto px-6 md:px-10">
 
-    <div class="text-center mb-20">
-      <div class="reveal text-xs uppercase tracking-[0.3em] text-zinc-500 font-semibold mb-4">Built for Revenue</div>
-      <h2 class="reveal font-wide font-extrabold text-[clamp(28px,4vw,52px)] leading-[1.05] tracking-[-0.04em] uppercase">
-        One AI. Five <span class="shimmer">Missions</span>.
+    <div class="text-center mb-12">
+      <div class="reveal text-[11px] uppercase tracking-[0.35em] text-violet-400/60 font-semibold mb-4">Capabilities</div>
+      <h2 class="reveal font-wide font-extrabold text-[clamp(30px,4.5vw,56px)] leading-[1] tracking-[-0.04em] uppercase">
+        Not a Chatbot.<br><span class="shimmer">A Sales Weapon.</span>
       </h2>
-      <p class="reveal text-zinc-400 text-[16px] max-w-[500px] mx-auto mt-6">Every call your team doesn't make is money left on the table. Brooke picks up every single one.</p>
+      <p class="reveal text-zinc-500 text-[15px] max-w-[520px] mx-auto mt-6">Six capabilities no other AI sales tool combines in one agent.</p>
     </div>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-white/5">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
 
-      <div class="bg-black p-10 hover:bg-white/[0.02] transition-colors reveal">
-        <div class="text-xs uppercase tracking-[0.2em] text-zinc-500 mb-6">Sales Discovery</div>
-        <h3 class="font-wide font-bold text-lg uppercase mb-3">Qualify in 8 Minutes</h3>
-        <p class="text-zinc-400 text-[14px] leading-relaxed mb-6">NEPQ probing questions that surface pain, budget, and urgency. What your SDR does in 30 minutes, Brooke does in 8.</p>
-        <div class="text-[13px] text-white font-medium">3.2x more qualified pipeline</div>
+      <!-- Real Face -->
+      <div class="cap-card border border-white/[0.06] bg-white/[0.015] p-8 rounded-sm reveal">
+        <div class="w-12 h-12 rounded-xl bg-violet-500/10 border border-violet-500/15 flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h3 class="font-wide font-bold text-lg uppercase tracking-[-0.01em] mb-2">Real Face on Camera</h3>
+        <p class="text-zinc-500 text-[14px] leading-relaxed">HeyGen avatar with real-time lip-sync. Brooke appears as a video participant with natural expressions. Prospects see a person, not a bot.</p>
       </div>
 
-      <div class="bg-black p-10 hover:bg-white/[0.02] transition-colors reveal">
-        <div class="text-xs uppercase tracking-[0.2em] text-zinc-500 mb-6">Product Demos</div>
-        <h3 class="font-wide font-bold text-lg uppercase mb-3">Walk Them Through</h3>
-        <p class="text-zinc-400 text-[14px] leading-relaxed mb-6">Give Brooke your product brief. She handles objections in real-time and books the next call before hanging up.</p>
-        <div class="text-[13px] text-white font-medium">47% demo-to-close rate</div>
+      <!-- Computer Vision -->
+      <div class="cap-card border border-white/[0.06] bg-white/[0.015] p-8 rounded-sm reveal">
+        <div class="w-12 h-12 rounded-xl bg-violet-500/10 border border-violet-500/15 flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+        </div>
+        <h3 class="font-wide font-bold text-lg uppercase tracking-[-0.01em] mb-2">Computer Vision</h3>
+        <p class="text-zinc-500 text-[14px] leading-relaxed">Sees participants through the camera. Reads body language, facial expressions, and engagement levels. Adjusts her approach in real time — like a top closer would.</p>
       </div>
 
-      <div class="bg-black p-10 hover:bg-white/[0.02] transition-colors reveal">
-        <div class="text-xs uppercase tracking-[0.2em] text-zinc-500 mb-6">Client Onboarding</div>
-        <h3 class="font-wide font-bold text-lg uppercase mb-3">Never Miss a Step</h3>
-        <p class="text-zinc-400 text-[14px] leading-relaxed mb-6">Consistent. Thorough. Patient. Walks every new client through setup at 2 AM or 2 PM. Flags issues to your team.</p>
-        <div class="text-[13px] text-white font-medium">92% onboarding completion</div>
+      <!-- NEPQ Sales Brain -->
+      <div class="cap-card border border-white/[0.06] bg-white/[0.015] p-8 rounded-sm reveal">
+        <div class="w-12 h-12 rounded-xl bg-violet-500/10 border border-violet-500/15 flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        </div>
+        <h3 class="font-wide font-bold text-lg uppercase tracking-[-0.01em] mb-2">NEPQ Sales Brain</h3>
+        <p class="text-zinc-500 text-[14px] leading-relaxed">Trained on Jeremy Miner's NEPQ + Hormozi's offer strategy + Voss's tactical empathy. She doesn't pitch. She asks questions that make people sell themselves.</p>
       </div>
 
-      <div class="bg-black p-10 hover:bg-white/[0.02] transition-colors reveal">
-        <div class="text-xs uppercase tracking-[0.2em] text-zinc-500 mb-6">Screening</div>
-        <h3 class="font-wide font-bold text-lg uppercase mb-3">50 Candidates / Day</h3>
-        <p class="text-zinc-400 text-[14px] leading-relaxed mb-6">Same questions. Same scoring. Zero bias. Ranked shortlist in your inbox by morning. No more wasting your closer's time.</p>
-        <div class="text-[13px] text-white font-medium">12 hours saved per hire</div>
+      <!-- Multilingual -->
+      <div class="cap-card border border-white/[0.06] bg-white/[0.015] p-8 rounded-sm reveal">
+        <div class="w-12 h-12 rounded-xl bg-violet-500/10 border border-violet-500/15 flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
+        </div>
+        <h3 class="font-wide font-bold text-lg uppercase tracking-[-0.01em] mb-2">Multilingual</h3>
+        <p class="text-zinc-500 text-[14px] leading-relaxed">Speaks English, Spanish, French, German, Portuguese, and more. Detects the prospect's language and switches automatically. No configuration needed.</p>
       </div>
 
-      <div class="bg-black p-10 hover:bg-white/[0.02] transition-colors reveal">
-        <div class="text-xs uppercase tracking-[0.2em] text-zinc-500 mb-6">Client Support</div>
-        <h3 class="font-wide font-bold text-lg uppercase mb-3">No Hold Music</h3>
-        <p class="text-zinc-400 text-[14px] leading-relaxed mb-6">Frustrated client at 2 AM? Brooke joins the call, de-escalates, troubleshoots, and resolves. No ticket queue.</p>
-        <div class="text-[13px] text-white font-medium">94% first-call resolution</div>
+      <!-- CRM + Transcripts -->
+      <div class="cap-card border border-white/[0.06] bg-white/[0.015] p-8 rounded-sm reveal">
+        <div class="w-12 h-12 rounded-xl bg-violet-500/10 border border-violet-500/15 flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        </div>
+        <h3 class="font-wide font-bold text-lg uppercase tracking-[-0.01em] mb-2">CRM Sync + Transcripts</h3>
+        <p class="text-zinc-500 text-[14px] leading-relaxed">Full recording, transcript, AI summary, and qualification score after every call. Syncs to your CRM. Follow-up email sent within 60 seconds of hangup.</p>
       </div>
 
-      <div class="bg-black p-10 hover:bg-white/[0.02] transition-colors reveal">
-        <div class="text-xs uppercase tracking-[0.2em] text-zinc-500 mb-6">Follow-Up</div>
-        <h3 class="font-wide font-bold text-lg uppercase mb-3">Never Ghost a Lead</h3>
-        <p class="text-zinc-400 text-[14px] leading-relaxed mb-6">80% of sales require 5+ follow-ups. Your team does 1.4. Brooke does all of them. Automatically. With context.</p>
-        <div class="text-[13px] text-white font-medium">5x follow-up completion</div>
+      <!-- Learning Loop -->
+      <div class="cap-card border border-white/[0.06] bg-white/[0.015] p-8 rounded-sm reveal">
+        <div class="w-12 h-12 rounded-xl bg-violet-500/10 border border-violet-500/15 flex items-center justify-center mb-6">
+          <svg class="w-6 h-6 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+        </div>
+        <h3 class="font-wide font-bold text-lg uppercase tracking-[-0.01em] mb-2">Gets Smarter Every Call</h3>
+        <p class="text-zinc-500 text-[14px] leading-relaxed">Learning loop analyzes every conversation. What objections came up, what worked, what didn't. Brooke improves with every single call — your human reps don't.</p>
       </div>
 
+    </div>
+
+    <!-- CTA after capabilities -->
+    <div class="section-cta mt-6 reveal">
+      <a href="#try-it" class="btn-violet text-white font-bold text-[11px] tracking-[0.25em] uppercase px-8 py-3.5 rounded-sm">
+        Try Her Right Now &rarr;
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- COST COMPARISON -->
+<!-- ============================================ -->
+<section class="py-16 md:py-24 border-t border-white/5 relative" id="cost">
+  <div class="max-w-[1100px] mx-auto px-6 md:px-10">
+
+    <div class="text-center mb-10">
+      <div class="reveal text-[11px] uppercase tracking-[0.35em] text-violet-400/60 font-semibold mb-4">The Real Cost of Sales</div>
+      <h2 class="reveal font-wide font-extrabold text-[clamp(30px,4.5vw,56px)] leading-[1] tracking-[-0.04em] uppercase">
+        Cheap Calls.<br><span class="shimmer">Expensive Results.</span>
+      </h2>
+      <p class="reveal text-zinc-500 text-[15px] max-w-[600px] mx-auto mt-6">You can always find someone cheaper to dial. The question is what happens when the prospect picks up.</p>
+    </div>
+
+    <!-- COMPARISON: Two columns -->
+    <div class="grid md:grid-cols-2 gap-6 mb-10">
+
+      <!-- LEFT: The cheap options that cost you deals -->
+      <div class="space-y-4">
+        <div class="reveal text-[11px] uppercase tracking-[0.25em] text-red-400/70 font-semibold px-1">Low cost per minute. High cost per deal.</div>
+
+        <div class="reveal border border-red-500/10 bg-red-500/[0.02] p-6 rounded-sm">
+          <div class="flex justify-between items-start mb-3">
+            <div>
+              <div class="font-wide font-bold text-[15px] uppercase">US In-House SDR</div>
+              <div class="text-zinc-600 text-[12px]">Full-time hire</div>
+            </div>
+            <span class="font-wide font-extrabold text-xl text-red-400/80">$0.95-$3.20<span class="text-zinc-600 text-[11px] font-normal">/min</span></span>
+          </div>
+          <div class="text-zinc-500 text-[13px] leading-relaxed">$54K+ before they make a single dial. 3-6 months to ramp. Then 35% of them quit within the year. You train them, they learn your pitch, they leave for a competitor. Good ones get promoted off the phones. Bad ones burn your pipeline and you don't find out for months.</div>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <span class="text-[10px] uppercase tracking-wider text-red-400/50 border border-red-400/10 px-2 py-0.5 rounded-full">3-6 month ramp</span>
+            <span class="text-[10px] uppercase tracking-wider text-red-400/50 border border-red-400/10 px-2 py-0.5 rounded-full">35% annual turnover</span>
+            <span class="text-[10px] uppercase tracking-wider text-red-400/50 border border-red-400/10 px-2 py-0.5 rounded-full">8 hours/day max</span>
+          </div>
+        </div>
+
+        <div class="reveal border border-yellow-500/10 bg-yellow-500/[0.02] p-6 rounded-sm">
+          <div class="flex justify-between items-start mb-3">
+            <div>
+              <div class="font-wide font-bold text-[15px] uppercase">Generic AI Voice Tools</div>
+              <div class="text-zinc-600 text-[12px]">Bland, Vapi, Retell, Synthflow</div>
+            </div>
+            <span class="font-wide font-extrabold text-xl text-yellow-400/80">$0.09-$0.30<span class="text-zinc-600 text-[11px] font-normal">/min</span></span>
+          </div>
+          <div class="text-zinc-500 text-[13px] leading-relaxed">A dial tone with an API key. You write the scripts. You build the objection handling. You test, fail, iterate, hope. No sales methodology. No learning from previous calls. Every setup starts from scratch. It's a power tool, not a closer. You still need a strategist to make it work.</div>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <span class="text-[10px] uppercase tracking-wider text-yellow-400/50 border border-yellow-400/10 px-2 py-0.5 rounded-full">DIY everything</span>
+            <span class="text-[10px] uppercase tracking-wider text-yellow-400/50 border border-yellow-400/10 px-2 py-0.5 rounded-full">No face</span>
+            <span class="text-[10px] uppercase tracking-wider text-yellow-400/50 border border-yellow-400/10 px-2 py-0.5 rounded-full">No learning loop</span>
+          </div>
+        </div>
+
+        <div class="reveal border border-red-500/10 bg-red-500/[0.02] p-6 rounded-sm">
+          <div class="flex justify-between items-start mb-3">
+            <div>
+              <div class="font-wide font-bold text-[15px] uppercase">Human AE on Zoom</div>
+              <div class="text-zinc-600 text-[12px]">Your $150K account exec</div>
+            </div>
+            <span class="font-wide font-extrabold text-xl text-red-400/80">$5.80-$10.22<span class="text-zinc-600 text-[11px] font-normal">/min</span></span>
+          </div>
+          <div class="text-zinc-500 text-[13px] leading-relaxed">$120K-$250K loaded. Spends 70% of their time NOT selling — admin, internal meetings, Slack, CRM updates. When they are on a call, they check their phone. Miss buying signals. Forget follow-ups. And they want a raise every 6 months.</div>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <span class="text-[10px] uppercase tracking-wider text-red-400/50 border border-red-400/10 px-2 py-0.5 rounded-full">30% selling time</span>
+            <span class="text-[10px] uppercase tracking-wider text-red-400/50 border border-red-400/10 px-2 py-0.5 rounded-full">$120K-$250K loaded</span>
+            <span class="text-[10px] uppercase tracking-wider text-red-400/50 border border-red-400/10 px-2 py-0.5 rounded-full">Inconsistent</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Brooke -->
+      <div class="space-y-4">
+        <div class="reveal text-[11px] uppercase tracking-[0.25em] text-green-400/70 font-semibold px-1">Competitive price. Assassin-level results.</div>
+
+        <div class="reveal border border-violet-500/20 bg-violet-500/[0.04] p-6 rounded-sm">
+          <div class="flex justify-between items-start mb-3">
+            <div>
+              <div class="font-wide font-bold text-[15px] uppercase text-white">Brooke — Voice Agent</div>
+              <div class="text-violet-400/60 text-[12px]">NEPQ-trained AI closer</div>
+            </div>
+            <span class="font-wide font-extrabold text-2xl text-green-400">$0.25<span class="text-green-400/50 text-[11px] font-normal">/min</span></span>
+          </div>
+          <div class="text-zinc-400 text-[13px] leading-relaxed">Not a script reader. Trained on NEPQ — the same framework the top 1% of closers use. She doesn't pitch. She asks questions that make prospects feel the cost of inaction. Handles objections by instinct, not if-then trees. Runs 24/7/365. And she gets better on YOUR calls specifically — every objection, every pushback, every industry pattern she encounters trains the next conversation.</div>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <span class="text-[10px] uppercase tracking-wider text-green-400/50 border border-green-400/10 px-2 py-0.5 rounded-full">NEPQ methodology</span>
+            <span class="text-[10px] uppercase tracking-wider text-green-400/50 border border-green-400/10 px-2 py-0.5 rounded-full">24/7/365</span>
+            <span class="text-[10px] uppercase tracking-wider text-green-400/50 border border-green-400/10 px-2 py-0.5 rounded-full">Self-improving</span>
+          </div>
+        </div>
+
+        <div class="reveal border border-violet-500/30 bg-violet-500/[0.06] p-6 rounded-sm violet-glow">
+          <div class="flex justify-between items-start mb-3">
+            <div>
+              <div class="font-wide font-bold text-[15px] uppercase text-white">Brooke — Video Avatar</div>
+              <div class="text-violet-400/60 text-[12px]">Face + vision + NEPQ on Zoom</div>
+            </div>
+            <span class="font-wide font-extrabold text-2xl text-green-400">$2.50<span class="text-green-400/50 text-[11px] font-normal">/min</span></span>
+          </div>
+          <div class="text-zinc-400 text-[13px] leading-relaxed">A real face on camera in your Zoom meeting. Computer vision reads the prospect's body language in real time — if they lean back, she adjusts. If they nod, she goes for the close. Nobody else has this. Not the $0.09 voice bots. Not your $150K AE who's checking Slack during the call. Brooke never has an off day, never misses a signal, never forgets a follow-up.</div>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <span class="text-[10px] uppercase tracking-wider text-green-400/50 border border-green-400/10 px-2 py-0.5 rounded-full">Real face on camera</span>
+            <span class="text-[10px] uppercase tracking-wider text-green-400/50 border border-green-400/10 px-2 py-0.5 rounded-full">Reads body language</span>
+            <span class="text-[10px] uppercase tracking-wider text-green-400/50 border border-green-400/10 px-2 py-0.5 rounded-full">NEPQ intelligence</span>
+          </div>
+        </div>
+
+        <div class="reveal border border-violet-500/10 bg-gradient-to-br from-violet-500/[0.03] to-transparent p-6 rounded-sm">
+          <div class="font-wide font-bold text-[14px] uppercase text-violet-400 mb-3">The compounding edge</div>
+          <div class="text-zinc-400 text-[13px] leading-relaxed">
+            Month 1, Brooke is good. Month 3, she's great. Month 6, she knows your market better than your best rep. Every call she takes for <span class="text-white">your business</span> trains her for the next one. Every objection pattern, every pricing question, every "let me think about it" — she learns what works for <span class="text-white">your</span> prospects. Human reps leave and take that knowledge with them. Brooke compounds it forever.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROI CALCULATOR -->
+    <div class="reveal border border-violet-500/20 bg-white/[0.02] p-8 md:p-10 rounded-sm max-w-[900px] mx-auto mt-10">
+      <div class="text-center mb-8">
+        <div class="font-wide font-bold text-xl uppercase tracking-[-0.02em] mb-2">ROI Calculator</div>
+        <p class="text-zinc-500 text-[13px]">See what Brooke saves you. Drag the sliders.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Inputs -->
+        <div class="space-y-6">
+          <div>
+            <label class="flex justify-between text-[12px] uppercase tracking-[0.15em] text-zinc-500 font-semibold mb-2">
+              <span>Current SDRs on payroll</span>
+              <span id="calc-sdr-val" class="text-white">2</span>
+            </label>
+            <input type="range" id="calc-sdr" min="1" max="20" value="2" class="w-full accent-violet-500" oninput="updateCalc()">
+          </div>
+          <div>
+            <label class="flex justify-between text-[12px] uppercase tracking-[0.15em] text-zinc-500 font-semibold mb-2">
+              <span>Avg SDR loaded cost/year</span>
+              <span id="calc-salary-val" class="text-white">$65,000</span>
+            </label>
+            <input type="range" id="calc-salary" min="35000" max="150000" step="5000" value="65000" class="w-full accent-violet-500" oninput="updateCalc()">
+          </div>
+          <div>
+            <label class="flex justify-between text-[12px] uppercase tracking-[0.15em] text-zinc-500 font-semibold mb-2">
+              <span>Outbound calls per day (total)</span>
+              <span id="calc-calls-val" class="text-white">150</span>
+            </label>
+            <input type="range" id="calc-calls" min="20" max="1000" step="10" value="150" class="w-full accent-violet-500" oninput="updateCalc()">
+          </div>
+          <div>
+            <label class="flex justify-between text-[12px] uppercase tracking-[0.15em] text-zinc-500 font-semibold mb-2">
+              <span>Avg call duration (minutes)</span>
+              <span id="calc-duration-val" class="text-white">3</span>
+            </label>
+            <input type="range" id="calc-duration" min="1" max="15" value="3" class="w-full accent-violet-500" oninput="updateCalc()">
+          </div>
+        </div>
+
+        <!-- Results -->
+        <div class="border border-white/5 bg-black/30 p-6 rounded-sm">
+          <div class="space-y-5">
+            <div>
+              <div class="text-[11px] uppercase tracking-[0.2em] text-zinc-600 mb-1">Your current annual cost</div>
+              <div id="calc-current" class="font-wide font-extrabold text-3xl text-red-400">$130,000</div>
+            </div>
+            <div>
+              <div class="text-[11px] uppercase tracking-[0.2em] text-zinc-600 mb-1">Brooke's annual cost (same volume)</div>
+              <div id="calc-brooke" class="font-wide font-extrabold text-3xl text-green-400">$3,240</div>
+            </div>
+            <div class="border-t border-white/5 pt-4">
+              <div class="text-[11px] uppercase tracking-[0.2em] text-violet-400/70 mb-1">You save per year</div>
+              <div id="calc-savings" class="font-wide font-extrabold text-4xl text-white">$126,760</div>
+            </div>
+            <div>
+              <div class="text-[11px] uppercase tracking-[0.2em] text-zinc-600 mb-1">Your cost per connected minute</div>
+              <div class="flex gap-4">
+                <div><span class="text-red-400 font-bold" id="calc-cpm-human">$1.44</span> <span class="text-zinc-600 text-[11px]">now</span></div>
+                <div><span class="text-green-400 font-bold">$0.25</span> <span class="text-zinc-600 text-[11px]">Brooke</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-zinc-700 text-[11px] mt-6 text-center">Assumes 260 working days/year. Brooke voice at $0.25/min. Human costs include salary, benefits (1.3x), tools, and management overhead.</p>
+    </div>
+
+    <div class="reveal text-center mt-10">
+      <p class="text-zinc-600 text-[12px] max-w-[500px] mx-auto mb-6">
+        Human salary data: Glassdoor/Salary.com 2025-2026 US median. AI competitor rates from published pricing pages.
+      </p>
+      <a href="#pricing" class="btn-violet text-white font-bold text-[11px] tracking-[0.25em] uppercase px-10 py-4 rounded-sm">See Pricing Plans</a>
+      <div class="mt-4">
+        <a href="#book-luka" class="border border-white/10 text-white font-bold text-[11px] tracking-[0.25em] uppercase px-10 py-4 rounded-sm hover:border-white/30 transition-colors inline-block">
+          Start Saving Today &rarr;
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -355,38 +1118,163 @@ input::placeholder, textarea::placeholder {
 <!-- ============================================ -->
 <!-- SOCIAL PROOF -->
 <!-- ============================================ -->
-<section class="py-32 border-t border-white/5 bg-white/[0.01]" id="proof">
-  <div class="max-w-[1200px] mx-auto px-10">
+<section class="py-16 md:py-24 border-t border-white/5" id="proof">
+  <div class="max-w-[1100px] mx-auto px-6 md:px-10">
 
-    <div class="text-center mb-20">
-      <div class="reveal text-xs uppercase tracking-[0.3em] text-zinc-500 font-semibold mb-4">Real Numbers</div>
-      <h2 class="reveal font-wide font-extrabold text-[clamp(28px,4vw,52px)] leading-[1.05] tracking-[-0.04em] uppercase">
-        What Happens When <span class="shimmer">Brooke</span><br>Gets on the Phone
+    <div class="text-center mb-12">
+      <div class="reveal text-[11px] uppercase tracking-[0.35em] text-violet-400/60 font-semibold mb-4">Real Results</div>
+      <h2 class="reveal font-wide font-extrabold text-[clamp(30px,4.5vw,56px)] leading-[1] tracking-[-0.04em] uppercase">
+        What Happens When<br><span class="shimmer">Brooke</span> Gets on the Call
       </h2>
-      <p class="reveal text-zinc-400 text-[16px] max-w-[500px] mx-auto mt-6">Not projections. Not estimates. These are real results from real businesses that stopped leaving money on the table.</p>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-[1px] bg-white/5">
+    <div class="grid md:grid-cols-3 gap-5">
 
-      <div class="bg-black p-12 reveal">
-        <div class="text-xs uppercase tracking-[0.2em] text-zinc-500 mb-8">Dental Practice / Phoenix, AZ</div>
-        <p class="text-zinc-300 text-[15px] leading-relaxed mb-8 italic">"We put Brooke on discovery calls for our implant practice. She booked 23 consults in the first month that our front desk couldn't get to."</p>
-        <div class="font-wide font-extrabold text-4xl tracking-[-0.03em] mb-2">+$22K<span class="text-zinc-500 text-lg">/mo</span></div>
-        <div class="text-xs uppercase tracking-[0.2em] text-zinc-500">New Revenue</div>
+      <div class="border border-white/[0.06] bg-white/[0.015] p-8 md:p-10 rounded-sm reveal">
+        <div class="text-[11px] uppercase tracking-[0.2em] text-zinc-600 mb-6">Pilates Studio / Austin, TX</div>
+        <div class="proof-number font-wide font-extrabold text-5xl md:text-6xl tracking-[-0.04em] mb-2">0 <span class="text-2xl text-zinc-600">to</span> 47</div>
+        <div class="text-[11px] uppercase tracking-[0.2em] text-zinc-500 mb-6">Bookings in 30 Days</div>
+        <p class="text-zinc-500 text-[13px] leading-relaxed">"We had zero online bookings. Brooke handled every lead call, answered questions, and booked directly into our calendar."</p>
       </div>
 
-      <div class="bg-black p-12 reveal">
-        <div class="text-xs uppercase tracking-[0.2em] text-zinc-500 mb-8">Personal Injury Law / Miami, FL</div>
-        <p class="text-zinc-300 text-[15px] leading-relaxed mb-8 italic">"Our cost per lead was $400. Brooke started handling inbound calls and qualifying before we even spoke to them."</p>
-        <div class="font-wide font-extrabold text-4xl tracking-[-0.03em] mb-2">$400 <span class="text-zinc-500 text-lg">to</span> $108</div>
-        <div class="text-xs uppercase tracking-[0.2em] text-zinc-500">Cost Per Lead</div>
+      <div class="border border-white/[0.06] bg-white/[0.015] p-8 md:p-10 rounded-sm reveal">
+        <div class="text-[11px] uppercase tracking-[0.2em] text-zinc-600 mb-6">Dental Practice / Phoenix, AZ</div>
+        <div class="proof-number font-wide font-extrabold text-5xl md:text-6xl tracking-[-0.04em] mb-2">+$22K</div>
+        <div class="text-[11px] uppercase tracking-[0.2em] text-zinc-500 mb-6">Monthly Revenue Added</div>
+        <p class="text-zinc-500 text-[13px] leading-relaxed">"Brooke booked 23 implant consults in month one that our front desk couldn't get to. The ROI is absurd."</p>
       </div>
 
-      <div class="bg-black p-12 reveal">
-        <div class="text-xs uppercase tracking-[0.2em] text-zinc-500 mb-8">Pilates Studio / Austin, TX</div>
-        <p class="text-zinc-300 text-[15px] leading-relaxed mb-8 italic">"We had zero online bookings. Brooke handled every lead call, answered questions, and booked directly into our calendar."</p>
-        <div class="font-wide font-extrabold text-4xl tracking-[-0.03em] mb-2">0 <span class="text-zinc-500 text-lg">to</span> 47</div>
-        <div class="text-xs uppercase tracking-[0.2em] text-zinc-500">Bookings in 30 Days</div>
+      <div class="border border-white/[0.06] bg-white/[0.015] p-8 md:p-10 rounded-sm reveal">
+        <div class="text-[11px] uppercase tracking-[0.2em] text-zinc-600 mb-6">Personal Injury / Miami, FL</div>
+        <div class="proof-number font-wide font-extrabold text-5xl md:text-6xl tracking-[-0.04em] mb-2">$400<span class="text-2xl text-zinc-600"> to </span>$108</div>
+        <div class="text-[11px] uppercase tracking-[0.2em] text-zinc-500 mb-6">Cost Per Lead</div>
+        <p class="text-zinc-500 text-[13px] leading-relaxed">"Brooke started handling inbound calls and qualifying before we even spoke to them. Our CPL dropped 73%."</p>
+      </div>
+
+    </div>
+
+    <!-- CTA after social proof -->
+    <div class="section-cta mt-6 reveal">
+      <a href="#book-luka" class="btn-violet text-white font-bold text-[11px] tracking-[0.25em] uppercase px-8 py-3.5 rounded-sm">
+        Ready to See These Results? &rarr;
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- BUILT BY (credibility before pricing) -->
+<!-- ============================================ -->
+<!-- BUILT BY -->
+<section class="py-16 md:py-24 border-t border-white/5">
+  <div class="max-w-[1100px] mx-auto px-6 md:px-10">
+
+    <div class="text-center mb-10">
+      <div class="reveal text-[11px] uppercase tracking-[0.35em] text-violet-400/60 font-semibold mb-4">Built By</div>
+      <h2 class="reveal font-wide font-extrabold text-[clamp(30px,4.5vw,56px)] leading-[1] tracking-[-0.04em] uppercase">
+        Not a Team of<br><span class="shimmer">Engineers.</span> A Closer.
+      </h2>
+    </div>
+
+    <!-- Kris Jenner Video + Quote -->
+    <div class="reveal grid md:grid-cols-2 gap-0 border border-white/10 overflow-hidden rounded-sm mb-10">
+      <div class="relative aspect-[9/12] md:aspect-auto overflow-hidden bg-black min-h-[300px]">
+        <video id="kris-video" src="/videos/kris-jenner.mp4" autoplay muted playsinline class="absolute inset-0 w-full h-full object-cover object-[center_30%]"></video>
+        <div id="kris-play-overlay" class="video-play-overlay" onclick="toggleKrisSound()">
+          <div class="flex flex-col items-center gap-2">
+            <svg class="w-14 h-14 text-white/80" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <span class="text-white/70 text-[11px] uppercase tracking-[0.2em] font-semibold">Tap for sound</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col items-start justify-center p-8 md:p-14 bg-zinc-950">
+        <span class="block text-[10px] tracking-[0.3em] text-amber-400/80 uppercase mb-6">Built for the Kardashians</span>
+        <p class="text-xl md:text-2xl text-white font-body leading-relaxed mb-8">"We built growth systems for the Kardashian-Jenner brand. Here's what Kris Jenner had to say about working with our founder."</p>
+        <div class="w-12 h-px bg-amber-400/40 mb-6"></div>
+        <p class="text-[10px] tracking-[0.2em] text-zinc-500 uppercase">Kris Jenner — on working with Luka Lah</p>
+      </div>
+    </div>
+
+    <!-- Founders Grid -->
+    <div class="grid md:grid-cols-2 gap-5">
+      <div class="reveal border border-white/[0.06] bg-white/[0.015] p-8 md:p-10 rounded-sm">
+        <div class="text-[10px] tracking-[0.3em] text-violet-400/60 uppercase mb-4">Founder</div>
+        <h3 class="font-wide font-extrabold text-2xl uppercase mb-4">Luka Lah</h3>
+        <div class="space-y-3 text-zinc-400 text-[14px] leading-relaxed">
+          <p>Built and managed a 90,000-person sales organization that generated <span class="text-white font-semibold">$300M+ in revenue</span>.</p>
+          <p>Built a 200-person trading floor from scratch. Took traders from zero experience to managing bank capital, averaging <span class="text-white font-semibold">3.4% weekly profits</span> under his coaching.</p>
+          <p>Designed and deployed a fully autonomous AI trading system. Managed a <span class="text-white font-semibold">$30M AI trading fund</span> — no human intervention.</p>
+          <p>Partnered with the <span class="text-white font-semibold">Slovenian Government</span> on a national campaign — saved 50% of taxpayer money with 100% campaign success rate.</p>
+          <p>In every venture — sales, trading, government, AI — <span class="text-white font-semibold">designed, created, deployed, and managed all marketing and sales singlehandedly</span>.</p>
+        </div>
+        <div class="mt-6 flex flex-wrap gap-2">
+          <span class="text-[9px] uppercase tracking-wider text-violet-400/40 border border-violet-400/10 px-2 py-0.5 rounded-full">$300M+ revenue built</span>
+          <span class="text-[9px] uppercase tracking-wider text-violet-400/40 border border-violet-400/10 px-2 py-0.5 rounded-full">90K sales team</span>
+          <span class="text-[9px] uppercase tracking-wider text-violet-400/40 border border-violet-400/10 px-2 py-0.5 rounded-full">$30M AI fund</span>
+          <span class="text-[9px] uppercase tracking-wider text-violet-400/40 border border-violet-400/10 px-2 py-0.5 rounded-full">200-person trading floor</span>
+        </div>
+      </div>
+      <div class="reveal border border-white/[0.06] bg-white/[0.015] p-8 md:p-10 rounded-sm">
+        <div class="text-[10px] tracking-[0.3em] text-violet-400/60 uppercase mb-4">Partner</div>
+        <h3 class="font-wide font-extrabold text-2xl uppercase mb-4">Yeram Murillo</h3>
+        <div class="space-y-3 text-zinc-400 text-[14px] leading-relaxed">
+          <p>Strategic Advisor to <span class="text-white font-semibold">Morena Party</span> — the ruling political party of Mexico.</p>
+          <p>High-performance team architect. Builds organizations that scale across Latin American markets.</p>
+          <p><span class="text-white font-semibold">Mexican Market Strategy Counsel</span> for MyNewStaff.ai — opening doors across one of the fastest-growing business markets in the Americas.</p>
+        </div>
+        <div class="mt-6 flex flex-wrap gap-2">
+          <span class="text-[9px] uppercase tracking-wider text-violet-400/40 border border-violet-400/10 px-2 py-0.5 rounded-full">Morena Party Advisor</span>
+          <span class="text-[9px] uppercase tracking-wider text-violet-400/40 border border-violet-400/10 px-2 py-0.5 rounded-full">LatAm Strategy</span>
+          <span class="text-[9px] uppercase tracking-wider text-violet-400/40 border border-violet-400/10 px-2 py-0.5 rounded-full">Team Architect</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- WHO IS THIS FOR -->
+<!-- ============================================ -->
+<section class="py-16 md:py-24 border-t border-white/5" id="who">
+  <div class="max-w-[1100px] mx-auto px-6 md:px-10">
+
+    <div class="text-center mb-12">
+      <div class="reveal text-[11px] uppercase tracking-[0.35em] text-violet-400/60 font-semibold mb-4">Who Is This For</div>
+      <h2 class="reveal font-wide font-extrabold text-[clamp(30px,4.5vw,56px)] leading-[1] tracking-[-0.04em] uppercase">
+        Built for Teams That<br><span class="shimmer">Sell to Close</span>
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+      <div class="border border-white/[0.06] bg-white/[0.015] p-6 md:p-8 rounded-sm reveal">
+        <h3 class="font-wide font-bold text-base uppercase tracking-[-0.01em] mb-2">B2B SaaS Companies</h3>
+        <p class="text-zinc-500 text-[14px] leading-relaxed">Run discovery calls and demos at scale. Let Brooke handle the first call and only involve your AEs for qualified, high-intent prospects.</p>
+      </div>
+
+      <div class="border border-white/[0.06] bg-white/[0.015] p-6 md:p-8 rounded-sm reveal">
+        <h3 class="font-wide font-bold text-base uppercase tracking-[-0.01em] mb-2">Service Businesses</h3>
+        <p class="text-zinc-500 text-[14px] leading-relaxed">Dental, legal, med spa, real estate, insurance. Brooke answers every inbound call, qualifies, and books — even at 2 AM on a Sunday.</p>
+      </div>
+
+      <div class="border border-white/[0.06] bg-white/[0.015] p-6 md:p-8 rounded-sm reveal">
+        <h3 class="font-wide font-bold text-base uppercase tracking-[-0.01em] mb-2">Sales Agencies</h3>
+        <p class="text-zinc-500 text-[14px] leading-relaxed">White-label Brooke for your clients. Offer AI SDR as a service with your branding. 90%+ margins on every seat you sell.</p>
+      </div>
+
+      <div class="border border-white/[0.06] bg-white/[0.015] p-6 md:p-8 rounded-sm reveal">
+        <h3 class="font-wide font-bold text-base uppercase tracking-[-0.01em] mb-2">High-Ticket Coaches</h3>
+        <p class="text-zinc-500 text-[14px] leading-relaxed">Stop burning hours on unqualified discovery calls. Brooke pre-qualifies, handles objections, and only sends you buyers ready to commit.</p>
+      </div>
+
+      <div class="border border-white/[0.06] bg-white/[0.015] p-6 md:p-8 rounded-sm reveal">
+        <h3 class="font-wide font-bold text-base uppercase tracking-[-0.01em] mb-2">E-Commerce / DTC</h3>
+        <p class="text-zinc-500 text-[14px] leading-relaxed">Add Brooke to your product pages. She answers questions, handles concerns, and nudges hesitant buyers to checkout — face-to-face.</p>
+      </div>
+
+      <div class="border border-white/[0.06] bg-white/[0.015] p-6 md:p-8 rounded-sm reveal">
+        <h3 class="font-wide font-bold text-base uppercase tracking-[-0.01em] mb-2">Startups (1-10 people)</h3>
+        <p class="text-zinc-500 text-[14px] leading-relaxed">Can't afford a $54K SDR? Brooke starts at $249/mo. Run outbound, qualify inbound, and demo your product — without hiring.</p>
       </div>
 
     </div>
@@ -394,166 +1282,295 @@ input::placeholder, textarea::placeholder {
 </section>
 
 <!-- ============================================ -->
-<!-- PRICING -->
+<!-- PRICING — HORMOZI VALUE STACK -->
 <!-- ============================================ -->
-<section class="py-32 border-t border-white/5" id="pricing">
-  <div class="max-w-[1200px] mx-auto px-10">
+<section class="py-16 md:py-24 border-t border-white/5" id="pricing">
+  <div class="max-w-[1200px] mx-auto px-6 md:px-10">
 
-    <div class="text-center mb-20">
-      <div class="reveal text-xs uppercase tracking-[0.3em] text-zinc-500 font-semibold mb-4">Transparent Pricing</div>
-      <h2 class="reveal font-wide font-extrabold text-[clamp(28px,4vw,52px)] leading-[1.05] tracking-[-0.04em] uppercase">
-        Pick Your <span class="shimmer">Volume</span>
+    <div class="text-center mb-8">
+      <div class="reveal text-[11px] uppercase tracking-[0.35em] text-violet-400/60 font-semibold mb-4" data-i18n="pricing_label">Investment</div>
+      <h2 class="reveal font-wide font-extrabold text-[clamp(30px,4.5vw,56px)] leading-[1] tracking-[-0.04em] uppercase" data-i18n="pricing_heading">
+        Your AI Sales Employee.<br><span class="shimmer">Not a Per-Minute Bot.</span>
       </h2>
-      <p class="reveal text-zinc-400 text-[16px] max-w-[520px] mx-auto mt-6">No setup fees. No contracts. Cancel anytime. Compare this to your SDR's salary, benefits, training, and sick days.</p>
+      <p class="reveal text-zinc-500 text-[15px] max-w-[560px] mx-auto mt-6">Brooke isn't a tool you configure. She's a trained closer you deploy. One setup. One price. She handles the rest.</p>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-[1px] bg-white/5 max-w-[1100px] mx-auto">
+    <!-- GUARANTEE BANNER (moved above pricing per MiroFish prediction) -->
+    <div class="reveal max-w-[700px] mx-auto mb-8 text-center">
+      <div class="border border-green-500/30 bg-green-500/[0.05] px-6 py-5 rounded-sm">
+        <div class="font-wide font-bold text-lg uppercase text-green-400 mb-2">Zero Risk. Real Results.</div>
+        <p class="text-zinc-300 text-[15px] leading-relaxed font-medium">If Brooke doesn't book at least <span class="text-green-400 font-bold">5 qualified meetings</span> in your first 30 days, we refund every penny. No questions asked.</p>
+        <p class="text-zinc-500 text-[12px] mt-2">We've never had to refund. Not once.</p>
+      </div>
+    </div>
 
-      <!-- STARTER -->
-      <div class="bg-black p-10 reveal">
-        <div class="text-xs uppercase tracking-[0.2em] text-zinc-500 font-semibold mb-2">Start Here</div>
-        <h3 class="font-wide font-extrabold text-2xl uppercase mb-1">Starter</h3>
-        <div class="text-[13px] text-zinc-500 mb-8">For teams testing AI on calls</div>
-        <div class="font-wide font-extrabold text-5xl tracking-[-0.04em] mb-1">$997<span class="text-zinc-500 text-base font-normal">/mo</span></div>
-        <div class="text-[13px] text-zinc-500 mb-8">30 calls included</div>
-        <ul class="border-t border-white/5 mb-8">
-          <li class="py-3 text-[14px] text-zinc-400 border-b border-white/[0.03] flex gap-3"><span class="text-white text-xs mt-0.5">-</span> MNS Sales Brooke persona</li>
-          <li class="py-3 text-[14px] text-zinc-400 border-b border-white/[0.03] flex gap-3"><span class="text-white text-xs mt-0.5">-</span> Transcript after every call</li>
-          <li class="py-3 text-[14px] text-zinc-400 border-b border-white/[0.03] flex gap-3"><span class="text-white text-xs mt-0.5">-</span> Call recordings</li>
-          <li class="py-3 text-[14px] text-zinc-400 border-b border-white/[0.03] flex gap-3"><span class="text-white text-xs mt-0.5">-</span> Zoom, Meet, Teams</li>
-          <li class="py-3 text-[14px] text-zinc-400 border-b border-white/[0.03] flex gap-3"><span class="text-white text-xs mt-0.5">-</span> Email support</li>
-        </ul>
-        <a href="#try-it" class="block w-full text-center py-3.5 border border-white/10 text-white font-bold text-[11px] tracking-[0.25em] uppercase hover:border-white/30 transition-colors">Start Free Trial</a>
+    <!-- FOUNDING MEMBER BANNER -->
+    <div class="reveal max-w-[700px] mx-auto mb-8 text-center">
+      <div class="border border-amber-500/20 bg-amber-500/[0.04] px-6 py-4 rounded-sm">
+        <div class="text-amber-400 text-[11px] uppercase tracking-[0.25em] font-bold mb-1">Founding Member Pricing — Lock In For Life</div>
+        <div class="text-zinc-400 text-[13px]">First 50 clients keep these rates permanently. After that, prices increase 40%.</div>
+      </div>
+    </div>
+
+    <!-- PREPAY OFFER BANNER -->
+    <div class="reveal max-w-[700px] mx-auto mb-12 text-center">
+      <div class="border border-violet-500/20 bg-violet-500/[0.03] px-6 py-4 rounded-sm">
+        <div class="text-violet-400 text-[11px] uppercase tracking-[0.25em] font-bold mb-1">Prepay 3 Months → Setup Fee Waived ($1,997 Saved)</div>
+        <div class="text-zinc-400 text-[13px]">Scale & Enterprise tiers always include free setup. Starter & Growth get it free with quarterly commitment.</div>
+      </div>
+    </div>
+
+    <!-- 4-TIER OUTCOME-BASED PRICING -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 max-w-[1200px] mx-auto">
+
+      <!-- ══ TIER 1: STARTER ══ -->
+      <div class="border border-white/[0.06] bg-white/[0.015] rounded-sm reveal pricing-hover flex flex-col">
+        <div class="p-7 pb-0">
+          <div class="text-[10px] uppercase tracking-[0.25em] text-zinc-600 font-semibold mb-1">Your First AI Sales Rep</div>
+          <h3 class="font-wide font-extrabold text-2xl uppercase mb-1">Starter</h3>
+          <div class="text-zinc-500 text-[12px] mb-5">For local businesses &amp; solo founders</div>
+          <div class="font-wide font-extrabold text-4xl tracking-[-0.04em]">$997<span class="text-zinc-600 text-sm font-normal">/mo</span></div>
+          <div class="text-green-400 text-[12px] font-semibold mb-1">Prepay 3 months → setup FREE (save $1,997)</div>
+          <div class="text-zinc-700 text-[11px] mb-5">500 voice minutes included</div>
+        </div>
+        <!-- Value Stack -->
+        <div class="px-7 pb-5 flex-1">
+          <div class="text-[10px] uppercase tracking-[0.2em] text-violet-400/60 font-semibold mb-3 pt-4 border-t border-white/5">What you get</div>
+          <ul class="space-y-2">
+            <li class="text-[12px] text-zinc-400 flex items-start gap-2"><svg class="w-3.5 h-3.5 text-green-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>NEPQ-trained AI voice agent</li>
+            <li class="text-[12px] text-zinc-400 flex items-start gap-2"><svg class="w-3.5 h-3.5 text-green-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Calendar booking automation</li>
+            <li class="text-[12px] text-zinc-400 flex items-start gap-2"><svg class="w-3.5 h-3.5 text-green-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Full transcripts + recordings</li>
+            <li class="text-[12px] text-zinc-400 flex items-start gap-2"><svg class="w-3.5 h-3.5 text-green-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>AI coaching after every call</li>
+            <li class="text-[12px] text-zinc-400 flex items-start gap-2"><svg class="w-3.5 h-3.5 text-green-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Compound learning engine</li>
+          </ul>
+          <div class="mt-4 pt-3 border-t border-white/5">
+            <div class="text-[10px] uppercase tracking-[0.2em] text-amber-400/50 font-semibold mb-2">Bonuses included free</div>
+            <ul class="space-y-1">
+              <li class="text-[11px] text-zinc-500 flex items-start gap-2"><span class="text-amber-400/60">+</span>Custom NEPQ persona training <span class="text-zinc-700">($2,000)</span></li>
+              <li class="text-[11px] text-zinc-500 flex items-start gap-2"><span class="text-amber-400/60">+</span>1-on-1 onboarding with Luka <span class="text-zinc-700">($500)</span></li>
+              <li class="text-[11px] text-zinc-500 flex items-start gap-2"><span class="text-amber-400/60">+</span>Intelligence dashboard <span class="text-zinc-700">($997/mo)</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="px-7 pb-7">
+          <div class="text-center mb-4 py-2 border border-white/5 rounded bg-white/[0.01]">
+            <div class="text-zinc-600 text-[10px] uppercase tracking-wider">Total stacked value</div>
+            <div class="text-zinc-500 line-through text-[13px]">$4,494/mo</div>
+            <div class="font-wide font-bold text-white text-lg">You pay $997/mo</div>
+          </div>
+          <a href="#book-luka" class="block w-full text-center py-3 border border-white/10 text-white font-bold text-[11px] tracking-[0.2em] uppercase hover:border-white/30 transition-colors rounded-sm" data-i18n="btn_book_call">Book a Call</a>
+          <div class="text-center text-zinc-700 text-[10px] mt-2">Replaces your $3K/mo receptionist</div>
+        </div>
       </div>
 
-      <!-- GROWTH (Featured) -->
-      <div class="bg-white/[0.02] p-10 relative price-featured reveal">
-        <div class="text-xs uppercase tracking-[0.2em] text-white font-semibold mb-2">Most Popular</div>
-        <h3 class="font-wide font-extrabold text-2xl uppercase mb-1">Growth</h3>
-        <div class="text-[13px] text-zinc-500 mb-8">For teams replacing SDRs</div>
-        <div class="font-wide font-extrabold text-5xl tracking-[-0.04em] mb-1">$2,497<span class="text-zinc-500 text-base font-normal">/mo</span></div>
-        <div class="text-[13px] text-zinc-500 mb-8">100 calls included</div>
-        <ul class="border-t border-white/5 mb-8">
-          <li class="py-3 text-[14px] text-zinc-400 border-b border-white/[0.03] flex gap-3"><span class="text-white text-xs mt-0.5">-</span> Everything in Starter</li>
-          <li class="py-3 text-[14px] text-zinc-400 border-b border-white/[0.03] flex gap-3"><span class="text-white text-xs mt-0.5">-</span> Custom persona builder</li>
-          <li class="py-3 text-[14px] text-zinc-400 border-b border-white/[0.03] flex gap-3"><span class="text-white text-xs mt-0.5">-</span> Research context per call</li>
-          <li class="py-3 text-[14px] text-zinc-400 border-b border-white/[0.03] flex gap-3"><span class="text-white text-xs mt-0.5">-</span> CRM integration</li>
-          <li class="py-3 text-[14px] text-zinc-400 border-b border-white/[0.03] flex gap-3"><span class="text-white text-xs mt-0.5">-</span> Priority support + Slack</li>
-          <li class="py-3 text-[14px] text-zinc-400 border-b border-white/[0.03] flex gap-3"><span class="text-white text-xs mt-0.5">-</span> Analytics dashboard</li>
-        </ul>
-        <a href="#try-it" class="block w-full text-center py-3.5 bg-white text-black font-bold text-[11px] tracking-[0.25em] uppercase btn-sweep hover:bg-zinc-100 transition-colors">Start Free Trial</a>
+      <!-- ══ TIER 2: GROWTH (FEATURED) ══ -->
+      <div class="border border-violet-500/20 bg-white/[0.025] rounded-sm relative price-featured reveal pricing-hover flex flex-col">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-violet-500 text-white text-[10px] uppercase tracking-[0.2em] font-bold px-4 py-1 rounded-full">Most Popular</div>
+        <div class="p-7 pb-0">
+          <div class="text-[10px] uppercase tracking-[0.25em] text-violet-400 font-semibold mb-1">Your AI Closer + Face on Camera</div>
+          <h3 class="font-wide font-extrabold text-2xl uppercase mb-1">Growth</h3>
+          <div class="text-zinc-500 text-[12px] mb-5">For coaches, consultants &amp; growing teams</div>
+          <div class="font-wide font-extrabold text-4xl tracking-[-0.04em]">$2,497<span class="text-zinc-600 text-sm font-normal">/mo</span></div>
+          <div class="text-green-400 text-[12px] font-semibold mb-1">Prepay 3 months → setup FREE (save $1,997)</div>
+          <div class="text-zinc-700 text-[11px] mb-5">2,000 voice + 200 avatar minutes</div>
+        </div>
+        <div class="px-7 pb-5 flex-1">
+          <div class="text-[10px] uppercase tracking-[0.2em] text-violet-400/60 font-semibold mb-3 pt-4 border-t border-white/5">Everything in Starter, plus</div>
+          <ul class="space-y-2">
+            <li class="text-[12px] text-zinc-300 flex items-start gap-2"><svg class="w-3.5 h-3.5 text-violet-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><strong>Zoom avatar with real face</strong></li>
+            <li class="text-[12px] text-zinc-300 flex items-start gap-2"><svg class="w-3.5 h-3.5 text-violet-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><strong>Computer vision (reads body language)</strong></li>
+            <li class="text-[12px] text-zinc-300 flex items-start gap-2"><svg class="w-3.5 h-3.5 text-violet-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>3 Brooke personas (different markets)</li>
+            <li class="text-[12px] text-zinc-300 flex items-start gap-2"><svg class="w-3.5 h-3.5 text-violet-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>CRM deep sync (HubSpot, GHL, etc.)</li>
+            <li class="text-[12px] text-zinc-300 flex items-start gap-2"><svg class="w-3.5 h-3.5 text-violet-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Real-time analytics dashboard</li>
+            <li class="text-[12px] text-zinc-300 flex items-start gap-2"><svg class="w-3.5 h-3.5 text-violet-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Priority support + Slack</li>
+          </ul>
+          <div class="mt-4 pt-3 border-t border-white/5">
+            <div class="text-[10px] uppercase tracking-[0.2em] text-amber-400/50 font-semibold mb-2">Bonuses included free</div>
+            <ul class="space-y-1">
+              <li class="text-[11px] text-zinc-600 flex items-start gap-2"><span class="text-amber-400/40">+</span>Custom NEPQ persona training <span class="text-zinc-700">($2,000)</span></li>
+              <li class="text-[11px] text-zinc-600 flex items-start gap-2"><span class="text-amber-400/40">+</span>1-on-1 onboarding with Luka <span class="text-zinc-700">($500)</span></li>
+              <li class="text-[11px] text-zinc-600 flex items-start gap-2"><span class="text-amber-400/40">+</span>Intelligence dashboard <span class="text-zinc-700">($997/mo)</span></li>
+              <li class="text-[11px] text-zinc-500 flex items-start gap-2"><span class="text-amber-400/60">+</span>CRM integration setup <span class="text-zinc-700">($1,500)</span></li>
+              <li class="text-[11px] text-zinc-500 flex items-start gap-2"><span class="text-amber-400/60">+</span>Custom objection playbook <span class="text-zinc-700">($2,500)</span></li>
+              <li class="text-[11px] text-zinc-500 flex items-start gap-2"><span class="text-amber-400/60">+</span>Monthly strategy call <span class="text-zinc-700">($500/mo)</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="px-7 pb-7">
+          <div class="text-center mb-4 py-2 border border-violet-500/10 rounded bg-violet-500/[0.03]">
+            <div class="text-violet-400/60 text-[10px] uppercase tracking-wider">Total stacked value</div>
+            <div class="text-zinc-500 line-through text-[13px]">$9,991/mo</div>
+            <div class="font-wide font-bold text-white text-lg">You pay $2,497/mo</div>
+          </div>
+          <a href="#book-luka" class="block w-full text-center py-3 btn-violet text-white font-bold text-[11px] tracking-[0.2em] uppercase rounded-sm" data-i18n="btn_book_call">Book a Call</a>
+          <div class="text-center text-zinc-700 text-[10px] mt-2">One closed deal pays for 3+ months</div>
+        </div>
       </div>
 
-      <!-- SCALE -->
-      <div class="bg-black p-10 reveal">
-        <div class="text-xs uppercase tracking-[0.2em] text-zinc-500 font-semibold mb-2">Enterprise</div>
-        <h3 class="font-wide font-extrabold text-2xl uppercase mb-1">Scale</h3>
-        <div class="text-[13px] text-zinc-500 mb-8">For agencies & high-volume ops</div>
-        <div class="font-wide font-extrabold text-5xl tracking-[-0.04em] mb-1">$4,997<span class="text-zinc-500 text-base font-normal">/mo</span></div>
-        <div class="text-[13px] text-zinc-500 mb-8">Unlimited calls</div>
-        <ul class="border-t border-white/5 mb-8">
-          <li class="py-3 text-[14px] text-zinc-400 border-b border-white/[0.03] flex gap-3"><span class="text-white text-xs mt-0.5">-</span> Everything in Growth</li>
-          <li class="py-3 text-[14px] text-zinc-400 border-b border-white/[0.03] flex gap-3"><span class="text-white text-xs mt-0.5">-</span> White-label avatar</li>
-          <li class="py-3 text-[14px] text-zinc-400 border-b border-white/[0.03] flex gap-3"><span class="text-white text-xs mt-0.5">-</span> Dedicated account manager</li>
-          <li class="py-3 text-[14px] text-zinc-400 border-b border-white/[0.03] flex gap-3"><span class="text-white text-xs mt-0.5">-</span> API access</li>
-          <li class="py-3 text-[14px] text-zinc-400 border-b border-white/[0.03] flex gap-3"><span class="text-white text-xs mt-0.5">-</span> Unlimited concurrent calls</li>
-          <li class="py-3 text-[14px] text-zinc-400 border-b border-white/[0.03] flex gap-3"><span class="text-white text-xs mt-0.5">-</span> SLA + 99.9% uptime</li>
-        </ul>
-        <a href="https://mynewstaff.ai/#booking" class="block w-full text-center py-3.5 border border-white/10 text-white font-bold text-[11px] tracking-[0.25em] uppercase hover:border-white/30 transition-colors">Talk to Sales</a>
+      <!-- ══ TIER 3: SCALE ══ -->
+      <div class="border border-white/[0.06] bg-white/[0.015] rounded-sm reveal pricing-hover flex flex-col">
+        <div class="p-7 pb-0">
+          <div class="text-[10px] uppercase tracking-[0.25em] text-zinc-600 font-semibold mb-1">Your AI Sales Department</div>
+          <h3 class="font-wide font-extrabold text-2xl uppercase mb-1">Scale</h3>
+          <div class="text-zinc-500 text-[12px] mb-5">For B2B SaaS &amp; agencies</div>
+          <div class="font-wide font-extrabold text-4xl tracking-[-0.04em]">$4,997<span class="text-zinc-600 text-sm font-normal">/mo</span></div>
+          <div class="text-green-400 text-[12px] font-semibold mb-1">Setup fee WAIVED (saves $1,997)</div>
+          <div class="text-zinc-700 text-[11px] mb-5">5,000 voice + 500 avatar minutes</div>
+        </div>
+        <div class="px-7 pb-5 flex-1">
+          <div class="text-[10px] uppercase tracking-[0.2em] text-violet-400/60 font-semibold mb-3 pt-4 border-t border-white/5">Everything in Growth, plus</div>
+          <ul class="space-y-2">
+            <li class="text-[12px] text-zinc-400 flex items-start gap-2"><svg class="w-3.5 h-3.5 text-green-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><strong>White-label (your brand)</strong></li>
+            <li class="text-[12px] text-zinc-400 flex items-start gap-2"><svg class="w-3.5 h-3.5 text-green-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Unlimited Brooke personas</li>
+            <li class="text-[12px] text-zinc-400 flex items-start gap-2"><svg class="w-3.5 h-3.5 text-green-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Multi-language support</li>
+            <li class="text-[12px] text-zinc-400 flex items-start gap-2"><svg class="w-3.5 h-3.5 text-green-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>API access + webhooks</li>
+            <li class="text-[12px] text-zinc-400 flex items-start gap-2"><svg class="w-3.5 h-3.5 text-green-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Dedicated success manager</li>
+            <li class="text-[12px] text-zinc-400 flex items-start gap-2"><svg class="w-3.5 h-3.5 text-green-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Team accounts (5 users)</li>
+          </ul>
+          <div class="mt-4 pt-3 border-t border-white/5">
+            <div class="text-[10px] uppercase tracking-[0.2em] text-amber-400/50 font-semibold mb-2">Bonuses included free</div>
+            <ul class="space-y-1">
+              <li class="text-[11px] text-zinc-700 flex items-start gap-2"><span class="text-amber-400/30">+</span>NEPQ persona training <span class="text-zinc-800">($2,000)</span></li>
+              <li class="text-[11px] text-zinc-700 flex items-start gap-2"><span class="text-amber-400/30">+</span>Onboarding with Luka <span class="text-zinc-800">($500)</span></li>
+              <li class="text-[11px] text-zinc-700 flex items-start gap-2"><span class="text-amber-400/30">+</span>Intelligence dashboard <span class="text-zinc-800">($997/mo)</span></li>
+              <li class="text-[11px] text-zinc-600 flex items-start gap-2"><span class="text-amber-400/40">+</span>CRM integration <span class="text-zinc-700">($1,500)</span></li>
+              <li class="text-[11px] text-zinc-600 flex items-start gap-2"><span class="text-amber-400/40">+</span>Objection playbook <span class="text-zinc-700">($2,500)</span></li>
+              <li class="text-[11px] text-zinc-600 flex items-start gap-2"><span class="text-amber-400/40">+</span>Monthly strategy call <span class="text-zinc-700">($500/mo)</span></li>
+              <li class="text-[11px] text-zinc-500 flex items-start gap-2"><span class="text-amber-400/60">+</span>Custom NEPQ playbook for your market <span class="text-zinc-700">($5,000)</span></li>
+              <li class="text-[11px] text-zinc-500 flex items-start gap-2"><span class="text-amber-400/60">+</span>Quarterly business review <span class="text-zinc-700">($2,000/q)</span></li>
+              <li class="text-[11px] text-zinc-500 flex items-start gap-2"><span class="text-amber-400/60">+</span>Setup fee waived <span class="text-zinc-700">($1,997)</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="px-7 pb-7">
+          <div class="text-center mb-4 py-2 border border-white/5 rounded bg-white/[0.01]">
+            <div class="text-zinc-600 text-[10px] uppercase tracking-wider">Total stacked value</div>
+            <div class="text-zinc-500 line-through text-[13px]">$18,988/mo</div>
+            <div class="font-wide font-bold text-white text-lg">You pay $4,997/mo</div>
+          </div>
+          <a href="#book-luka" class="block w-full text-center py-3 border border-white/10 text-white font-bold text-[11px] tracking-[0.2em] uppercase hover:border-white/30 transition-colors rounded-sm" data-i18n="btn_book_call">Book a Call</a>
+          <div class="text-center text-zinc-700 text-[10px] mt-2">Replaces 2-3 SDRs at $15K/mo</div>
+        </div>
+      </div>
+
+      <!-- ══ TIER 4: ENTERPRISE ══ -->
+      <div class="border border-amber-500/20 bg-amber-500/[0.02] rounded-sm reveal pricing-hover flex flex-col relative">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-black text-[10px] uppercase tracking-[0.2em] font-bold px-4 py-1 rounded-full">White Glove</div>
+        <div class="p-7 pb-0">
+          <div class="text-[10px] uppercase tracking-[0.25em] text-amber-400/70 font-semibold mb-1">Brooke Runs Your Top-of-Funnel</div>
+          <h3 class="font-wide font-extrabold text-2xl uppercase mb-1">Enterprise</h3>
+          <div class="text-zinc-500 text-[12px] mb-5">For funded companies &amp; large agencies</div>
+          <div class="font-wide font-extrabold text-4xl tracking-[-0.04em]">$9,997<span class="text-zinc-600 text-sm font-normal">/mo</span></div>
+          <div class="text-green-400 text-[12px] font-semibold mb-1">Setup fee WAIVED (saves $1,997)</div>
+          <div class="text-zinc-700 text-[11px] mb-5">15,000 voice + 2,000 avatar minutes</div>
+        </div>
+        <div class="px-7 pb-5 flex-1">
+          <div class="text-[10px] uppercase tracking-[0.2em] text-violet-400/60 font-semibold mb-3 pt-4 border-t border-white/5">Everything in Scale, plus</div>
+          <ul class="space-y-2">
+            <li class="text-[12px] text-zinc-400 flex items-start gap-2"><svg class="w-3.5 h-3.5 text-amber-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><strong>Custom avatar (your brand's face)</strong></li>
+            <li class="text-[12px] text-zinc-400 flex items-start gap-2"><svg class="w-3.5 h-3.5 text-amber-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><strong>Custom voice cloning</strong></li>
+            <li class="text-[12px] text-zinc-400 flex items-start gap-2"><svg class="w-3.5 h-3.5 text-amber-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Dedicated Brooke instance</li>
+            <li class="text-[12px] text-zinc-400 flex items-start gap-2"><svg class="w-3.5 h-3.5 text-amber-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Priority processing (lowest latency)</li>
+            <li class="text-[12px] text-zinc-400 flex items-start gap-2"><svg class="w-3.5 h-3.5 text-amber-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Custom integrations by MNS engineering</li>
+            <li class="text-[12px] text-zinc-400 flex items-start gap-2"><svg class="w-3.5 h-3.5 text-amber-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>99.9% uptime SLA</li>
+          </ul>
+          <div class="mt-4 pt-3 border-t border-white/5">
+            <div class="text-[10px] uppercase tracking-[0.2em] text-amber-400/50 font-semibold mb-2">Bonuses included free</div>
+            <ul class="space-y-1">
+              <li class="text-[11px] text-zinc-800 flex items-start gap-2"><span class="text-amber-400/20">+</span>NEPQ persona <span class="text-zinc-800">($2,000)</span></li>
+              <li class="text-[11px] text-zinc-800 flex items-start gap-2"><span class="text-amber-400/20">+</span>Onboarding <span class="text-zinc-800">($500)</span></li>
+              <li class="text-[11px] text-zinc-800 flex items-start gap-2"><span class="text-amber-400/20">+</span>Dashboard <span class="text-zinc-800">($997/mo)</span></li>
+              <li class="text-[11px] text-zinc-700 flex items-start gap-2"><span class="text-amber-400/30">+</span>CRM + objection playbook <span class="text-zinc-800">($4,000)</span></li>
+              <li class="text-[11px] text-zinc-700 flex items-start gap-2"><span class="text-amber-400/30">+</span>Strategy calls <span class="text-zinc-800">($500/mo)</span></li>
+              <li class="text-[11px] text-zinc-600 flex items-start gap-2"><span class="text-amber-400/40">+</span>Market playbook + QBR <span class="text-zinc-700">($7,000)</span></li>
+              <li class="text-[11px] text-zinc-600 flex items-start gap-2"><span class="text-amber-400/40">+</span>Setup fee waived <span class="text-zinc-700">($1,997)</span></li>
+              <li class="text-[11px] text-zinc-500 flex items-start gap-2"><span class="text-amber-400/60">+</span>Custom avatar design <span class="text-zinc-700">($10,000)</span></li>
+              <li class="text-[11px] text-zinc-500 flex items-start gap-2"><span class="text-amber-400/60">+</span>Voice cloning setup <span class="text-zinc-700">($5,000)</span></li>
+              <li class="text-[11px] text-zinc-500 flex items-start gap-2"><span class="text-amber-400/60">+</span>Dedicated Slack with Luka <span class="text-zinc-700">(priceless)</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="px-7 pb-7">
+          <div class="text-center mb-4 py-2 border border-amber-500/10 rounded bg-amber-500/[0.03]">
+            <div class="text-amber-400/60 text-[10px] uppercase tracking-wider">Total stacked value</div>
+            <div class="text-zinc-500 line-through text-[13px]">$37,985/mo</div>
+            <div class="font-wide font-bold text-white text-lg">You pay $9,997/mo</div>
+          </div>
+          <a href="#book-luka" class="block w-full text-center py-3 bg-amber-500 text-black font-bold text-[11px] tracking-[0.2em] uppercase rounded-sm hover:bg-amber-400 transition-colors" data-i18n="btn_book_call">Book a Call</a>
+          <div class="text-center text-zinc-700 text-[10px] mt-2">Your SDR team costs $50K/mo. This is $10K.</div>
+        </div>
       </div>
 
     </div>
 
-    <p class="reveal text-center text-zinc-500 text-[13px] mt-10">Every plan includes a 7-day free trial. No credit card required. Your SDR costs you $54K/year before they make a single dial.</p>
+    <!-- GUARANTEE (reinforced) -->
+    <div class="reveal max-w-[700px] mx-auto mt-12 text-center border border-green-500/20 bg-green-500/[0.03] p-8 rounded-sm">
+      <div class="font-wide font-bold text-lg uppercase text-green-400 mb-3">The Brooke Guarantee</div>
+      <p class="text-white text-[16px] leading-relaxed font-semibold mb-3">5 qualified meetings in 30 days — or your money back.</p>
+      <p class="text-zinc-400 text-[14px] leading-relaxed mb-4">Not 5 "leads." Not 5 "contacts." Five real, qualified meetings on your calendar with decision-makers who match your ICP. If Brooke doesn't deliver, you get a full refund. No forms. No hoops. No questions.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mt-4">
+        <div class="text-center">
+          <div class="text-green-400 font-wide font-extrabold text-2xl">47</div>
+          <div class="text-zinc-500 text-[11px]">bookings in 30 days<br><span class="text-zinc-600">Pilates studio</span></div>
+        </div>
+        <div class="text-zinc-700 hidden sm:block">|</div>
+        <div class="text-center">
+          <div class="text-green-400 font-wide font-extrabold text-2xl">$22K</div>
+          <div class="text-zinc-500 text-[11px]">monthly revenue added<br><span class="text-zinc-600">Dental practice</span></div>
+        </div>
+        <div class="text-zinc-700 hidden sm:block">|</div>
+        <div class="text-center">
+          <div class="text-green-400 font-wide font-extrabold text-2xl">73%</div>
+          <div class="text-zinc-500 text-[11px]">cost per lead reduced<br><span class="text-zinc-600">Personal injury firm</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Not sure CTA -->
+    <div class="section-cta mt-6 reveal">
+      <p class="text-zinc-500 text-[14px] mb-3">Not sure which tier?</p>
+      <a href="#try-it" class="border border-violet-500/30 text-violet-300 font-bold text-[11px] tracking-[0.2em] uppercase px-8 py-3 rounded-sm hover:bg-violet-500/10 transition-colors">
+        Talk to Brooke — She'll Help You Decide
+      </a>
+    </div>
+
+    <p class="reveal text-center text-zinc-700 text-[12px] mt-8">No contracts. Cancel anytime. 7-day free trial. Annual billing saves 20%. Founding member rates locked for life.</p>
   </div>
 </section>
 
 <!-- ============================================ -->
-<!-- TRY IT -->
+<!-- DEPLOY TO MEETING -->
 <!-- ============================================ -->
-<section class="py-32 border-t border-white/5" id="try-it">
-  <div class="max-w-[1200px] mx-auto px-10">
+<section class="py-16 md:py-24 border-t border-white/5" id="booking">
+  <div class="max-w-[1100px] mx-auto px-6 md:px-10">
 
-    <div class="text-center mb-16">
-      <div class="reveal text-xs uppercase tracking-[0.3em] text-zinc-500 font-semibold mb-4">Experience It</div>
-      <h2 class="reveal font-wide font-extrabold text-[clamp(28px,4vw,52px)] leading-[1.05] tracking-[-0.04em] uppercase">
-        Talk to <span class="shimmer">Brooke</span> Right Now
+    <div class="text-center mb-10">
+      <div class="reveal text-[11px] uppercase tracking-[0.35em] text-violet-400/60 font-semibold mb-4">Deploy</div>
+      <h2 class="reveal font-wide font-extrabold text-[clamp(30px,4.5vw,56px)] leading-[1] tracking-[-0.04em] uppercase">
+        Send <span class="shimmer">Brooke</span> to Your Meeting
       </h2>
-      <p class="reveal text-zinc-400 text-[16px] max-w-[520px] mx-auto mt-6">Tell her who to be. She becomes it. No signup. No Zoom. Just click and talk.</p>
+      <p class="reveal text-zinc-500 text-[15px] max-w-[440px] mx-auto mt-6">Paste the link. Give her context. She joins in 30 seconds.</p>
     </div>
 
-    <!-- LIVE DEMO WIDGET -->
-    <div class="max-w-[800px] mx-auto reveal">
-
-      <!-- Pre-call: context input -->
-      <div id="demo-setup" class="border border-white/10 bg-white/[0.02] p-10">
-        <div class="mb-6">
-          <label class="block text-xs uppercase tracking-[0.2em] text-zinc-500 font-semibold mb-3">Tell Brooke who to be</label>
-          <textarea id="demo-context" placeholder='Try: "Be a car sales closer — I&#39;m shopping for an SUV for my family"
-Or: "Interview me for a marketing director position"
-Or: "You&#39;re my AI receptionist at a dental practice"'
-            class="w-full bg-transparent border border-white/10 px-5 py-4 text-white text-[15px] font-body transition-colors resize-vertical min-h-[120px] focus:border-white/30 outline-none"></textarea>
-        </div>
-
-        <button onclick="startBrookeDemo()" id="demo-start-btn"
-          class="w-full bg-white text-black font-bold text-[11px] tracking-[0.25em] uppercase py-4 btn-sweep hover:bg-zinc-100 transition-colors">
-          Talk to Brooke Now
-        </button>
-        <p class="text-zinc-600 text-[11px] text-center mt-4">Requires microphone access. Camera optional — Brooke can see you if you allow it.</p>
-      </div>
-
-      <!-- Live call: avatar + controls -->
-      <div id="demo-live" class="hidden">
-        <div class="border border-white/10 bg-black relative" style="aspect-ratio: 16/9;">
-          <!-- Brooke avatar video -->
-          <div id="demo-avatar-container" class="w-full h-full flex items-center justify-center">
-            <img src="https://cold-caller.mynewstaff.ai/static/brooke-avatar.png" alt="Brooke" id="demo-avatar-img" class="h-full object-contain">
-          </div>
-          <!-- Status overlay -->
-          <div id="demo-status" class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-sm px-4 py-2 flex items-center gap-2">
-            <div id="demo-dot" class="w-2 h-2 rounded-full bg-zinc-500"></div>
-            <span id="demo-status-text" class="text-zinc-400 text-[12px] font-body">Connecting...</span>
-          </div>
-        </div>
-        <div class="flex gap-3 mt-3">
-          <button onclick="endBrookeDemo()" class="flex-1 border border-white/10 text-zinc-400 font-bold text-[11px] tracking-[0.25em] uppercase py-3 hover:border-white/30 hover:text-white transition-colors">
-            End Conversation
-          </button>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Divider -->
-    <div class="max-w-[800px] mx-auto my-16 flex items-center gap-6">
-      <div class="flex-1 border-t border-white/5"></div>
-      <span class="text-zinc-600 text-[11px] uppercase tracking-[0.3em]">or send her to your meeting</span>
-      <div class="flex-1 border-t border-white/5"></div>
-    </div>
-
-    <!-- ZOOM DEPLOY -->
-    <div class="max-w-[640px] mx-auto border border-white/10 bg-white/[0.02] p-10 reveal">
-      <div class="text-center mb-6">
-        <div class="text-xs uppercase tracking-[0.2em] text-zinc-500 font-semibold mb-2">Deploy to Meeting</div>
-      </div>
+    <div class="max-w-[580px] mx-auto border border-white/10 bg-white/[0.02] p-8 md:p-10 rounded-sm reveal">
       <form id="brooke-form" onsubmit="return false;">
         <div class="mb-5">
-          <label class="block text-xs uppercase tracking-[0.2em] text-zinc-500 font-semibold mb-2">Meeting Link</label>
+          <label class="block text-[11px] uppercase tracking-[0.2em] text-zinc-500 font-semibold mb-2">Meeting Link</label>
           <input type="url" id="zoom-link" placeholder="https://zoom.us/j/123456789" required
-            class="w-full bg-transparent border border-white/10 px-5 py-3.5 text-white text-[14px] font-body transition-colors focus:border-white/30 outline-none">
+            class="w-full bg-transparent border border-white/10 px-5 py-3.5 text-white text-[14px] font-body transition-colors rounded-sm">
         </div>
         <div class="mb-5">
-          <label class="block text-xs uppercase tracking-[0.2em] text-zinc-500 font-semibold mb-2">Context for Brooke</label>
+          <label class="block text-[11px] uppercase tracking-[0.2em] text-zinc-500 font-semibold mb-2">Context for Brooke</label>
           <textarea id="context" placeholder='What should she do on this call?' required
-            class="w-full bg-transparent border border-white/10 px-5 py-3.5 text-white text-[14px] font-body transition-colors resize-vertical min-h-[80px] focus:border-white/30 outline-none"></textarea>
+            class="w-full bg-transparent border border-white/10 px-5 py-3.5 text-white text-[14px] font-body transition-colors resize-vertical min-h-[80px] rounded-sm"></textarea>
         </div>
-        <div class="mb-5">
-          <label class="block text-xs uppercase tracking-[0.2em] text-zinc-500 font-semibold mb-2">Your Email</label>
+        <div class="mb-6">
+          <label class="block text-[11px] uppercase tracking-[0.2em] text-zinc-500 font-semibold mb-2">Your Email</label>
           <input type="email" id="user-email" placeholder="you@company.com" required
-            class="w-full bg-transparent border border-white/10 px-5 py-3.5 text-white text-[14px] font-body transition-colors focus:border-white/30 outline-none">
+            class="w-full bg-transparent border border-white/10 px-5 py-3.5 text-white text-[14px] font-body transition-colors rounded-sm">
         </div>
         <button type="submit" id="submit-btn" onclick="deployBrooke()"
-          class="w-full bg-white text-black font-bold text-[11px] tracking-[0.25em] uppercase py-4 btn-sweep hover:bg-zinc-100 transition-colors">
+          class="w-full btn-violet text-white font-bold text-[11px] tracking-[0.25em] uppercase py-4 rounded-sm">
           Send Brooke to Meeting
         </button>
         <div id="form-status" class="mt-4 p-3 text-[13px] text-center hidden"></div>
@@ -565,78 +1582,86 @@ Or: "You&#39;re my AI receptionist at a dental practice"'
 <!-- ============================================ -->
 <!-- FAQ -->
 <!-- ============================================ -->
-<section class="py-32 border-t border-white/5" id="faq">
-  <div class="max-w-[1200px] mx-auto px-10">
+<section class="py-16 md:py-24 border-t border-white/5" id="faq">
+  <div class="max-w-[1100px] mx-auto px-6 md:px-10">
 
-    <div class="text-center mb-16">
-      <div class="reveal text-xs uppercase tracking-[0.3em] text-zinc-500 font-semibold mb-4">Questions</div>
-      <h2 class="reveal font-wide font-extrabold text-[clamp(28px,4vw,52px)] leading-[1.05] tracking-[-0.04em] uppercase">FAQ</h2>
+    <div class="text-center mb-10">
+      <div class="reveal text-[11px] uppercase tracking-[0.35em] text-violet-400/60 font-semibold mb-4" data-i18n="faq_label">Questions</div>
+      <h2 class="reveal font-wide font-extrabold text-[clamp(30px,4.5vw,56px)] leading-[1] tracking-[-0.04em] uppercase" data-i18n="faq_heading">FAQ</h2>
     </div>
 
-    <div class="max-w-[740px] mx-auto">
+    <div class="max-w-[700px] mx-auto">
 
       <div class="faq-item border-b border-white/5 py-6 cursor-pointer reveal" onclick="toggleFaq(this)">
-        <div class="flex justify-between items-center">
-          <span class="font-wide font-semibold text-[16px]">Does Brooke actually have a visible face on calls?</span>
-          <span class="faq-plus text-zinc-500 text-xl transition-transform duration-300">+</span>
+        <div class="flex justify-between items-center gap-4">
+          <span class="font-wide font-semibold text-[15px]">Does Brooke actually have a visible face on video calls?</span>
+          <span class="faq-plus text-violet-400/50 text-xl transition-transform duration-300 shrink-0">+</span>
         </div>
-        <div class="faq-answer text-zinc-400 text-[14px] leading-relaxed">Yes. Brooke appears as a video participant with a moving, lip-synced face. She looks like a real person on camera. Prospects don't know they're talking to AI unless you tell them.</div>
+        <div class="faq-answer text-zinc-500 text-[14px] leading-relaxed">Yes. On the Video Avatar plans, Brooke appears as a real video participant with a moving, lip-synced face powered by HeyGen. She looks like a real person on camera. Your prospect sees a face, hears a voice, and has a natural conversation. On Voice Agent plans, she works as a phone-style AI — no video needed.</div>
       </div>
 
       <div class="faq-item border-b border-white/5 py-6 cursor-pointer reveal" onclick="toggleFaq(this)">
-        <div class="flex justify-between items-center">
-          <span class="font-wide font-semibold text-[16px]">What platforms does Brooke support?</span>
-          <span class="faq-plus text-zinc-500 text-xl transition-transform duration-300">+</span>
+        <div class="flex justify-between items-center gap-4">
+          <span class="font-wide font-semibold text-[15px]">How does the per-minute pricing work?</span>
+          <span class="faq-plus text-violet-400/50 text-xl transition-transform duration-300 shrink-0">+</span>
         </div>
-        <div class="faq-answer text-zinc-400 text-[14px] leading-relaxed">Zoom, Google Meet, and Microsoft Teams. Any platform that accepts a meeting join link. Webex and custom SIP coming Q2 2026.</div>
+        <div class="faq-answer text-zinc-500 text-[14px] leading-relaxed">Each plan includes a set number of minutes. Voice minutes cover cold calls, inbound, and phone conversations. Avatar minutes cover video calls on Zoom/Meet/Teams. You only pay for actual talk time — no charges while on hold or during silence. Go over your plan? Overage rates are listed on each tier. No surprises.</div>
       </div>
 
       <div class="faq-item border-b border-white/5 py-6 cursor-pointer reveal" onclick="toggleFaq(this)">
-        <div class="flex justify-between items-center">
-          <span class="font-wide font-semibold text-[16px]">How does Brooke handle objections?</span>
-          <span class="faq-plus text-zinc-500 text-xl transition-transform duration-300">+</span>
+        <div class="flex justify-between items-center gap-4">
+          <span class="font-wide font-semibold text-[15px]">What does "computer vision" mean in practice?</span>
+          <span class="faq-plus text-violet-400/50 text-xl transition-transform duration-300 shrink-0">+</span>
         </div>
-        <div class="faq-answer text-zinc-400 text-[14px] leading-relaxed">Brooke is trained on the NEPQ (Neuro-Emotional Persuasion Questioning) framework. She doesn't push or pitch. She asks calibrated questions that let the prospect sell themselves. When objections come up, she acknowledges, probes deeper, and reframes -- exactly how a top 1% closer would.</div>
+        <div class="faq-answer text-zinc-500 text-[14px] leading-relaxed">Brooke can see the other participants through the meeting camera feed. She reads facial expressions, body language, and engagement signals. If someone looks confused, she slows down. If they're nodding, she moves to close. It's the same thing a great salesperson does instinctively — except Brooke never misses a cue.</div>
       </div>
 
       <div class="faq-item border-b border-white/5 py-6 cursor-pointer reveal" onclick="toggleFaq(this)">
-        <div class="flex justify-between items-center">
-          <span class="font-wide font-semibold text-[16px]">Can I customize Brooke's persona?</span>
-          <span class="faq-plus text-zinc-500 text-xl transition-transform duration-300">+</span>
+        <div class="flex justify-between items-center gap-4">
+          <span class="font-wide font-semibold text-[15px]">How does Brooke compare to Bland, Vapi, or other AI callers?</span>
+          <span class="faq-plus text-violet-400/50 text-xl transition-transform duration-300 shrink-0">+</span>
         </div>
-        <div class="faq-answer text-zinc-400 text-[14px] leading-relaxed">On Growth and Scale plans, you build custom personas. Define her name, voice, personality, product knowledge, qualification criteria, and follow-up behavior. She becomes your employee -- with your company's knowledge and your sales playbook.</div>
+        <div class="faq-answer text-zinc-500 text-[14px] leading-relaxed">Voice-only tools like Bland ($0.09/min), Vapi ($0.10-$0.30/min depending on stack), and Retell ($0.07-$0.25/min) are solid for basic outbound calling. Brooke's voice agent is priced competitively at $0.25/min. The difference: NEPQ sales methodology built-in (not generic scripts you write yourself), plus the option to add a video avatar on Zoom — something no voice-only platform offers at all.</div>
       </div>
 
       <div class="faq-item border-b border-white/5 py-6 cursor-pointer reveal" onclick="toggleFaq(this)">
-        <div class="flex justify-between items-center">
-          <span class="font-wide font-semibold text-[16px]">What happens after the call ends?</span>
-          <span class="faq-plus text-zinc-500 text-xl transition-transform duration-300">+</span>
+        <div class="flex justify-between items-center gap-4">
+          <span class="font-wide font-semibold text-[15px]">How does Brooke handle objections?</span>
+          <span class="faq-plus text-violet-400/50 text-xl transition-transform duration-300 shrink-0">+</span>
         </div>
-        <div class="faq-answer text-zinc-400 text-[14px] leading-relaxed">Full recording, transcript, and AI-generated summary with qualification score and recommended next steps. On Growth+, this syncs directly to your CRM. Brooke can also send a personalized follow-up email within 60 seconds of hanging up.</div>
+        <div class="faq-answer text-zinc-500 text-[14px] leading-relaxed">Brooke is trained on NEPQ (Neuro-Emotional Persuasion Questioning). She doesn't push or pitch. She asks calibrated questions that let the prospect sell themselves. When objections come up, she acknowledges, probes deeper, and reframes — exactly how a top 1% closer would. And she gets better at it with every call through her learning loop.</div>
       </div>
 
       <div class="faq-item border-b border-white/5 py-6 cursor-pointer reveal" onclick="toggleFaq(this)">
-        <div class="flex justify-between items-center">
-          <span class="font-wide font-semibold text-[16px]">Is this legal and compliant?</span>
-          <span class="faq-plus text-zinc-500 text-xl transition-transform duration-300">+</span>
+        <div class="flex justify-between items-center gap-4">
+          <span class="font-wide font-semibold text-[15px]">What platforms does Brooke work on?</span>
+          <span class="faq-plus text-violet-400/50 text-xl transition-transform duration-300 shrink-0">+</span>
         </div>
-        <div class="faq-answer text-zinc-400 text-[14px] leading-relaxed">Brooke operates within standard video call recording consent laws. She identifies as an AI assistant at the start of each call (configurable). You're responsible for compliance with local recording consent regulations, same as any call recording tool.</div>
+        <div class="faq-answer text-zinc-500 text-[14px] leading-relaxed">Video Avatar: Zoom, Google Meet, and Microsoft Teams — any platform that accepts a meeting join link. Voice Agent: works over phone lines and WebSocket connections. On-Page Widget: embeds directly on your website — Chrome, Safari, Firefox, Edge. No SDK or IT department needed.</div>
       </div>
 
       <div class="faq-item border-b border-white/5 py-6 cursor-pointer reveal" onclick="toggleFaq(this)">
-        <div class="flex justify-between items-center">
-          <span class="font-wide font-semibold text-[16px]">What's the real cost per call?</span>
-          <span class="faq-plus text-zinc-500 text-xl transition-transform duration-300">+</span>
+        <div class="flex justify-between items-center gap-4">
+          <span class="font-wide font-semibold text-[15px]">What happens after the call ends?</span>
+          <span class="faq-plus text-violet-400/50 text-xl transition-transform duration-300 shrink-0">+</span>
         </div>
-        <div class="faq-answer text-zinc-400 text-[14px] leading-relaxed">Underlying cost is $0.04/minute. On Starter ($997/mo for 30 calls), that averages about $33/call for a 15-minute conversation. Your SDR costs $4,500/mo and makes maybe 8 quality calls a day. The math isn't close.</div>
+        <div class="faq-answer text-zinc-500 text-[14px] leading-relaxed">You get a full recording, transcript, and AI-generated summary with a qualification score and recommended next steps. On Growth/Business plans and above, this syncs directly to your CRM. Brooke can also send a personalized follow-up email within 60 seconds of hanging up.</div>
       </div>
 
       <div class="faq-item border-b border-white/5 py-6 cursor-pointer reveal" onclick="toggleFaq(this)">
-        <div class="flex justify-between items-center">
-          <span class="font-wide font-semibold text-[16px]">Can Brooke handle multiple calls at once?</span>
-          <span class="faq-plus text-zinc-500 text-xl transition-transform duration-300">+</span>
+        <div class="flex justify-between items-center gap-4">
+          <span class="font-wide font-semibold text-[15px]">Is this legal and compliant?</span>
+          <span class="faq-plus text-violet-400/50 text-xl transition-transform duration-300 shrink-0">+</span>
         </div>
-        <div class="faq-answer text-zinc-400 text-[14px] leading-relaxed">On Scale, Brooke can run 10+ calls simultaneously. Each instance is fully independent with its own context. Your bottleneck stops being headcount.</div>
+        <div class="faq-answer text-zinc-500 text-[14px] leading-relaxed">Brooke identifies as an AI assistant at the start of each call (configurable). She operates within standard video call recording consent laws. You're responsible for compliance with local regulations, same as any call recording tool. We provide consent language templates for all major jurisdictions.</div>
+      </div>
+
+      <div class="faq-item border-b border-white/5 py-6 cursor-pointer reveal" onclick="toggleFaq(this)">
+        <div class="flex justify-between items-center gap-4">
+          <span class="font-wide font-semibold text-[15px]">Can I try before I buy?</span>
+          <span class="faq-plus text-violet-400/50 text-xl transition-transform duration-300 shrink-0">+</span>
+        </div>
+        <div class="faq-answer text-zinc-500 text-[14px] leading-relaxed">Yes. Every plan includes a 7-day free trial — no credit card required. You can also talk to Brooke right now on this page: scroll up to the "Try It Now" section and start a voice call or video chat instantly. No signup needed.</div>
       </div>
 
     </div>
@@ -644,60 +1669,279 @@ Or: "You&#39;re my AI receptionist at a dental practice"'
 </section>
 
 <!-- ============================================ -->
-<!-- FOOTER CTA -->
+<!-- FINAL CTA -->
 <!-- ============================================ -->
-<section class="py-32 border-t border-white/5 text-center">
-  <div class="max-w-[1200px] mx-auto px-10">
+<section class="py-16 md:py-24 border-t border-white/5 text-center relative overflow-hidden">
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] rounded-full bg-violet-600/5 blur-[120px]"></div>
+  </div>
+  <div class="max-w-[800px] mx-auto px-6 md:px-10 relative z-10">
 
-    <h2 class="reveal font-wide font-extrabold text-[clamp(28px,5vw,64px)] leading-[0.95] tracking-[-0.04em] uppercase mb-6">
-      Every Hour Without<br><span class="shimmer">Brooke</span> Is Revenue<br>You'll Never Get Back
+    <h2 class="reveal font-wide font-extrabold text-[clamp(30px,5vw,64px)] leading-[0.92] tracking-[-0.04em] uppercase mb-6">
+      Every Call Without<br><span class="shimmer">Brooke</span> Is Revenue<br>You'll Never Get Back
     </h2>
 
-    <p class="reveal text-zinc-400 text-[17px] max-w-[480px] mx-auto mb-12">
-      Your competitors are already automating their calls. Three free calls. No credit card. No commitment. Just results.
+    <p class="reveal text-zinc-500 text-[16px] max-w-[520px] mx-auto mb-6">
+      Your human SDR costs $54K/year and works 2.5 hours a day. Brooke costs $249/mo and works 24/7. The math isn't close.
+    </p>
+
+    <p class="reveal text-zinc-600 text-[14px] max-w-[440px] mx-auto mb-12">
+      7-day free trial. No credit card. No contracts. Start in 60 seconds.
     </p>
 
     <div class="reveal flex gap-4 flex-wrap justify-center">
-      <a href="#try-it" class="bg-white text-black font-bold text-[11px] tracking-[0.25em] uppercase px-10 py-4 btn-sweep hover:bg-zinc-100 transition-colors">Send Brooke Now</a>
-      <a href="https://mynewstaff.ai/#booking" class="border border-white/10 text-white font-bold text-[11px] tracking-[0.25em] uppercase px-10 py-4 hover:border-white/30 transition-colors">Book a Call With Luka</a>
+      <a href="#try-it" class="btn-violet text-white font-bold text-[11px] tracking-[0.25em] uppercase px-10 py-4 rounded-sm">Talk to Brooke Now</a>
+      <a href="#booking" class="border border-white/10 text-white font-bold text-[11px] tracking-[0.25em] uppercase px-10 py-4 hover:border-white/30 transition-colors rounded-sm">Send Brooke to a Meeting</a>
+      <a href="#book-luka" class="border border-white/10 text-white font-bold text-[11px] tracking-[0.25em] uppercase px-10 py-4 hover:border-white/30 transition-colors rounded-sm">Talk to Luka</a>
     </div>
 
+  </div>
+</section>
+
+<!-- BOOK LUKA -->
+<section class="py-14 md:py-20 border-t border-white/5" id="book-luka">
+  <div class="max-w-[700px] mx-auto px-6 md:px-10 text-center">
+    <div class="reveal text-[11px] uppercase tracking-[0.35em] text-violet-400/60 font-semibold mb-4">Talk to the Founder</div>
+    <h2 class="reveal font-wide font-extrabold text-[clamp(24px,3.5vw,40px)] leading-[1.1] tracking-[-0.03em] uppercase mb-6">
+      Book a Call with <span class="shimmer">Luka</span>
+    </h2>
+    <p class="reveal text-zinc-500 text-[14px] mb-8">15 minutes. No pitch. Just a conversation about what Brooke can do for your specific business.</p>
+    <div class="reveal border border-white/10 bg-white/[0.02] rounded-sm overflow-hidden" style="min-height: 600px;">
+      <iframe src="https://api.leadconnectorhq.com/widget/bookings/ai-scalability-assessment" style="width:100%;min-height:700px;height:calc(100vh - 200px);max-height:900px;border:none;" scrolling="no"></iframe>
+    </div>
   </div>
 </section>
 
 <!-- ============================================ -->
 <!-- FOOTER -->
 <!-- ============================================ -->
-<footer class="border-t border-white/5 py-12 px-10 text-center">
-  <div class="font-wide font-bold text-[13px] text-zinc-400 tracking-[0.1em] uppercase mb-2">MYNEWSTAFF.AI</div>
-  <p class="text-zinc-600 text-[12px] mb-4">Built by <span class="text-zinc-400">Luka Lah</span> &middot; AI Marketing Infrastructure</p>
+<footer class="border-t border-white/5 py-12 px-6 md:px-10 text-center">
+  <div class="font-wide font-bold text-[13px] text-zinc-500 tracking-[0.1em] uppercase mb-2">MYNEWSTAFF.AI</div>
+  <p class="text-zinc-700 text-[12px] mb-4">Built by <span class="text-zinc-500">Luka Lah</span> &middot; $300M+ revenue. 90K sales org. Now autonomous AI.</p>
   <div class="flex gap-6 justify-center flex-wrap mb-6">
-    <a href="https://mynewstaff.ai" class="text-zinc-500 text-[11px] tracking-[0.15em] uppercase hover:text-white transition-colors">Home</a>
-    <a href="https://mynewstaff.ai/products" class="text-zinc-500 text-[11px] tracking-[0.15em] uppercase hover:text-white transition-colors">Products</a>
-    <a href="https://mynewstaff.ai/#booking" class="text-zinc-500 text-[11px] tracking-[0.15em] uppercase hover:text-white transition-colors">Book a Call</a>
-    <a href="mailto:contact@mynewstaff.ai" class="text-zinc-500 text-[11px] tracking-[0.15em] uppercase hover:text-white transition-colors">Contact</a>
+    <a href="https://mynewstaff.ai" class="text-zinc-600 text-[11px] tracking-[0.15em] uppercase hover:text-white transition-colors">Home</a>
+    <a href="https://mynewstaff.ai/products" class="text-zinc-600 text-[11px] tracking-[0.15em] uppercase hover:text-white transition-colors">Products</a>
+    <a href="#pricing" class="text-zinc-600 text-[11px] tracking-[0.15em] uppercase hover:text-white transition-colors">Pricing</a>
+    <a href="#book-luka" class="text-zinc-600 text-[11px] tracking-[0.15em] uppercase hover:text-white transition-colors">Book a Call</a>
+    <a href="mailto:contact@mynewstaff.ai" class="text-zinc-600 text-[11px] tracking-[0.15em] uppercase hover:text-white transition-colors">Contact</a>
   </div>
-  <p class="text-zinc-700 text-[11px]">&copy; 2026 MyNewStaff.ai. All rights reserved.</p>
+  <p class="text-zinc-800 text-[11px]">&copy; 2026 MyNewStaff.ai. All rights reserved.</p>
 </footer>
+
+<!-- Floating mobile CTA -->
+<div id="floating-cta">
+  <a href="#try-it" class="btn-violet text-white font-bold text-[11px] tracking-[0.25em] uppercase py-3 rounded-sm block text-center w-full" data-i18n="cta_talk_now">Talk to Brooke Now</a>
+</div>
+
+<!-- Back to top -->
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+  </svg>
+</button>
 
 <!-- ============================================ -->
 <!-- SCRIPTS -->
 <!-- ============================================ -->
 <script>
+// ═══════════════════════════════════════════════
+// TASK 1: LIGHTWEIGHT TRANSLATION SYSTEM (~80 lines)
+// ═══════════════════════════════════════════════
+const i18n = {
+  en: {
+    hero_headline: 'MEET BROOKE',
+    hero_subheadline: 'The AI That Calls, Qualifies,<br>and Closes — With a Face',
+    cta_talk_now: 'Talk to Brooke Now',
+    btn_video_chat: 'Start Video Chat',
+    btn_voice_call: 'Start Voice Call',
+    btn_book_call: 'Book a Call',
+    try_it_label: 'Try It Now',
+    try_it_heading: 'Talk to <span class="shimmer">Brooke</span> Right Now',
+    pricing_label: 'Pricing',
+    pricing_heading: 'Pay Per Minute.<br><span class="shimmer">Not Per Headcount.</span>',
+    faq_label: 'Questions',
+    faq_heading: 'FAQ',
+    status_click_call: 'Click to call — she picks up in 3 seconds',
+    status_connected: 'Connected',
+    status_connecting_avatar: 'Connecting avatar...',
+  },
+  es: {
+    hero_headline: 'CONOCE A BROOKE',
+    hero_subheadline: 'La IA Que Llama, Califica<br>y Cierra — Con Rostro',
+    cta_talk_now: 'Habla con Brooke',
+    btn_video_chat: 'Iniciar Videollamada',
+    btn_voice_call: 'Iniciar Llamada',
+    btn_book_call: 'Reservar Llamada',
+    try_it_label: 'Pruébalo Ahora',
+    try_it_heading: 'Habla con <span class="shimmer">Brooke</span> Ahora',
+    pricing_label: 'Precios',
+    pricing_heading: 'Paga Por Minuto.<br><span class="shimmer">No Por Empleado.</span>',
+    faq_label: 'Preguntas',
+    faq_heading: 'FAQ',
+    status_click_call: 'Haz clic para llamar — responde en 3 segundos',
+    status_connected: 'Conectado',
+    status_connecting_avatar: 'Conectando avatar...',
+  },
+  de: {
+    hero_headline: 'TRIFF BROOKE',
+    hero_subheadline: 'Die KI, Die Anruft, Qualifiziert<br>und Abschließt — Mit Gesicht',
+    cta_talk_now: 'Jetzt mit Brooke sprechen',
+    btn_video_chat: 'Videochat starten',
+    btn_voice_call: 'Anruf starten',
+    btn_book_call: 'Termin buchen',
+    try_it_label: 'Jetzt testen',
+    try_it_heading: 'Sprich jetzt mit <span class="shimmer">Brooke</span>',
+    pricing_label: 'Preise',
+    pricing_heading: 'Zahle Pro Minute.<br><span class="shimmer">Nicht Pro Mitarbeiter.</span>',
+    faq_label: 'Fragen',
+    faq_heading: 'FAQ',
+    status_click_call: 'Klicken zum Anrufen — sie antwortet in 3 Sekunden',
+    status_connected: 'Verbunden',
+    status_connecting_avatar: 'Avatar wird verbunden...',
+  },
+  fr: {
+    hero_headline: 'VOICI BROOKE',
+    hero_subheadline: "L'IA Qui Appelle, Qualifie<br>et Conclut — Avec un Visage",
+    cta_talk_now: 'Parler à Brooke',
+    btn_video_chat: 'Démarrer Vidéo',
+    btn_voice_call: 'Démarrer Appel',
+    btn_book_call: 'Réserver un Appel',
+    try_it_label: 'Essayez Maintenant',
+    try_it_heading: 'Parlez à <span class="shimmer">Brooke</span> Maintenant',
+    pricing_label: 'Tarifs',
+    pricing_heading: 'Payez À La Minute.<br><span class="shimmer">Pas Par Tête.</span>',
+    faq_label: 'Questions',
+    faq_heading: 'FAQ',
+    status_click_call: 'Cliquez pour appeler — elle répond en 3 secondes',
+    status_connected: 'Connecté',
+    status_connecting_avatar: "Connexion de l'avatar...",
+  },
+  pt: {
+    hero_headline: 'CONHEÇA BROOKE',
+    hero_subheadline: 'A IA Que Liga, Qualifica<br>e Fecha — Com Rosto',
+    cta_talk_now: 'Fale com Brooke',
+    btn_video_chat: 'Iniciar Vídeo',
+    btn_voice_call: 'Iniciar Chamada',
+    btn_book_call: 'Agendar Chamada',
+    try_it_label: 'Experimente Agora',
+    try_it_heading: 'Fale com <span class="shimmer">Brooke</span> Agora',
+    pricing_label: 'Preços',
+    pricing_heading: 'Pague Por Minuto.<br><span class="shimmer">Não Por Funcionário.</span>',
+    faq_label: 'Perguntas',
+    faq_heading: 'FAQ',
+    status_click_call: 'Clique para ligar — ela atende em 3 segundos',
+    status_connected: 'Conectado',
+    status_connecting_avatar: 'Conectando avatar...',
+  },
+  sl: {
+    hero_headline: 'SPOZNAJ BROOKE',
+    hero_subheadline: 'AI, Ki Kliče, Kvalificira<br>in Zaključuje — Z Obrazom',
+    cta_talk_now: 'Pogovori se z Brooke',
+    btn_video_chat: 'Začni video klic',
+    btn_voice_call: 'Začni glasovni klic',
+    btn_book_call: 'Rezerviraj klic',
+    try_it_label: 'Preizkusi zdaj',
+    try_it_heading: 'Pogovori se z <span class="shimmer">Brooke</span> zdaj',
+    pricing_label: 'Cene',
+    pricing_heading: 'Plačaj Na Minuto.<br><span class="shimmer">Ne Na Zaposlenega.</span>',
+    faq_label: 'Vprašanja',
+    faq_heading: 'Pogosta vprašanja',
+    status_click_call: 'Klikni za klic — odgovori v 3 sekundah',
+    status_connected: 'Povezano',
+    status_connecting_avatar: 'Povezovanje avatarja...',
+  }
+};
+
+function switchLanguage(lang) {
+  const strings = i18n[lang] || i18n.en;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (strings[key]) el.innerHTML = strings[key];
+  });
+  // Sync both selectors
+  const d = document.getElementById('lang-select');
+  const m = document.getElementById('lang-select-mobile');
+  if (d) d.value = lang;
+  if (m) m.value = lang;
+}
+
+// Auto-detect language on load
+(function() {
+  const browserLang = (navigator.language || '').slice(0, 2).toLowerCase();
+  if (i18n[browserLang] && browserLang !== 'en') switchLanguage(browserLang);
+})();
+
+// ═══════════════════════════════════════════════
+// MOBILE MENU
+// ═══════════════════════════════════════════════
+function toggleMobileMenu() {
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobile-menu').classList.toggle('open');
+  document.body.style.overflow = document.getElementById('mobile-menu').classList.contains('open') ? 'hidden' : '';
+}
+function closeMobileMenu() {
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ═══════════════════════════════════════════════
+// BACK TO TOP + FLOATING CTA + SCROLL TRACKING
+// ═══════════════════════════════════════════════
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const vh = window.innerHeight;
+
+  // Back to top: show after 2 screens
+  const btt = document.getElementById('back-to-top');
+  if (btt) btt.classList.toggle('visible', scrollY > vh * 2);
+
+  // Floating CTA: show when scrolling, hide when #try-it is in view
+  const tryIt = document.getElementById('try-it');
+  const floatingCta = document.getElementById('floating-cta');
+  if (tryIt && floatingCta) {
+    const rect = tryIt.getBoundingClientRect();
+    const tryItVisible = rect.top < vh && rect.bottom > 0;
+    const pastHero = scrollY > vh * 0.5;
+    floatingCta.classList.toggle('visible', pastHero && !tryItVisible);
+  }
+});
+
+// ═══════════════════════════════════════════════
+// KRIS JENNER VIDEO SOUND TOGGLE
+// ═══════════════════════════════════════════════
+function toggleKrisSound() {
+  const video = document.getElementById('kris-video');
+  const overlay = document.getElementById('kris-play-overlay');
+  if (video && overlay) {
+    video.muted = !video.muted;
+    if (!video.muted) {
+      overlay.classList.add('hidden');
+      video.currentTime = 0;
+    } else {
+      overlay.classList.remove('hidden');
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════
+// GSAP + SCROLL ANIMATIONS
+// ═══════════════════════════════════════════════
 gsap.registerPlugin(ScrollTrigger);
 
 // ---- Subtle scroll reveals — never hides content ----
 document.querySelectorAll('.reveal').forEach((el, i) => {
   gsap.from(el, {
-    y: 20,
-    duration: 0.6,
-    ease: 'power2.out',
+    y: 30,
+    opacity: 0,
+    duration: 0.8,
+    ease: 'power3.out',
     scrollTrigger: {
       trigger: el,
       start: 'top 92%',
       once: true
     },
-    delay: (i % 4) * 0.05
+    delay: (i % 5) * 0.06
   });
 });
 
@@ -740,11 +1984,11 @@ document.querySelectorAll('.counter').forEach(el => {
 });
 
 // ---- Proof metrics pop ----
-gsap.utils.toArray('#proof .font-wide.text-4xl').forEach(el => {
+gsap.utils.toArray('.proof-number').forEach(el => {
   gsap.from(el, {
     scale: 0.85,
     opacity: 0,
-    duration: 0.6,
+    duration: 0.7,
     ease: 'back.out(1.4)',
     scrollTrigger: {
       trigger: el,
@@ -754,20 +1998,31 @@ gsap.utils.toArray('#proof .font-wide.text-4xl').forEach(el => {
   });
 });
 
-// ---- Pricing cards stagger ----
-gsap.utils.toArray('#pricing .bg-black, #pricing .bg-white\\/\\[0\\.02\\]').forEach((el, i) => {
+// ---- Capability cards stagger (handled by .reveal, skip duplicate) ----
+/*gsap.utils.toArray('.cap-card').forEach((el, i) => {
   gsap.from(el, {
     opacity: 0,
-    y: 50,
-    duration: 0.8,
-    delay: i * 0.12,
+    y: 40,
+    duration: 0.7,
+    delay: i * 0.1,
     ease: 'power3.out',
     scrollTrigger: {
       trigger: el,
-      start: 'top 85%',
+      start: 'top 88%',
       once: true
     }
   });
+});*/
+
+// ---- Pricing cards stagger (disabled — .reveal handles it) ----
+
+// ---- Hero avatar entrance ----
+gsap.from('#hero img', {
+  scale: 0.8,
+  opacity: 0,
+  duration: 1.2,
+  ease: 'power3.out',
+  delay: 0.3
 });
 
 // ---- FAQ toggle ----
@@ -819,7 +2074,7 @@ async function deployBrooke() {
     });
 
     if (res.ok) {
-      status.className = 'mt-4 p-3 text-[13px] text-center border border-white/10 bg-white/[0.03] text-white';
+      status.className = 'mt-4 p-3 text-[13px] text-center border border-violet-500/20 bg-violet-500/10 text-violet-300';
       status.classList.remove('hidden');
       status.textContent = 'Brooke is joining your call now. She\'ll appear in about 30 seconds. Check your email for the recording link after.';
       btn.textContent = 'BROOKE DEPLOYED';
@@ -834,7 +2089,7 @@ async function deployBrooke() {
       status.classList.remove('hidden');
       status.textContent = errData.detail || errData.message || 'Something went wrong. Try again or book a demo with Luka.';
       btn.disabled = false;
-      btn.textContent = 'DEPLOY BROOKE NOW';
+      btn.textContent = 'SEND BROOKE TO MEETING';
       btn.style.opacity = '1';
     }
   } catch {
@@ -842,108 +2097,413 @@ async function deployBrooke() {
     status.classList.remove('hidden');
     status.textContent = 'Could not reach Brooke\'s server. Service may be temporarily offline. Book a demo with Luka instead.';
     btn.disabled = false;
-    btn.textContent = 'DEPLOY BROOKE NOW';
+    btn.textContent = 'SEND BROOKE TO MEETING';
     btn.style.opacity = '1';
   }
 }
 
-// ---- LIVE DEMO: Talk to Brooke on the page ----
-let demoRoom = null;
+// ═══════════════════════════════════════════════
+// AVATAR EMAIL GATE
+// ═══════════════════════════════════════════════
+let avatarLeadName = '';
+let avatarLeadEmail = '';
 
-async function startBrookeDemo() {
-  const ctx = document.getElementById('demo-context').value.trim();
-  const btn = document.getElementById('demo-start-btn');
-  const setup = document.getElementById('demo-setup');
-  const live = document.getElementById('demo-live');
-  const dot = document.getElementById('demo-dot');
-  const statusText = document.getElementById('demo-status-text');
+function startAvatarWithGate() {
+  const name = document.getElementById('avatar-gate-name').value.trim();
+  const email = document.getElementById('avatar-gate-email').value.trim();
+  const phone = document.getElementById('avatar-gate-phone').value.trim();
+  const err = document.getElementById('avatar-gate-error');
+  const btn = document.getElementById('avatar-btn');
 
+  if (!name || !email) {
+    err.textContent = 'Name and email required to start video chat';
+    err.classList.remove('hidden');
+    return;
+  }
+  if (!email.includes('@') || !email.includes('.')) {
+    err.textContent = 'Please enter a valid email';
+    err.classList.remove('hidden');
+    return;
+  }
+
+  err.classList.add('hidden');
   btn.disabled = true;
   btn.textContent = 'CONNECTING...';
-  btn.style.opacity = '0.5';
+  avatarLeadName = name;
+  avatarLeadEmail = email;
 
+  const context = `Visitor: ${name} (${email}${phone ? ', phone: ' + phone : ''}). They filled out a form to talk to you. Greet them by name.`;
+
+  fetch('https://cold-caller.mynewstaff.ai/api/brooke/web-session', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ context })
+  }).then(r => r.json()).then(data => {
+    if (data.error) { err.textContent = data.error; err.classList.remove('hidden'); btn.disabled = false; btn.textContent = 'Start Video Chat'; return; }
+    document.getElementById('avatar-gate').classList.add('hidden');
+    document.getElementById('avatar-end-wrap').classList.remove('hidden');
+    startAvatarSessionWithCreds(data);
+  }).catch(e => {
+    err.textContent = 'Connection failed. Try again.';
+    err.classList.remove('hidden');
+    btn.disabled = false;
+    btn.textContent = 'Start Video Chat';
+  });
+
+  // Fire lead capture
   try {
-    // 1. Get demo room token from API
-    const res = await fetch('https://cold-caller.mynewstaff.ai/api/brooke/demo', {
+    fetch('https://cold-caller.mynewstaff.ai/api/brooke/conversation-complete', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ context: ctx || 'General sales demo — greet and ask what they need' }),
+      body: JSON.stringify({ name, email, phone, source: 'brooke-avatar-widget', type: 'lead_capture' })
     });
-    const data = await res.json();
-    if (!data.token) throw new Error('No token');
+  } catch(e) {}
+}
 
-    // 2. Load LiveKit client
-    const lkScript = document.createElement('script');
-    lkScript.src = 'https://cold-caller.mynewstaff.ai/static/livekit-client.umd.js';
-    document.head.appendChild(lkScript);
-    await new Promise((r, j) => { lkScript.onload = r; lkScript.onerror = j; setTimeout(j, 10000); });
+// ═══════════════════════════════════════════════
+// VIDEO AVATAR WIDGET — LiveKit + HeyGen face
+// ═══════════════════════════════════════════════
+let avatarRoom = null;
+let avatarActive = false;
+let avatarStart = null;
+let avatarTimerInterval = null;
 
-    // 3. Show live UI
-    setup.classList.add('hidden');
-    live.classList.remove('hidden');
-    statusText.textContent = 'Connecting to Brooke...';
+async function toggleAvatarSession() {
+  if (avatarActive) { endAvatarSession(); }
+}
 
-    // 4. Connect to LiveKit room
-    demoRoom = new LivekitClient.Room();
+async function startAvatarSessionWithCreds(data) {
+  const status = document.getElementById('avatar-status');
+  const loading = document.getElementById('avatar-loading');
+  const preview = document.getElementById('avatar-preview');
+  const dot = document.getElementById('avatar-dot');
+  const timer = document.getElementById('avatar-timer');
+  const waveform = document.getElementById('avatar-waveform');
 
-    demoRoom.on(LivekitClient.RoomEvent.TrackSubscribed, (track, pub, participant) => {
-      const container = document.getElementById('demo-avatar-container');
+  status.textContent = 'Starting avatar session...';
+  status.style.color = '#8b5cf6';
+  loading.classList.remove('hidden');
+
+  try {
+    const LK_URL = data.lk_url;
+    const LK_TOKEN = data.token;
+
+    // Load LiveKit client
+    if (!window.LivekitClient) {
+      await new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = 'https://cold-caller.mynewstaff.ai/static/livekit-client.umd.js';
+        s.onload = resolve; s.onerror = reject;
+        document.head.appendChild(s);
+      });
+    }
+
+    status.textContent = 'Connecting to room...';
+
+    avatarRoom = new LivekitClient.Room({
+      adaptiveStream: true,
+      dynacast: true,
+    });
+
+    // Handle avatar video+audio from HeyGen
+    avatarRoom.on(LivekitClient.RoomEvent.TrackSubscribed, (track, pub, participant) => {
+      if (participant.identity !== 'heygen-avatar') return;
+      const container = document.getElementById('avatar-container');
+
       if (track.kind === 'video') {
         const el = track.attach();
-        el.style.width = '100%';
-        el.style.height = '100%';
-        el.style.objectFit = 'contain';
-        container.innerHTML = '';
+        el.id = 'avatar-video';
+        el.style.cssText = 'width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:2;';
         container.appendChild(el);
-        dot.className = 'w-2 h-2 rounded-full bg-green-400';
-        dot.style.boxShadow = '0 0 6px #4ade80';
-        statusText.textContent = 'Brooke is live — talk to her';
-        statusText.style.color = '#fff';
+        preview.style.display = 'none';
+
+        // Video appeared but keep loading state — wait for voice
+        status.textContent = 'Avatar loaded — waiting for voice...';
+        status.style.color = '#a78bfa';
+        btn.textContent = 'END SESSION';
+        btn.className = btn.className.replace('bg-violet-600 hover:bg-violet-500', 'bg-red-600 hover:bg-red-500');
+        btn.disabled = false;
+
+        // Show loading overlay with different text
+        const loadingSpan = document.querySelector('#avatar-loading span');
+        if (loadingSpan) loadingSpan.textContent = 'Starting voice...';
       }
       if (track.kind === 'audio') {
         const el = track.attach();
+        el.autoplay = true;
         el.style.display = 'none';
-        document.body.appendChild(el);
+        container.appendChild(el);
+        el.play().catch(() => {});
+
+        // NOW fully live — voice is connected
+        avatarActive = true;
+        loading.classList.add('hidden');
+        dot.className = 'w-2 h-2 rounded-full bg-green-500 animate-pulse';
+        status.textContent = 'Live — say hello to Brooke';
+        status.style.color = '#4ade80';
+        waveform.classList.remove('hidden');
+        waveform.style.display = 'flex';
+        timer.classList.remove('hidden');
+        avatarStart = Date.now();
+        avatarTimerInterval = setInterval(() => {
+          const secs = Math.floor((Date.now() - avatarStart) / 1000);
+          timer.textContent = String(Math.floor(secs/60)).padStart(2,'0') + ':' + String(secs%60).padStart(2,'0');
+        }, 1000);
       }
     });
 
-    demoRoom.on(LivekitClient.RoomEvent.ParticipantConnected, (p) => {
-      if (p.identity.includes('hedra') || p.identity.includes('agent')) {
-        statusText.textContent = 'Give her a sec — she\u2019s fixing her hair \uD83D\uDC81\u200D\u2640\uFE0F';
-      }
+    avatarRoom.on(LivekitClient.RoomEvent.Disconnected, () => {
+      if (avatarActive) endAvatarSession();
     });
 
-    await demoRoom.connect(data.lk_url, data.token);
-    statusText.textContent = 'Give her a minute — she\u2019s fixing her hair \uD83D\uDC85';
+    await avatarRoom.connect(LK_URL, LK_TOKEN);
+    status.textContent = 'Room joined — waiting for avatar...';
 
-    // 5. Publish mic (and camera if allowed)
-    try { await demoRoom.localParticipant.setMicrophoneEnabled(true); } catch(e) {}
-    try { await demoRoom.localParticipant.setCameraEnabled(true); } catch(e) {}
-
-    // Track conversion
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'brooke_demo_start', { event_category: 'engagement', event_label: ctx.substring(0, 50) });
+    // Publish mic so agent can hear visitor
+    try {
+      await avatarRoom.localParticipant.setMicrophoneEnabled(true);
+    } catch(e) {
+      console.warn('Mic publish failed:', e);
     }
 
-  } catch (err) {
-    btn.disabled = false;
-    btn.textContent = 'TALK TO BROOKE NOW';
-    btn.style.opacity = '1';
-    alert('Could not connect. Please try again or book a demo with Luka.');
+    // Publish camera so Brooke can see visitor
+    try {
+      await avatarRoom.localParticipant.setCameraEnabled(true);
+    } catch(e) {
+      console.warn('Camera publish failed:', e);
+    }
+
+    // Timeout — if HeyGen doesn't join in 30s, show error
+    setTimeout(() => {
+      if (!avatarActive && avatarRoom) {
+        status.textContent = 'Avatar timed out — try again';
+        status.style.color = '#ef4444';
+        loading.classList.add('hidden');
+        btn.textContent = 'START VIDEO CHAT';
+        btn.disabled = false;
+        avatarRoom.disconnect();
+        avatarRoom = null;
+      }
+    }, 30000);
+
+  } catch(e) {
+    console.error('Avatar session error:', e);
+    status.textContent = 'Failed to start — try again';
+    status.style.color = '#ef4444';
+    loading.classList.add('hidden');
+    document.getElementById('avatar-gate').classList.remove('hidden');
+    document.getElementById('avatar-end-wrap').classList.add('hidden');
+    document.getElementById('avatar-btn').disabled = false;
+    document.getElementById('avatar-btn').textContent = 'Start Video Chat';
   }
 }
 
-async function endBrookeDemo() {
-  if (demoRoom) {
-    await demoRoom.disconnect();
-    demoRoom = null;
+function endAvatarSession() {
+  avatarActive = false;
+  if (avatarRoom) { avatarRoom.disconnect(); avatarRoom = null; }
+  if (avatarTimerInterval) { clearInterval(avatarTimerInterval); avatarTimerInterval = null; }
+
+  const vid = document.getElementById('avatar-video');
+  if (vid) vid.remove();
+  document.querySelectorAll('#avatar-container audio').forEach(a => a.remove());
+
+  document.getElementById('avatar-preview').style.display = '';
+  document.getElementById('avatar-loading').classList.add('hidden');
+  document.getElementById('avatar-dot').className = 'w-2 h-2 rounded-full bg-zinc-500';
+  document.getElementById('avatar-status').textContent = 'Session ended — thanks for trying Brooke';
+  document.getElementById('avatar-status').style.color = '#71717a';
+  document.getElementById('avatar-waveform').style.display = 'none';
+  document.getElementById('avatar-end-wrap').classList.add('hidden');
+  document.getElementById('avatar-gate').classList.remove('hidden');
+  document.getElementById('avatar-btn').disabled = false;
+  document.getElementById('avatar-btn').textContent = 'Start Video Chat';
+
+  setTimeout(() => {
+    document.getElementById('avatar-status').textContent = 'See and talk to Brooke live';
+    document.getElementById('avatar-status').style.color = '';
+    document.getElementById('avatar-timer').classList.add('hidden');
+  }, 5000);
+}
+
+// ═══════════════════════════════════════════════
+// VOICE CALL WIDGET — WebSocket + Gemini
+// ═══════════════════════════════════════════════
+let callWs = null;
+let callAudioCtx = null;
+let callMediaStream = null;
+let callProcessor = null;
+let callActive = false;
+let callStart = null;
+let callTimerInterval = null;
+let callPlaybackCtx = null;
+let callNextPlayTime = 0;
+
+function playRingTone() {
+  const ctx = new AudioContext();
+  return new Promise(resolve => {
+    let count = 0;
+    function ring() {
+      if (count >= 2) { resolve(); return; }
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.frequency.value = 440; gain.gain.value = 0.12;
+      osc.start(); osc.stop(ctx.currentTime + 0.4);
+      count++;
+      setTimeout(ring, 1200);
+    }
+    ring();
+  });
+}
+
+async function toggleBrookeCall() {
+  if (callActive) { endBrookeCall(); } else { startBrookeCall(); }
+}
+
+async function startBrookeCall() {
+  const btn = document.getElementById('call-btn');
+  const status = document.getElementById('call-status');
+  const avatar = document.getElementById('call-avatar');
+  const timer = document.getElementById('call-timer');
+  const waveform = document.getElementById('call-waveform');
+  const transcript = document.getElementById('call-transcript');
+
+  btn.disabled = true;
+  btn.textContent = 'CALLING...';
+  status.textContent = 'Calling...';
+  status.style.color = '#22c55e';
+  avatar.style.borderColor = '#22c55e';
+
+  await playRingTone();
+
+  try {
+    callMediaStream = await navigator.mediaDevices.getUserMedia({
+      audio: { sampleRate: 16000, channelCount: 1, echoCancellation: true, noiseSuppression: true }
+    });
+  } catch(e) {
+    status.textContent = 'Mic access denied';
+    status.style.color = '#ef4444';
+    btn.textContent = 'START VOICE CALL';
+    btn.disabled = false;
+    avatar.style.borderColor = '';
+    return;
   }
-  document.getElementById('demo-setup').classList.remove('hidden');
-  document.getElementById('demo-live').classList.add('hidden');
-  const btn = document.getElementById('demo-start-btn');
+
+  callWs = new WebSocket('wss://cold-caller.mynewstaff.ai/ws/call-brooke');
+
+  callWs.onmessage = (evt) => {
+    const data = JSON.parse(evt.data);
+    if (data.type === 'rate_limited') {
+      status.textContent = data.message || 'Free calls used. Book a call to continue.';
+      status.style.color = '#f59e0b';
+      btn.textContent = 'BOOK A CALL';
+      btn.className = btn.className.replace('bg-green-600 hover:bg-green-500', 'bg-violet-600 hover:bg-violet-500');
+      btn.disabled = false;
+      btn.onclick = () => { window.location.hash = 'book-luka'; };
+      avatar.style.borderColor = '';
+      return;
+    }
+    if (data.type === 'timeout') {
+      status.textContent = '10-min limit reached — book a call to continue';
+      status.style.color = '#f59e0b';
+      endBrookeCall();
+      return;
+    }
+    if (data.type === 'connected') {
+      callActive = true;
+      status.textContent = 'Connected';
+      status.style.color = '#4ade80';
+      avatar.style.borderColor = '#4ade80';
+      avatar.style.boxShadow = '0 0 20px rgba(74,222,128,0.3)';
+      btn.textContent = 'END CALL';
+      btn.className = btn.className.replace('bg-green-600 hover:bg-green-500', 'bg-red-600 hover:bg-red-500');
+      btn.disabled = false;
+      timer.classList.remove('hidden');
+      waveform.classList.remove('hidden');
+      waveform.style.display = 'flex';
+      transcript.classList.remove('hidden');
+      callStart = Date.now();
+      callTimerInterval = setInterval(() => {
+        const secs = Math.floor((Date.now() - callStart) / 1000);
+        timer.textContent = String(Math.floor(secs/60)).padStart(2,'0') + ':' + String(secs%60).padStart(2,'0');
+      }, 1000);
+      startCallMic();
+    }
+    if (data.type === 'audio') { playCallAudio(data.data); }
+    if (data.type === 'transcript') {
+      if (typeof parseTranscriptForCalc === 'function') parseTranscriptForCalc(data.speaker, data.text);
+      const p = document.createElement('p');
+      p.className = data.speaker === 'brooke' ? 'text-green-400 text-xs mb-1' : 'text-zinc-400 text-xs mb-1';
+      p.textContent = (data.speaker === 'brooke' ? 'Brooke: ' : 'You: ') + data.text;
+      transcript.appendChild(p);
+      transcript.scrollTop = transcript.scrollHeight;
+    }
+  };
+  callWs.onclose = () => { if (callActive) endBrookeCall(); };
+  callWs.onerror = () => {
+    status.textContent = 'Connection failed — try again';
+    status.style.color = '#ef4444';
+    btn.textContent = 'START VOICE CALL';
+    btn.disabled = false;
+    avatar.style.borderColor = '';
+  };
+}
+
+function startCallMic() {
+  callAudioCtx = new AudioContext({ sampleRate: 16000 });
+  const source = callAudioCtx.createMediaStreamSource(callMediaStream);
+  callProcessor = callAudioCtx.createScriptProcessor(4096, 1, 1);
+  callProcessor.onaudioprocess = (e) => {
+    if (!callWs || callWs.readyState !== WebSocket.OPEN) return;
+    const f32 = e.inputBuffer.getChannelData(0);
+    const i16 = new Int16Array(f32.length);
+    for (let i = 0; i < f32.length; i++) i16[i] = Math.max(-32768, Math.min(32767, Math.round(f32[i] * 32767)));
+    const b64 = btoa(String.fromCharCode(...new Uint8Array(i16.buffer)));
+    callWs.send(JSON.stringify({ type: 'audio', data: b64 }));
+  };
+  source.connect(callProcessor);
+  callProcessor.connect(callAudioCtx.destination);
+}
+
+function playCallAudio(b64) {
+  if (!callPlaybackCtx) { callPlaybackCtx = new AudioContext({ sampleRate: 24000 }); callNextPlayTime = callPlaybackCtx.currentTime; }
+  const bin = atob(b64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  const i16 = new Int16Array(bytes.buffer);
+  const f32 = new Float32Array(i16.length);
+  for (let i = 0; i < i16.length; i++) f32[i] = i16[i] / 32768;
+  const buf = callPlaybackCtx.createBuffer(1, f32.length, 24000);
+  buf.copyToChannel(f32, 0);
+  const src = callPlaybackCtx.createBufferSource();
+  src.buffer = buf; src.connect(callPlaybackCtx.destination);
+  const now = callPlaybackCtx.currentTime;
+  if (callNextPlayTime < now) callNextPlayTime = now;
+  src.start(callNextPlayTime);
+  callNextPlayTime += buf.duration;
+}
+
+function endBrookeCall() {
+  callActive = false;
+  if (callWs) { try { callWs.send(JSON.stringify({type:'end'})); callWs.close(); } catch(e){} callWs = null; }
+  if (callProcessor) { callProcessor.disconnect(); callProcessor = null; }
+  if (callAudioCtx) { callAudioCtx.close(); callAudioCtx = null; }
+  if (callPlaybackCtx) { callPlaybackCtx.close(); callPlaybackCtx = null; }
+  if (callMediaStream) { callMediaStream.getTracks().forEach(t => t.stop()); callMediaStream = null; }
+  if (callTimerInterval) { clearInterval(callTimerInterval); callTimerInterval = null; }
+  document.getElementById('call-status').textContent = 'Call ended';
+  document.getElementById('call-status').style.color = '#71717a';
+  document.getElementById('call-avatar').style.borderColor = '';
+  document.getElementById('call-avatar').style.boxShadow = '';
+  const btn = document.getElementById('call-btn');
+  btn.textContent = 'START VOICE CALL';
+  btn.className = btn.className.replace('bg-red-600 hover:bg-red-500', 'bg-green-600 hover:bg-green-500');
   btn.disabled = false;
-  btn.textContent = 'TALK TO BROOKE NOW';
-  btn.style.opacity = '1';
+  document.getElementById('call-waveform').style.display = 'none';
+  setTimeout(() => {
+    document.getElementById('call-status').textContent = 'Click to call again';
+    document.getElementById('call-timer').classList.add('hidden');
+  }, 3000);
 }
 
 // ---- Smooth scroll ----
@@ -955,10 +2515,125 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-// ---- Nav darken on scroll ----
+// ---- Conversation → Calculator bridge ----
+const industryDefaults = {
+  'real estate':    { sdrs: 3, salary: 55000, calls: 200, duration: 4 },
+  'realty':         { sdrs: 3, salary: 55000, calls: 200, duration: 4 },
+  'mortgage':       { sdrs: 4, salary: 60000, calls: 250, duration: 5 },
+  'insurance':      { sdrs: 5, salary: 58000, calls: 300, duration: 3 },
+  'solar':          { sdrs: 6, salary: 52000, calls: 350, duration: 3 },
+  'roofing':        { sdrs: 3, salary: 48000, calls: 200, duration: 3 },
+  'hvac':           { sdrs: 2, salary: 50000, calls: 150, duration: 4 },
+  'plumbing':       { sdrs: 2, salary: 48000, calls: 120, duration: 3 },
+  'home service':   { sdrs: 3, salary: 50000, calls: 180, duration: 3 },
+  'dental':         { sdrs: 2, salary: 45000, calls: 100, duration: 5 },
+  'dentist':        { sdrs: 2, salary: 45000, calls: 100, duration: 5 },
+  'medical':        { sdrs: 3, salary: 55000, calls: 120, duration: 5 },
+  'healthcare':     { sdrs: 3, salary: 55000, calls: 120, duration: 5 },
+  'medspa':         { sdrs: 2, salary: 48000, calls: 80,  duration: 6 },
+  'med spa':        { sdrs: 2, salary: 48000, calls: 80,  duration: 6 },
+  'law firm':       { sdrs: 2, salary: 55000, calls: 80,  duration: 7 },
+  'legal':          { sdrs: 2, salary: 55000, calls: 80,  duration: 7 },
+  'attorney':       { sdrs: 2, salary: 55000, calls: 80,  duration: 7 },
+  'personal injury':{ sdrs: 3, salary: 52000, calls: 150, duration: 4 },
+  'saas':           { sdrs: 4, salary: 72000, calls: 120, duration: 5 },
+  'software':       { sdrs: 4, salary: 72000, calls: 120, duration: 5 },
+  'b2b':            { sdrs: 3, salary: 68000, calls: 100, duration: 6 },
+  'agency':         { sdrs: 2, salary: 55000, calls: 80,  duration: 5 },
+  'marketing agency':{ sdrs: 2, salary: 55000, calls: 80,  duration: 5 },
+  'ecommerce':      { sdrs: 3, salary: 50000, calls: 150, duration: 3 },
+  'e-commerce':     { sdrs: 3, salary: 50000, calls: 150, duration: 3 },
+  'fitness':        { sdrs: 2, salary: 42000, calls: 100, duration: 4 },
+  'gym':            { sdrs: 2, salary: 42000, calls: 100, duration: 4 },
+  'pilates':        { sdrs: 1, salary: 40000, calls: 60,  duration: 5 },
+  'coaching':       { sdrs: 2, salary: 60000, calls: 80,  duration: 8 },
+  'consulting':     { sdrs: 2, salary: 65000, calls: 60,  duration: 8 },
+  'financial':      { sdrs: 3, salary: 70000, calls: 100, duration: 6 },
+  'wealth management':{ sdrs: 2, salary: 75000, calls: 60, duration: 8 },
+  'recruiting':     { sdrs: 4, salary: 55000, calls: 200, duration: 4 },
+  'staffing':       { sdrs: 4, salary: 55000, calls: 200, duration: 4 },
+  'construction':   { sdrs: 2, salary: 50000, calls: 100, duration: 4 },
+  'auto':           { sdrs: 3, salary: 52000, calls: 150, duration: 5 },
+  'car dealer':     { sdrs: 3, salary: 52000, calls: 150, duration: 5 },
+  'restaurant':     { sdrs: 1, salary: 38000, calls: 50,  duration: 3 },
+};
+
+let calcIndustrySet = false;
+function parseTranscriptForCalc(speaker, text) {
+  const t = text.toLowerCase();
+
+  // Industry detection — works from both visitor AND brooke transcript
+  if (!calcIndustrySet) {
+    for (const [keyword, defaults] of Object.entries(industryDefaults)) {
+      if (t.includes(keyword)) {
+        document.getElementById('calc-sdr').value = defaults.sdrs;
+        document.getElementById('calc-salary').value = defaults.salary;
+        document.getElementById('calc-calls').value = defaults.calls;
+        document.getElementById('calc-duration').value = defaults.duration;
+        calcIndustrySet = true;
+        updateCalc();
+        break;
+      }
+    }
+  }
+
+  // Explicit numbers from visitor override industry defaults
+  if (speaker !== 'visitor') return;
+
+  // Team size
+  const teamMatch = t.match(/(\d+)\s*(sdrs?|reps?|callers?|people|team|sales\s*people|bdr)/);
+  if (teamMatch) {
+    const n = Math.min(20, Math.max(1, parseInt(teamMatch[1])));
+    document.getElementById('calc-sdr').value = n;
+    updateCalc();
+  }
+  // Call volume
+  const callMatch = t.match(/(\d+)\s*(calls?|dials?)\s*(a|per)\s*(day|daily)/);
+  if (callMatch) {
+    const n = Math.min(1000, Math.max(20, parseInt(callMatch[1])));
+    document.getElementById('calc-calls').value = n;
+    updateCalc();
+  }
+  // Salary
+  const salaryMatch = t.match(/(\d{2,3})\s*k|\$(\d{2,3}),?\d{3}/);
+  if (salaryMatch) {
+    const raw = parseInt(salaryMatch[1] || salaryMatch[2]) * 1000;
+    if (raw >= 35000 && raw <= 150000) {
+      document.getElementById('calc-salary').value = raw;
+      updateCalc();
+    }
+  }
+}
+
+// ---- ROI Calculator ----
+function updateCalc() {
+  const sdrs = parseInt(document.getElementById('calc-sdr').value);
+  const salary = parseInt(document.getElementById('calc-salary').value);
+  const calls = parseInt(document.getElementById('calc-calls').value);
+  const duration = parseInt(document.getElementById('calc-duration').value);
+
+  document.getElementById('calc-sdr-val').textContent = sdrs;
+  document.getElementById('calc-salary-val').textContent = '$' + salary.toLocaleString();
+  document.getElementById('calc-calls-val').textContent = calls;
+  document.getElementById('calc-duration-val').textContent = duration;
+
+  const currentAnnual = sdrs * salary;
+  const talkMinPerYear = calls * duration * 260;
+  const brookeAnnual = Math.max(997 * 12, Math.round(talkMinPerYear * 0.25));
+  const savings = currentAnnual - brookeAnnual;
+  const cpmHuman = (currentAnnual / talkMinPerYear).toFixed(2);
+
+  document.getElementById('calc-current').textContent = '$' + currentAnnual.toLocaleString();
+  document.getElementById('calc-brooke').textContent = '$' + brookeAnnual.toLocaleString();
+  document.getElementById('calc-savings').textContent = '$' + Math.max(0, savings).toLocaleString();
+  document.getElementById('calc-cpm-human').textContent = '$' + cpmHuman;
+}
+updateCalc();
+
+// ---- Nav darken on scroll (merged into main scroll handler above, kept for nav-specific) ----
 window.addEventListener('scroll', () => {
   const nav = document.querySelector('nav');
-  nav.style.background = window.scrollY > 50 ? 'rgba(0,0,0,0.95)' : 'rgba(0,0,0,0.85)';
+  if (nav) nav.style.background = window.scrollY > 50 ? 'rgba(0,0,0,0.95)' : 'rgba(0,0,0,0.85)';
 });
 </script>
 
