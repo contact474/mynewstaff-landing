@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Brooke — AI Sales Avatar for Video Calls | MyNewStaff.ai</title>
 <meta name="description" content="Brooke is an AI avatar that joins your Zoom and Google Meet calls with a real face, real voice, and NEPQ sales intelligence. She sees, hears, and closes.">
 <meta name="author" content="Luka Lah · MyNewStaff.ai">
@@ -13,14 +13,14 @@
 <meta property="og:url" content="https://mynewstaff.ai/brooke">
 <meta property="og:title" content="Brooke — AI Sales Avatar That Joins Your Calls">
 <meta property="og:description" content="AI avatar with a real face, real voice, and NEPQ sales brain. Joins Zoom/Meet in 30 seconds. Sees participants. Closes deals.">
-<meta property="og:image" content="https://mynewstaff.ai/og-preview.png">
+<meta property="og:image" content="https://mynewstaff.ai/brooke-share-preview.png">
 <meta property="og:site_name" content="MyNewStaff.ai">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Brooke — AI Sales Avatar That Joins Your Calls">
 <meta name="twitter:description" content="AI avatar with a real face, real voice, and NEPQ sales brain. Joins Zoom/Meet in 30 seconds.">
-<meta name="twitter:image" content="https://mynewstaff.ai/og-preview.png">
+<meta name="twitter:image" content="https://mynewstaff.ai/brooke-share-preview.png">
 
 <link rel="icon" href="/favicon.png" type="image/png">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -42,7 +42,7 @@ tailwind.config = {
 
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 body {
   font-family: 'Space Grotesk', sans-serif;
   background: #000;
@@ -50,6 +50,20 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
   line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  touch-action: manipulation;
+}
+
+/* Mobile-first fixes */
+img, video, iframe { max-width: 100%; height: auto; }
+input, textarea, button { font-size: 16px; } /* prevents iOS zoom on focus */
+
+@media (max-width: 767px) {
+  section { padding-left: 16px !important; padding-right: 16px !important; }
+  h1, h2 { word-break: break-word; }
+  .grid { gap: 16px !important; }
+  .font-wide { letter-spacing: -0.02em; }
 }
 
 /* Scrollbar */
@@ -569,59 +583,32 @@ input::placeholder, textarea::placeholder {
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 relative z-10">
 
-      <!-- ═══ LEFT: VIDEO AVATAR WIDGET ═══ -->
+      <!-- ═══ LEFT: VIDEO AVATAR WIDGET — SLEEPING ═══ -->
       <div class="reveal">
-        <div class="border border-white/10 bg-white/[0.02] rounded-sm p-6 md:p-8 text-center violet-glow h-full flex flex-col">
+        <div class="border border-white/10 bg-white/[0.02] rounded-sm p-6 md:p-8 text-center h-full flex flex-col">
           <div id="avatar-container" class="relative w-full aspect-video bg-black/40 rounded-lg overflow-hidden mb-5 border border-white/5">
             <img src="https://files2.heygen.ai/avatar/v3/74447a27859a456c955e01f21ef18216_45620/preview_talk_1.webp" alt="Brooke"
-              id="avatar-preview" class="w-full h-full object-cover">
-            <div id="avatar-loading" class="hidden absolute inset-0 flex items-center justify-center bg-black/60">
-              <div class="flex flex-col items-center gap-3">
-                <div class="w-8 h-8 border-2 border-violet-500 border-t-transparent rounded-full animate-spin"></div>
-                <span class="text-violet-400 text-xs uppercase tracking-wider">Connecting avatar...</span>
-              </div>
+              id="avatar-preview" class="w-full h-full object-cover" style="filter: grayscale(0.6) brightness(0.55) blur(1px);">
+            <div class="absolute inset-0 flex flex-col items-center justify-center bg-black/45 backdrop-blur-[2px]">
+              <div class="text-5xl mb-3" style="filter: drop-shadow(0 0 12px rgba(167,139,250,0.4));">😴</div>
+              <div class="text-white font-wide font-bold text-base md:text-lg tracking-wide">Brooke is having her beauty sleep ;)</div>
+              <div class="text-violet-300/70 text-[11px] uppercase tracking-[0.2em] mt-2">Back soon</div>
             </div>
             <div id="avatar-badge" class="absolute bottom-3 left-3 flex items-center gap-2 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-full">
-              <div class="w-2 h-2 rounded-full bg-zinc-500" id="avatar-dot"></div>
-              <span class="text-white text-xs font-medium">Brooke</span>
+              <div class="w-2 h-2 rounded-full bg-violet-500/60 animate-pulse"></div>
+              <span class="text-white text-xs font-medium">Brooke · Zzz</span>
             </div>
           </div>
           <div class="font-wide font-bold text-base mb-1">Video Avatar</div>
           <div class="text-violet-400/60 text-[11px] mb-4 uppercase tracking-wider">Face-to-Face with AI</div>
-          <div id="avatar-status" class="text-zinc-500 text-sm mb-4">See and talk to Brooke live</div>
-          <div id="avatar-waveform" class="hidden justify-center items-center gap-1 h-6 mb-3">
-            <div class="w-1 bg-violet-500 rounded-full" style="animation: wave 0.6s ease-in-out infinite; height: 10px;"></div>
-            <div class="w-1 bg-violet-500 rounded-full" style="animation: wave 0.6s ease-in-out infinite 0.1s; height: 20px;"></div>
-            <div class="w-1 bg-violet-500 rounded-full" style="animation: wave 0.6s ease-in-out infinite 0.2s; height: 14px;"></div>
-            <div class="w-1 bg-violet-500 rounded-full" style="animation: wave 0.6s ease-in-out infinite 0.3s; height: 26px;"></div>
-            <div class="w-1 bg-violet-500 rounded-full" style="animation: wave 0.6s ease-in-out infinite 0.15s; height: 16px;"></div>
-          </div>
-          <div id="avatar-timer" class="text-xl font-light mb-4 hidden font-body" style="font-variant-numeric: tabular-nums;">00:00</div>
-          <!-- Email gate form (shows first) -->
-          <div id="avatar-gate" class="mt-auto">
-            <div class="space-y-2 mb-3">
-              <input type="text" id="avatar-gate-name" placeholder="Your name"
-                class="w-full bg-transparent border border-white/10 px-4 py-2.5 text-white text-[13px] font-body rounded-sm focus:border-violet-500/50 transition-colors">
-              <input type="email" id="avatar-gate-email" placeholder="Your email"
-                class="w-full bg-transparent border border-white/10 px-4 py-2.5 text-white text-[13px] font-body rounded-sm focus:border-violet-500/50 transition-colors">
-              <input type="tel" id="avatar-gate-phone" placeholder="Phone (we'll text you something useful)"
-                class="w-full bg-transparent border border-white/10 px-4 py-2.5 text-white text-[13px] font-body rounded-sm focus:border-violet-500/50 transition-colors">
-            </div>
-            <button id="avatar-btn" onclick="startAvatarWithGate()"
-              class="btn-sweep bg-violet-600 hover:bg-violet-500 text-white font-bold text-[11px] tracking-[0.2em] uppercase px-8 py-3.5 rounded-sm transition-colors w-full"
-              data-i18n="btn_video_chat">
-              Start Video Chat
-            </button>
-            <div id="avatar-gate-error" class="text-red-400 text-[11px] mt-2 hidden"></div>
-          </div>
-          <!-- End session button (shows during session) -->
-          <div id="avatar-end-wrap" class="mt-auto hidden">
-            <button id="avatar-end-btn" onclick="endAvatarSession()"
-              class="btn-sweep bg-red-600 hover:bg-red-500 text-white font-bold text-[11px] tracking-[0.2em] uppercase px-8 py-3.5 rounded-sm transition-colors w-full">
-              End Session
+          <div class="text-zinc-500 text-sm mb-4">She's recharging. Voice call still works — try it on the right.</div>
+          <div class="mt-auto">
+            <button disabled
+              class="bg-white/[0.04] border border-white/10 text-zinc-500 font-bold text-[11px] tracking-[0.2em] uppercase px-8 py-3.5 rounded-sm w-full cursor-not-allowed">
+              Video Asleep
             </button>
           </div>
-          <p class="text-zinc-700 text-[11px] mt-4">Requires mic + camera. Chrome or Safari.</p>
+          <p class="text-zinc-700 text-[11px] mt-4">Voice agent on the right is fully awake.</p>
         </div>
       </div>
 
@@ -2158,6 +2145,15 @@ function startAvatarWithGate() {
       body: JSON.stringify({ name, email, phone, source: 'brooke-avatar-widget', type: 'lead_capture' })
     });
   } catch(e) {}
+
+  // Fire Telegram notification via lead-notify
+  try {
+    fetch('https://cold-caller.mynewstaff.ai/api/brooke/lead-notify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, phone, source: 'avatar-gate', timestamp: new Date().toISOString() })
+    });
+  } catch(e) {}
 }
 
 // ═══════════════════════════════════════════════
@@ -2428,6 +2424,15 @@ async function startBrookeCall() {
         timer.textContent = String(Math.floor(secs/60)).padStart(2,'0') + ':' + String(secs%60).padStart(2,'0');
       }, 1000);
       startCallMic();
+
+      // Notify Telegram via lead-notify webhook
+      try {
+        fetch('https://cold-caller.mynewstaff.ai/api/brooke/lead-notify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ source: 'voice-widget', timestamp: new Date().toISOString() })
+        });
+      } catch(e) {}
     }
     if (data.type === 'audio') { playCallAudio(data.data); }
     if (data.type === 'transcript') {
