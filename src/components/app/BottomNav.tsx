@@ -76,10 +76,20 @@ function IconSettings() {
   );
 }
 
+function IconBrooke() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M8 1.5a3 3 0 00-3 3v2.5a3 3 0 006 0V4.5a3 3 0 00-3-3z" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M4 7.5v.5a4 4 0 008 0v-.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      <line x1="8" y1="12" x2="8" y2="14.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 const NAV_ITEMS: NavItem[] = [
   { label: "Dashboard", href: "/app/dashboard", icon: <IconDashboard /> },
+  { label: "Brooke", href: "/app/brooke", icon: <IconBrooke /> },
   { label: "Advisor", href: "/app/advisor", icon: <IconAdvisor /> },
-  { label: "Scans", href: "/app/scans", icon: <IconScans /> },
   { label: "AI Tools", href: "/app/ai-tools", icon: <IconAITools /> },
   { label: "Settings", href: "/app/settings", icon: <IconSettings /> },
 ];
