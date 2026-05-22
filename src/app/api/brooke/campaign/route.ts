@@ -28,6 +28,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "No leads provided" }, { status: 400 });
   }
 
+  if (leads.length > 500) {
+    return NextResponse.json({ error: "Maximum 500 leads per campaign" }, { status: 400 });
+  }
+
   const minutesRemaining = config.minutes_limit - config.minutes_used;
   if (minutesRemaining <= 0) {
     return NextResponse.json({ error: "No minutes remaining. Upgrade your plan." }, { status: 402 });
@@ -63,7 +67,7 @@ export async function POST(req: NextRequest) {
     .single();
 
   if (campError) {
-    return NextResponse.json({ error: campError.message }, { status: 500 });
+    return NextResponse.json({ error: "Failed to create campaign" }, { status: 500 });
   }
 
   try {

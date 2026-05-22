@@ -85,20 +85,32 @@ export default function ExitIntentPopup() {
     setState("hidden");
   }, []);
 
+  // Escape key to dismiss
+  useEffect(() => {
+    if (state === "hidden") return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") dismiss(); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [state, dismiss]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const email = emailRef.current?.value?.trim();
-    if (!email || !email.includes("@")) return;
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return;
 
     setState("submitting");
 
     try {
-      await fetch("/api/brooke/capture-email", {
+      const res = await fetch("/api/brooke/capture-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, source: "exit-intent-try" }),
       });
-    } catch {}
+      if (!res.ok) throw new Error("API error");
+    } catch {
+      setState("form");
+      return;
+    }
 
     try {
       sessionStorage.setItem(STORAGE_KEY, "1");
@@ -118,6 +130,9 @@ export default function ExitIntentPopup() {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.35 }}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Get free Brooke demo"
         className="fixed inset-0 z-[9998] flex items-end md:items-center justify-center p-4 md:p-6 bg-black/70 backdrop-blur-md"
         onClick={dismiss}
       >

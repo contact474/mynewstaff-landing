@@ -81,6 +81,14 @@ export function BrookeTryPopup() {
     return () => window.removeEventListener("brooke:open", onOpen);
   }, []);
 
+  // Escape key to dismiss
+  useEffect(() => {
+    if (state === "hidden" || state === "active") return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") dismiss(); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [state]);
+
   // Auto-advance generating steps + transition to preview
   useEffect(() => {
     if (state !== "generating") {
@@ -129,12 +137,12 @@ export function BrookeTryPopup() {
       ws: "/ws/report-session",
       brand: "YOUR AI CLOSER",
       headline: "MEET YOUR<br>CUSTOM BROOKE.",
-      subtitle: `I'm configured for ${offerDescription}. Let's do a test call — I'll pitch your offer to you.`,
+      subtitle: `I'm configured for ${offerDescription.replace(/<[^>]*>/g, "")}. Let's do a test call — I'll pitch your offer to you.`,
       autoScroll: false,
       extractData: false,
       context: {
         mode: "custom_demo",
-        offer: offerDescription,
+        offer: offerDescription.replace(/<[^>]*>/g, "").slice(0, 500),
         icp: selectedICP,
         generated_script: generatedScript,
       },
@@ -181,6 +189,9 @@ export function BrookeTryPopup() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.35 }}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Configure your AI cold caller"
           className="fixed inset-0 z-[9999] flex items-end md:items-center justify-center p-4 md:p-6 bg-black/70 backdrop-blur-md"
           onClick={dismiss}
         >
@@ -254,7 +265,9 @@ export function BrookeTryPopup() {
                         What do you sell?
                       </label>
                       <textarea
+                        id="offer-input"
                         rows={2}
+                        maxLength={500}
                         value={offerDescription}
                         onChange={(e) => setOfferDescription(e.target.value)}
                         placeholder="e.g., Solar panel installation for homeowners in Texas"

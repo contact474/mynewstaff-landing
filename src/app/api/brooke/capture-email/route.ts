@@ -1,13 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest) {
-  const { email, source } = await req.json();
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const ALLOWED_SOURCES = ["exit-intent-try", "ugc-landing", "footer", "qa-stress-test"];
 
-  if (!email || !email.includes("@")) {
+export async function POST(req: NextRequest) {
+  const body = await req.json();
+  const email = typeof body.email === "string" ? body.email.trim().slice(0, 254) : "";
+  const source = ALLOWED_SOURCES.includes(body.source) ? body.source : "unknown";
+
+  if (!email || !EMAIL_RE.test(email)) {
     return NextResponse.json({ error: "Invalid email" }, { status: 400 });
   }
 
-  // Send to MNS Command for nurture enrollment
   try {
     await fetch(
       "https://cold-caller.mynewstaff.ai/api/v1/nurture/send-materials",
@@ -24,7 +28,6 @@ export async function POST(req: NextRequest) {
     );
   } catch {}
 
-  // Also notify Luka via Telegram
   try {
     const tgToken = process.env.TELEGRAM_BOT_TOKEN;
     const tgChat = process.env.TELEGRAM_CHAT_ID;
@@ -36,8 +39,7 @@ export async function POST(req: NextRequest) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             chat_id: tgChat,
-            text: `📧 New Brooke lead captured!\n\nEmail: ${email}\nSource: ${source}\nTime: ${new Date().toISOString()}`,
-            parse_mode: "HTML",
+            text: `New Brooke lead captured!\n\nEmail: ${email}\nSource: ${source}\nTime: ${new Date().toISOString()}`,
           }),
         }
       );

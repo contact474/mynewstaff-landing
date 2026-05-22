@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
+function sanitize(val: unknown, maxLen: number): string | null {
+  if (typeof val !== "string") return null;
+  return val.replace(/<[^>]*>/g, "").slice(0, maxLen) || null;
+}
+
 export async function GET() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -16,7 +21,7 @@ export async function GET() {
     .single();
 
   if (error && error.code !== "PGRST116") {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: "Failed to load config" }, { status: 500 });
   }
 
   return NextResponse.json({ config: data });
@@ -32,14 +37,25 @@ export async function POST(req: NextRequest) {
 
   const body = await req.json();
 
+  const businessName = sanitize(body.business_name, 200);
+  const offerDescription = sanitize(body.offer_description, 2000);
+  if (!businessName || !offerDescription) {
+    return NextResponse.json({ error: "Business name and offer description are required" }, { status: 400 });
+  }
+
+  const bookingLink = sanitize(body.booking_link, 500);
+  if (bookingLink && !/^https?:\/\//.test(bookingLink)) {
+    return NextResponse.json({ error: "Booking link must be a valid URL" }, { status: 400 });
+  }
+
   const config = {
     user_id: user.id,
-    business_name: body.business_name,
-    offer_description: body.offer_description,
-    booking_link: body.booking_link || null,
-    industry: body.industry || null,
-    job_titles: body.job_titles || null,
-    location: body.location || null,
+    business_name: businessName,
+    offer_description: offerDescription,
+    booking_link: bookingLink,
+    industry: sanitize(body.industry, 100),
+    job_titles: sanitize(body.job_titles, 200),
+    location: sanitize(body.location, 200),
     provider: body.provider || null,
     provider_config: body.provider_config || {},
     generated_script: body.generated_script || {},
@@ -53,7 +69,7 @@ export async function POST(req: NextRequest) {
     .single();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: "Failed to save config" }, { status: 500 });
   }
 
   if (body.onboarding_complete) {
@@ -69,7 +85,7 @@ async function notifyTelegram(config: Record<string, unknown>) {
   if (!token || !chatId) return;
 
   const text = [
-    "\u{1F680} New Brooke SaaS signup!",
+    "New Brooke SaaS signup!",
     "",
     `Business: ${config.business_name}`,
     `Offer: ${String(config.offer_description).slice(0, 100)}`,
