@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const ALLOWED_SOURCES = ["exit-intent-try", "ugc-landing", "footer", "qa-stress-test"];
+const ALLOWED_SOURCES = ["exit-intent-try", "ugc-landing", "footer", "qa-stress-test", "brooke-2-waitlist"];
 
 export async function POST(req: NextRequest) {
   const body = await req.json();

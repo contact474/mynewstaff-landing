@@ -905,6 +905,40 @@ function BrookeDashboard({ config }: { config: BrookeConfig }) {
           )}
         </AnimatePresence>
       </div>
+
+      {/* Brooke 2.0 Teaser */}
+      <div className="bg-zinc-950 border border-violet-500/20 rounded-xl p-6 relative overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-violet-600 via-violet-400 to-violet-600" />
+        <div className="absolute inset-0 bg-gradient-to-br from-violet-600/5 to-transparent pointer-events-none" />
+        <div className="relative">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-[10px] tracking-[0.3em] text-violet-400 uppercase font-semibold">Coming Soon</span>
+            <span className="text-[9px] bg-violet-500/20 text-violet-300 px-2 py-0.5 rounded-full uppercase tracking-wider">2.0</span>
+          </div>
+          <h3 className="text-lg font-wide font-bold uppercase tracking-tight mb-2">
+            Find Leads + Call Them
+          </h3>
+          <p className="text-sm text-zinc-400 leading-relaxed mb-4">
+            Built-in lead engine powered by HeatSeak. Search any ICP, get verified contacts with intent signals, and let Brooke call them — all in one platform. No more CSV uploads.
+          </p>
+          <button
+            onClick={() => {
+              const email = prompt("Drop your email to get early access to Brooke 2.0:");
+              if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                fetch("/api/brooke/capture-email", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ email, source: "brooke-2-waitlist" }),
+                });
+              }
+            }}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-violet-500/30 text-violet-300 hover:bg-violet-500/10 hover:border-violet-500/50 transition-all text-xs uppercase tracking-wider font-semibold"
+          >
+            Join the Waitlist
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
