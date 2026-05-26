@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MNS Neural Map — Nexus Brain</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0a0f; color: #fff; font-family: -apple-system, system-ui, sans-serif; overflow: hidden; }
+#canvas { width: 100vw; height: 100vh; display: block; }
+#info-panel {
+  position: fixed; top: 20px; right: 20px; width: 320px;
+  background: rgba(10,10,20,0.92); border: 1px solid rgba(167,139,250,0.2);
+  border-radius: 16px; padding: 20px; backdrop-filter: blur(20px);
+  display: none; z-index: 10;
+}
+#info-panel h3 { font-size: 15px; color: #a78bfa; margin-bottom: 8px; }
+#info-panel .type { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+#info-panel .detail { font-size: 13px; color: #aaa; line-height: 1.6; }
+#info-panel .status { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; margin-top: 8px; }
+#info-panel .status.live { background: rgba(34,197,94,0.15); color: #22c55e; border: 1px solid rgba(34,197,94,0.3); }
+#info-panel .status.partial { background: rgba(245,158,11,0.15); color: #f59e0b; border: 1px solid rgba(245,158,11,0.3); }
+#info-panel .status.disconnected { background: rgba(239,68,68,0.15); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
+#info-panel .close { position: absolute; top: 12px; right: 14px; cursor: pointer; color: #555; font-size: 18px; }
+#legend {
+  position: fixed; bottom: 20px; left: 20px; z-index: 10;
+  background: rgba(10,10,20,0.85); border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 12px; padding: 14px 18px; backdrop-filter: blur(10px);
+}
+#legend h4 { font-size: 11px; color: #555; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+#legend .item { display: flex; align-items: center; gap: 8px; margin: 4px 0; font-size: 12px; color: #888; }
+#legend .dot { width: 10px; height: 10px; border-radius: 50%; }
+#title-bar {
+  position: fixed; top: 20px; left: 20px; z-index: 10;
+}
+#title-bar h1 { font-size: 20px; font-weight: 700; background: linear-gradient(135deg, #a78bfa, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+#title-bar p { font-size: 12px; color: #555; margin-top: 4px; }
+#stats-bar {
+  position: fixed; bottom: 20px; right: 20px; z-index: 10;
+  display: flex; gap: 16px;
+}
+.stat { text-align: center; }
+.stat .num { font-size: 22px; font-weight: 700; color: #a78bfa; }
+.stat .label { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: 1px; }
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+
+<div id="title-bar">
+  <h1>MNS Neural Map</h1>
+  <p id="subtitle">Nexus AI Filesystem — Live System Brain</p>
+</div>
+
+<div id="legend">
+  <h4>Systems</h4>
+  <div class="item"><div class="dot" style="background:#a78bfa"></div> Core (Nexus)</div>
+  <div class="item"><div class="dot" style="background:#22c55e"></div> Connected</div>
+  <div class="item"><div class="dot" style="background:#f59e0b"></div> Partial</div>
+  <div class="item"><div class="dot" style="background:#ef4444"></div> Disconnected</div>
+  <div class="item"><div class="dot" style="background:#3b82f6"></div> Data Node</div>
+  <div class="item"><div class="dot" style="background:#06b6d4;opacity:0.4"></div> Synapse</div>
+</div>
+
+<div id="stats-bar">
+  <div class="stat"><div class="num" id="stat-nodes">0</div><div class="label">Nodes</div></div>
+  <div class="stat"><div class="num" id="stat-synapses">0</div><div class="label">Synapses</div></div>
+  <div class="stat"><div class="num" id="stat-connected">0</div><div class="label">Connected</div></div>
+</div>
+
+<div id="info-panel">
+  <span class="close" onclick="document.getElementById('info-panel').style.display='none'">&times;</span>
+  <h3 id="info-name"></h3>
+  <div class="type" id="info-type"></div>
+  <div class="detail" id="info-detail"></div>
+  <div id="info-status-wrap"></div>
+</div>
+
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let W, H, dpr;
+
+function resize() {
+  dpr = window.devicePixelRatio || 1;
+  W = window.innerWidth;
+  H = window.innerHeight;
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width = W + 'px';
+  canvas.style.height = H + 'px';
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+window.addEventListener('resize', resize);
+resize();
+
+// === SYSTEM DATA ===
+const COLORS = {
+  core: '#a78bfa',
+  connected: '#22c55e',
+  partial: '#f59e0b',
+  disconnected: '#ef4444',
+  data: '#3b82f6',
+  synapse: 'rgba(6,182,212,0.12)',
+};
+
+const systems = [
+  // Core
+  { id: 'nexus', label: 'Nexus AI', type: 'core', status: 'live', size: 28, detail: 'Shared AI Filesystem — 33 bricks, VFS, memory, search, versioning. Port 46480.', group: 'core' },
+
+  // Brooke ecosystem
+  { id: 'brooke-avatar', label: 'Brooke Avatar', type: 'connected', status: 'live', size: 20, detail: 'HeyGen LiveAvatar + Gemini 3.1 Flash. Zoom/Meet/Web. agent_heygen.py on claude222.', group: 'brooke' },
+  { id: 'brooke-voice', label: 'Brooke Voice', type: 'connected', status: 'live', size: 16, detail: 'Raw WebSocket voice widget. Gemini Live, tools (book/SMS/WA/email), 10min cap.', group: 'brooke' },
+  { id: 'brooke-tools', label: 'Brooke Tools', type: 'connected', status: 'live', size: 14, detail: 'book_call, send_sms, send_whatsapp, send_email (Resend). Nurture trigger on booking.', group: 'brooke' },
+  { id: 'brooke-intel', label: 'Intelligence v2', type: 'connected', status: 'live', size: 16, detail: 'IP geo, BANT qualification (Gemini), cost tracking, GHL sync, MiroFish prediction. Syncs to Nexus.', group: 'brooke' },
+  { id: 'brooke-nurture', label: 'Nurture Engine', type: 'connected', status: 'live', size: 14, detail: '7-touch sequence. SMS + WhatsApp + Email. Cron recovery every 5min. Idle detection.', group: 'brooke' },
+
+  // Data stores
+  { id: 'sessions', label: '307 Sessions', type: 'data', status: 'live', size: 12, detail: '35 synced to Nexus. BANT scores, transcripts, geo, cost data.', group: 'data' },
+  { id: 'transcripts', label: '33 Transcripts', type: 'data', status: 'live', size: 11, detail: 'Full conversation logs in Nexus. Consolidated (not word-by-word).', group: 'data' },
+  { id: 'contacts', label: '5 Contacts', type: 'data', status: 'live', size: 10, detail: 'Captured via Brooke. Synced to GHL + Nexus.', group: 'data' },
+  { id: 'reports', label: '1,955 Reports', type: 'disconnected', status: 'disconnected', size: 14, detail: 'AI Scalability Reports on disk at /opt/scalex-reports/. NOT in Nexus yet.', group: 'data' },
+  { id: 'leads', label: 'Lead Profiles', type: 'data', status: 'live', size: 11, detail: 'Unified lead profiles at /mns/leads/. Email, BANT, session history.', group: 'data' },
+
+  // Infrastructure
+  { id: 'postgres', label: 'PostgreSQL', type: 'connected', status: 'live', size: 14, detail: 'mns_command DB. Brooke sessions, contacts, FIRE scores. pgvector for semantic search.', group: 'infra' },
+  { id: 'livekit', label: 'LiveKit', type: 'connected', status: 'live', size: 13, detail: 'claude222 account. Real-time audio/video rooms. Avatar + web sessions.', group: 'infra' },
+  { id: 'heygen', label: 'HeyGen', type: 'connected', status: 'live', size: 13, detail: 'LiveAvatar API. Lip-sync rendering. Avatar ID: 65f9e3c9.', group: 'infra' },
+  { id: 'gemini', label: 'Gemini 3.1', type: 'connected', status: 'live', size: 15, detail: 'Flash Live Preview. Voice + text. Context compression + session resumption.', group: 'infra' },
+  { id: 'recall', label: 'Recall.ai', type: 'connected', status: 'live', size: 12, detail: 'Zoom/Meet bot deployment. Joins calls, streams audio/video to LiveKit.', group: 'infra' },
+  { id: 'ghl', label: 'GoHighLevel', type: 'connected', status: 'live', size: 14, detail: 'CRM, calendar (AI Scalability Assessment), contacts, pipeline. API v2.', group: 'infra' },
+  { id: 'resend', label: 'Resend Email', type: 'connected', status: 'live', size: 11, detail: 'brooke@updates.mynewstaff.ai. Transactional email for nurture + bookings.', group: 'infra' },
+  { id: 'signalwire', label: 'SignalWire', type: 'connected', status: 'live', size: 10, detail: 'SMS via +17282320002. Voice calling infrastructure.', group: 'infra' },
+  { id: 'whatsapp', label: 'WhatsApp Bot', type: 'partial', status: 'partial', size: 12, detail: 'Baileys on port 8004. Needs QR re-scan. Nurture + notification channel.', group: 'infra' },
+
+  // Agents
+  { id: 'hermes', label: 'Hermes Agent', type: 'disconnected', status: 'disconnected', size: 15, detail: 'NousResearch agent on VPS. Gemini 2.5 Flash. 6 cron jobs. Own memory at ~/.hermes/. NOT connected to Nexus.', group: 'agents' },
+  { id: 'claude', label: 'Claude Code', type: 'partial', status: 'partial', size: 18, detail: '285+ skills, 94 agents. Memory at ~/.claude/. Hooks v4.1. NOT writing to Nexus yet.', group: 'agents' },
+  { id: 'mns-command', label: 'MNS Command', type: 'disconnected', status: 'disconnected', size: 14, detail: 'Orchestrator at port 8002. Deploy, DB, agents, API. NOT connected to Nexus.', group: 'agents' },
+
+  // Content
+  { id: 'content-engine', label: 'Content Engine', type: 'disconnected', status: 'disconnected', size: 14, detail: 'Autonomous content pipeline. Discovery, scoring, production. Separate Docker container.', group: 'content' },
+  { id: 'editframe', label: 'Editframe', type: 'disconnected', status: 'disconnected', size: 12, detail: 'HTML→MP4 video engine. Installed on VPS. 6 Claude skills. Not integrated with Nexus yet.', group: 'content' },
+  { id: 'ig-poster', label: 'IG Auto-Poster', type: 'disconnected', status: 'disconnected', size: 11, detail: '@ga.god autonomous posting. TOTP + smart responder + performance monitor.', group: 'content' },
+  { id: 'scaled-boardroom', label: 'Scaled Boardroom', type: 'disconnected', status: 'disconnected', size: 11, detail: 'Faceless channel pipeline. Multi-platform posting.', group: 'content' },
+
+  // Revenue
+  { id: 'instantly', label: 'Instantly', type: 'disconnected', status: 'disconnected', size: 13, detail: 'Cold email campaigns. 30 sender accounts. V2 API. NOT connected to Nexus.', group: 'revenue' },
+  { id: 'lead-scraper', label: 'Lead Scraper', type: 'disconnected', status: 'disconnected', size: 12, detail: 'FIRE architecture. Enrichment + scoring + waterfall. Separate container.', group: 'revenue' },
+  { id: 'mirofish', label: 'MiroFish', type: 'partial', status: 'partial', size: 13, detail: 'Consumer prediction. 1000+ AI agents. Auto-fires for HOT leads. Partially connected via Brooke.', group: 'revenue' },
+  { id: 'closerbuddy', label: 'CloserBuddy', type: 'disconnected', status: 'disconnected', size: 11, detail: 'Real-time AI sales closer. Hormozi + NEPQ live coaching.', group: 'revenue' },
+
+  // Memory & Knowledge
+  { id: 'memory-files', label: 'Claude Memory', type: 'disconnected', status: 'disconnected', size: 13, detail: '90+ memory files at ~/.claude/projects/. Session handoffs, playbook, architecture. NOT in Nexus.', group: 'knowledge' },
+  { id: 'graphify', label: 'Graphify', type: 'disconnected', status: 'disconnected', size: 11, detail: 'Code knowledge graph. graphify-out/. Wiki + community detection. NOT in Nexus.', group: 'knowledge' },
+  { id: 'hooks', label: 'Claude Hooks', type: 'disconnected', status: 'disconnected', size: 10, detail: 'Pre/post tool hooks v4.1. Error logging, skill routing, verification. NOT writing to Nexus.', group: 'knowledge' },
+
+  // Cleanup & Monitoring
+  { id: 'cleanup-cron', label: 'Cleanup Cron', type: 'connected', status: 'live', size: 9, detail: 'Every 10min: phantom sessions, stale LiveKit rooms. Protects Brooke from drift.', group: 'ops' },
+  { id: 'wa-health', label: 'WA Health Check', type: 'connected', status: 'live', size: 8, detail: 'Hourly cron. Telegram alert if WhatsApp bot dies.', group: 'ops' },
+  { id: 'nurture-cron', label: 'Nurture Cron', type: 'connected', status: 'live', size: 8, detail: 'Every 5min: fire overdue touchpoints. Crash-safe recovery.', group: 'ops' },
+  { id: 'telegram', label: 'Telegram Bot', type: 'connected', status: 'live', size: 12, detail: '@MNSCommandBot. All notifications: bookings, sessions, no-shows, health alerts.', group: 'ops' },
+
+  // Client Projects
+  { id: 'tibastone', label: 'TibaStone', type: 'disconnected', status: 'disconnected', size: 10, detail: 'William — bespoke marble. 7 email sequences + 3 voice scripts. Back office build.', group: 'clients' },
+  { id: 'nexora', label: 'Nexora Biologics', type: 'disconnected', status: 'disconnected', size: 10, detail: 'Camilo + Dylan. Peptide wholesale. Portal at nexora-portal.vercel.app. $2,500 + $749/mo.', group: 'clients' },
+];
+
+const connections = [
+  // Nexus core connections
+  ['nexus', 'brooke-intel', 2], ['nexus', 'sessions', 2], ['nexus', 'transcripts', 2],
+  ['nexus', 'contacts', 1.5], ['nexus', 'leads', 1.5], ['nexus', 'postgres', 2],
+
+  // Brooke ecosystem
+  ['brooke-avatar', 'brooke-intel', 2], ['brooke-voice', 'brooke-intel', 2],
+  ['brooke-avatar', 'brooke-tools', 1.5], ['brooke-voice', 'brooke-tools', 1.5],
+  ['brooke-tools', 'brooke-nurture', 2], ['brooke-intel', 'sessions', 2],
+  ['brooke-intel', 'transcripts', 1.5], ['brooke-intel', 'contacts', 1.5],
+  ['brooke-tools', 'ghl', 1.5], ['brooke-tools', 'resend', 1],
+  ['brooke-tools', 'signalwire', 1], ['brooke-tools', 'whatsapp', 1],
+  ['brooke-nurture', 'whatsapp', 1], ['brooke-nurture', 'resend', 1],
+  ['brooke-nurture', 'signalwire', 1],
+
+  // Infrastructure
+  ['brooke-avatar', 'livekit', 2], ['brooke-avatar', 'heygen', 2],
+  ['brooke-avatar', 'gemini', 2], ['brooke-voice', 'gemini', 2],
+  ['brooke-avatar', 'recall', 1.5], ['brooke-intel', 'gemini', 1],
+  ['brooke-intel', 'ghl', 1], ['brooke-intel', 'mirofish', 1],
+
+  // Ops
+  ['cleanup-cron', 'livekit', 0.5], ['cleanup-cron', 'sessions', 0.5],
+  ['wa-health', 'whatsapp', 0.5], ['wa-health', 'telegram', 0.5],
+  ['nurture-cron', 'brooke-nurture', 1], ['telegram', 'brooke-intel', 1],
+
+  // Disconnected (shown as dashed)
+  ['nexus', 'reports', 0.3], ['nexus', 'hermes', 0.3], ['nexus', 'claude', 0.3],
+  ['nexus', 'memory-files', 0.3], ['nexus', 'content-engine', 0.3],
+  ['nexus', 'mns-command', 0.3], ['nexus', 'instantly', 0.3],
+  ['nexus', 'lead-scraper', 0.3], ['nexus', 'hooks', 0.3],
+  ['nexus', 'graphify', 0.3], ['nexus', 'editframe', 0.3],
+  ['claude', 'memory-files', 0.5], ['claude', 'hooks', 0.5],
+  ['claude', 'graphify', 0.5],
+  ['hermes', 'telegram', 0.5],
+  ['content-engine', 'ig-poster', 0.3], ['content-engine', 'scaled-boardroom', 0.3],
+  ['instantly', 'lead-scraper', 0.5],
+  ['mns-command', 'postgres', 0.5],
+  ['lead-scraper', 'reports', 0.5],
+  ['mirofish', 'nexus', 0.3],
+];
+
+// === PHYSICS ===
+const GROUP_CENTERS = {
+  core: { x: 0, y: 0 },
+  brooke: { x: -200, y: -150 },
+  data: { x: 200, y: -100 },
+  infra: { x: -150, y: 200 },
+  agents: { x: 250, y: 150 },
+  content: { x: -350, y: 50 },
+  revenue: { x: 350, y: -50 },
+  knowledge: { x: 300, y: 300 },
+  ops: { x: -100, y: 350 },
+  clients: { x: 400, y: 250 },
+};
+
+let nodes = systems.map(s => {
+  const gc = GROUP_CENTERS[s.group] || { x: 0, y: 0 };
+  return {
+    ...s,
+    x: W/2 + gc.x + (Math.random() - 0.5) * 120,
+    y: H/2 + gc.y + (Math.random() - 0.5) * 120,
+    vx: 0, vy: 0,
+    targetX: W/2 + gc.x,
+    targetY: H/2 + gc.y,
+  };
+});
+
+let edges = connections.map(([from, to, strength]) => ({
+  from, to, strength: strength || 1,
+  dashed: strength <= 0.3,
+}));
+
+// Camera
+let cam = { x: 0, y: 0, zoom: 1 };
+let dragging = false, dragNode = null, lastMouse = { x: 0, y: 0 };
+let hoveredNode = null;
+
+function screenToWorld(sx, sy) {
+  return {
+    x: (sx - W/2) / cam.zoom + cam.x + W/2,
+    y: (sy - H/2) / cam.zoom + cam.y + H/2,
+  };
+}
+
+function worldToScreen(wx, wy) {
+  return {
+    x: (wx - cam.x - W/2) * cam.zoom + W/2,
+    y: (wy - cam.y - H/2) * cam.zoom + H/2,
+  };
+}
+
+// === INTERACTION ===
+canvas.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  const factor = e.deltaY > 0 ? 0.92 : 1.08;
+  cam.zoom = Math.max(0.2, Math.min(4, cam.zoom * factor));
+});
+
+canvas.addEventListener('mousedown', (e) => {
+  const wp = screenToWorld(e.clientX, e.clientY);
+  dragNode = nodes.find(n => Math.hypot(n.x - wp.x, n.y - wp.y) < n.size * 1.5);
+  if (!dragNode) dragging = true;
+  lastMouse = { x: e.clientX, y: e.clientY };
+});
+
+canvas.addEventListener('mousemove', (e) => {
+  const wp = screenToWorld(e.clientX, e.clientY);
+  hoveredNode = nodes.find(n => Math.hypot(n.x - wp.x, n.y - wp.y) < n.size * 1.5);
+  canvas.style.cursor = hoveredNode ? 'pointer' : (dragging ? 'grabbing' : 'default');
+
+  if (dragNode) {
+    dragNode.x += (e.clientX - lastMouse.x) / cam.zoom;
+    dragNode.y += (e.clientY - lastMouse.y) / cam.zoom;
+    dragNode.vx = 0; dragNode.vy = 0;
+  } else if (dragging) {
+    cam.x -= (e.clientX - lastMouse.x) / cam.zoom;
+    cam.y -= (e.clientY - lastMouse.y) / cam.zoom;
+  }
+  lastMouse = { x: e.clientX, y: e.clientY };
+});
+
+canvas.addEventListener('mouseup', () => { dragging = false; dragNode = null; });
+
+canvas.addEventListener('click', (e) => {
+  const wp = screenToWorld(e.clientX, e.clientY);
+  const clicked = nodes.find(n => Math.hypot(n.x - wp.x, n.y - wp.y) < n.size * 1.5);
+  if (clicked) showInfo(clicked);
+});
+
+function showInfo(node) {
+  const panel = document.getElementById('info-panel');
+  document.getElementById('info-name').textContent = node.label;
+  document.getElementById('info-type').textContent = node.group;
+  document.getElementById('info-detail').textContent = node.detail;
+  const statusClass = node.status === 'live' ? 'live' : node.status === 'partial' ? 'partial' : 'disconnected';
+  const statusLabel = node.status === 'live' ? 'Connected to Nexus' : node.status === 'partial' ? 'Partially Connected' : 'Not Connected';
+  document.getElementById('info-status-wrap').innerHTML = `<span class="status ${statusClass}">${statusLabel}</span>`;
+  panel.style.display = 'block';
+}
+
+// === PHYSICS SIMULATION ===
+function simulate() {
+  const REPULSION = 3000;
+  const ATTRACTION = 0.003;
+  const DAMPING = 0.85;
+  const CENTER_PULL = 0.001;
+
+  for (let i = 0; i < nodes.length; i++) {
+    const a = nodes[i];
+    // Repulsion
+    for (let j = i + 1; j < nodes.length; j++) {
+      const b = nodes[j];
+      let dx = a.x - b.x, dy = a.y - b.y;
+      let dist = Math.max(Math.hypot(dx, dy), 1);
+      let force = REPULSION / (dist * dist);
+      let fx = (dx / dist) * force, fy = (dy / dist) * force;
+      a.vx += fx; a.vy += fy;
+      b.vx -= fx; b.vy -= fy;
+    }
+    // Center pull (per group)
+    const gc = GROUP_CENTERS[a.group] || { x: 0, y: 0 };
+    a.vx += (W/2 + gc.x - a.x) * CENTER_PULL;
+    a.vy += (H/2 + gc.y - a.y) * CENTER_PULL;
+  }
+
+  // Edge attraction
+  for (const e of edges) {
+    const a = nodes.find(n => n.id === e.from);
+    const b = nodes.find(n => n.id === e.to);
+    if (!a || !b) continue;
+    let dx = b.x - a.x, dy = b.y - a.y;
+    let dist = Math.hypot(dx, dy);
+    let force = (dist - 150) * ATTRACTION * e.strength;
+    a.vx += (dx / dist) * force;
+    a.vy += (dy / dist) * force;
+    b.vx -= (dx / dist) * force;
+    b.vy -= (dy / dist) * force;
+  }
+
+  for (const n of nodes) {
+    if (n === dragNode) continue;
+    n.vx *= DAMPING; n.vy *= DAMPING;
+    n.x += n.vx; n.y += n.vy;
+  }
+}
+
+// === RENDERING ===
+let time = 0;
+function draw() {
+  time += 0.016;
+  simulate();
+
+  ctx.clearRect(0, 0, W, H);
+  ctx.save();
+  ctx.translate(W/2, H/2);
+  ctx.scale(cam.zoom, cam.zoom);
+  ctx.translate(-cam.x - W/2, -cam.y - H/2);
+
+  // Draw edges
+  for (const e of edges) {
+    const a = nodes.find(n => n.id === e.from);
+    const b = nodes.find(n => n.id === e.to);
+    if (!a || !b) continue;
+
+    ctx.beginPath();
+    ctx.moveTo(a.x, a.y);
+    ctx.lineTo(b.x, b.y);
+
+    if (e.dashed) {
+      ctx.setLineDash([4, 6]);
+      ctx.strokeStyle = 'rgba(239,68,68,0.08)';
+      ctx.lineWidth = 0.5;
+    } else {
+      ctx.setLineDash([]);
+      // Pulse animation on connected edges
+      const pulse = 0.4 + 0.3 * Math.sin(time * 2 + a.x * 0.01);
+      const alpha = Math.min(0.35, e.strength * 0.15) * pulse + 0.05;
+      ctx.strokeStyle = `rgba(167,139,250,${alpha})`;
+      ctx.lineWidth = e.strength * 0.8;
+
+      // Draw synapse particle
+      if (e.strength > 0.5) {
+        const t = (time * 0.3 + a.x * 0.001) % 1;
+        const px = a.x + (b.x - a.x) * t;
+        const py = a.y + (b.y - a.y) * t;
+        ctx.save();
+        const grad = ctx.createRadialGradient(px, py, 0, px, py, 4);
+        grad.addColorStop(0, 'rgba(167,139,250,0.6)');
+        grad.addColorStop(1, 'rgba(167,139,250,0)');
+        ctx.fillStyle = grad;
+        ctx.fillRect(px - 4, py - 4, 8, 8);
+        ctx.restore();
+      }
+    }
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  // Draw nodes
+  for (const n of nodes) {
+    const isHovered = n === hoveredNode;
+    const color = n.type === 'core' ? COLORS.core :
+                  n.type === 'connected' ? COLORS.connected :
+                  n.type === 'partial' ? COLORS.partial :
+                  n.type === 'disconnected' ? COLORS.disconnected :
+                  COLORS.data;
+
+    // Glow
+    const glowSize = n.size * (isHovered ? 3 : 2);
+    const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, glowSize);
+    const pulse = n.type === 'core' ? (0.15 + 0.1 * Math.sin(time * 1.5)) : 0.08;
+    grad.addColorStop(0, color.replace(')', `,${isHovered ? 0.3 : pulse})`).replace('rgb', 'rgba'));
+    grad.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, glowSize, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Core circle
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.size * (isHovered ? 1.2 : 1), 0, Math.PI * 2);
+    ctx.fillStyle = color.replace(')', ',0.15)').replace('rgb', 'rgba');
+    ctx.fill();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = isHovered ? 2 : 1;
+    ctx.stroke();
+
+    // Inner dot
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, 3, 0, Math.PI * 2);
+    ctx.fillStyle = color;
+    ctx.fill();
+
+    // Label
+    if (cam.zoom > 0.4 || isHovered || n.type === 'core') {
+      ctx.font = `${isHovered ? 'bold ' : ''}${Math.max(10, 11 / cam.zoom * 0.8)}px -apple-system, system-ui, sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillStyle = isHovered ? '#fff' : 'rgba(255,255,255,0.6)';
+      ctx.fillText(n.label, n.x, n.y + n.size + 14);
+    }
+  }
+
+  ctx.restore();
+
+  // Stats
+  document.getElementById('stat-nodes').textContent = nodes.length;
+  document.getElementById('stat-synapses').textContent = edges.length;
+  document.getElementById('stat-connected').textContent = nodes.filter(n => n.status === 'live').length;
+
+  requestAnimationFrame(draw);
+}
+
+draw();
+
+// Touch support
+canvas.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  const t = e.touches[0];
+  const wp = screenToWorld(t.clientX, t.clientY);
+  dragNode = nodes.find(n => Math.hypot(n.x - wp.x, n.y - wp.y) < n.size * 2);
+  if (!dragNode) dragging = true;
+  lastMouse = { x: t.clientX, y: t.clientY };
+}, { passive: false });
+
+canvas.addEventListener('touchmove', (e) => {
+  e.preventDefault();
+  const t = e.touches[0];
+  if (dragNode) {
+    dragNode.x += (t.clientX - lastMouse.x) / cam.zoom;
+    dragNode.y += (t.clientY - lastMouse.y) / cam.zoom;
+  } else if (dragging) {
+    cam.x -= (t.clientX - lastMouse.x) / cam.zoom;
+    cam.y -= (t.clientY - lastMouse.y) / cam.zoom;
+  }
+  lastMouse = { x: t.clientX, y: t.clientY };
+}, { passive: false });
+
+canvas.addEventListener('touchend', () => { dragging = false; dragNode = null; });
+</script>
+</body>
+</html>
