@@ -1,3 +1,4 @@
+
 /** @type {import('postcss-load-config').Config} */
 // CRITICAL: Tailwind v4 needs this to run @tailwindcss/postcss. Without it,
 // `@import "tailwindcss"` is never processed and the site ships with NO
@@ -11,3 +12,4 @@ const config = {
 };
 
 export default config;
+
